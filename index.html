@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Latris — structure for defensible reasoning</title>
+  <meta name="description" content="Latris is a modelling tool for consultants and researchers who build causal and systems models — and have to defend them. Provenance, evidence, and AI-assisted drafting under human control." />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Open Graph / link previews -->
+  <meta property="og:title" content="Latris — structure for defensible reasoning" />
+  <meta property="og:description" content="A modelling tool for people who build causal and systems models and have to defend them. Defensible, fast." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://latris.app/" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --paper:   #f4f1eb;
+      --surface: #e6f0ec;
+      --teal:    #2a6b5e;
+      --teal-br: #3d8b7a;
+      --teal-dk: #1f5045;
+      --terra:   #c9845e;
+      --ink:     #1c2420;
+      --ink-2:   #3a4a42;
+      --muted:   #6a7a72;
+      --border:  #d4dcd6;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      color: var(--ink);
+      background-color: var(--paper);
+      /* the lattice: a faint dotted grid */
+      background-image: radial-gradient(var(--border) 1px, transparent 1px);
+      background-size: 22px 22px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+    h1, h2, .brand { font-family: "Outfit", system-ui, sans-serif; }
+
+    a { color: var(--teal); }
+
+    /* ── Header ── */
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 26px 0; gap: 16px; flex-wrap: wrap;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 22px; font-weight: 700; letter-spacing: -0.01em;
+      color: var(--ink); text-decoration: none;
+    }
+    .brand img { width: 26px; height: 26px; border-radius: 6px; }
+    .brand b { font-weight: 700; }
+    .brand .ris { color: var(--teal); }
+    .nav a {
+      color: var(--ink-2); text-decoration: none; font-weight: 500;
+      font-size: 15px; margin-left: 22px;
+    }
+    .nav a:hover { color: var(--teal); }
+
+    /* ── Hero ── */
+    .hero { padding: 52px 0 36px; }
+    .hero h1 {
+      font-size: 46px; line-height: 1.08; font-weight: 700;
+      letter-spacing: -0.02em; margin: 0 0 20px;
+    }
+    .hero h1 em { color: var(--teal); font-style: normal; }
+    .lead {
+      font-size: 20px; color: var(--ink); max-width: 620px; margin: 0 0 14px;
+      font-weight: 500;
+    }
+    .sub { font-size: 17px; color: var(--ink-2); max-width: 620px; margin: 0 0 30px; }
+
+    /* ── Buttons ── */
+    .cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: "Outfit", sans-serif; font-weight: 600; font-size: 16px;
+      padding: 13px 22px; border-radius: 10px; text-decoration: none;
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: var(--teal); color: #fff;
+      box-shadow: 0 2px 0 var(--teal-dk);
+    }
+    .btn-primary:hover { background: var(--teal-br); }
+    .btn-ghost {
+      background: transparent; color: var(--teal);
+      border: 1.5px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--teal); }
+
+    /* ── Early-access note ── */
+    .access {
+      margin-top: 22px; font-size: 15px; color: var(--ink-2);
+      max-width: 600px;
+      border-left: 3px solid var(--terra); padding: 4px 0 4px 14px;
+    }
+    .access a { font-weight: 600; text-decoration: none; }
+    .access a:hover { text-decoration: underline; }
+    .platforms { font-size: 14px; color: var(--muted); margin-top: 12px; }
+
+    /* ── Divider ── */
+    .rule { height: 1px; background: var(--border); border: 0; margin: 46px 0; }
+
+    /* ── Three points ── */
+    .points { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
+    .point h2 { font-size: 17px; margin: 0 0 6px; color: var(--teal); }
+    .point p { font-size: 15px; color: var(--ink-2); margin: 0; }
+
+    /* ── What it is ── */
+    .about { padding: 4px 0; }
+    .about h2 { font-size: 23px; margin: 0 0 12px; }
+    .about p { font-size: 17px; color: var(--ink-2); max-width: 640px; margin: 0; }
+
+    /* ── Contact band ── */
+    .contact {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px 30px;
+    }
+    .contact h2 { font-size: 21px; margin: 0 0 8px; }
+    .contact p { margin: 0 0 16px; color: var(--ink-2); font-size: 16px; max-width: 560px; }
+    .contact a.email {
+      display: inline-block;
+      color: var(--teal); font-weight: 600; text-decoration: none;
+      font-family: "Outfit", sans-serif; font-size: 18px;
+    }
+    .contact a.email:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    footer {
+      margin: 54px 0 40px; padding-top: 22px;
+      border-top: 1px solid var(--border);
+      font-size: 14px; color: var(--muted);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--teal); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 36px 0 28px; }
+      .hero h1 { font-size: 34px; }
+      .lead { font-size: 18px; }
+      .points { grid-template-columns: 1fr; gap: 22px; }
+      .nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header>
+      <a class="brand" href="/">
+        <img src="favicon.svg" alt="" />
+        <span><b>Lat</b><span class="ris">ris</span></span>
+      </a>
+      <nav class="nav">
+        <a href="#what">What it is</a>
+        <a href="https://github.com/Shannon-Bengtson/latris-releases/releases/latest">Download</a>
+        <a href="#contact">Get in touch</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>Structure for <em>defensible</em> reasoning.</h1>
+      <p class="lead">
+        Latris is a modelling tool for consultants and researchers who build
+        causal and systems models — and have to defend them.
+      </p>
+      <p class="sub">
+        Every arrow has a reason. Every claim has a source. AI helps you draft;
+        you stay in control — so you produce work you can stand behind, faster
+        than the usual sprawl of Miro, ChatGPT, a stats tool, and Word.
+      </p>
+
+      <div class="cta">
+        <a class="btn btn-primary" href="https://github.com/Shannon-Bengtson/latris-releases/releases/latest">
+          Download Latris ↓
+        </a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+
+      <p class="access">
+        Latris is in invite-only early access. If we've spoken, you're already
+        set up — download and sign in with your email. Otherwise,
+        <a href="#contact">get in touch</a> and I'll get you access.
+      </p>
+      <p class="platforms">Windows installer · macOS &amp; Linux coming.</p>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="points">
+      <div class="point">
+        <h2>Defensible</h2>
+        <p>Provenance, evidence trails, and challenge workflows are built in — not bolted on. When someone asks "why is this arrow here?", there's an answer.</p>
+      </div>
+      <div class="point">
+        <h2>Fast</h2>
+        <p>AI-assisted drafting under human governance. Get to a credible, sourced model in an afternoon, not a fortnight.</p>
+      </div>
+      <div class="point">
+        <h2>Yours</h2>
+        <p>Local-first and git-native. Your models live on your machine, with full version history of every change.</p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="about" id="what">
+      <h2>What it is</h2>
+      <p>
+        Building a defensible causal or systems model is laborious: evidence
+        sits in scattered documents, provenance is informal, and the tools are
+        dated. Latris replaces that fragmented workflow with one coherent system
+        of record — a clean, grid-aligned canvas where structure, evidence, and
+        narrative live together. AI drafts and reviews; you decide what's true.
+        The output is presentation-ready by default, and defensible when it
+        matters.
+      </p>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="contact" id="contact">
+      <h2>Love to work with you</h2>
+      <p>
+        Latris is early, and the best way to shape it is to use it. Tell me what
+        you're modelling, give it a real go, and let me know what works and what
+        doesn't. I'll get you set up.
+      </p>
+      <a class="email" href="mailto:hello@latris.app?subject=Latris">hello@latris.app</a>
+    </section>
+
+    <footer>
+      <span>© 2026 Latris</span>
+      <span>
+        <a href="https://github.com/Shannon-Bengtson/latris-releases/releases/latest">Download</a>
+        &nbsp;·&nbsp;
+        <a href="mailto:hello@latris.app?subject=Latris">Contact</a>
+      </span>
+    </footer>
+
+  </div>
+</body>
+</html>

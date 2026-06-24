@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Latris mark: lattice grid on deep teal. Mirrors the desktop app icon. -->
+  <circle cx="512" cy="512" r="480" fill="#2a6b5e"/>
+  <g fill="#f4f1eb">
+    <circle cx="272" cy="272" r="24"/><circle cx="392" cy="272" r="24"/><circle cx="512" cy="272" r="24"/><circle cx="632" cy="272" r="24"/><circle cx="752" cy="272" r="24"/>
+    <circle cx="272" cy="392" r="24"/><circle cx="392" cy="392" r="24"/><circle cx="512" cy="392" r="24"/><circle cx="632" cy="392" r="24"/><circle cx="752" cy="392" r="24"/>
+    <circle cx="272" cy="512" r="24"/><circle cx="392" cy="512" r="24"/><circle cx="512" cy="512" r="24"/><circle cx="632" cy="512" r="24"/><circle cx="752" cy="512" r="24"/>
+    <circle cx="272" cy="632" r="24"/><circle cx="392" cy="632" r="24"/><circle cx="512" cy="632" r="24"/><circle cx="632" cy="632" r="24"/><circle cx="752" cy="632" r="24"/>
+    <circle cx="272" cy="752" r="24"/><circle cx="392" cy="752" r="24"/><circle cx="512" cy="752" r="24"/><circle cx="632" cy="752" r="24"/><circle cx="752" cy="752" r="24"/>
+  </g>
+  <g fill="#c9845e">
+    <circle cx="392" cy="392" r="24"/><circle cx="512" cy="392" r="24"/><circle cx="512" cy="512" r="24"/><circle cx="512" cy="632" r="24"/><circle cx="632" cy="632" r="24"/>
+  </g>
+</svg>
