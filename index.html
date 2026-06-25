@@ -31,6 +31,7 @@
       --ink-2:   #3a4a42;
       --muted:   #6a7a72;
       --border:  #d4dcd6;
+      --maxw:    1120px;
     }
 
     * { box-sizing: border-box; }
@@ -41,223 +42,439 @@
       font-family: "DM Sans", system-ui, sans-serif;
       color: var(--ink);
       background-color: var(--paper);
-      /* the lattice: a faint dotted grid */
-      background-image: radial-gradient(var(--border) 1px, transparent 1px);
-      background-size: 22px 22px;
+      /* the lattice: a faint dotted grid + soft warmth at the top */
+      background-image:
+        radial-gradient(1200px 480px at 50% -8%, #ffffff66, transparent 70%),
+        radial-gradient(var(--border) 1px, transparent 1px);
+      background-size: 100% 100%, 24px 24px;
+      background-attachment: fixed, fixed;
       line-height: 1.55;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
 
-    .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 40px; }
 
-    h1, h2, .brand { font-family: "Outfit", system-ui, sans-serif; }
-
+    h1, h2, h3, .brand { font-family: "Outfit", system-ui, sans-serif; }
     a { color: var(--teal); }
 
-    /* ── Header ── */
-    header {
+    /* ── Sticky header ── */
+    header.site {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(244, 241, 235, 0.0);
+      backdrop-filter: blur(0px);
+      border-bottom: 1px solid transparent;
+      transition: background .25s ease, border-color .25s ease, backdrop-filter .25s ease;
+    }
+    header.site.scrolled {
+      background: rgba(244, 241, 235, 0.78);
+      backdrop-filter: blur(10px);
+      border-bottom-color: var(--border);
+    }
+    .header-inner {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 26px 0; gap: 16px; flex-wrap: wrap;
+      padding: 20px 0; gap: 16px;
     }
     .brand {
-      display: inline-flex; align-items: center; gap: 10px;
+      display: inline-flex; align-items: center; gap: 11px;
       font-size: 22px; font-weight: 700; letter-spacing: -0.01em;
       color: var(--ink); text-decoration: none;
     }
-    .brand img { width: 26px; height: 26px; border-radius: 6px; }
-    .brand b { font-weight: 700; }
+    .brand img { width: 28px; height: 28px; border-radius: 7px; }
     .brand .ris { color: var(--teal); }
     .nav a {
       color: var(--ink-2); text-decoration: none; font-weight: 500;
-      font-size: 15px; margin-left: 22px;
+      font-size: 15px; margin-left: 26px;
     }
     .nav a:hover { color: var(--teal); }
 
+    /* ── Reveal-on-scroll ── */
+    .reveal {
+      opacity: 0; transform: translateY(26px);
+      transition: opacity .7s cubic-bezier(.2,.6,.2,1), transform .7s cubic-bezier(.2,.6,.2,1);
+      will-change: opacity, transform;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
     /* ── Hero ── */
-    .hero { padding: 52px 0 36px; }
+    .hero { padding: 70px 0 64px; }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.05fr 0.95fr;
+      gap: 56px; align-items: center;
+    }
     .hero h1 {
-      font-size: 46px; line-height: 1.08; font-weight: 700;
-      letter-spacing: -0.02em; margin: 0 0 20px;
+      font-size: clamp(40px, 5.4vw, 62px); line-height: 1.05; font-weight: 700;
+      letter-spacing: -0.025em; margin: 0 0 22px;
     }
     .hero h1 em { color: var(--teal); font-style: normal; }
     .lead {
-      font-size: 20px; color: var(--ink); max-width: 620px; margin: 0 0 14px;
-      font-weight: 500;
+      font-size: clamp(18px, 2vw, 21px); color: var(--ink); max-width: 540px;
+      margin: 0 0 16px; font-weight: 500;
     }
-    .sub { font-size: 17px; color: var(--ink-2); max-width: 620px; margin: 0 0 30px; }
+    .sub { font-size: 17px; color: var(--ink-2); max-width: 540px; margin: 0 0 32px; }
+
+    .hero-art { width: 100%; height: auto; }
+    .hero-art svg { width: 100%; height: auto; display: block; }
 
     /* ── Buttons ── */
     .cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
     .btn {
       display: inline-flex; align-items: center; gap: 9px;
       font-family: "Outfit", sans-serif; font-weight: 600; font-size: 16px;
-      padding: 13px 22px; border-radius: 10px; text-decoration: none;
-      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+      padding: 14px 24px; border-radius: 11px; text-decoration: none;
+      transition: transform .08s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
     }
     .btn:hover { transform: translateY(-1px); }
-    .btn-primary {
-      background: var(--teal); color: #fff;
-      box-shadow: 0 2px 0 var(--teal-dk);
-    }
+    .btn-primary { background: var(--teal); color: #fff; box-shadow: 0 2px 0 var(--teal-dk); }
     .btn-primary:hover { background: var(--teal-br); }
-    .btn-ghost {
-      background: transparent; color: var(--teal);
-      border: 1.5px solid var(--border);
-    }
+    .btn-ghost { background: transparent; color: var(--teal); border: 1.5px solid var(--border); }
     .btn-ghost:hover { border-color: var(--teal); }
 
-    /* ── Early-access note ── */
     .access {
-      margin-top: 22px; font-size: 15px; color: var(--ink-2);
-      max-width: 600px;
+      margin-top: 24px; font-size: 15px; color: var(--ink-2); max-width: 540px;
       border-left: 3px solid var(--terra); padding: 4px 0 4px 14px;
     }
     .access a { font-weight: 600; text-decoration: none; }
     .access a:hover { text-decoration: underline; }
     .platforms { font-size: 14px; color: var(--muted); margin-top: 12px; }
 
-    /* ── Divider ── */
-    .rule { height: 1px; background: var(--border); border: 0; margin: 46px 0; }
+    /* ── Section scaffolding ── */
+    section.band { padding: 64px 0; }
+    .eyebrow {
+      font-family: "Outfit", sans-serif; font-weight: 600; font-size: 13px;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--terra);
+      margin: 0 0 14px;
+    }
+    .rule { height: 1px; background: var(--border); border: 0; margin: 0; max-width: var(--maxw); margin: 0 auto; }
 
     /* ── Three points ── */
-    .points { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
-    .point h2 { font-size: 17px; margin: 0 0 6px; color: var(--teal); }
+    .points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .point {
+      background: rgba(255,255,255,0.45); border: 1px solid var(--border);
+      border-radius: 14px; padding: 26px 26px 28px;
+    }
+    .point .dot {
+      width: 34px; height: 34px; border-radius: 9px; background: var(--surface);
+      display: grid; place-items: center; margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+    .point .dot span { width: 12px; height: 12px; border-radius: 50%; display: block; }
+    .point h3 { font-size: 19px; margin: 0 0 8px; color: var(--teal); }
     .point p { font-size: 15px; color: var(--ink-2); margin: 0; }
 
     /* ── What it is ── */
-    .about { padding: 4px 0; }
-    .about h2 { font-size: 23px; margin: 0 0 12px; }
-    .about p { font-size: 17px; color: var(--ink-2); max-width: 640px; margin: 0; }
+    .about-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 48px; align-items: start; }
+    .about-grid h2 { font-size: clamp(24px, 3vw, 32px); margin: 0; line-height: 1.15; letter-spacing: -0.02em; }
+    .about-grid p { font-size: 18px; color: var(--ink-2); margin: 0 0 16px; }
+    .about-grid p:last-child { margin-bottom: 0; }
+
+    /* ── Founder ── */
+    .founder {
+      display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start;
+      background: rgba(255,255,255,0.5); border: 1px solid var(--border);
+      border-radius: 18px; padding: 36px 38px;
+    }
+    .mono {
+      width: 88px; height: 88px; border-radius: 18px; flex: none;
+      background: var(--teal); color: #fff; display: grid; place-items: center;
+      font-family: "Outfit", sans-serif; font-weight: 700; font-size: 34px;
+      box-shadow: 0 2px 0 var(--teal-dk);
+    }
+    .founder h2 { font-size: 22px; margin: 0 0 12px; }
+    .founder p { font-size: 17px; color: var(--ink-2); margin: 0 0 16px; max-width: 640px; }
+    .founder .sig { font-weight: 600; color: var(--ink); }
+    .linkedin {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: "Outfit", sans-serif; font-weight: 600; font-size: 15px;
+      color: var(--teal); text-decoration: none;
+    }
+    .linkedin:hover { text-decoration: underline; }
+    .linkedin svg { width: 18px; height: 18px; }
 
     /* ── Contact band ── */
     .contact {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: 14px; padding: 28px 30px;
+      border-radius: 18px; padding: 44px 46px; text-align: center;
     }
-    .contact h2 { font-size: 21px; margin: 0 0 8px; }
-    .contact p { margin: 0 0 16px; color: var(--ink-2); font-size: 16px; max-width: 560px; }
+    .contact h2 { font-size: clamp(22px, 3vw, 28px); margin: 0 0 10px; letter-spacing: -0.02em; }
+    .contact p { margin: 0 auto 22px; color: var(--ink-2); font-size: 17px; max-width: 560px; }
     .contact a.email {
-      display: inline-block;
-      color: var(--teal); font-weight: 600; text-decoration: none;
-      font-family: "Outfit", sans-serif; font-size: 18px;
+      display: inline-block; color: #fff; background: var(--teal);
+      font-family: "Outfit", sans-serif; font-weight: 600; font-size: 17px;
+      padding: 13px 26px; border-radius: 11px; text-decoration: none;
+      box-shadow: 0 2px 0 var(--teal-dk);
     }
-    .contact a.email:hover { text-decoration: underline; }
+    .contact a.email:hover { background: var(--teal-br); }
 
     /* ── Footer ── */
     footer {
-      margin: 54px 0 40px; padding-top: 22px;
+      margin-top: 8px; padding: 30px 0 44px;
       border-top: 1px solid var(--border);
       font-size: 14px; color: var(--muted);
-      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
     }
-    footer a { color: var(--muted); text-decoration: none; }
-    footer a:hover { color: var(--teal); }
+    footer .links a { color: var(--muted); text-decoration: none; margin-left: 20px; }
+    footer .links a:first-child { margin-left: 0; }
+    footer .links a:hover { color: var(--teal); }
 
+    /* ── Responsive ── */
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-art { max-width: 460px; margin: 0 auto; }
+      .about-grid { grid-template-columns: 1fr; gap: 18px; }
+      .points { grid-template-columns: 1fr; }
+    }
     @media (max-width: 600px) {
-      .hero { padding: 36px 0 28px; }
-      .hero h1 { font-size: 34px; }
-      .lead { font-size: 18px; }
-      .points { grid-template-columns: 1fr; gap: 22px; }
+      .wrap { padding: 0 22px; }
+      .hero { padding: 44px 0 40px; }
       .nav { display: none; }
+      .founder { grid-template-columns: 1fr; gap: 20px; padding: 28px 26px; }
+      .contact { padding: 34px 24px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .btn:hover { transform: none; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
 
-    <header>
+  <header class="site">
+    <div class="wrap header-inner">
       <a class="brand" href="/">
         <img src="favicon.svg" alt="" />
         <span><b>Lat</b><span class="ris">ris</span></span>
       </a>
       <nav class="nav">
         <a href="#what">What it is</a>
+        <a href="#about">About</a>
         <a href="https://github.com/Shannon-Bengtson/latris-releases/releases/latest">Download</a>
         <a href="#contact">Get in touch</a>
       </nav>
-    </header>
+    </div>
+  </header>
 
+  <main>
+
+    <!-- ── Hero ── -->
     <section class="hero">
-      <h1>Structure for <em>defensible</em> reasoning.</h1>
-      <p class="lead">
-        Latris is a modelling tool for consultants and researchers who build
-        causal and systems models — and have to defend them.
-      </p>
-      <p class="sub">
-        Every arrow has a reason. Every claim has a source. AI helps you draft;
-        you stay in control — so you produce work you can stand behind, faster
-        than the usual sprawl of Miro, ChatGPT, a stats tool, and Word.
-      </p>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <h1>Structure for <em>defensible</em> reasoning.</h1>
+          <p class="lead">
+            Latris is a modelling tool for consultants and researchers who build
+            causal and systems models — and have to defend them.
+          </p>
+          <p class="sub">
+            Every arrow has a reason. Every claim has a source. AI helps you
+            draft; you stay in control — so you produce work you can stand
+            behind, faster than the usual sprawl of Miro, ChatGPT, a stats tool,
+            and Word.
+          </p>
 
-      <div class="cta">
-        <a class="btn btn-primary" href="https://github.com/Shannon-Bengtson/latris-releases/releases/latest">
-          Download Latris ↓
-        </a>
-        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+          <div class="cta">
+            <a class="btn btn-primary" href="https://github.com/Shannon-Bengtson/latris-releases/releases/latest">
+              Download Latris ↓
+            </a>
+            <a class="btn btn-ghost" href="#contact">Get in touch</a>
+          </div>
+
+          <p class="access">
+            Latris is in invite-only early access. If we've spoken, you're
+            already set up — download and sign in with your email. Otherwise,
+            <a href="#contact">get in touch</a> and I'll get you access.
+          </p>
+          <p class="platforms">macOS &amp; Windows installers available · Linux coming soon.</p>
+        </div>
+
+        <!-- Decorative: a small causal model (a feedback loop) -->
+        <div class="hero-art" aria-hidden="true">
+          <svg viewBox="0 0 480 420" role="img">
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#2a6b5e" />
+              </marker>
+              <marker id="arrowT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#c9845e" />
+              </marker>
+              <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1c2420" flood-opacity="0.10" />
+              </filter>
+            </defs>
+
+            <!-- edges (drawn first, behind nodes) -->
+            <!-- Driver -> Outcome (+) -->
+            <path d="M168 92 C 230 78, 270 74, 300 78" fill="none" stroke="#2a6b5e" stroke-width="2.5" marker-end="url(#arrow)" />
+            <text x="236" y="64" font-family="Outfit, sans-serif" font-size="20" font-weight="700" fill="#2a6b5e">+</text>
+            <!-- Outcome -> Pressure (−) -->
+            <path d="M366 110 C 372 160, 372 200, 366 234" fill="none" stroke="#c9845e" stroke-width="2.5" marker-end="url(#arrowT)" />
+            <text x="380" y="180" font-family="Outfit, sans-serif" font-size="22" font-weight="700" fill="#c9845e">−</text>
+            <!-- Pressure -> Evidence -->
+            <path d="M300 268 C 250 282, 210 284, 168 276" fill="none" stroke="#2a6b5e" stroke-width="2.5" marker-end="url(#arrow)" />
+            <!-- Evidence -> Driver (+) -->
+            <path d="M96 240 C 86 196, 86 150, 96 116" fill="none" stroke="#2a6b5e" stroke-width="2.5" marker-end="url(#arrow)" />
+            <text x="58" y="186" font-family="Outfit, sans-serif" font-size="20" font-weight="700" fill="#2a6b5e">+</text>
+
+            <!-- nodes -->
+            <g filter="url(#soft)" font-family="Outfit, sans-serif" font-size="15" font-weight="600">
+              <g>
+                <rect x="36" y="62" width="132" height="48" rx="11" fill="#ffffff" stroke="#2a6b5e" stroke-width="2" />
+                <text x="102" y="91" text-anchor="middle" fill="#1c2420">Driver</text>
+              </g>
+              <g>
+                <rect x="300" y="56" width="140" height="48" rx="11" fill="#ffffff" stroke="#2a6b5e" stroke-width="2" />
+                <text x="370" y="85" text-anchor="middle" fill="#1c2420">Outcome</text>
+              </g>
+              <g>
+                <rect x="300" y="234" width="140" height="48" rx="11" fill="#ffffff" stroke="#c9845e" stroke-width="2" />
+                <text x="370" y="263" text-anchor="middle" fill="#1c2420">Pressure</text>
+              </g>
+              <g>
+                <rect x="36" y="240" width="132" height="48" rx="11" fill="#ffffff" stroke="#2a6b5e" stroke-width="2" />
+                <text x="102" y="269" text-anchor="middle" fill="#1c2420">Evidence</text>
+              </g>
+            </g>
+          </svg>
+        </div>
       </div>
-
-      <p class="access">
-        Latris is in invite-only early access. If we've spoken, you're already
-        set up — download and sign in with your email. Otherwise,
-        <a href="#contact">get in touch</a> and I'll get you access.
-      </p>
-      <p class="platforms">Windows installer · macOS &amp; Linux coming.</p>
     </section>
 
     <hr class="rule" />
 
-    <section class="points">
-      <div class="point">
-        <h2>Defensible</h2>
-        <p>Provenance, evidence trails, and challenge workflows are built in — not bolted on. When someone asks "why is this arrow here?", there's an answer.</p>
-      </div>
-      <div class="point">
-        <h2>Fast</h2>
-        <p>AI-assisted drafting under human governance. Get to a credible, sourced model in an afternoon, not a fortnight.</p>
-      </div>
-      <div class="point">
-        <h2>Yours</h2>
-        <p>Local-first and git-native. Your models live on your machine, with full version history of every change.</p>
+    <!-- ── Three points ── -->
+    <section class="band">
+      <div class="wrap">
+        <p class="eyebrow reveal">Why Latris</p>
+        <div class="points">
+          <div class="point reveal">
+            <div class="dot"><span style="background:#2a6b5e"></span></div>
+            <h3>Defensible</h3>
+            <p>Provenance, evidence trails, and challenge workflows are built in — not bolted on. When someone asks "why is this arrow here?", there's an answer.</p>
+          </div>
+          <div class="point reveal" style="transition-delay:.09s">
+            <div class="dot"><span style="background:#c9845e"></span></div>
+            <h3>Fast</h3>
+            <p>AI-assisted drafting under human governance. Get to a credible, sourced model in an afternoon, not a fortnight.</p>
+          </div>
+          <div class="point reveal" style="transition-delay:.18s">
+            <div class="dot"><span style="background:#3d8b7a"></span></div>
+            <h3>Yours</h3>
+            <p>Local-first and git-native. Your models live on your machine, with full version history of every change.</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <hr class="rule" />
 
-    <section class="about" id="what">
-      <h2>What it is</h2>
-      <p>
-        Building a defensible causal or systems model is laborious: evidence
-        sits in scattered documents, provenance is informal, and the tools are
-        dated. Latris replaces that fragmented workflow with one coherent system
-        of record — a clean, grid-aligned canvas where structure, evidence, and
-        narrative live together. AI drafts and reviews; you decide what's true.
-        The output is presentation-ready by default, and defensible when it
-        matters.
-      </p>
+    <!-- ── What it is ── -->
+    <section class="band" id="what">
+      <div class="wrap about-grid">
+        <h2 class="reveal">One system of record for the whole model.</h2>
+        <div class="reveal" style="transition-delay:.08s">
+          <p>
+            Building a defensible causal or systems model is laborious: evidence
+            sits in scattered documents, provenance is informal, and the tools
+            are dated. Latris replaces that fragmented workflow with a clean,
+            grid-aligned canvas where structure, evidence, and narrative live
+            together.
+          </p>
+          <p>
+            AI drafts and reviews; you decide what's true. The output is
+            presentation-ready by default, and defensible when it matters.
+          </p>
+        </div>
+      </div>
     </section>
 
     <hr class="rule" />
 
-    <section class="contact" id="contact">
-      <h2>Love to work with you</h2>
-      <p>
-        Latris is early, and the best way to shape it is to use it. Tell me what
-        you're modelling, give it a real go, and let me know what works and what
-        doesn't. I'll get you set up.
-      </p>
-      <a class="email" href="mailto:hello@latris.app?subject=Latris">hello@latris.app</a>
+    <!-- ── Founder ── -->
+    <section class="band" id="about">
+      <div class="wrap">
+        <div class="founder reveal">
+          <div class="mono" aria-hidden="true">SB</div>
+          <div>
+            <h2>A note from the founder</h2>
+            <p>
+              I'm Shannon Bengtson — I design and build Latris. I've spent enough
+              time around modelling work to watch the same thing happen again and
+              again: careful reasoning gets built in a hurry, the evidence behind
+              it lives in scattered documents, and six months later no one can
+              say why a particular arrow is on the page.
+            </p>
+            <p>
+              Latris is the tool I wished existed — structure, provenance, and AI
+              assistance that keep pace with the work, so the result holds up when
+              someone asks hard questions. It's early, and the people I'm bringing
+              on now genuinely shape where it goes. <span class="sig">If that
+              resonates, I'd love to hear from you.</span>
+            </p>
+            <a class="linkedin" href="https://www.linkedin.com/in/shannon-bengtson/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+              Connect on LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <footer>
+    <hr class="rule" />
+
+    <!-- ── Contact ── -->
+    <section class="band" id="contact">
+      <div class="wrap">
+        <div class="contact reveal">
+          <h2>Love to work with you</h2>
+          <p>
+            Latris is early, and the best way to shape it is to use it. Tell me
+            what you're modelling, give it a real go, and let me know what works
+            and what doesn't. I'll get you set up.
+          </p>
+          <a class="email" href="mailto:hello@latris.app?subject=Latris">hello@latris.app</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; width:100%;">
       <span>© 2026 Latris</span>
-      <span>
+      <span class="links">
         <a href="https://github.com/Shannon-Bengtson/latris-releases/releases/latest">Download</a>
-        &nbsp;·&nbsp;
+        <a href="https://www.linkedin.com/in/shannon-bengtson/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="mailto:hello@latris.app?subject=Latris">Contact</a>
       </span>
-    </footer>
+    </div>
+  </footer>
 
-  </div>
+  <script>
+    // Sticky-header style on scroll
+    var header = document.querySelector('header.site');
+    function onScroll() {
+      if (window.scrollY > 8) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Reveal-on-scroll (respects reduced-motion via CSS)
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = document.querySelectorAll('.reveal');
+    if (reduce || !('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      items.forEach(function (el) { io.observe(el); });
+    }
+  </script>
+
 </body>
 </html>
