@@ -180,6 +180,19 @@
     .chip p { margin: 0; font-size: 14px; color: var(--ink-2); }
     .outputs-cap { margin: 16px 0 0; font-size: 14px; color: var(--muted); }
 
+    /* ── Use cases ── */
+    .lead-h2 { font-size: clamp(24px, 3.2vw, 34px); letter-spacing: -0.02em; line-height: 1.12; margin: 0 0 12px; }
+    .lead-p { font-size: 18px; color: var(--ink-2); max-width: 660px; margin: 0; }
+    .note-p { font-size: 15px; color: var(--muted); margin: 22px 0 0; }
+    .note-p a { font-weight: 600; text-decoration: none; }
+    .usecases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
+    .uc {
+      background: rgba(255,255,255,0.45); border: 1px solid var(--border);
+      border-left: 3px solid var(--terra); border-radius: 13px; padding: 22px 24px 24px;
+    }
+    .uc h3 { font-family: "Outfit", sans-serif; font-size: 16px; margin: 0 0 7px; color: var(--teal); }
+    .uc p { margin: 0; font-size: 14px; color: var(--ink-2); }
+
     /* ── Owners ── */
     .owners {
       background: var(--surface); border: 1px solid var(--border);
@@ -245,6 +258,7 @@
       .split { grid-template-columns: 1fr; gap: 18px; }
       .points { grid-template-columns: 1fr; }
       .outputs { grid-template-columns: 1fr; }
+      .usecases { grid-template-columns: 1fr; }
       .owners { grid-template-columns: 1fr; gap: 18px; padding: 32px 28px; }
     }
     @media (max-width: 600px) {
@@ -386,6 +400,52 @@
             never really leave your screen.
           </p>
         </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── Use cases ── -->
+    <section class="band">
+      <div class="wrap">
+        <p class="eyebrow reveal">Where Latris fits</p>
+        <h2 class="lead-h2 reveal">Built for work like this.</h2>
+        <p class="lead-p reveal">
+          Latris suits any work where the reasoning is causal and the stakes make
+          it worth defending — causal maps, driver trees, theories of change,
+          risk and reliability models. A few of the places it fits:
+        </p>
+        <div class="usecases">
+          <div class="uc reveal">
+            <h3>Environment &amp; natural resources</h3>
+            <p>What's driving change in a catchment or ecosystem — and which interventions actually move the needle?</p>
+          </div>
+          <div class="uc reveal" style="transition-delay:.06s">
+            <h3>Natural hazards &amp; risk</h3>
+            <p>How the factors behind a hazard combine, where the risk is most sensitive, and what the evidence says.</p>
+          </div>
+          <div class="uc reveal" style="transition-delay:.12s">
+            <h3>Public health &amp; wellbeing</h3>
+            <p>Mapping the causes behind an outcome to target where action will help most.</p>
+          </div>
+          <div class="uc reveal">
+            <h3>Policy &amp; strategy</h3>
+            <p>Theories of change that make the assumed cause-and-effect explicit, sourced, and reviewable.</p>
+          </div>
+          <div class="uc reveal" style="transition-delay:.06s">
+            <h3>Infrastructure &amp; engineering</h3>
+            <p>Reliability and failure reasoning, with the evidence behind each link kept on the record.</p>
+          </div>
+          <div class="uc reveal" style="transition-delay:.12s">
+            <h3>Consulting &amp; advisory</h3>
+            <p>Turning a client's messy problem into a defensible, sourced model — and a report they can trust.</p>
+          </div>
+        </div>
+        <p class="note-p reveal">
+          Don't see your field? The substrate is general — if your reasoning is
+          causal, it probably fits. <a href="#contact">Get in touch</a> and tell
+          me what you're working on.
+        </p>
       </div>
     </section>
 
