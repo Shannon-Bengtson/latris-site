@@ -7,6 +7,7 @@
   <meta name="description" content="Latris is evidence-native modelling for people who build a causal case and have to defend it — and make it land. Every link has a reason and a source; AI helps you draft while you stay in control." />
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="favicon.png" />
 
   <!-- Open Graph / link previews -->
   <meta property="og:title" content="Latris — structure for defensible reasoning" />
@@ -75,12 +76,9 @@
       padding: 20px 0; gap: 16px;
     }
     .brand {
-      display: inline-flex; align-items: center; gap: 11px;
-      font-size: 22px; font-weight: 700; letter-spacing: -0.01em;
-      color: var(--ink); text-decoration: none;
+      display: inline-flex; align-items: center; text-decoration: none;
     }
-    .brand img { width: 28px; height: 28px; border-radius: 7px; }
-    .brand .ris { color: var(--teal); }
+    .brand img { height: 26px; width: auto; display: block; }
     .nav a {
       color: var(--ink-2); text-decoration: none; font-weight: 500;
       font-size: 15px; margin-left: 24px;
@@ -303,9 +301,8 @@
 
   <header class="site">
     <div class="wrap header-inner">
-      <a class="brand" href="/">
-        <img src="favicon.svg" alt="" />
-        <span><b>Lat</b><span class="ris">ris</span></span>
+      <a class="brand" href="/" aria-label="Latris">
+        <img src="latris-wordmark.svg" alt="Latris" />
       </a>
       <nav class="nav">
         <a href="#why">Why Latris</a>
