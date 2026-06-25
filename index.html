@@ -4,13 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Latris — structure for defensible reasoning</title>
-  <meta name="description" content="Latris is a modelling tool for consultants and researchers who build causal and systems models — and have to defend them. Provenance, evidence, and AI-assisted drafting under human control." />
+  <meta name="description" content="Latris is evidence-native modelling for people who build a causal case and have to defend it — and make it land. Every link has a reason and a source; AI helps you draft while you stay in control." />
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 
   <!-- Open Graph / link previews -->
   <meta property="og:title" content="Latris — structure for defensible reasoning" />
-  <meta property="og:description" content="A modelling tool for people who build causal and systems models and have to defend them. Defensible, fast." />
+  <meta property="og:description" content="Build a causal case you can defend — and others can follow. Evidence-native modelling, defensible and fast." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://latris.app/" />
   <meta name="twitter:card" content="summary" />
@@ -42,7 +42,6 @@
       font-family: "DM Sans", system-ui, sans-serif;
       color: var(--ink);
       background-color: var(--paper);
-      /* the lattice: a faint dotted grid + soft warmth at the top */
       background-image:
         radial-gradient(1200px 480px at 50% -8%, #ffffff66, transparent 70%),
         radial-gradient(var(--border) 1px, transparent 1px);
@@ -84,7 +83,7 @@
     .brand .ris { color: var(--teal); }
     .nav a {
       color: var(--ink-2); text-decoration: none; font-weight: 500;
-      font-size: 15px; margin-left: 26px;
+      font-size: 15px; margin-left: 24px;
     }
     .nav a:hover { color: var(--teal); }
 
@@ -97,14 +96,14 @@
     .reveal.in { opacity: 1; transform: none; }
 
     /* ── Hero ── */
-    .hero { padding: 70px 0 64px; }
+    .hero { padding: 64px 0 60px; }
     .hero-grid {
       display: grid; grid-template-columns: 1.05fr 0.95fr;
       gap: 56px; align-items: center;
     }
     .hero h1 {
-      font-size: clamp(40px, 5.4vw, 62px); line-height: 1.05; font-weight: 700;
-      letter-spacing: -0.025em; margin: 0 0 22px;
+      font-size: clamp(36px, 4.8vw, 56px); line-height: 1.06; font-weight: 700;
+      letter-spacing: -0.025em; margin: 14px 0 22px;
     }
     .hero h1 em { color: var(--teal); font-style: normal; }
     .lead {
@@ -139,34 +138,57 @@
     .platforms { font-size: 14px; color: var(--muted); margin-top: 12px; }
 
     /* ── Section scaffolding ── */
-    section.band { padding: 64px 0; }
+    section.band { padding: 60px 0; }
     .eyebrow {
       font-family: "Outfit", sans-serif; font-weight: 600; font-size: 13px;
       letter-spacing: 0.08em; text-transform: uppercase; color: var(--terra);
       margin: 0 0 14px;
     }
-    .rule { height: 1px; background: var(--border); border: 0; margin: 0; max-width: var(--maxw); margin: 0 auto; }
+    .rule { height: 1px; background: var(--border); border: 0; max-width: var(--maxw); margin: 0 auto; }
 
-    /* ── Three points ── */
-    .points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    /* ── Two-column heading/body (problem, owners) ── */
+    .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 48px; align-items: start; }
+    .split h2 { font-size: clamp(24px, 3.2vw, 34px); margin: 0; line-height: 1.12; letter-spacing: -0.02em; }
+    .split .body p { font-size: 18px; color: var(--ink-2); margin: 0 0 16px; }
+    .split .body p:last-child { margin-bottom: 0; }
+
+    /* ── Three pillars ── */
+    .points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
     .point {
       background: rgba(255,255,255,0.45); border: 1px solid var(--border);
       border-radius: 14px; padding: 26px 26px 28px;
     }
     .point .dot {
       width: 34px; height: 34px; border-radius: 9px; background: var(--surface);
-      display: grid; place-items: center; margin-bottom: 16px;
-      border: 1px solid var(--border);
+      display: grid; place-items: center; margin-bottom: 16px; border: 1px solid var(--border);
     }
     .point .dot span { width: 12px; height: 12px; border-radius: 50%; display: block; }
     .point h3 { font-size: 19px; margin: 0 0 8px; color: var(--teal); }
     .point p { font-size: 15px; color: var(--ink-2); margin: 0; }
 
-    /* ── What it is ── */
-    .about-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 48px; align-items: start; }
-    .about-grid h2 { font-size: clamp(24px, 3vw, 32px); margin: 0; line-height: 1.15; letter-spacing: -0.02em; }
-    .about-grid p { font-size: 18px; color: var(--ink-2); margin: 0 0 16px; }
-    .about-grid p:last-child { margin-bottom: 0; }
+    /* ── Communication outputs ── */
+    .outputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; }
+    .chip {
+      background: rgba(255,255,255,0.55); border: 1px solid var(--border);
+      border-radius: 13px; padding: 22px 22px 24px;
+    }
+    .chip .k {
+      font-family: "Outfit", sans-serif; font-weight: 600; font-size: 16px; color: var(--teal);
+      margin: 0 0 6px; display: flex; align-items: center; gap: 9px;
+    }
+    .chip .k i { width: 11px; height: 11px; border-radius: 3px; display: block; }
+    .chip p { margin: 0; font-size: 14px; color: var(--ink-2); }
+    .outputs-cap { margin: 16px 0 0; font-size: 14px; color: var(--muted); }
+
+    /* ── Owners ── */
+    .owners {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; padding: 42px 46px;
+      display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 44px; align-items: start;
+    }
+    .owners h2 { font-size: clamp(22px, 3vw, 30px); margin: 0; line-height: 1.14; letter-spacing: -0.02em; }
+    .owners .eyebrow { margin: 0 0 12px; }
+    .owners .body p { font-size: 17px; color: var(--ink-2); margin: 0; }
 
     /* ── Founder ── */
     .founder {
@@ -181,7 +203,7 @@
       box-shadow: 0 2px 0 var(--teal-dk);
     }
     .founder h2 { font-size: 22px; margin: 0 0 12px; }
-    .founder p { font-size: 17px; color: var(--ink-2); margin: 0 0 16px; max-width: 640px; }
+    .founder p { font-size: 17px; color: var(--ink-2); margin: 0 0 16px; max-width: 660px; }
     .founder .sig { font-weight: 600; color: var(--ink); }
     .linkedin {
       display: inline-flex; align-items: center; gap: 8px;
@@ -191,7 +213,7 @@
     .linkedin:hover { text-decoration: underline; }
     .linkedin svg { width: 18px; height: 18px; }
 
-    /* ── Contact band ── */
+    /* ── Contact ── */
     .contact {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: 18px; padding: 44px 46px; text-align: center;
@@ -211,7 +233,6 @@
       margin-top: 8px; padding: 30px 0 44px;
       border-top: 1px solid var(--border);
       font-size: 14px; color: var(--muted);
-      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
     }
     footer .links a { color: var(--muted); text-decoration: none; margin-left: 20px; }
     footer .links a:first-child { margin-left: 0; }
@@ -221,12 +242,14 @@
     @media (max-width: 880px) {
       .hero-grid { grid-template-columns: 1fr; gap: 40px; }
       .hero-art { max-width: 460px; margin: 0 auto; }
-      .about-grid { grid-template-columns: 1fr; gap: 18px; }
+      .split { grid-template-columns: 1fr; gap: 18px; }
       .points { grid-template-columns: 1fr; }
+      .outputs { grid-template-columns: 1fr; }
+      .owners { grid-template-columns: 1fr; gap: 18px; padding: 32px 28px; }
     }
     @media (max-width: 600px) {
       .wrap { padding: 0 22px; }
-      .hero { padding: 44px 0 40px; }
+      .hero { padding: 40px 0 36px; }
       .nav { display: none; }
       .founder { grid-template-columns: 1fr; gap: 20px; padding: 28px 26px; }
       .contact { padding: 34px 24px; }
@@ -248,7 +271,8 @@
         <span><b>Lat</b><span class="ris">ris</span></span>
       </a>
       <nav class="nav">
-        <a href="#what">What it is</a>
+        <a href="#why">Why Latris</a>
+        <a href="#owners">For owners</a>
         <a href="#about">About</a>
         <a href="https://github.com/Shannon-Bengtson/latris-releases/releases/latest">Download</a>
         <a href="#contact">Get in touch</a>
@@ -262,16 +286,20 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <h1>Structure for <em>defensible</em> reasoning.</h1>
+          <p class="eyebrow">Evidence-native modelling</p>
+          <h1>Build a causal case you can <em>defend</em> — and others can follow.</h1>
           <p class="lead">
-            Latris is a modelling tool for consultants and researchers who build
-            causal and systems models — and have to defend them.
+            If your work comes down to a causal argument — the drivers, the
+            evidence, the theory of change behind a decision — Latris is where
+            you build it, justify it, and make it land.
           </p>
           <p class="sub">
-            Every arrow has a reason. Every claim has a source. AI helps you
-            draft; you stay in control — so you produce work you can stand
-            behind, faster than the usual sprawl of Miro, ChatGPT, a stats tool,
-            and Word.
+            Today that lives in a sketch in Miro, a draft in ChatGPT, citations
+            in a reference manager, and a report in Word — and the reasoning
+            only really exists in your head. Latris pulls it into one place:
+            every link has a reason and a source, AI helps you draft while you
+            stay in control, and what comes out is clear enough that the people
+            who need to act on it can see exactly why.
           </p>
 
           <div class="cta">
@@ -304,20 +332,14 @@
               </filter>
             </defs>
 
-            <!-- edges (drawn first, behind nodes) -->
-            <!-- Driver -> Outcome (+) -->
             <path d="M168 92 C 230 78, 270 74, 300 78" fill="none" stroke="#2a6b5e" stroke-width="2.5" marker-end="url(#arrow)" />
             <text x="236" y="64" font-family="Outfit, sans-serif" font-size="20" font-weight="700" fill="#2a6b5e">+</text>
-            <!-- Outcome -> Pressure (−) -->
             <path d="M366 110 C 372 160, 372 200, 366 234" fill="none" stroke="#c9845e" stroke-width="2.5" marker-end="url(#arrowT)" />
             <text x="380" y="180" font-family="Outfit, sans-serif" font-size="22" font-weight="700" fill="#c9845e">−</text>
-            <!-- Pressure -> Evidence -->
             <path d="M300 268 C 250 282, 210 284, 168 276" fill="none" stroke="#2a6b5e" stroke-width="2.5" marker-end="url(#arrow)" />
-            <!-- Evidence -> Driver (+) -->
             <path d="M96 240 C 86 196, 86 150, 96 116" fill="none" stroke="#2a6b5e" stroke-width="2.5" marker-end="url(#arrow)" />
             <text x="58" y="186" font-family="Outfit, sans-serif" font-size="20" font-weight="700" fill="#2a6b5e">+</text>
 
-            <!-- nodes -->
             <g filter="url(#soft)" font-family="Outfit, sans-serif" font-size="15" font-weight="600">
               <g>
                 <rect x="36" y="62" width="132" height="48" rx="11" fill="#ffffff" stroke="#2a6b5e" stroke-width="2" />
@@ -343,25 +365,51 @@
 
     <hr class="rule" />
 
-    <!-- ── Three points ── -->
+    <!-- ── The problem ── -->
     <section class="band">
+      <div class="wrap split">
+        <h2 class="reveal">Good thinking gets lost in the gaps.</h2>
+        <div class="body reveal" style="transition-delay:.08s">
+          <p>
+            Building the model is only half the job. The other half —
+            assembling the evidence behind every link, recording what you
+            considered and ruled out, turning it into something a client or
+            reviewer can trust — is slower, and it's where the work falls
+            apart. Provenance scatters across five tools, and six months later
+            no one can say why a particular arrow is on the page.
+          </p>
+          <p>
+            AI makes this sharper, not softer: the easier it gets to generate a
+            model, the more every relationship needs a reason to exist. And the
+            tools built for this are either a decade out of date or so
+            specialised that only their author can drive them — so the findings
+            never really leave your screen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── Pillars ── -->
+    <section class="band" id="why">
       <div class="wrap">
         <p class="eyebrow reveal">Why Latris</p>
         <div class="points">
           <div class="point reveal">
             <div class="dot"><span style="background:#2a6b5e"></span></div>
             <h3>Defensible</h3>
-            <p>Provenance, evidence trails, and challenge workflows are built in — not bolted on. When someone asks "why is this arrow here?", there's an answer.</p>
+            <p>Every link has a reason and a source. Provenance, evidence, and challenge are built into the model — so when someone asks "why is this arrow here?", there's an answer, not a shrug.</p>
           </div>
           <div class="point reveal" style="transition-delay:.09s">
             <div class="dot"><span style="background:#c9845e"></span></div>
-            <h3>Fast</h3>
-            <p>AI-assisted drafting under human governance. Get to a credible, sourced model in an afternoon, not a fortnight.</p>
+            <h3>Clear</h3>
+            <p>Your model becomes something others can follow — a clean diagram, a sourced report, a plain-language walkthrough — without you in the room to narrate it. Honest about what it can't say, because the uncertainty is measured, not spun.</p>
           </div>
           <div class="point reveal" style="transition-delay:.18s">
             <div class="dot"><span style="background:#3d8b7a"></span></div>
-            <h3>Yours</h3>
-            <p>Local-first and git-native. Your models live on your machine, with full version history of every change.</p>
+            <h3>Fast</h3>
+            <p>AI drafts and reviews while you stay in control. One tool instead of five. Get to a credible, sourced model in an afternoon — fast enough that you actually do the defensible version.</p>
           </div>
         </div>
       </div>
@@ -369,22 +417,60 @@
 
     <hr class="rule" />
 
-    <!-- ── What it is ── -->
-    <section class="band" id="what">
-      <div class="wrap about-grid">
-        <h2 class="reveal">One system of record for the whole model.</h2>
-        <div class="reveal" style="transition-delay:.08s">
-          <p>
-            Building a defensible causal or systems model is laborious: evidence
-            sits in scattered documents, provenance is informal, and the tools
-            are dated. Latris replaces that fragmented workflow with a clean,
-            grid-aligned canvas where structure, evidence, and narrative live
-            together.
-          </p>
-          <p>
-            AI drafts and reviews; you decide what's true. The output is
-            presentation-ready by default, and defensible when it matters.
-          </p>
+    <!-- ── Communication showcase ── -->
+    <section class="band">
+      <div class="wrap">
+        <div class="split">
+          <h2 class="reveal">Built for the moment it leaves your desk.</h2>
+          <div class="body reveal" style="transition-delay:.08s">
+            <p class="eyebrow">Findings that travel</p>
+            <p>
+              Most modelling tools assume you'll be standing next to the screen,
+              explaining. Latris assumes you won't. The same versioned model
+              produces what each audience needs, and the reasoning travels with
+              it — click any claim and trace it back to the evidence behind it.
+            </p>
+          </div>
+        </div>
+        <div class="outputs reveal" style="transition-delay:.12s">
+          <div class="chip">
+            <p class="k"><i style="background:#2a6b5e"></i>Board-ready diagram</p>
+            <p>A clean, grid-aligned picture of the system — presentation-quality without a trip through another tool.</p>
+          </div>
+          <div class="chip">
+            <p class="k"><i style="background:#c9845e"></i>Sourced report</p>
+            <p>The written case, with every claim tied to its evidence and assumptions made explicit.</p>
+          </div>
+          <div class="chip">
+            <p class="k"><i style="background:#3d8b7a"></i>Plain-language story</p>
+            <p>A walkthrough for the stakeholder who just needs the "why" — no jargon, no prior knowledge assumed.</p>
+          </div>
+        </div>
+        <p class="outputs-cap reveal">One model, three audiences — all from the same source of truth.</p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── For owners ── -->
+    <section class="band" id="owners">
+      <div class="wrap">
+        <div class="owners reveal">
+          <div>
+            <p class="eyebrow">For the people who own the decision</p>
+            <h2>When the model isn't yours, but the risk is.</h2>
+          </div>
+          <div class="body">
+            <p>
+              If you commission, sign off, or inherit model-backed work, you
+              carry the risk without having built the thing. Latris gives you
+              the answers you actually need: what assumptions drove this result,
+              who changed what and when, which version backed the decision, and
+              whether another team could pick it up in eighteen months. The full
+              history is kept automatically — Latris becomes the institutional
+              memory around the analysis, not just the place it was drawn.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -400,17 +486,19 @@
             <h2>A note from the founder</h2>
             <p>
               I'm Shannon Bengtson — I design and build Latris. I've spent enough
-              time around modelling work to watch the same thing happen again and
-              again: careful reasoning gets built in a hurry, the evidence behind
-              it lives in scattered documents, and six months later no one can
-              say why a particular arrow is on the page.
+              time around people who build the causal case behind a decision to
+              watch the same thing happen again and again: careful reasoning gets
+              built in a hurry, the evidence behind it lives in scattered
+              documents, and six months later no one can say why a particular
+              arrow is on the page.
             </p>
             <p>
               Latris is the tool I wished existed — structure, provenance, and AI
-              assistance that keep pace with the work, so the result holds up when
-              someone asks hard questions. It's early, and the people I'm bringing
-              on now genuinely shape where it goes. <span class="sig">If that
-              resonates, I'd love to hear from you.</span>
+              assistance that keep pace with the work, so the result holds up
+              when someone asks hard questions, and travels to the people who
+              need to act on it. It's early, and the people I'm bringing on now
+              genuinely shape where it goes. <span class="sig">If that resonates,
+              I'd love to hear from you.</span>
             </p>
             <a class="linkedin" href="https://www.linkedin.com/in/shannon-bengtson/" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
@@ -441,7 +529,7 @@
   </main>
 
   <footer>
-    <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; width:100%;">
+    <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;">
       <span>© 2026 Latris</span>
       <span class="links">
         <a href="https://github.com/Shannon-Bengtson/latris-releases/releases/latest">Download</a>
