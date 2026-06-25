@@ -193,6 +193,28 @@
     .uc h3 { font-family: "Outfit", sans-serif; font-size: 16px; margin: 0 0 7px; color: var(--teal); }
     .uc p { margin: 0; font-size: 14px; color: var(--ink-2); }
 
+    /* ── Model-type availability strip ── */
+    .models {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+      margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--border);
+    }
+    .models-label {
+      font-family: "Outfit", sans-serif; font-weight: 600; font-size: 13px;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-right: 2px;
+    }
+    .model {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: rgba(255,255,255,0.55); border: 1px solid var(--border);
+      border-radius: 999px; padding: 7px 8px 7px 15px; font-size: 14px; color: var(--ink);
+    }
+    .model b { font-weight: 600; }
+    .badge {
+      font-family: "Outfit", sans-serif; font-weight: 600; font-size: 11px;
+      letter-spacing: 0.02em; padding: 3px 9px; border-radius: 999px;
+    }
+    .badge.on { background: var(--teal); color: #fff; }
+    .badge.soon { background: transparent; color: var(--terra); border: 1px solid var(--terra); }
+
     /* ── Owners ── */
     .owners {
       background: var(--surface); border: 1px solid var(--border);
@@ -441,10 +463,17 @@
             <p>Turning a client's messy problem into a defensible, sourced model — and a report they can trust.</p>
           </div>
         </div>
+        <div class="models reveal">
+          <span class="models-label">Model types</span>
+          <span class="model"><b>Causal loop diagrams</b><span class="badge on">Available now</span></span>
+          <span class="model"><b>System dynamics</b><span class="badge soon">Coming soon</span></span>
+          <span class="model"><b>Bayesian networks</b><span class="badge soon">Coming soon</span></span>
+        </div>
+
         <p class="note-p reveal">
-          Don't see your field? The substrate is general — if your reasoning is
-          causal, it probably fits. <a href="#contact">Get in touch</a> and tell
-          me what you're working on.
+          Don't see your field or your method? The underlying approach is general
+          — if your reasoning is causal, it probably fits.
+          <a href="#contact">Get in touch</a> and tell me what you're working on.
         </p>
       </div>
     </section>
