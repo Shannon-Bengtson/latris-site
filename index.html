@@ -193,27 +193,27 @@
     .uc h3 { font-family: "Outfit", sans-serif; font-size: 16px; margin: 0 0 7px; color: var(--teal); }
     .uc p { margin: 0; font-size: 14px; color: var(--ink-2); }
 
-    /* ── Model-type availability strip ── */
+    /* ── Model-type availability ── */
     .models {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
       margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--border);
+      display: grid; gap: 14px;
     }
+    .models-intro { margin: 0; font-size: 14px; color: var(--muted); max-width: 660px; }
+    .models-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 9px; }
     .models-label {
-      font-family: "Outfit", sans-serif; font-weight: 600; font-size: 13px;
-      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-right: 2px;
+      font-family: "Outfit", sans-serif; font-weight: 600; font-size: 12px;
+      letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted);
+      width: 104px; flex: none;
     }
     .model {
-      display: inline-flex; align-items: center; gap: 9px;
-      background: rgba(255,255,255,0.55); border: 1px solid var(--border);
-      border-radius: 999px; padding: 7px 8px 7px 15px; font-size: 14px; color: var(--ink);
+      display: inline-flex; align-items: center; font-size: 13.5px;
+      border: 1px solid var(--border); border-radius: 999px; padding: 6px 13px;
+      background: rgba(255,255,255,0.5); color: var(--ink-2);
     }
-    .model b { font-weight: 600; }
-    .badge {
-      font-family: "Outfit", sans-serif; font-weight: 600; font-size: 11px;
-      letter-spacing: 0.02em; padding: 3px 9px; border-radius: 999px;
+    .model.on {
+      border-color: var(--teal); color: var(--teal);
+      background: rgba(42,107,94,0.07); font-weight: 600;
     }
-    .badge.on { background: var(--teal); color: #fff; }
-    .badge.soon { background: transparent; color: var(--terra); border: 1px solid var(--terra); }
 
     /* ── Owners ── */
     .owners {
@@ -287,6 +287,7 @@
       .wrap { padding: 0 22px; }
       .hero { padding: 40px 0 36px; }
       .nav { display: none; }
+      .models-label { width: auto; }
       .founder { grid-template-columns: 1fr; gap: 20px; padding: 28px 26px; }
       .contact { padding: 34px 24px; }
     }
@@ -464,10 +465,35 @@
           </div>
         </div>
         <div class="models reveal">
-          <span class="models-label">Model types</span>
-          <span class="model"><b>Causal loop diagrams</b><span class="badge on">Available now</span></span>
-          <span class="model"><b>System dynamics</b><span class="badge soon">Coming soon</span></span>
-          <span class="model"><b>Bayesian networks</b><span class="badge soon">Coming soon</span></span>
+          <p class="models-intro">
+            Latris speaks a growing set of model types — with one evidence and
+            workflow layer underneath all of them:
+          </p>
+          <div class="models-row">
+            <span class="models-label">Available now</span>
+            <span class="model on">Causal loop diagrams</span>
+            <span class="model on">Directed acyclic graphs</span>
+            <span class="model on">Fuzzy cognitive maps</span>
+          </div>
+          <div class="models-row">
+            <span class="models-label">Coming soon</span>
+            <span class="model">Bayesian networks</span>
+            <span class="model">System dynamics</span>
+            <span class="model">Causal DAGs</span>
+            <span class="model">Markov chains / MDPs</span>
+            <span class="model">Influence diagrams</span>
+            <span class="model">Decision trees</span>
+            <span class="model">Event trees</span>
+            <span class="model">Fault trees</span>
+            <span class="model">Bow-tie diagrams</span>
+            <span class="model">Theory of change</span>
+            <span class="model">Fishbone / Ishikawa</span>
+            <span class="model">Argument maps</span>
+            <span class="model">Goal structuring notation</span>
+            <span class="model">Petri nets</span>
+            <span class="model">Process maps / flowcharts</span>
+            <span class="model">State machines</span>
+          </div>
         </div>
 
         <p class="note-p reveal">
