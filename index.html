@@ -282,6 +282,14 @@
     .waitlist-fine a { font-weight: 600; text-decoration: none; }
     .waitlist-fine a:hover { text-decoration: underline; }
 
+    /* ── For builders ── */
+    .split .body a { font-weight: 600; }
+    code.install {
+      display: inline-block; font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: 14.5px; background: #fff; border: 1px solid var(--border);
+      border-radius: 9px; padding: 9px 15px; color: var(--teal-dk);
+    }
+
     /* ── Footer ── */
     footer {
       margin-top: 8px; padding: 30px 0 44px;
@@ -330,6 +338,7 @@
         <a href="#owners">For owners</a>
         <a href="#about">About</a>
         <a href="https://github.com/Shannon-Bengtson/latris-releases/releases/latest">Download</a>
+        <a href="#builders">For builders</a>
         <a href="#contact">Get in touch</a>
       </nav>
     </div>
@@ -644,6 +653,36 @@
 
     <hr class="rule" />
 
+    <!-- ── For builders ── -->
+    <section class="band" id="builders">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow reveal">Open core</p>
+          <h2 class="reveal">Built on an open backend.</h2>
+        </div>
+        <div class="body reveal" style="transition-delay:.08s">
+          <p>
+            The modelling engine behind Latris is open source (Apache-2.0) —
+            a deterministic, git-native CLI and API designed to be driven
+            from a terminal or by an agent: schema-validated models,
+            provenance on every mutation, evidence and challenge as
+            first-class data. The desktop app is invite-only early access.
+            The backend is not.
+          </p>
+          <p>
+            <code class="install">pip install "latris[server,data]"</code>
+          </p>
+          <p>
+            <a href="https://pypi.org/project/latris/" target="_blank" rel="noopener">Latris on PyPI</a>
+            &middot;
+            <a href="https://github.com/Shannon-Bengtson/latris" target="_blank" rel="noopener">Source on GitHub</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
     <!-- ── Contact ── -->
     <section class="band" id="contact">
       <div class="wrap">
@@ -682,6 +721,8 @@
       <span>© 2026 Latris</span>
       <span class="links">
         <a href="https://github.com/Shannon-Bengtson/latris-releases/releases/latest">Download</a>
+        <a href="https://pypi.org/project/latris/" target="_blank" rel="noopener">PyPI</a>
+        <a href="https://github.com/Shannon-Bengtson/latris" target="_blank" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/shannon-bengtson/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="mailto:hello@latris.app?subject=Latris">Contact</a>
       </span>
