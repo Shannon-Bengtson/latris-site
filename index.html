@@ -261,6 +261,27 @@
     }
     .contact a.email:hover { background: var(--teal-br); }
 
+    /* ── Waitlist form ── */
+    .waitlist { display: flex; gap: 10px; max-width: 480px; margin: 0 auto; }
+    .waitlist input[type="email"] {
+      flex: 1; min-width: 0; font: inherit; font-size: 16px; color: var(--ink);
+      background: #fff; border: 1.5px solid var(--border); border-radius: 11px;
+      padding: 13px 16px;
+    }
+    .waitlist input[type="email"]:focus { outline: none; border-color: var(--teal); }
+    .waitlist button {
+      flex: none; font-family: "Outfit", sans-serif; font-weight: 600; font-size: 16px;
+      color: #fff; background: var(--teal); border: 0; border-radius: 11px;
+      padding: 13px 22px; cursor: pointer; box-shadow: 0 2px 0 var(--teal-dk);
+    }
+    .waitlist button:hover { background: var(--teal-br); }
+    .hp { position: absolute; left: -6000px; width: 1px; height: 1px; opacity: 0; }
+    .form-status { margin: 16px 0 0; font-size: 15px; font-weight: 500; color: var(--teal); min-height: 1.4em; }
+    .form-status.err { color: #a4552f; }
+    .waitlist-fine { margin: 14px 0 0; font-size: 13.5px; color: var(--muted); }
+    .waitlist-fine a { font-weight: 600; text-decoration: none; }
+    .waitlist-fine a:hover { text-decoration: underline; }
+
     /* ── Footer ── */
     footer {
       margin-top: 8px; padding: 30px 0 44px;
@@ -627,13 +648,29 @@
     <section class="band" id="contact">
       <div class="wrap">
         <div class="contact reveal">
-          <h2>Love to work with you</h2>
+          <h2>Get early access</h2>
           <p>
-            Latris is early, and the best way to shape it is to use it. Tell me
-            what you're modelling, give it a real go, and let me know what works
-            and what doesn't. I'll get you set up.
+            Latris is in invite-only early access, and the best way to shape it
+            is to use it on real work. Leave your email and tell me what you're
+            modelling — I'll set you up and let you know when new releases land.
           </p>
-          <a class="email" href="mailto:hello@latris.app?subject=Latris">hello@latris.app</a>
+          <!-- Waitlist: posts to Formspree via FORM_ENDPOINT in the script
+               below; if that endpoint is unset it falls back to a pre-filled
+               email. -->
+          <form class="waitlist" id="waitlist" novalidate>
+            <input id="wl-email" name="email" type="email" required
+                   placeholder="you@organisation.com" autocomplete="email"
+                   aria-label="Email address" />
+            <input type="text" name="_gotcha" class="hp" tabindex="-1"
+                   autocomplete="off" aria-hidden="true" />
+            <button type="submit">Request access</button>
+          </form>
+          <p class="form-status" id="wl-status" role="status" aria-live="polite"></p>
+          <p class="waitlist-fine">
+            No spam — access and occasional release notes only. Prefer a direct
+            line? <a href="mailto:hello@latris.app?subject=Latris%20early%20access">hello@latris.app</a>
+            or <a href="https://www.linkedin.com/in/shannon-bengtson/" target="_blank" rel="noopener">LinkedIn</a>.
+          </p>
         </div>
       </div>
     </section>
@@ -674,6 +711,61 @@
       }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
       items.forEach(function (el) { io.observe(el); });
     }
+
+    // ── Waitlist form ──
+    // Submissions post to Formspree. If FORM_ENDPOINT is empty the form
+    // falls back to opening a pre-filled email to hello@latris.app.
+    var FORM_ENDPOINT = 'https://formspree.io/f/xeaezvyd';
+    var wlForm = document.getElementById('waitlist');
+    var wlStatus = document.getElementById('wl-status');
+    var wlEmail = document.getElementById('wl-email');
+
+    function wlSay(msg, isErr) {
+      wlStatus.textContent = msg;
+      wlStatus.classList.toggle('err', !!isErr);
+    }
+
+    wlForm.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var email = wlEmail.value.trim();
+      if (!wlEmail.checkValidity() || !email) {
+        wlSay('Please enter a valid email address.', true);
+        wlEmail.focus();
+        return;
+      }
+      if (wlForm.elements._gotcha.value) return; // spam honeypot
+
+      var btn = wlForm.querySelector('button');
+      btn.disabled = true;
+
+      if (!FORM_ENDPOINT) {
+        var body = 'Email: ' + email + '\n\nWhat I\'m working on:\n';
+        window.location.href = 'mailto:hello@latris.app?subject='
+          + encodeURIComponent('Latris early access')
+          + '&body=' + encodeURIComponent(body);
+        wlSay('Opening your email app to send the request…');
+        btn.disabled = false;
+        return;
+      }
+
+      wlSay('Sending…');
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(wlForm)
+      }).then(function (res) {
+        if (res.ok) {
+          wlForm.style.display = 'none';
+          wlSay('You\'re on the list — I\'ll be in touch soon.');
+        } else {
+          btn.disabled = false;
+          wlSay('That didn\'t go through — please try again or email hello@latris.app.', true);
+        }
+      }).catch(function () {
+        btn.disabled = false;
+        wlSay('Network problem — please try again or email hello@latris.app.', true);
+      });
+    });
   </script>
 
 </body>
