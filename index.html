@@ -192,6 +192,16 @@
     .uc h3 { font-family: "Outfit", sans-serif; font-size: 16px; margin: 0 0 7px; color: var(--teal); }
     .uc p { margin: 0; font-size: 14px; color: var(--ink-2); }
 
+    .cluster {
+      margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--border);
+      display: grid; gap: 12px;
+    }
+    .cluster .usecases { margin-top: 4px; margin-bottom: 8px; }
+    .cluster-h {
+      font-family: "Outfit", sans-serif; font-size: 13px; font-weight: 600;
+      letter-spacing: 0.07em; text-transform: uppercase; color: var(--terra); margin: 0;
+    }
+
     /* ── Model-type availability ── */
     .models {
       margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--border);
@@ -461,68 +471,75 @@
         <p class="eyebrow reveal">Where Latris fits</p>
         <h2 class="lead-h2 reveal">Built for work like this.</h2>
         <p class="lead-p reveal">
-          Latris suits any work where the reasoning is causal and the stakes make
-          it worth defending — causal maps, driver trees, risk and reliability
-          models, the logic behind a strategy or program. A few of the places
-          it fits:
+          Latris suits work where the reasoning is causal and the stakes make it
+          worth defending — whether you're a consultant, a researcher, or an
+          in-house team. It's built around two kinds of work:
         </p>
-        <div class="usecases">
-          <div class="uc reveal">
-            <h3>Environment &amp; natural resources</h3>
-            <p>What's driving change in a catchment or ecosystem — and which interventions actually move the needle?</p>
+
+        <div class="cluster reveal">
+          <h3 class="cluster-h">Systems thinking — environment, health &amp; policy</h3>
+          <div class="usecases">
+            <div class="uc">
+              <h3>Environment &amp; natural resources</h3>
+              <p>What's driving change in a catchment or ecosystem — and which interventions actually move the needle?</p>
+            </div>
+            <div class="uc">
+              <h3>Public health &amp; wellbeing</h3>
+              <p>Mapping the causes behind an outcome to target where action will help most.</p>
+            </div>
+            <div class="uc">
+              <h3>Policy &amp; programs</h3>
+              <p>The causal logic behind a program or policy, made explicit, sourced, and reviewable.</p>
+            </div>
           </div>
-          <div class="uc reveal" style="transition-delay:.06s">
-            <h3>Natural hazards &amp; risk</h3>
-            <p>How the factors behind a hazard combine, where the risk is most sensitive, and what the evidence says.</p>
-          </div>
-          <div class="uc reveal" style="transition-delay:.12s">
-            <h3>Public health &amp; wellbeing</h3>
-            <p>Mapping the causes behind an outcome to target where action will help most.</p>
-          </div>
-          <div class="uc reveal">
-            <h3>Policy &amp; strategy</h3>
-            <p>The causal logic behind a program or policy, made explicit, sourced, and reviewable.</p>
-          </div>
-          <div class="uc reveal" style="transition-delay:.06s">
-            <h3>Infrastructure &amp; engineering</h3>
-            <p>Reliability and failure reasoning, with the evidence behind each link kept on the record.</p>
-          </div>
-          <div class="uc reveal" style="transition-delay:.12s">
-            <h3>Consulting &amp; advisory</h3>
-            <p>Turning a client's messy problem into a defensible, sourced model — and a report they can trust.</p>
-          </div>
-        </div>
-        <div class="models reveal">
-          <p class="models-intro">
-            Latris speaks a growing set of model types — with one evidence and
-            workflow layer underneath all of them:
-          </p>
           <div class="models-row">
             <span class="models-label">Available now</span>
             <span class="model on">Causal loop diagrams</span>
-            <span class="model on">Directed acyclic graphs</span>
             <span class="model on">Fuzzy cognitive maps</span>
-            <span class="model on">Bayesian networks</span>
+            <span class="model on">Directed acyclic graphs</span>
           </div>
           <div class="models-row">
             <span class="models-label">Coming soon</span>
             <span class="model">System dynamics</span>
-            <span class="model">Causal DAGs</span>
-            <span class="model">Markov chains / MDPs</span>
-            <span class="model">Influence diagrams</span>
-            <span class="model">Decision trees</span>
-            <span class="model">Event trees</span>
-            <span class="model">Fault trees</span>
-            <span class="model">Bow-tie diagrams</span>
             <span class="model">Theory of change</span>
-            <span class="model">Fishbone / Ishikawa</span>
-            <span class="model">Argument maps</span>
-            <span class="model">Goal structuring notation</span>
-            <span class="model">Petri nets</span>
-            <span class="model">Process maps / flowcharts</span>
-            <span class="model">State machines</span>
           </div>
         </div>
+
+        <div class="cluster reveal">
+          <h3 class="cluster-h">Risk &amp; safety</h3>
+          <div class="usecases">
+            <div class="uc">
+              <h3>Natural hazards &amp; risk</h3>
+              <p>How the factors behind a hazard combine, where the risk is most sensitive, and what the evidence says.</p>
+            </div>
+            <div class="uc">
+              <h3>Infrastructure &amp; engineering</h3>
+              <p>Reliability and failure reasoning, with the evidence behind each link kept on the record.</p>
+            </div>
+            <div class="uc">
+              <h3>Safety &amp; assurance</h3>
+              <p>Claims, arguments, and evidence laid out so a reviewer or regulator can follow — and challenge — every step.</p>
+            </div>
+          </div>
+          <div class="models-row">
+            <span class="models-label">Available now</span>
+            <span class="model on">Bayesian networks</span>
+          </div>
+          <div class="models-row">
+            <span class="models-label">Coming soon</span>
+            <span class="model">Fault trees</span>
+            <span class="model">Event trees</span>
+            <span class="model">Bow-tie diagrams</span>
+            <span class="model">Goal structuring notation</span>
+          </div>
+        </div>
+
+        <p class="note-p reveal">
+          Every model type shares one evidence, provenance, and review layer underneath.
+          System dynamics — stocks, flows, unit-checked equations, and simulation —
+          is already in the open-source engine and CLI; the visual stock-and-flow
+          editor in the app is on the way.
+        </p>
 
         <p class="note-p reveal">
           Bayesian networks: structure, states, and conditional-probability
@@ -532,7 +549,9 @@
 
         <p class="note-p reveal">
           Don't see your field or your method? The underlying approach is general
-          — if your reasoning is causal, it probably fits.
+          — if your reasoning is causal, it probably fits. Other formalisms
+          (decision analysis, process models, and more) aren't on the roadmap
+          right now — if your work needs one, say so.
           <a href="#contact">Get in touch</a> and tell me what you're working on.
         </p>
       </div>
