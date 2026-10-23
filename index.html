@@ -375,9 +375,8 @@
           </div>
 
           <p class="access">
-            Latris is in invite-only early access. If we've spoken, you're
-            already set up — just sign in with your email at the link above.
-            Otherwise, <a href="#contact">get in touch</a> and I'll get you access.
+            Latris is open — sign in with your email at the link above, no
+            invite needed. Questions first? <a href="#contact">Get in touch</a>.
           </p>
           <p class="platforms">Runs in any modern browser — nothing to install.</p>
         </div>
@@ -676,9 +675,8 @@
             provenance on every mutation, evidence and challenge as
             first-class data. <a href="https://app.latris.app/">The hosted
             app</a> is a browser GUI built directly on this same
-            engine — same git history, same schema, same CLI underneath —
-            and it's invite-only while early. The backend behind it is not;
-            anyone can install it today.
+            engine — same git history, same schema, same CLI underneath.
+            Both are open to anyone today.
           </p>
           <p>
             No API key? If you work with an AI assistant in your terminal,
@@ -704,13 +702,13 @@
     <section class="band" id="contact">
       <div class="wrap">
         <div class="contact reveal">
-          <h2>Get early access</h2>
+          <h2>Tell me what you're building</h2>
           <p>
-            Latris is in invite-only early access, and the best way to shape it
-            is to use it on real work. Leave your email and tell me what you're
-            modelling — I'll set you up and let you know when new releases land.
+            Latris is open — <a href="https://app.latris.app/">sign in</a> and
+            start modelling, no invite needed. If you want to flag what you're
+            working on or hear about new releases, leave your email below.
           </p>
-          <!-- Waitlist: posts to Formspree via FORM_ENDPOINT in the script
+          <!-- Email capture: posts to Formspree via FORM_ENDPOINT in the script
                below; if that endpoint is unset it falls back to a pre-filled
                email. -->
           <form class="waitlist" id="waitlist" novalidate>
@@ -719,12 +717,12 @@
                    aria-label="Email address" />
             <input type="text" name="_gotcha" class="hp" tabindex="-1"
                    autocomplete="off" aria-hidden="true" />
-            <button type="submit">Request access</button>
+            <button type="submit">Keep me posted</button>
           </form>
           <p class="form-status" id="wl-status" role="status" aria-live="polite"></p>
           <p class="waitlist-fine">
-            No spam — access and occasional release notes only. Prefer a direct
-            line? <a href="mailto:hello@latris.app?subject=Latris%20early%20access">hello@latris.app</a>
+            No spam — occasional release notes only. Prefer a direct
+            line? <a href="mailto:hello@latris.app?subject=Latris">hello@latris.app</a>
             or <a href="https://www.linkedin.com/in/shannon-bengtson/" target="_blank" rel="noopener">LinkedIn</a>.
           </p>
         </div>
@@ -799,9 +797,9 @@
       if (!FORM_ENDPOINT) {
         var body = 'Email: ' + email + '\n\nWhat I\'m working on:\n';
         window.location.href = 'mailto:hello@latris.app?subject='
-          + encodeURIComponent('Latris early access')
+          + encodeURIComponent('Latris')
           + '&body=' + encodeURIComponent(body);
-        wlSay('Opening your email app to send the request…');
+        wlSay('Opening your email app…');
         btn.disabled = false;
         return;
       }
@@ -814,7 +812,7 @@
       }).then(function (res) {
         if (res.ok) {
           wlForm.style.display = 'none';
-          wlSay('You\'re on the list — I\'ll be in touch soon.');
+          wlSay('Got it — thanks!');
         } else {
           btn.disabled = false;
           wlSay('That didn\'t go through — please try again or email hello@latris.app.', true);
