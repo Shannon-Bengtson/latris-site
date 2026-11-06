@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Notice — Latris</title>
+  <meta name="description" content="What personal information Latris collects, why, where it is stored, and your choices." />
+  <link rel="canonical" href="https://latris.app/privacy/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg: #f4f1eb; --dot: #d4dcd6; --ink: #1c2420; --soft: #3a4a42; --accent: #2a6b5e; --card: #fffdf9; --rule: #e2ded5; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; font-family: "DM Sans", system-ui, sans-serif; font-size: 17px; line-height: 1.65;
+      background-color: var(--bg); background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+      background-size: 22px 22px; color: var(--ink);
+    }
+    header, main, footer { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+    header { padding-top: 28px; }
+    header a { font-family: "Outfit", sans-serif; font-weight: 700; font-size: 22px; color: var(--accent); text-decoration: none; }
+    main { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; margin-top: 20px; padding: 28px 24px 32px; box-sizing: border-box; }
+    @media (min-width: 800px) { main { padding: 40px 48px 44px; } }
+    h1 { font-family: "Outfit", sans-serif; font-size: 34px; line-height: 1.2; margin: 0 0 6px; }
+    h2 { font-family: "Outfit", sans-serif; font-size: 21px; margin: 32px 0 8px; color: var(--accent); }
+    h3 { font-family: "Outfit", sans-serif; font-size: 17px; margin: 20px 0 6px; }
+    p, li { color: var(--soft); }
+    ul { padding-left: 22px; }
+    li { margin: 4px 0; }
+    a { color: var(--accent); }
+    strong { color: var(--ink); font-weight: 500; }
+    .meta { color: var(--soft); font-size: 15px; margin: 0 0 20px; }
+    .summary { background: #eef3ef; border-radius: 10px; padding: 14px 18px; margin: 0 0 8px; }
+    .summary p { margin: 0; }
+    footer { padding: 24px 16px 40px; font-size: 15px; color: var(--soft); display: flex; gap: 16px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <header><a href="/">Latris</a></header>
+  <main>
+    <h1>Privacy Notice</h1>
+    <p class="meta">Last updated 6 November 2026 · Shannon Bengtson, trading as Latris (New South Wales, Australia) · <a href="mailto:hello@latris.app">hello@latris.app</a></p>
+
+    <div class="summary">
+      <p><strong>In short:</strong> we collect what we need to run Latris: your email to sign you in, a few profile details, and the models you build. We don't sell your information or show ads. Account and model data is hosted in Sydney, Australia. Ask us any time to see or delete what we hold about you.</p>
+    </div>
+
+    <p>This notice covers the Latris website (latris.app), the Latris app (app.latris.app), the Latris connector for AI chat apps (mcp.latris.app), and report links. It doesn't cover the open-source <code>latris</code> Python library when you run it on your own computer. That runs entirely on your machine and sends nothing to us.</p>
+
+    <h2>What we collect</h2>
+    <h3>When you create an account</h3>
+    <ul>
+      <li><strong>Email address</strong>, used to sign you in. We email you a one-time code; there's no password.</li>
+      <li><strong>First name, last name and organisation</strong>, asked at sign-up. Optionally, your <strong>country, role and industry</strong> if you add them to your profile.</li>
+      <li><strong>Sign-in data:</strong> the one-time codes (valid for 10 minutes) and session tokens that keep you signed in. The app stores a sign-in token in your browser.</li>
+    </ul>
+    <h3>When you use the app</h3>
+    <ul>
+      <li><strong>Your models:</strong> the factors, links, evidence, notes, sources and history you create, and the projects you're a member of and your role on them. Each model is stored as a git repository on our server.</li>
+      <li>Your name appears in a model's history on the changes you make, visible to people you share that model with. Your organisation is kept on your account only and never written into models.</li>
+    </ul>
+    <h3>When you use Latris from an AI chat app</h3>
+    <p>If you use the Latris connector from an AI chat app (for example Claude or ChatGPT), the chat app sends us the content of the model you ask it to build, and we store it so the chat can keep working on it and show it at its report link. <strong>No account is needed, and we don't receive your name, email or chat history.</strong> We get only what the chat app sends to the connector. The chat app's provider handles your conversation under its own privacy terms.</p>
+    <h3>When you visit the website</h3>
+    <ul>
+      <li><strong>Waitlist:</strong> if you join the waitlist, we receive the email address you enter.</li>
+      <li><strong>Analytics:</strong> we use Cloudflare Web Analytics to count visits. It doesn't use cookies or track you across sites. We see only aggregate figures such as page views and referring sites.</li>
+    </ul>
+    <h3>Technical data</h3>
+    <p>Like any web service, our servers record technical details of requests, such as IP address, time and the page or endpoint requested. We use these to run, secure and troubleshoot the service.</p>
+
+    <h2>Why we collect it</h2>
+    <ul>
+      <li>To create your account, sign you in and keep it secure.</li>
+      <li>To store your models and let you share and collaborate on them.</li>
+      <li>To understand who finds Latris useful (for example by role, industry or country) so we can decide what to build.</li>
+      <li>To contact you about your account, the service, or the waitlist.</li>
+    </ul>
+    <p>Latris doesn't send your model content to AI model providers. AI help with your models comes from AI tools you choose to use yourself, under their own terms.</p>
+
+    <h2>Report links</h2>
+    <p>A report link shows a read-only copy of a model's report to anyone who has the link, without signing in. Treat it like any shareable link. Report pages ask search engines not to index them. For models made in the Latris app, report links are off until you turn them on, and turning a link off stops it working.</p>
+
+    <h2>Where it's stored, and who helps us</h2>
+    <p>Account and model data is stored on our server in <strong>Microsoft Azure's Australia East region (Sydney)</strong>. We use a small number of providers to run Latris. Some of them operate outside Australia, so some information is processed overseas:</p>
+    <ul>
+      <li><strong>Microsoft Azure</strong> hosts our server, in Sydney, Australia.</li>
+      <li><strong>Resend</strong> delivers sign-in emails. Your email address passes through its servers in Japan, and Resend is a US company.</li>
+      <li><strong>Cloudflare</strong> provides website analytics and parts of our network infrastructure (global).</li>
+      <li><strong>GitHub Pages</strong> hosts this website (USA). It receives the technical data of website visits.</li>
+      <li><strong>Formspree</strong> receives waitlist sign-ups (USA).</li>
+    </ul>
+    <p>We <strong>don't sell</strong> your personal information or use it for advertising. Apart from the providers above, we share it only when the law requires it.</p>
+
+    <h2>Security</h2>
+    <p>All connections to Latris are encrypted (HTTPS). Sign-in uses one-time codes rather than passwords. Each browser session runs in its own isolated container. Access to the server is restricted to the operator. Latris is a small, early-stage service, though, and no system is perfectly secure. Please don't put information into Latris that you aren't allowed to share, or that would cause serious harm if exposed. If a data breach is likely to cause you serious harm, we'll tell you.</p>
+
+    <h2>How long we keep it</h2>
+    <ul>
+      <li><strong>Unsaved models from AI chat apps</strong> are deleted 30 days after their last change. If you save one to your account, it's kept like any other project.</li>
+      <li><strong>Account data and models</strong> are kept while your account is active, until you ask us to delete them.</li>
+      <li><strong>Technical logs</strong> are kept for a limited period for security and troubleshooting.</li>
+    </ul>
+
+    <h2>Your choices and rights</h2>
+    <p>You can ask to see the personal information we hold about you, have it corrected, or have your account and its data deleted. Email <a href="mailto:hello@latris.app">hello@latris.app</a>. We'll respond within 30 days. Depending on where you live, you may have other rights too, such as objecting to certain uses. Ask us and we'll help.</p>
+    <p>If you have a concern about how we've handled your information, please contact us first. If you're not satisfied, in Australia you can complain to the <a href="https://www.oaic.gov.au/" rel="noopener">Office of the Australian Information Commissioner</a>.</p>
+
+    <h2>Children</h2>
+    <p>Latris is a professional tool and isn't intended for people under 16.</p>
+
+    <h2>Changes</h2>
+    <p>If we update this notice, we'll change the date above. For significant changes, we'll also let account holders know by email.</p>
+
+    <h2>Contact</h2>
+    <p>Shannon Bengtson, trading as Latris · <a href="mailto:hello@latris.app">hello@latris.app</a></p>
+  </main>
+  <footer>
+    <a href="/">Home</a>
+    <a href="/terms/">Terms of Use</a>
+    <a href="mailto:hello@latris.app">Contact</a>
+  </footer>
+</body>
+</html>
