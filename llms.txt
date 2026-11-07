@@ -1,0 +1,56 @@
+# Latris
+
+> Latris is an evidence-native modelling workbench — a Python CLI plus a
+> FastAPI/WebSocket server backend — where every project is a git repo,
+> evidence and provenance are first-class data, and AI assistance produces
+> human-approved structured proposals. This file maps the documentation
+> for AI agents; humans start at https://latris.app.
+
+Install: `pip install latris` (Python 3.11+, git). The guide for AI agents ships with the package — `latris docs` prints it with no network — and `latris capabilities` lists what Latris can do. Source: https://github.com/Shannon-Bengtson/latris (Apache-2.0).
+
+## Project
+
+- [README.md](https://github.com/Shannon-Bengtson/latris/blob/main/README.md): what Latris is, install, quickstart, and an "For AI agents" quickstart section.
+- [latris.app](https://latris.app): the product website. The Latris app (app.latris.app — the GUI, hosted report links, Word / review-pack / story exports) is built on this open library.
+- [docs/README.md](https://github.com/Shannon-Bengtson/latris/blob/main/docs/README.md): documentation index.
+- [CONTRIBUTING.md](https://github.com/Shannon-Bengtson/latris/blob/main/CONTRIBUTING.md): how to set up a dev environment and submit changes.
+- [LICENSE](https://github.com/Shannon-Bengtson/latris/blob/main/LICENSE): Apache-2.0.
+
+## Engineering docs (source of truth for how the system works)
+
+- [docs/engineering/ARCHITECTURE.md](https://github.com/Shannon-Bengtson/latris/blob/main/docs/engineering/ARCHITECTURE.md): three-layer architecture (substrate → conceptual → formal views), module layout, the five chokepoint files, CLI↔server boundary contract.
+- [docs/engineering/SCHEMA_NOTES.md](https://github.com/Shannon-Bengtson/latris/blob/main/docs/engineering/SCHEMA_NOTES.md): pydantic models ↔ YAML mapping, provenance axes, the on-disk project format.
+- [docs/engineering/GIT_INTEGRATION.md](https://github.com/Shannon-Bengtson/latris/blob/main/docs/engineering/GIT_INTEGRATION.md): auto-commit model, identity enforcement, semantic diffs, collaboration model.
+- [docs/engineering/AI_LAYER.md](https://github.com/Shannon-Bengtson/latris/blob/main/docs/engineering/AI_LAYER.md): LLM wiring (litellm + instructor + keyring), the closed prompt library, call flow, mock mode (LATRIS_AI_MOCK), delegated invocation for external agents (`ai task emit`/`ai task apply` — no API key).
+- [docs/engineering/CLI_REFERENCE.md](https://github.com/Shannon-Bengtson/latris/blob/main/docs/engineering/CLI_REFERENCE.md): the full `latris` command catalogue.
+- [docs/engineering/TESTING.md](https://github.com/Shannon-Bengtson/latris/blob/main/docs/engineering/TESTING.md): test layers, hermetic test contract, coverage policy.
+
+## The worked example (acceptance test, always current)
+
+- [worked_example/worked_example_output.md](https://github.com/Shannon-Bengtson/latris/blob/main/worked_example/worked_example_output.md): generated transcript of every CLI command, end to end — the fastest way to learn the tool's actual behaviour.
+- [worked_example/worked_example.py](https://github.com/Shannon-Bengtson/latris/blob/main/worked_example/worked_example.py): the generator; any new user-facing feature must extend it.
+
+## Building a model with the CLI (start here)
+
+- No network? `latris docs` prints the README's "For AI agents" section from the installed package (`latris docs readme`, `latris docs llms` for this file).
+
+- The README's "For AI agents" section has a complete causal-loop-diagram session: git identity, nodes, links by label, polarity with a rationale (`latris view set cld <edge> polarity + --rationale "..."`), sources and evidence, coherence and loop checks, findings (`latris finding add`), and the client report with a Mermaid diagram (`latris export md --pack client --no-ai`).
+- `latris --json <command>` gives machine-readable output for the core commands.
+- As an AI agent, `export LATRIS_DEFAULT_ORIGIN=ai-proposed` first, so the nodes, links, evidence and findings you create are recorded as AI-proposed rather than as the person's own work.
+- Build a whole model in one step: `latris build --spec model.yaml` (YAML or JSON; `-` reads stdin) adds factors, links with polarity and reasons, sources, citations, assumptions (with target and rationale), questions, proposed findings, challenges, interpretation prose and the outcome as one commit, after checking the whole spec — `latris build --help` lists every key. Mark the outcome with `outcome:` (or `latris view role cld "<factor>" outcome`) so it isn't suggested as an intervention point.
+- Links true by definition or accounting (departures reduce active volunteers): `confidence: by-definition` in a build spec, or `latris attr set <link> confidence by-definition`. They need no source, don't count against coverage, and the figure draws them solid, not as unproven.
+- Checking a source: `latris evidence check "<from> -> <to>" polarity <bibkey> supports|against|off-topic --rationale "..."` records whether the source supports the claim (a person by default; `--by ai --quote "..."` for an agent that read it). Until then reports say "not yet checked against the source".
+- Before handing over: `latris check handover` lists what's left (unsourced links, unchecked citations, unapproved findings, sections without prose, contradictions) with a fix for each; exits 1 until clear.
+- Evidence against a link: `latris evidence add <link> polarity <bibkey> --contradicts` (or `contradicts: [<bibkey>]` on a link in a build spec). It stays on the same link as the supporting sources; reports show both sides under "Contested links" and it doesn't count toward coverage.
+- Giving the model to a person: `latris link` prints a link that opens it in the Latris app (app.latris.app) as a hosted report with the full figure, which they can share or save to a free account (editor, Word). Making it needs no network — the model travels inside the link — so it works from sandboxes with no network to latris.app; opening it needs app.latris.app. The link never stops working; the short report address it opens lasts 30 days unless the model is saved, and saving gives a short link that doesn't expire.
+- Reports: five packs for different readers (client, publication, review, workshop, audit) — `latris capabilities` describes them. The board-ready version is the `client` pack (answer first, then the diagram, findings and evidence) with its interpretation sections written: `latris interpret initialise`, then `interpret show <section>` and `interpret set-prose <section> "..." --by ai` (no API key needed).
+
+## Delegated AI invocation (no API key in this environment?)
+
+- Any of the 46 closed prompts can be answered by you, the agent, instead of a vendor API: `latris ai task emit <PromptName> --inputs '<json>'` writes a self-contained task package (system + user context + response JSON schema). Answer with JSON matching `response_schema`, then have the human run `latris ai task apply --task task.json --from response.json`. Validation, approval gates, and provenance are identical to API calls; the interaction logs `model_id` as `external-agent[:name]`. See [docs/engineering/AI_LAYER.md](https://github.com/Shannon-Bengtson/latris/blob/main/docs/engineering/AI_LAYER.md) § "Delegated calls (bring your own agent)".
+
+## Working rules for agents in this repo
+
+- Read [CLAUDE.md](https://github.com/Shannon-Bengtson/latris/blob/main/CLAUDE.md) and [src/latris/CLAUDE.md](https://github.com/Shannon-Bengtson/latris/blob/main/src/latris/CLAUDE.md) before editing code.
+- The per-project state directory is `.graph-tooling` — a frozen data-format constant; never rename it.
+- Run tests with `python -m pytest` (parallel by default); regenerate the worked-example transcript with `pytest tests/test_worked_example.py --slow` after changing CLI behaviour.
