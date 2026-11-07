@@ -272,26 +272,26 @@
     }
     .contact a.email:hover { background: var(--teal-br); }
 
-    /* ── Waitlist form ── */
-    .waitlist { display: flex; gap: 10px; max-width: 480px; margin: 0 auto; }
-    .waitlist input[type="email"] {
+    /* ── Release-updates form (a mailing list; sign-up itself is open) ── */
+    .updates { display: flex; gap: 10px; max-width: 480px; margin: 0 auto; }
+    .updates input[type="email"] {
       flex: 1; min-width: 0; font: inherit; font-size: 16px; color: var(--ink);
       background: #fff; border: 1.5px solid var(--border); border-radius: 11px;
       padding: 13px 16px;
     }
-    .waitlist input[type="email"]:focus { outline: none; border-color: var(--teal); }
-    .waitlist button {
+    .updates input[type="email"]:focus { outline: none; border-color: var(--teal); }
+    .updates button {
       flex: none; font-family: "Outfit", sans-serif; font-weight: 600; font-size: 16px;
       color: #fff; background: var(--teal); border: 0; border-radius: 11px;
       padding: 13px 22px; cursor: pointer; box-shadow: 0 2px 0 var(--teal-dk);
     }
-    .waitlist button:hover { background: var(--teal-br); }
+    .updates button:hover { background: var(--teal-br); }
     .hp { position: absolute; left: -6000px; width: 1px; height: 1px; opacity: 0; }
     .form-status { margin: 16px 0 0; font-size: 15px; font-weight: 500; color: var(--teal); min-height: 1.4em; }
     .form-status.err { color: #a4552f; }
-    .waitlist-fine { margin: 14px 0 0; font-size: 13.5px; color: var(--muted); }
-    .waitlist-fine a { font-weight: 600; text-decoration: none; }
-    .waitlist-fine a:hover { text-decoration: underline; }
+    .updates-fine { margin: 14px 0 0; font-size: 13.5px; color: var(--muted); }
+    .updates-fine a { font-weight: 600; text-decoration: none; }
+    .updates-fine a:hover { text-decoration: underline; }
 
     /* ── For builders ── */
     .split .body a { font-weight: 600; }
@@ -731,16 +731,16 @@
           <!-- Email capture: posts to Formspree via FORM_ENDPOINT in the script
                below; if that endpoint is unset it falls back to a pre-filled
                email. -->
-          <form class="waitlist" id="waitlist" novalidate>
-            <input id="wl-email" name="email" type="email" required
+          <form class="updates" id="updates" novalidate>
+            <input id="up-email" name="email" type="email" required
                    placeholder="you@organisation.com" autocomplete="email"
                    aria-label="Email address" />
             <input type="text" name="_gotcha" class="hp" tabindex="-1"
                    autocomplete="off" aria-hidden="true" />
             <button type="submit">Keep me posted</button>
           </form>
-          <p class="form-status" id="wl-status" role="status" aria-live="polite"></p>
-          <p class="waitlist-fine">
+          <p class="form-status" id="up-status" role="status" aria-live="polite"></p>
+          <p class="updates-fine">
             No spam — occasional release notes only. Prefer a direct
             line? <a href="mailto:hello@latris.app?subject=Latris">hello@latris.app</a>
             or <a href="https://www.linkedin.com/in/shannon-bengtson/" target="_blank" rel="noopener">LinkedIn</a>.
@@ -790,30 +790,30 @@
       items.forEach(function (el) { io.observe(el); });
     }
 
-    // ── Waitlist form ──
+    // ── Release-updates form (a mailing list; sign-up itself is open) ──
     // Submissions post to Formspree. If FORM_ENDPOINT is empty the form
     // falls back to opening a pre-filled email to hello@latris.app.
     var FORM_ENDPOINT = 'https://formspree.io/f/xeaezvyd';
-    var wlForm = document.getElementById('waitlist');
-    var wlStatus = document.getElementById('wl-status');
-    var wlEmail = document.getElementById('wl-email');
+    var upForm = document.getElementById('updates');
+    var upStatus = document.getElementById('up-status');
+    var upEmail = document.getElementById('up-email');
 
-    function wlSay(msg, isErr) {
-      wlStatus.textContent = msg;
-      wlStatus.classList.toggle('err', !!isErr);
+    function upSay(msg, isErr) {
+      upStatus.textContent = msg;
+      upStatus.classList.toggle('err', !!isErr);
     }
 
-    wlForm.addEventListener('submit', function (ev) {
+    upForm.addEventListener('submit', function (ev) {
       ev.preventDefault();
-      var email = wlEmail.value.trim();
-      if (!wlEmail.checkValidity() || !email) {
-        wlSay('Please enter a valid email address.', true);
-        wlEmail.focus();
+      var email = upEmail.value.trim();
+      if (!upEmail.checkValidity() || !email) {
+        upSay('Please enter a valid email address.', true);
+        upEmail.focus();
         return;
       }
-      if (wlForm.elements._gotcha.value) return; // spam honeypot
+      if (upForm.elements._gotcha.value) return; // spam honeypot
 
-      var btn = wlForm.querySelector('button');
+      var btn = upForm.querySelector('button');
       btn.disabled = true;
 
       if (!FORM_ENDPOINT) {
@@ -821,27 +821,27 @@
         window.location.href = 'mailto:hello@latris.app?subject='
           + encodeURIComponent('Latris')
           + '&body=' + encodeURIComponent(body);
-        wlSay('Opening your email app…');
+        upSay('Opening your email app…');
         btn.disabled = false;
         return;
       }
 
-      wlSay('Sending…');
+      upSay('Sending…');
       fetch(FORM_ENDPOINT, {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
-        body: new FormData(wlForm)
+        body: new FormData(upForm)
       }).then(function (res) {
         if (res.ok) {
-          wlForm.style.display = 'none';
-          wlSay('Got it — thanks!');
+          upForm.style.display = 'none';
+          upSay('Got it — thanks!');
         } else {
           btn.disabled = false;
-          wlSay('That didn\'t go through — please try again or email hello@latris.app.', true);
+          upSay('That didn\'t go through — please try again or email hello@latris.app.', true);
         }
       }).catch(function () {
         btn.disabled = false;
-        wlSay('Network problem — please try again or email hello@latris.app.', true);
+        upSay('Network problem — please try again or email hello@latris.app.', true);
       });
     });
   </script>
