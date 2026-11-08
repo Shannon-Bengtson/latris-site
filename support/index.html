@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Support — Latris</title>
+  <meta name="description" content="How to get help with Latris: the app, report links, the connector for AI chat apps, and the library." />
+  <link rel="canonical" href="https://latris.app/support/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg: #f4f1eb; --dot: #d4dcd6; --ink: #1c2420; --soft: #3a4a42; --accent: #2a6b5e; --card: #fffdf9; --rule: #e2ded5; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; font-family: "DM Sans", system-ui, sans-serif; font-size: 17px; line-height: 1.65;
+      background-color: var(--bg); background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+      background-size: 22px 22px; color: var(--ink);
+    }
+    header, main, footer { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+    header { padding-top: 28px; }
+    header a { font-family: "Outfit", sans-serif; font-weight: 700; font-size: 22px; color: var(--accent); text-decoration: none; }
+    main { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; margin-top: 20px; padding: 28px 24px 32px; box-sizing: border-box; }
+    @media (min-width: 800px) { main { padding: 40px 48px 44px; } }
+    h1 { font-family: "Outfit", sans-serif; font-size: 34px; line-height: 1.2; margin: 0 0 6px; }
+    h2 { font-family: "Outfit", sans-serif; font-size: 21px; margin: 32px 0 8px; color: var(--accent); }
+    h3 { font-family: "Outfit", sans-serif; font-size: 17px; margin: 20px 0 6px; }
+    p, li { color: var(--soft); }
+    ul { padding-left: 22px; }
+    li { margin: 4px 0; }
+    a { color: var(--accent); }
+    strong { color: var(--ink); font-weight: 500; }
+    .meta { color: var(--soft); font-size: 15px; margin: 0 0 20px; }
+    .summary { background: #eef3ef; border-radius: 10px; padding: 14px 18px; margin: 0 0 8px; }
+    .summary p { margin: 0; }
+    footer { padding: 24px 16px 40px; font-size: 15px; color: var(--soft); display: flex; gap: 16px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <header><a href="/">Latris</a></header>
+  <main>
+    <h1>Support</h1>
+    <p class="meta">Latris is operated by Shannon Bengtson (ABN 98 855 839 418), New South Wales, Australia</p>
+
+    <div class="summary">
+      <p><strong>Need help?</strong> Email <a href="mailto:hello@latris.app">hello@latris.app</a> with what you were doing and, if you can, the report link or a screenshot. A person reads every message.</p>
+    </div>
+
+    <h2>Common questions</h2>
+    <h3>My report link stopped working</h3>
+    <p>A model made in an AI chat isn't saved to an account until you save it. Until then its report link lasts 30 days after the model's last change, then the model is deleted. Save it to keep it: ask your AI for a save link, or use the button on the report if you opened it from a model link.</p>
+
+    <h3>How do I save a model?</h3>
+    <p>Ask the AI that built it to "save this model". It gives you a one-time link (valid about an hour). Open it, sign in with your email (we send a code; no password), and the model is in your account at <a href="https://app.latris.app">app.latris.app</a>, with a report link that doesn't expire.</p>
+
+    <h3>Connecting Latris to an AI chat app</h3>
+    <p>Add a custom connector (in ChatGPT, an app in developer mode) with the address <code>https://mcp.latris.app/mcp</code>. No sign-in is needed. Then ask, for example, "Use Latris to map what drives volunteer burnout."</p>
+
+    <h3>Deleting your data</h3>
+    <p>Email <a href="mailto:hello@latris.app">hello@latris.app</a> from your account's address and we'll delete your account and its models. Unsaved models are deleted automatically 30 days after their last change. See the <a href="/privacy/">Privacy Notice</a>.</p>
+
+    <h3>The open-source library</h3>
+    <p>The <code>latris</code> Python library is open source. Report bugs or ask questions on <a href="https://github.com/Shannon-Bengtson/latris/issues" rel="noopener">GitHub</a>.</p>
+
+    <h2>Contact</h2>
+    <p><a href="mailto:hello@latris.app">hello@latris.app</a></p>
+  </main>
+  <footer>
+    <a href="/">Home</a>
+    <a href="/privacy/">Privacy Notice</a>
+    <a href="/terms/">Terms of Use</a>
+  </footer>
+</body>
+</html>
