@@ -13,6 +13,7 @@ Install: `pip install latris` (Python 3.11+, git). The guide for AI agents ships
 - [README.md](https://github.com/Shannon-Bengtson/latris/blob/main/README.md): what Latris is, install, quickstart, and an "For AI agents" quickstart section.
 - [latris.app](https://latris.app): the product website. The Latris app (app.latris.app — the GUI, hosted report links, Word / review-pack / story exports) is built on this open library.
 - [docs/README.md](https://github.com/Shannon-Bengtson/latris/blob/main/docs/README.md): documentation index.
+- [docs/FOUNDATIONS.md](https://github.com/Shannon-Bengtson/latris/blob/main/docs/FOUNDATIONS.md): the methods Latris implements and the literature behind each — a work is cited only where Latris implements it, with limits stated. The report's "Methods and foundations" section, `latris foundations`, and the capability manifest's `foundations` block are generated from the same registry (`src/latris/operations/foundations.py`).
 - [CONTRIBUTING.md](https://github.com/Shannon-Bengtson/latris/blob/main/CONTRIBUTING.md): how to set up a dev environment and submit changes.
 - [LICENSE](https://github.com/Shannon-Bengtson/latris/blob/main/LICENSE): Apache-2.0.
 
