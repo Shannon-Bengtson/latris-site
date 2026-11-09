@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <title>Which model? — Latris's formalisms and when to use each</title>
+  <meta name="description" content="Latris has five ways to answer a causal question — causal loop diagrams, causal DAGs, Bayesian networks, fuzzy cognitive maps and system dynamics. Here's how to choose, and why they're one model, not five." />
+  <link rel="canonical" href="https://latris.app/formalisms/" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg: #f4f1eb; --dot: #d4dcd6; --ink: #1c2420; --soft: #3a4a42; --accent: #2a6b5e; --card: #fffdf9; --rule: #e2ded5; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; font-family: "DM Sans", system-ui, sans-serif; font-size: 17px; line-height: 1.65;
+      background-color: var(--bg); background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+      background-size: 22px 22px; color: var(--ink);
+    }
+    header, main, footer { max-width: 820px; margin: 0 auto; padding: 0 16px; }
+    header { padding-top: 28px; }
+    header a { font-family: "Outfit", sans-serif; font-weight: 700; font-size: 22px; color: var(--accent); text-decoration: none; }
+    main { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; margin-top: 20px; padding: 28px 24px 32px; box-sizing: border-box; }
+    @media (min-width: 860px) { main { padding: 40px 48px 44px; } }
+    h1 { font-family: "Outfit", sans-serif; font-size: 34px; line-height: 1.2; margin: 0 0 6px; }
+    h2 { font-family: "Outfit", sans-serif; font-size: 21px; margin: 32px 0 8px; color: var(--accent); }
+    h3 { font-family: "Outfit", sans-serif; font-size: 18px; margin: 24px 0 4px; }
+    .q { color: var(--soft); font-style: italic; margin: 0 0 6px; }
+    p, li { color: var(--soft); }
+    ul { padding-left: 22px; }
+    li { margin: 4px 0; }
+    a { color: var(--accent); }
+    strong { color: var(--ink); font-weight: 500; }
+    code { background: #eef3ef; border-radius: 4px; padding: 1px 5px; font-size: 15px; }
+    .meta { color: var(--soft); font-size: 15px; margin: 0 0 20px; }
+    .summary { background: #eef3ef; border-radius: 10px; padding: 14px 18px; margin: 0 0 8px; }
+    .summary p { margin: 0; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0 4px; font-size: 15.5px; }
+    th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
+    th { font-family: "Outfit", sans-serif; font-weight: 600; color: var(--ink); font-size: 15px; }
+    td { color: var(--soft); }
+    td:first-child { font-weight: 500; color: var(--ink); white-space: nowrap; }
+    footer { padding: 24px 16px 40px; font-size: 15px; color: var(--soft); display: flex; gap: 16px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <header><a href="/">Latris</a></header>
+  <main>
+    <h1>Which model should you build?</h1>
+    <p class="meta">Latris's five formalisms, what each one is for, and how to choose — the reasoning behind the "Formalise" step in the app.</p>
+
+    <div class="summary">
+      <p><strong>Short answer:</strong> start with a causal loop diagram. It is the cheapest honest answer, and every other formalism builds on it. Add a DAG when someone will ask "can we actually estimate that?"; quantify the same diagram as a fuzzy cognitive map or a Bayesian network when magnitudes or probabilities matter; go to full system dynamics when the behaviour over time <em>is</em> the question. You never redraw — the same factors, links and evidence carry across.</p>
+    </div>
+
+    <h2>One model, five levels of commitment</h2>
+    <p>
+      The five formalisms are not five apps. They're five answers to the same
+      kind of question — <em>what causes what here, and what happens if we
+      act?</em> — at five levels of commitment to that answer. All five are
+      made of the same things: factors and links, where every link is a claim
+      that carries its sources, for and against. What differs is how much you
+      claim:
+    </p>
+    <ul>
+      <li>A <strong>causal loop diagram</strong> keeps every claim qualitative — direction only.</li>
+      <li>A <strong>causal DAG</strong> asks the estimation question: what would have to be measured before an effect could be separated from confounding?</li>
+      <li>A <strong>fuzzy cognitive map</strong> adds soft magnitudes — "strongly" or "weakly" — and simulates the tendency of the mechanism.</li>
+      <li>A <strong>Bayesian network</strong> puts probabilities on discrete states and answers "how likely, given what we know?"</li>
+      <li>A <strong>system dynamics model</strong> commits fully: stocks, flows, units, and numbers you'd defend in front of a reviewer — to simulate how the system behaves over time.</li>
+    </ul>
+    <p>
+      The evidence discipline is identical at every level: a link without a
+      source is a visible gap, a source that argues against the link stays on
+      the record, and the report says which methods were used and what they
+      can't do. That's what makes any of them defensible — and it's why the
+      choice of formalism is a choice about <em>how much you can commit to</em>,
+      not about which drawing tool to open.
+    </p>
+
+    <h2>The five, by the question they answer</h2>
+
+    <h3>Causal loop diagram (CLD)</h3>
+    <p class="q">"How does this work? What feeds back on what?"</p>
+    <ul>
+      <li><strong>Reach for it when:</strong> you're aligning people on the mechanism, hunting for feedback loops and leverage points, or scoping a mess before any data work.</li>
+      <li><strong>You'll need:</strong> argued links — each arrow a claim someone will defend, with a source where one exists.</li>
+      <li><strong>What you get:</strong> the structure of the problem: loops, polarity, where an intervention would bite. No numbers.</li>
+      <li><strong>Honest limit:</strong> arrows are argued, not estimated. A CLD shows where an effect runs, never how large it is.</li>
+    </ul>
+
+    <h3>Causal DAG</h3>
+    <p class="q">"Can that effect even be estimated — and from what data?"</p>
+    <ul>
+      <li><strong>Reach for it when:</strong> you have (or are about to collect) observational data and someone will ask whether the estimate is confounded.</li>
+      <li><strong>You'll need:</strong> a graph you can defend — every edge a causal claim — plus clarity about what could be measured.</li>
+      <li><strong>What you get:</strong> an identification strategy: d-separation checks and valid adjustment sets — what to control for, or a statement that no small set suffices.</li>
+      <li><strong>Honest limit:</strong> Latris answers identification, not estimation. It will not produce an effect size or a counterfactual; it tells you what data would have to exist for someone to.</li>
+    </ul>
+
+    <h3>Bayesian network (BN)</h3>
+    <p class="q">"How likely is each outcome — and what would change my mind?"</p>
+    <ul>
+      <li><strong>Reach for it when:</strong> the question is decision-making under uncertainty over discrete conditions — pass/fail, present/absent, low/medium/high — and evidence arrives piece by piece.</li>
+      <li><strong>You'll need:</strong> states for each factor and conditional probability tables — elicited from experts, learned from data, or mixed (Latris keeps the provenance of every cell).</li>
+      <li><strong>What you get:</strong> exact posterior probabilities: how the picture shifts as evidence comes in, which unknowns matter most, one-way sensitivity with an audit overlay.</li>
+      <li><strong>Honest limit:</strong> discrete states and exact inference on modest networks. If your variables are continuous and tightly coupled over time, system dynamics is the better fit.</li>
+    </ul>
+
+    <h3>Fuzzy cognitive map (FCM)</h3>
+    <p class="q">"Which forces dominate — roughly?"</p>
+    <ul>
+      <li><strong>Reach for it when:</strong> you want more than arrows but can't defend full equations — expert judgement in the form "this pushes hard, that resists weakly".</li>
+      <li><strong>You'll need:</strong> signed, weighted links (in [−1, +1]) and, for scenarios, which factors to clamp.</li>
+      <li><strong>What you get:</strong> steady-state tendencies under interventions — direction and rough strength of the net effect.</li>
+      <li><strong>Honest limit:</strong> semi-quantitative by design. It says which way the water flows and how fast roughly, not what happens in year three.</li>
+    </ul>
+
+    <h3>System dynamics (SD)</h3>
+    <p class="q">"How will this behave over time if we intervene?"</p>
+    <ul>
+      <li><strong>Reach for it when:</strong> the behaviour over time is the question — accumulation, delays, tipping points, capacity trade-offs — and you're prepared to defend equations and parameters.</li>
+      <li><strong>You'll need:</strong> stocks and flows with units that check out, scenario definitions, and — for uncertainty — which parameters are uncertain by how much.</li>
+      <li><strong>What you get:</strong> quantitative trajectories under scenarios, uncertainty bands, which feedback loop dominates when, and charts a board can interrogate.</li>
+      <li><strong>Honest limit:</strong> the most commitment of the five. A precise answer to the wrong structure is worse than a vague one — build the CLD first and quant<|fim_suffix|>start with a causal loop diagram.</strong> It's the cheapest honest answer, it forces the arguments into the open, and every other formalism builds on it. Promote the same model when — and only when — a question arrives that needs more commitment. Choosing later, with evidence in hand, is a feature: you commit to numbers only when the stakes justify defending them.</p>
+    <p>
+      Ready to try it? <a href="https://app.latris.app/">Open Latris</a> — or
+      read the <a href="https://github.com/Shannon-Bengtson/latris/blob/main/docs/FOUNDATIONS.md">methods and foundations reference</a>
+      for the literature behind each method, with its limits.
+    </p>
+  </main>
+  <footer>
+    <span>© 2026 Latris</span>
+    <span><a href="/">Home</a> · <a href="/support/">Support</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
+  </footer>
+</body>
+</html>
