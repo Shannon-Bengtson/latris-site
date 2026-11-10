@@ -4,18 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
-  <title>Latris — structure for defensible reasoning</title>
-  <meta name="description" content="Latris is evidence-native modelling for people who build a causal case and have to defend it — and make it land. Every link has a reason and a source; AI helps you draft while you stay in control." />
+  <title>Latris — causal models that hold up when someone asks "how do you know?"</title>
+  <meta name="description" content="Latris is a modelling workbench for causal arguments that have to survive review — every link carries its reason and its source, AI drafts while you approve, and the report shows its evidence. Free to start." />
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="alternate icon" href="favicon.png" />
 
   <!-- Open Graph / link previews -->
-  <meta property="og:title" content="Latris — structure for defensible reasoning" />
-  <meta property="og:description" content="Build a causal case you can defend — and others can follow. Evidence-native modelling, defensible and fast." />
+  <meta property="og:title" content="Latris — every arrow, backed by a reason and a source" />
+  <meta property="og:description" content="Build the causal case for a decision and keep the evidence with it — what each link rests on, what was checked against the source, and what stays contested." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://latris.app/" />
-  <meta name="twitter:card" content="summary" />
+  <meta property="og:image" content="https://latris.app/assets/river-figure.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -101,7 +102,7 @@
       gap: 56px; align-items: center;
     }
     .hero h1 {
-      font-size: clamp(36px, 4.8vw, 56px); line-height: 1.06; font-weight: 700;
+      font-size: clamp(34px, 4.6vw, 52px); line-height: 1.08; font-weight: 700;
       letter-spacing: -0.025em; margin: 14px 0 22px;
     }
     .hero h1 em { color: var(--teal); font-style: normal; }
@@ -112,7 +113,13 @@
     .sub { font-size: 17px; color: var(--ink-2); max-width: 540px; margin: 0 0 32px; }
 
     .hero-art { width: 100%; height: auto; }
-    .hero-art svg { width: 100%; height: auto; display: block; }
+    .hero-art img {
+      width: 100%; height: auto; display: block;
+      border: 1px solid var(--border); border-radius: 14px; background: #fff;
+    }
+    .hero-cap { font-size: 13.5px; color: var(--muted); margin: 10px 2px 0; }
+    .hero-cap a { font-weight: 600; text-decoration: none; }
+    .hero-cap a:hover { text-decoration: underline; }
 
     /* ── Buttons ── */
     .cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
@@ -145,11 +152,26 @@
     }
     .rule { height: 1px; background: var(--border); border: 0; max-width: var(--maxw); margin: 0 auto; }
 
-    /* ── Two-column heading/body (problem, owners) ── */
+    /* ── Two-column heading/body ── */
     .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 48px; align-items: start; }
     .split h2 { font-size: clamp(24px, 3.2vw, 34px); margin: 0; line-height: 1.12; letter-spacing: -0.02em; }
     .split .body p { font-size: 18px; color: var(--ink-2); margin: 0 0 16px; }
     .split .body p:last-child { margin-bottom: 0; }
+
+    /* ── Real example ── */
+    .example-grid {
+      display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: start;
+    }
+    .example-grid h2 { font-size: clamp(24px, 3.2vw, 34px); margin: 0 0 16px; line-height: 1.12; letter-spacing: -0.02em; }
+    .example-grid .body p { font-size: 17px; color: var(--ink-2); margin: 0 0 16px; }
+    .example-grid .body p:last-child { margin-bottom: 0; }
+    .shot {
+      border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+      background: #fff; box-shadow: 0 2px 0 rgba(31, 80, 69, 0.08);
+    }
+    .shot img { width: 100%; height: auto; display: block; }
+    .shot-cap { font-size: 14px; color: var(--muted); margin: 12px 2px 0; }
+    .example-cta { margin-top: 22px; }
 
     /* ── Three pillars ── */
     .points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
@@ -240,15 +262,21 @@
       background: rgba(255,255,255,0.5); border: 1px solid var(--border);
       border-radius: 18px; padding: 36px 38px;
     }
-    .mono {
-      width: 88px; height: 88px; border-radius: 18px; flex: none;
-      background: var(--teal); color: #fff; display: grid; place-items: center;
-      font-family: "Outfit", sans-serif; font-weight: 700; font-size: 34px;
+    .founder .photo {
+      width: 104px; height: 104px; border-radius: 18px; object-fit: cover; flex: none;
       box-shadow: 0 2px 0 var(--teal-dk);
     }
     .founder h2 { font-size: 22px; margin: 0 0 12px; }
     .founder p { font-size: 17px; color: var(--ink-2); margin: 0 0 16px; max-width: 660px; }
-    .founder .sig { font-weight: 600; color: var(--ink); }
+    .workme {
+      margin: 4px 0 18px; padding: 18px 20px 18px;
+      border: 1.5px solid var(--teal); border-radius: 12px;
+      background: rgba(42,107,94,0.06);
+    }
+    .workme h3 { font-size: 16.5px; margin: 0 0 8px; color: var(--teal-dk); }
+    .workme p { margin: 0; font-size: 16px; }
+    .workme a { font-weight: 600; text-decoration: none; }
+    .workme a:hover { text-decoration: underline; }
     .linkedin {
       display: inline-flex; align-items: center; gap: 8px;
       font-family: "Outfit", sans-serif; font-weight: 600; font-size: 15px;
@@ -316,6 +344,7 @@
       .hero-grid { grid-template-columns: 1fr; gap: 40px; }
       .hero-art { max-width: 460px; margin: 0 auto; }
       .split { grid-template-columns: 1fr; gap: 18px; }
+      .example-grid { grid-template-columns: 1fr; gap: 26px; }
       .points { grid-template-columns: 1fr; }
       .outputs { grid-template-columns: 1fr; }
       .usecases { grid-template-columns: 1fr; }
@@ -345,6 +374,7 @@
         <img src="latris-wordmark.svg" alt="Latris" />
       </a>
       <nav class="nav">
+        <a href="#example">A real model</a>
         <a href="#why">Why Latris</a>
         <a href="#owners">For owners</a>
         <a href="#about">About</a>
@@ -362,26 +392,23 @@
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Evidence-native modelling</p>
-          <h1>Build a causal case you can <em>defend</em> — and others can follow.</h1>
+          <h1>Causal models that hold up when someone asks <em>"how do you know?"</em></h1>
           <p class="lead">
-            If your work comes down to a causal argument — the drivers, the
-            evidence, the logic connecting a decision to its outcome — Latris
-            is where you build it, justify it, and make it land.
+            Latris is a modelling workbench for work that lives or dies on a
+            causal argument — a catchment plan, a program's logic, a risk case.
+            Every link between factors carries its reason and its source.
           </p>
           <p class="sub">
-            Today that lives in a sketch in Miro, a draft in ChatGPT, citations
-            in a reference manager, and a report in Word — and the reasoning
-            only really exists in your head. Latris pulls it into one place:
-            every link has a reason and a source, AI helps you draft while you
-            stay in control, and what comes out is clear enough that the people
-            who need to act on it can see exactly why.
+            AI does the drafting; you stay the approver. What comes out is a
+            model and a report that show their work — what each arrow rests on,
+            what was checked against the source, and what stays contested.
           </p>
 
           <div class="cta">
             <a class="btn btn-primary" href="https://app.latris.app/">
               Open Latris →
             </a>
-            <a class="btn btn-ghost" href="#contact">Get in touch</a>
+            <a class="btn btn-ghost" href="#example">See a real model</a>
           </div>
 
           <p class="access">
@@ -391,48 +418,100 @@
           <p class="platforms">Runs in any modern browser — nothing to install.</p>
         </div>
 
-        <!-- Decorative: a small causal model (a feedback loop) -->
-        <div class="hero-art" aria-hidden="true">
-          <svg viewBox="0 0 480 420" role="img">
-            <defs>
-              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                <path d="M0 0 L10 5 L0 10 z" fill="#2a6b5e" />
-              </marker>
-              <marker id="arrowT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                <path d="M0 0 L10 5 L0 10 z" fill="#c9845e" />
-              </marker>
-              <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1c2420" flood-opacity="0.10" />
-              </filter>
-            </defs>
+        <div class="hero-art">
+          <img src="assets/river-figure.png"
+               alt="A Latris causal diagram of river health: factors such as nutrient loads, riparian cover, algal blooms and dissolved oxygen connected by arrows" />
+          <p class="hero-cap">The actual figure from the river-health example below —
+            <a href="#example">every arrow links to its evidence</a>.</p>
+        </div>
+      </div>
+    </section>
 
-            <path d="M168 92 C 230 78, 270 74, 300 78" fill="none" stroke="#2a6b5e" stroke-width="2.5" marker-end="url(#arrow)" />
-            <text x="236" y="64" font-family="Outfit, sans-serif" font-size="20" font-weight="700" fill="#2a6b5e">+</text>
-            <path d="M366 110 C 372 160, 372 200, 366 234" fill="none" stroke="#c9845e" stroke-width="2.5" marker-end="url(#arrowT)" />
-            <text x="380" y="180" font-family="Outfit, sans-serif" font-size="22" font-weight="700" fill="#c9845e">−</text>
-            <path d="M300 268 C 250 282, 210 284, 168 276" fill="none" stroke="#2a6b5e" stroke-width="2.5" marker-end="url(#arrow)" />
-            <path d="M96 240 C 86 196, 86 150, 96 116" fill="none" stroke="#2a6b5e" stroke-width="2.5" marker-end="url(#arrow)" />
-            <text x="58" y="186" font-family="Outfit, sans-serif" font-size="20" font-weight="700" fill="#2a6b5e">+</text>
+    <hr class="rule" />
 
-            <g filter="url(#soft)" font-family="Outfit, sans-serif" font-size="15" font-weight="600">
-              <g>
-                <rect x="36" y="62" width="132" height="48" rx="11" fill="#ffffff" stroke="#2a6b5e" stroke-width="2" />
-                <text x="102" y="91" text-anchor="middle" fill="#1c2420">Driver</text>
-              </g>
-              <g>
-                <rect x="300" y="56" width="140" height="48" rx="11" fill="#ffffff" stroke="#2a6b5e" stroke-width="2" />
-                <text x="370" y="85" text-anchor="middle" fill="#1c2420">Outcome</text>
-              </g>
-              <g>
-                <rect x="300" y="234" width="140" height="48" rx="11" fill="#ffffff" stroke="#c9845e" stroke-width="2" />
-                <text x="370" y="263" text-anchor="middle" fill="#1c2420">Pressure</text>
-              </g>
-              <g>
-                <rect x="36" y="240" width="132" height="48" rx="11" fill="#ffffff" stroke="#2a6b5e" stroke-width="2" />
-                <text x="102" y="269" text-anchor="middle" fill="#1c2420">Evidence</text>
-              </g>
-            </g>
-          </svg>
+    <!-- ── Real example ── -->
+    <section class="band" id="example">
+      <div class="wrap">
+        <div class="example-grid">
+          <div class="reveal">
+            <p class="eyebrow">A real model, not a demo</p>
+            <h2>See it on a real question.</h2>
+            <div class="body">
+              <p>
+                <strong>Is this river getting sick — and where would restoration
+                money do the most good?</strong> This model, a causal loop
+                diagram of an Australian river, is built entirely in Latris from
+                public sources: the national State of the Environment report
+                and the published literature on riverside vegetation.
+              </p>
+              <p>
+                Click any arrow in the live model and you get its reason, its
+                source, and the exact quote the source was checked against.
+                One of the arrows is openly challenged — the caveat sits on
+                the record next to its evidence, because that's what a
+                defensible model looks like.
+              </p>
+              <div class="example-cta">
+                <a class="btn btn-primary" href="https://app.latris.app/open#tVrbjhy3Ef0VYl4sIXORrMR2RkAMSZYSIfEllhE9BMaC082ZIZbdbJHsHU0MAfmIfGG-JKeq2LfZGe3KSR7iaKfZZF1PnSr2L7NaV2a2nv1ob0xQe6Nd2qt___NfSquDD9emVOa9rhpnZvPZu9bEZH2N5W_3On0WVRnsja13Ku1tVIG2wI-N90EVvi4tLZ4rXZfqsDfBYMfWlSpgFx80PVSVr81RlR47GPwRk9p5X36Nw2Jjitn6l1nlS-Ou0rEhKQtX4hH2TuZ9oqcbXVzvgm_rEk-fYesddtVOPWtjCtpZXYtYyuIs-96Ui60OFYlc4KUUjiru_SHy8W1s8Wa0uzoqv1XYwMS4VrGtKmywca1Z7IIxtdJuh4Ub530V52pr416VRqd9VHqbyIo-wTLYujHORTFAY0K0MZk6uaMqnG_LozporF6qZ6rQqdhXeKY2XodSwZilKWxJcorlbtsMcpMxdx4ChJiWsItuS2vqwrAphj0rXeudGW1_MHa3p73bZrIx5K3pTJGYTKLLGxshOX6IBxPY1V5ZPm1DVtfhiNNe493CN2YNMy_IbroaAoA3symq2ujQPW3Iti3-w7FWtylA8gRbRVNaElVkYN9FWxp1Y3YmsZhL9X2b2EFy5Nb5Azu-MvxO4WwFw86VxAUbec7aQNUWAsvW0RcWXqR_GsjqK1so36bCVyaSerZOrc3R_hNeFtOZ9whL6EJRpEJb--2WLLIxEsAaYdYEv3GmklO69WxMtmFe_lnjNBxCv290fR0lS7RNny1nH-azLMlJYkKsrS7grzhb__2XmdMb47Dku2w-5bwuIxZdW84HqFWYJuGH0sQi2Car851Nwe-MeKbZ-4j_hRYJbHSxl3Q2OW22wVdqa0KyDoFQKghdwknJF9dDlCR_qMlk0behMCQb_mk-f_T549nPH-aDnD_aRgdKycGZCBMccw-RsfpG_GsrWPgGsox20c6PxR4siuDwJUwNv2wpfA1Zd5Do-fmkvlueNx0o0HIKxuKoaw80QrBZDVCAfBvKcIQJMNM5SXaWqYt2ZepgJUenUv3Uhg2SPx3vluMFIYmtkUwkBBlAzmG_xZYzGqJ0WcXnk6YndvjGxugdGdW_PyIy7j74e16n9I222MQZAtjh-MK7tgL0l_ooKgNwTpTMHmX0bHzTOvbkPUz_U-dllJp62GQO_Ib8jJZaEi4mnL0g16MgIcmd39kCTu6haSrRSabdQwyKXQ3fntu784fkEaHcATVTEr4DeV1wFWL7QUaI8_N85iyCl_ObnHhH2iR_Lv8b7_BGImhe4E_kdWSZ_yYbUGy22y3hOlDOBNKvAzPOaX1tqDb0sAzAgniMcUdBicHXSynIW4C0lJ49fD0Fg5AVACI8EUS4r2bjTLik1I_eQ0L4esMYNYJTMIBmCP1E5hcG4iF9ONBirsS_XhlwIldeHUwiXLT11k_Uu-UX1uky5ow0_M1Yw5fvC0rwwR1afKG2rXES3Hjkmz0ikGz4tMMlWkeVlziNTii399BvgtxZkcsis0Zn0OOSs97usUeWDmSF3QSq46vGR5TsDkApjcC7zOAZJLtsfg8VUGfLxl4RKlwDeiM_va3VOLgkjy5C0iV13gwI650tkSgIhGuTZI8dHc4qQuPimpVxhIRKv2uxd6GYBBAzMuWv0-tj4XfGLfdXcxKAr5jiBn0gFWzI-0mRGUA_7UG4dvu8hpV_iswGESaGVp5Ig-q03XoErGGwrn6N_p8QoxeQZKLmc4nLBvSSayS7zoedruEqcMrEfUTyZwqd3kSPA0BCmFsWvJj-dFL5TnSrAEptNdXuY668FaqfDiKyxbxHkQVxj44t6BvIAc33x-QpJq8TFTAqXAHoCp_lQKUylitrQgQhbKXSyun_tZqXI5OVPinQlzQd70IIiHapK8bMCLj44nQ4CUyaf59Ubd21jMyIyy6ub2m3OS5Ks7W1dAlUugc1f5ldGxKswx1oYJOjt96yxZH_DqKrB69rJ8yfo2mvG_z_w_nQv2ZTZ_lNfWODr7me5X11m_bSEMy-MShNiR9i_Qvpg9SLvQbvnauXtQm7o3RCL0f70PEi1INR1_xH8j4veDiDZkf0brM1HSntNwg1qjT6zHvL2QbiWPuUmrherWCXZVkUxhyWO3-z1O3KsiEWbIjV6P0V_7LIBmPCJqY9g4adjRmv_szoC_b33Zu3HLivgnnXSgP-LNJk4695nhGnZqT1U1P-EGBK4NjruiR9LSDrAZ1h6J8T-zw-sQ_v9cNr1a--ZYnD4bCEHkuo05ni6qrUSa90jCbFVVNuoaQzq0ePHn25-uLJb3_35aMV7bdgDRevnv118azdQbAFnb_E-pGVTuhKZyFiry9QdYNBQY6ULj-asi04BV7oRhcUnND8FT_qaNrfBpr2nAmkegNrNJE5SGekH7xzbWK4gPHftAEtK_Zgejk19LdkmWdN4yyc8abg2UVUj588-OLh-slXv_9qEnhPTgLv9LUHtNtc-YYgsSDC9PCsrSsyNgjH6vNHX36xePLbx1-uHj9ZfbHiAwe7ncLUYLoXgjoyawDvb5E4b2Xla6x8-LGcPMm9ufoJr9tYzTs9eNfXde1vxMwPEKNwEGPEpZQ8scxIltsGGDRalgguu4SeXdjlh3El7cxxxbSsJsaZkxD1IVKXsyrEBitGPcRpWzWSSIR8MpvjEOPhHQGppC8D81pl4KY0InzGZmDoVJo8Dat2ANQWvRYqL02nIAF4erI8liH_5O3HKM-wrj7S6FFHqNGAeWee4ogieFvDmMlsAhMQboszJxuPFSAdC0VqOOFoSQc8v1ys1OIPalKoRjK_OhlVZd5kqgZ9JPFzYfaoOlRzIXOedM4nUqg8AwJdNoVuyTo0fpXig34nqdIXbcWdgnAxg1ylKZSvgX22LqiEJTSuR-k43_U4iIB9yx106U28x6B2rTp8EYbAw8N-vjEMHufkzA3aLprsvo65Mc5vmhspqTRxpTGOqYVGeuQxsgbsagd71tzJwDRucfABTZwoRU-oObLZWBGW-5rSA7UUxkLlk6CE19gk466za4ILEL56PBPre0Zb867Bs91pmBf4Adm-lWY-ajgz2z6Yxge2OlrNkajBVEhodyLyjeZKsiN3wy8Hm_aK27Rx5Epsluju8K-kiBR3rboMPil-l4qSrZ_4LsA_nRn8sMF5W8sA1HmJRAJgRNXC8IGw46lqrEOUieSghrJJ7vw5dRZ-uxjGytz5TDLiYjtPOXHSDFPc0Yw79rDBBCK7aJQo89tZIpPH0XiX08a8L1xbSt7kDCHpJH41Q_d3Iyq4JeDOhE2GV5RDF5MHPfQ_DPWsAX-441OZhTBAIADKbvzVDcVHyYtHCEpdCnqNtbyEIF17n4fAA1k91efV-Oohv8S52elAAzEaQTZYctDHTsoRVDx4418yRXuqMld5KObt6bMeWDPR4YWX6btw5PEo7WcempsAUiHOF7eaIk_MkN5gGBTeV3SnQlcHIPEBjf-kWuw1-YESPnsxTxBrap7r6zjPLRlN-zTHgDB8MdY6Cybgi8Q4-NFlA5ebnNA8dRvfPkhk9lNt52WoGi5GNV-T5dX7fCEQVe4PO-cNXTG6NZm3UVtEZJljIa5P7pNOG-U8Z-86wKX6viakoRoeCm4xvW8Q_TYm7JVnKydzrfEeH28BK8r23M6pl9S9J74SMA51hkaWZOwFxRIA1uYZwGBgKJ8Vz-Heex-0CjSW75fiyO_nlFlfumwD2tHQrrfFiWnUA8HQbk72sNfq0n5y0SmtC4M2gWJiYES1MW6raPpLF0eIFqLwZTYKZ9QwAJnE1MQa42jM8TGMSSZDhPVowEd3RCIhGVTmJcnnOfekQlG09frnJUt1GYmtFF9mApJfHShI9rEVtJAFrti9OqwyFyGyyal7I7URgLM8Yemz2kaJmhEBlJPmQCHQGihdoagSWxttAR21A9eMjAYb8htst0TH1u_icivbg2QU6Ot2MV0i9tEu6U1arOHdzhKGb4EbEMKeoY_jkd3AUTnvLzIZhhhLAhM1LsrDaECq8UCMKFIKHbjY94ameSa1Kj1NYXvQZYNruSaKJ5zBDp64T3fhuzEyleBQP-BEVKgQiF5pHmboOusQ06mPRkT9ytnKpmHwd7e_2GZM1bsqSO8KM5XayDCNv8DVKclZIXpH1_TrEcUmAjb4FkQPRARH74Ku8mQeB3HC0N0ZOtOl-rU0f6mIQ8zvpg1nKbaALPl5QizX2bQXOOi4WGRuCfayJ5ClCnVCEjUzwCPZYEIBnZ_oFE-92NHlq51uxr77VM4UiRG2iW_Xh_zvWgpkZpY3w0PRhsC07w6K9AnMSBJFztUO0eJ0wVc3Rwo_hEeOv2AyM9rbRiq2l6KUYwooAdW3OtweMm81DYFgBBBdYcCc0NyPjCOxvxITrm6IGJc80yb_d5z3szj2i3pO8MiKQplFg_Tib2YuOowRGB3RyGkv-ToAYg38hrHiqCT5YxqFTv6kgOtPbBsKI_6SJSfyCCsJIHg-sTcFTbr0jmqaNCzMSf-iAYpkN1ciRpnvc_Cxp_NL71pPEz3arvChFG9Nhp6SIeyR8cw1nmevspBnxn10DYk2H3JHKlWggRTpN-Vnc87IDjVzSo6sEVNbHgldD4ADmcPAoi2Le9qX3d2P3ZWM8k3HVfJX_cdR5zgtlxeunadkU2zV19i-6c1f9ZDNj_yZlSTphL10zch8NIPnZvZWGhCWSl6OLtsoQAgz8ppcD0etA41V5dOp08-phDlVcieMH7WqsNay2IiAnPLPtb7Wq-c6XOvFNzo45pE3jBuI-M8fPf5q8fj3o961E6HjgP8zJsuliOPkCBivqCRx6Hckz5IG_NkaU8Hz_KlnThCQcvAcVRozJDbR1tAnP6ObW7I5BVtH4ET9PXaNVCpvEHuEzLxnZgA4S6J8GJQQ5nXTC4KcbhwhHxjY8F8GuXrjBfkkenN2UW2tPDIfhi3ztIBHBVI79bkhwa0yD7XooxDoe5pKtmpcvsCelDV4RZ9-IbfGftbTDDGa8_Omro59lOiR8xcfY3vYGJbpgSmYUTz4emIPGZqg2O4lNGqKA56hIPoseY28emtoNSaEPc9gQASD8UEYLCE2l5csdyZkUiS3R4F1anQl_khwk9Gem8MO_nliJI-HkSPdNXRjHmADaGGS7w4vTXymbht47xVdWMTIw43Bf3-akuNxlyOw1qVoB2qmcQZ153wbPMKraevH_TeDD6Ud--K0-Gm16yfoHbnpi96tYvct311OJO_MLGU694vyqUwPwItBJAmjnDzyPZimUNi57gJ1LE-e_zeI4CXd2U3q2-lo7zLv7BJOcKUbuZhJ5FDcHcBzB9meSjqAv9FCYRiZ1NFUjD9ga-vrmj_0m_qfupird6ObtM7x_-dBsvrUMTLl4yiWJTNlssy4PunGJBLOY-jX6lke-kxY6hb9vz8s2iaumY9mMWy8GBxjjtl90bYds3j5crr_bGngqgI20KulKX7XNckLuXX6evbh5w8f_gM">Open the live model →</a>
+              </div>
+              <p class="shot-cap">Opens in the Latris app. No account needed to read it.</p>
+            </div>
+          </div>
+          <div class="reveal" style="transition-delay:.08s">
+            <div class="shot">
+              <img src="assets/report-screenshot.png"
+                   alt="The client report for the river-health model: the answer, the diagram, and the evidence section with a checked source quote" />
+            </div>
+            <p class="shot-cap">The report the model generates — answer first,
+              then the diagram, then the evidence, including the quote each
+              source was checked against.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── Founder / About ── -->
+    <section class="band" id="about">
+      <div class="wrap">
+        <div class="founder reveal">
+          <img class="photo" src="assets/shannon.jpg" alt="Shannon Bengtson" />
+          <div>
+            <h2>I'm Shannon Bengtson. I build Latris, and I use it.</h2>
+            <p>
+              I work on causal modelling in the environment, water and policy
+              space — the kind of project where a catchment board or a client
+              asks <em>how do you know?</em>, and "trust me" isn't an answer.
+              I've watched careful reasoning get lost too many times: a model
+              built in a hurry, the evidence scattered across documents, and
+              six months later nobody can say why a particular arrow is on
+              the page.
+            </p>
+            <p>
+              Latris is my attempt to fix that. The structure and the evidence
+              stay together from the first sketch, AI does the drafting, and a
+              person keeps the pen — so the result survives the meeting where
+              it gets interrogated, and it still makes sense to whoever
+              inherits it later.
+            </p>
+            <div class="workme">
+              <h3>Work with me</h3>
+              <p>
+                I take on a small number of modelling engagements. A scoped
+                pilot with your team: we pick one live question, build the
+                model together in Latris, and you keep both the report and the
+                model itself. If you're weighing a question that needs a
+                defensible answer, <a href="#contact">get in touch</a> — tell
+                me what you're working on and I'll tell you honestly whether
+                Latris fits.
+              </p>
+            </div>
+            <a class="linkedin" href="https://www.linkedin.com/in/shannon-bengtson/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+              Connect on LinkedIn
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -442,22 +521,22 @@
     <!-- ── The problem ── -->
     <section class="band">
       <div class="wrap split">
-        <h2 class="reveal">Good thinking gets lost in the gaps.</h2>
+        <h2 class="reveal">Most of the reasoning never makes it into the model.</h2>
         <div class="body reveal" style="transition-delay:.08s">
           <p>
-            Building the model is only half the job. The other half —
-            assembling the evidence behind every link, recording what you
-            considered and ruled out, turning it into something a client or
-            reviewer can trust — is slower, and it's where the work falls
-            apart. Provenance scatters across five tools, and six months later
-            no one can say why a particular arrow is on the page.
+            The diagram is the easy part. The work that takes the time — and
+            the part that decides whether anyone trusts the result — is
+            everything behind it: the evidence for each link, what you
+            considered and ruled out, the assumptions you'd have to defend in
+            a meeting. That usually lives across five tools, or in your head,
+            and six months later nobody can say why a particular arrow is on
+            the page.
           </p>
           <p>
-            AI makes this sharper, not softer: the easier it gets to generate a
-            model, the more every relationship needs a reason to exist. And the
-            tools built for this are either a decade out of date or so
-            specialised that only their author can drive them — so the findings
-            never really leave your screen.
+            AI has made this sharper, not softer. When a model takes an
+            afternoon to generate, every relationship needs a reason to
+            exist. Latris records the reason when the arrow is drawn — and
+            keeps the disagreement on the record when there is one.
           </p>
         </div>
       </div>
@@ -468,39 +547,40 @@
     <!-- ── Use cases ── -->
     <section class="band">
       <div class="wrap">
-        <p class="eyebrow reveal">Where Latris fits</p>
-        <h2 class="lead-h2 reveal">Built for work like this.</h2>
+        <p class="eyebrow reveal">Who it's for</p>
+        <h2 class="lead-h2 reveal">People who have to defend the reasoning.</h2>
         <p class="lead-p reveal">
-          Latris suits work where the reasoning is causal and the stakes make it
-          worth defending — whether you're a consultant, a researcher, or an
-          in-house team. It's built around two kinds of work:
+          Consultants, researchers and in-house teams working on causal
+          questions where the report will be read by someone whose job is to
+          ask hard questions — a board, a reviewer, an auditor.
         </p>
 
         <div class="cluster reveal">
-          <h3 class="cluster-h">Systems thinking — environment, health &amp; policy</h3>
+          <h3 class="cluster-h">Environment, water &amp; policy</h3>
           <div class="usecases">
             <div class="uc">
-              <h3>Environment &amp; natural resources</h3>
-              <p>What's driving change in a catchment or ecosystem — and which interventions actually move the needle?</p>
+              <h3>Catchments &amp; ecosystems</h3>
+              <p>What's driving change in a river or ecosystem — and which interventions actually move it?</p>
+            </div>
+            <div class="uc">
+              <h3>Programs &amp; policy</h3>
+              <p>The causal logic behind a program or policy, made explicit, sourced, and reviewable.</p>
             </div>
             <div class="uc">
               <h3>Public health &amp; wellbeing</h3>
               <p>Mapping the causes behind an outcome to target where action will help most.</p>
             </div>
-            <div class="uc">
-              <h3>Policy &amp; programs</h3>
-              <p>The causal logic behind a program or policy, made explicit, sourced, and reviewable.</p>
-            </div>
           </div>
           <div class="models-row">
             <span class="models-label">Available now</span>
+            <span class="model on">System dynamics</span>
             <span class="model on">Causal loop diagrams</span>
-            <span class="model on">Fuzzy cognitive maps</span>
             <span class="model on">Directed acyclic graphs</span>
+            <span class="model on">Bayesian networks</span>
+            <span class="model on">Fuzzy cognitive maps</span>
           </div>
           <div class="models-row">
             <span class="models-label">Coming soon</span>
-            <span class="model">System dynamics</span>
             <span class="model">Theory of change</span>
           </div>
         </div>
@@ -510,23 +590,15 @@
           <div class="usecases">
             <div class="uc">
               <h3>Natural hazards &amp; risk</h3>
-              <p>How the factors behind a hazard combine, where the risk is most sensitive, and what the evidence says.</p>
-            </div>
-            <div class="uc">
-              <h3>Infrastructure &amp; engineering</h3>
-              <p>Reliability and failure reasoning, with the evidence behind each link kept on the record.</p>
+              <p>How the factors behind a hazard combine, and where the risk is most sensitive.</p>
             </div>
             <div class="uc">
               <h3>Safety &amp; assurance</h3>
-              <p>Claims, arguments, and evidence laid out so a reviewer or regulator can follow — and challenge — every step.</p>
+              <p>Claims and evidence laid out so a reviewer or regulator can follow — and challenge — every step.</p>
             </div>
           </div>
           <div class="models-row">
-            <span class="models-label">Available now</span>
-            <span class="model on">Bayesian networks</span>
-          </div>
-          <div class="models-row">
-            <span class="models-label">Coming soon</span>
+            <span class="models-label">On the roadmap</span>
             <span class="model">Fault trees</span>
             <span class="model">Event trees</span>
             <span class="model">Bow-tie diagrams</span>
@@ -535,25 +607,28 @@
         </div>
 
         <p class="note-p reveal">
-          Every model type shares one evidence, provenance, and review layer underneath.
-          System dynamics — stocks, flows, unit-checked equations, and simulation —
-          is already in the open-source engine and CLI; the visual stock-and-flow
-          editor in the app is on the way.
+          System dynamics is the deepest capability: stocks and flows with
+          unit-checked equations and delays, scenarios, Monte Carlo
+          uncertainty, sensitivity, and per-step loop dominance (the Loops
+          That Matter method) — every parameter carrying where it came from.
+          It runs in the open-source engine and CLI today; the visual
+          stock-and-flow editor in the app is on the way.
         </p>
 
         <p class="note-p reveal">
-          Bayesian networks: set up states and conditional-probability tables,
-          then click a node to enter evidence and watch the belief bars update
-          across the network. Sensitivity analysis and learning tables from data
-          are in the open-source engine and CLI today.
+          Bayesian networks: set states and probability tables, click a node
+          to enter evidence, and watch beliefs update across the network —
+          with soft evidence, most-likely explanations, and how sure a
+          probability is when the tables are estimates. Not sure which
+          formalism fits your question?
+          <a href="/formalisms/">Which model should you build?</a> walks the
+          five by the question each one answers.
         </p>
 
         <p class="note-p reveal">
-          Don't see your field or your method? The underlying approach is general
-          — if your reasoning is causal, it probably fits. Other formalisms
-          (decision analysis, process models, and more) aren't on the roadmap
-          right now — if your work needs one, say so.
-          <a href="#contact">Get in touch</a> and tell me what you're working on.
+          Don't see your field? If your reasoning is causal, it probably
+          fits — <a href="#contact">get in touch</a> and tell me what you're
+          working on.
         </p>
       </div>
     </section>
@@ -567,18 +642,18 @@
         <div class="points">
           <div class="point reveal">
             <div class="dot"><span style="background:#2a6b5e"></span></div>
-            <h3>Defensible</h3>
-            <p>Every link has a reason and a source. Provenance, evidence, and challenge are built into the model — so when someone asks "why is this arrow here?", there's an answer, not a shrug.</p>
+            <h3>Every arrow carries its evidence</h3>
+            <p>Each link holds its reason and its sources. When someone asks "why is this here?", the answer is a click away — not a memory.</p>
           </div>
           <div class="point reveal" style="transition-delay:.09s">
             <div class="dot"><span style="background:#c9845e"></span></div>
-            <h3>Clear</h3>
-            <p>Your model becomes something others can follow — a clean diagram, a sourced report, a plain-language walkthrough — without you in the room to narrate it. Honest about what it can't say, because the uncertainty is measured, not spun.</p>
+            <h3>One model, three outputs</h3>
+            <p>The same versioned model makes the diagram, the sourced written report, and the plain-language walkthrough for the person who just wants the why.</p>
           </div>
           <div class="point reveal" style="transition-delay:.18s">
             <div class="dot"><span style="background:#3d8b7a"></span></div>
-            <h3>Fast</h3>
-            <p>AI drafts and reviews while you stay in control. One tool instead of five. Get to a credible, sourced model in an afternoon — fast enough that you actually do the defensible version.</p>
+            <h3>AI drafts, you approve</h3>
+            <p>Agents propose structure, checks and prose; nothing enters the model until a person approves it. Every proposal and approval stays on the record.</p>
           </div>
         </div>
       </div>
@@ -590,25 +665,26 @@
     <section class="band">
       <div class="wrap">
         <div class="split">
-          <h2 class="reveal">Built for the moment it leaves your desk.</h2>
+          <h2 class="reveal">Made to be handed over.</h2>
           <div class="body reveal" style="transition-delay:.08s">
             <p class="eyebrow">Findings that travel</p>
             <p>
-              Most modelling tools assume you'll be standing next to the screen,
-              explaining. Latris assumes you won't. The same versioned model
-              produces what each audience needs, and the reasoning travels with
-              it — click any claim and trace it back to the evidence behind it.
+              Most modelling tools assume you'll be standing next to the
+              screen, explaining your thinking. Latris assumes you won't be.
+              The report is written to be read without you in the room — and
+              every claim in it traces back to the model and the evidence
+              behind it.
             </p>
           </div>
         </div>
         <div class="outputs reveal" style="transition-delay:.12s">
           <div class="chip">
             <p class="k"><i style="background:#2a6b5e"></i>Board-ready diagram</p>
-            <p>A clean, grid-aligned picture of the system — presentation-quality without a trip through another tool.</p>
+            <p>Typeset and evidence-aware: solid lines for established links, dashed for the ones still argued.</p>
           </div>
           <div class="chip">
             <p class="k"><i style="background:#c9845e"></i>Sourced report</p>
-            <p>The written case, with every claim tied to its evidence and assumptions made explicit.</p>
+            <p>The written case, with every claim tied to its evidence — as a hosted page or in Word.</p>
           </div>
           <div class="chip">
             <p class="k"><i style="background:#3d8b7a"></i>Plain-language story</p>
@@ -627,52 +703,19 @@
         <div class="owners reveal">
           <div>
             <p class="eyebrow">For the people who own the decision</p>
-            <h2>When the model isn't yours, but the risk is.</h2>
+            <h2>You sign off the model. You should be able to read it.</h2>
           </div>
           <div class="body">
             <p>
               If you commission, sign off, or inherit model-backed work, you
-              carry the risk without having built the thing. Latris gives you
-              the answers you actually need: what assumptions drove this result,
-              who changed what and when, which version backed the decision, and
-              whether another team could pick it up in eighteen months. The full
-              history is kept automatically — Latris becomes the institutional
-              memory around the analysis, not just the place it was drawn.
+              carry the risk without having built the thing. Latris answers
+              the questions that actually matter at sign-off: what
+              assumptions drove this result, who changed what and when, which
+              version backed the decision, and whether another team could
+              pick it up in eighteen months. The full history is kept
+              automatically — the model becomes the institutional memory
+              around the analysis, not just the drawing.
             </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <hr class="rule" />
-
-    <!-- ── Founder ── -->
-    <section class="band" id="about">
-      <div class="wrap">
-        <div class="founder reveal">
-          <div class="mono" aria-hidden="true">SB</div>
-          <div>
-            <h2>A note from the founder</h2>
-            <p>
-              I'm Shannon Bengtson — I design and build Latris. I've spent enough
-              time around people who build the causal case behind a decision to
-              watch the same thing happen again and again: careful reasoning gets
-              built in a hurry, the evidence behind it lives in scattered
-              documents, and six months later no one can say why a particular
-              arrow is on the page.
-            </p>
-            <p>
-              Latris is the tool I wished existed — structure, provenance, and AI
-              assistance that keep pace with the work, so the result holds up
-              when someone asks hard questions, and travels to the people who
-              need to act on it. It's early, and the people I'm bringing on now
-              genuinely shape where it goes. <span class="sig">If that resonates,
-              I'd love to hear from you.</span>
-            </p>
-            <a class="linkedin" href="https://www.linkedin.com/in/shannon-bengtson/" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
-              Connect on LinkedIn
-            </a>
           </div>
         </div>
       </div>
@@ -690,22 +733,29 @@
         <div class="body reveal" style="transition-delay:.08s">
           <p>
             The modelling engine behind Latris is open source (Apache-2.0) —
-            a deterministic, git-native CLI and API designed to be driven
-            from a terminal or by an agent: schema-validated models,
-            provenance on every mutation, evidence and challenge as
-            first-class data. <a href="https://app.latris.app/">The hosted
-            app</a> is a browser GUI built directly on this same
-            engine — same git history, same schema, same CLI underneath.
-            Both are open to anyone today.
+            a deterministic, git-native CLI and Python library designed to be
+            driven from a terminal or by an agent. <a href="https://app.latris.app/">The hosted
+            app</a> runs the same engine underneath: same schema, same
+            history, same analyses.
           </p>
           <p>
-            No API key? If you work with an AI assistant in your terminal,
-            it can answer Latris's structured prompts itself — your agent
-            does the drafting, you stay the approver, and every step stays
-            on the record.
+            <strong>What you get where.</strong> The open-source library
+            (<code>pip install latris</code>) is the engine and CLI: every
+            analysis, a Markdown report with a diagram sketch, and
+            <code>latris link</code>. The Latris app (free account, nothing to
+            install) adds the hosted interactive report — the typeset figure,
+            result charts and interpretation that a board actually reads — the
+            visual editor, Word reports, review packs, the scrollytelling
+            story, and saved models with short links.
           </p>
           <p>
-            <code class="install">pip install "latris[server,data]"</code>
+            Working with an AI assistant? It can drive the whole CLI with no
+            API key — your agent drafts, you approve, every step stays on the
+            record. Agents start at <a href="/llms.txt">llms.txt</a>, which
+            maps the documentation and the working rules.
+          </p>
+          <p>
+            <code class="install">pip install "latris[data,quant]"</code>
           </p>
           <p>
             <a href="https://pypi.org/project/latris/" target="_blank" rel="noopener">Latris on PyPI</a>
@@ -741,10 +791,8 @@
           </p>
           <p>
             A work is cited only where Latris actually implements it, with the
-            limits stated next to the results. Choosing which formalism to
-            build? <a href="/formalisms/">Which model should you build?</a>
-            walks the five by the question each one answers. The full account
-            of the methods — with references — is in the
+            limits stated next to the results. The full account — with
+            references — is in the
             <a href="https://github.com/Shannon-Bengtson/latris/blob/main/docs/FOUNDATIONS.md">methods and foundations reference</a>,
             and every report carries a methods section generated from the
             same source of truth.

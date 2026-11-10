@@ -6,7 +6,7 @@
 > human-approved structured proposals. This file maps the documentation
 > for AI agents; humans start at https://latris.app.
 
-Install: `pip install latris` (Python 3.11+, git). The guide for AI agents ships with the package — `latris docs` prints it with no network — and `latris capabilities` lists what Latris can do. Source: https://github.com/Shannon-Bengtson/latris (Apache-2.0).
+Install: `pip install "latris[data,quant]"` (Python 3.11+, git; the extras add SD integration and Bayesian inference). The guide for AI agents ships with the package — `latris docs` prints it with no network — and `latris capabilities` lists what Latris can do. Source: https://github.com/Shannon-Bengtson/latris (Apache-2.0).
 
 ## Project
 
@@ -43,6 +43,7 @@ Install: `pip install latris` (Python 3.11+, git). The guide for AI agents ships
 - Checking a source: `latris evidence check "<from> -> <to>" polarity <bibkey> supports|against|off-topic --rationale "..."` records whether the source supports the claim (a person by default; `--by ai --quote "..."` for an agent that read it). Until then reports say "not yet checked against the source".
 - Before handing over: `latris check handover` lists what's left (unsourced links, unchecked citations, unapproved findings, sections without prose, contradictions) with a fix for each; exits 1 until clear.
 - Evidence against a link: `latris evidence add <link> polarity <bibkey> --contradicts` (or `contradicts: [<bibkey>]` on a link in a build spec). It stays on the same link as the supporting sources; reports show both sides under "Contested links" and it doesn't count toward coverage.
+- What you get where: the open-source library (`pip install "latris[data,quant]"`) is the engine and CLI — every analysis, a Markdown report with a Mermaid sketch, and `latris link`. The Latris app (app.latris.app — free account, nothing to install) adds the hosted interactive report (typeset figure, result charts, interpretation — what a board reads), the visual editor, Word reports, review packs reviewers fill in, the scrollytelling story, and saved models with short links. A `latris link` link IS the shareable report: send it as it is — don't build a wrapper page or a separate document around it.
 - Giving the model to a person: `latris link` prints a link that opens it in the Latris app (app.latris.app) as a hosted report with the full figure, which they can share or save to a free account (editor, Word). Making it needs no network — the model travels inside the link — so it works from sandboxes with no network to latris.app; opening it needs app.latris.app. The link never stops working; the short report address it opens lasts 30 days unless the model is saved, and saving gives a short link that doesn't expire.
 - Reports: five packs for different readers (client, publication, review, workshop, audit) — `latris capabilities` describes them. The board-ready version is the `client` pack (answer first, then the diagram, findings and evidence) with its interpretation sections written: `latris interpret initialise`, then `interpret show <section>` and `interpret set-prose <section> "..." --by ai` (no API key needed).
 
