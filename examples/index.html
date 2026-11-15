@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Example: a river-health causal model built in Latris</title>
+  <meta name="description" content="A real Latris model: what's driving an Australian river's poor condition, and where restoration money would do the most good. Built from public sources, every link sourced, one link openly contested." />
+  <link rel="canonical" href="https://latris.app/examples/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="A real model, not a demo: river health in Latris" />
+  <meta property="og:description" content="Every link sourced, every source checked against a passage, one link openly contested. Open the live model." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://latris.app/examples/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=c7eef35d3f" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/">Models</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/" aria-current="page">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="eyebrow">A real model, not a demo</p>
+        <h1>Is this river getting sick, and where would restoration money do the most good?</h1>
+        <p class="lead">
+          A causal loop diagram of a regional Australian river, prepared for a
+          catchment management board deciding where to spend. It was built
+          entirely in Latris from public sources: the national State of the
+          Environment report and the published literature on riverside
+          vegetation.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="LIVE_MODEL_URL">Open the live model →</a>
+        </div>
+        <p class="shot-cap">Opens in the Latris app. No account needed to read it.</p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="band">
+      <div class="wrap example-grid">
+        <div class="reveal">
+          <h2>What the model says</h2>
+          <div class="body">
+            <p>
+              Nutrient loads are the pressure to act on first. They drive the
+              algal blooms, the blooms cut dissolved oxygen as they decompose,
+              and low oxygen is the documented killer in Australian fish
+              deaths. Blooms and turbidity feed each other, which is why a
+              river can hold itself in a poor state.
+            </p>
+            <p>
+              Riverside (riparian) vegetation is the one lever that acts on
+              both paths at once. The honest caveat sits on that link: the
+              evidence says buffers work, but their real-world effectiveness
+              varies widely. So the model supports a monitored pilot reach,
+              not a catchment-wide planting program on day one.
+            </p>
+            <p>
+              The board expected "plant the banks and wait". The report records
+              that expectation next to the answer, so the difference is visible.
+            </p>
+          </div>
+        </div>
+        <div class="reveal" style="transition-delay:.08s">
+          <div class="shot crop">
+            <picture>
+              <source srcset="/assets/report-diagram.webp" type="image/webp" />
+              <img src="/assets/report-diagram.png" width="1200" height="1660" loading="lazy"
+                   alt="The river-health report: background, the board's expected answer, the model's answer, and the causal loop diagram" />
+            </picture>
+          </div>
+          <p class="shot-cap">The opening of the report: background, the
+            board's expectation, the answer, then the diagram.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="band">
+      <div class="wrap">
+        <p class="eyebrow reveal">What to click</p>
+        <h2 class="sec-h reveal">Where to look in the live model.</h2>
+        <div class="cards reveal">
+          <div class="card">
+            <h3>Any arrow</h3>
+            <p>Its reason, its source, and the exact passage the source was
+              checked against.</p>
+          </div>
+          <div class="card">
+            <h3>Riparian vegetation → nutrient loads</h3>
+            <p>The contested link: a supporting source and a challenge, both
+              on the record.</p>
+          </div>
+          <div class="card">
+            <h3>Findings</h3>
+            <p>Each finding with the evidence it rests on and whether a person
+              approved it.</p>
+          </div>
+          <div class="card">
+            <h3>Assumptions and exclusions</h3>
+            <p>What the model takes as given, and what it deliberately leaves
+              out, such as flow regime and groundwater.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── Fields ── -->
+    <section class="band" id="fields">
+      <div class="wrap">
+        <p class="eyebrow reveal">Where Latris fits</p>
+        <h2 class="sec-h reveal">Causal questions that will be read by someone who asks hard questions.</h2>
+
+        <div class="cluster reveal">
+          <h3 class="cluster-h">Environment, water and policy</h3>
+          <div class="usecases">
+            <div class="uc">
+              <h3>Catchments and ecosystems</h3>
+              <p>What's driving change in a river or ecosystem, and which interventions actually move it?</p>
+            </div>
+            <div class="uc">
+              <h3>Programs and policy</h3>
+              <p>The causal logic behind a program or policy, made explicit, sourced, and reviewable.</p>
+            </div>
+            <div class="uc">
+              <h3>Public health and wellbeing</h3>
+              <p>Mapping the causes behind an outcome to target where action will help most.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cluster reveal">
+          <h3 class="cluster-h">Risk and safety</h3>
+          <div class="usecases">
+            <div class="uc">
+              <h3>Natural hazards and risk</h3>
+              <p>How the factors behind a hazard combine, and where the risk is most sensitive.</p>
+            </div>
+            <div class="uc">
+              <h3>Safety and assurance</h3>
+              <p>Claims and evidence laid out so a reviewer or regulator can follow, and challenge, every step.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="note-p reveal">
+          Don't see your field? If your reasoning is causal, it probably fits.
+          <a href="/about/#contact">Tell me what you're working on</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="wrap">
+        <h2>Build one on your own question.</h2>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://app.latris.app/">Open Latris →</a>
+          <a class="btn btn-ghost" href="/ai/">Use it from your AI</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/examples/" aria-current="page">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/">Methods</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The open-source Latris engine: Python CLI and library</title>
+  <meta name="description" content="The modelling engine behind Latris is open source (Apache-2.0): a deterministic, git-native Python CLI and library for evidence-backed causal models, designed to be driven from a terminal or by an AI agent." />
+  <link rel="canonical" href="https://latris.app/open-source/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="Latris: the open-source engine" />
+  <meta property="og:description" content="A git-native Python CLI and library for evidence-backed causal models. Apache-2.0." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://latris.app/open-source/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=c7eef35d3f" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/">Models</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/" aria-current="page">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="eyebrow">Open source</p>
+        <h1>Built on an open engine.</h1>
+        <p class="lead">
+          The modelling engine behind Latris is open source (Apache-2.0): a
+          deterministic, git-native Python CLI and library, designed to be
+          driven from a terminal or by an agent. The hosted app runs the same
+          engine underneath, with the same schema, history and analyses.
+        </p>
+        <div class="copy-line" style="margin-top:22px">
+          <code>pip install "latris[data,quant]"</code>
+          <button type="button" data-copy='pip install "latris[data,quant]"'>Copy</button>
+        </div>
+        <p class="platforms">Python 3.11+ and git 2.40+. Status: alpha.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://github.com/Shannon-Bengtson/latris" target="_blank" rel="noopener">Source on GitHub →</a>
+          <a class="btn btn-ghost" href="https://pypi.org/project/latris/" target="_blank" rel="noopener">Latris on PyPI</a>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="band" id="where">
+      <div class="wrap">
+        <p class="eyebrow reveal">What you get where</p>
+        <h2 class="sec-h reveal">The library is the engine. The app is where people read it.</h2>
+        <div class="table-wrap reveal">
+          <table class="grid">
+            <thead>
+              <tr><th scope="col"></th><th scope="col">Open-source library</th><th scope="col">Latris app</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Get it</th><td><code>pip install "latris[data,quant]"</code></td><td><a href="https://app.latris.app/">app.latris.app</a>: free account, nothing to install</td></tr>
+              <tr><th scope="row">Modelling</th><td>Every model type and every analysis, from the command line or Python</td><td>The same, plus the visual editor</td></tr>
+              <tr><th scope="row">Reports</th><td>Markdown reports with a Mermaid sketch of the diagram</td><td>The hosted interactive report (typeset figure, result charts, interpretation), Word reports, review packs, the scrollytelling story</td></tr>
+              <tr><th scope="row">Sharing</th><td><code>latris link</code>: a link that opens the model as an interactive report in the app</td><td>Saved models with short links that don't expire</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note-p reveal">
+          A <code>latris link</code> opens as the interactive report, so the
+          link itself is what you send. Making it needs no network: the model
+          travels inside the link.
+        </p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="band" id="principles">
+      <div class="wrap">
+        <p class="eyebrow reveal">Design</p>
+        <h2 class="sec-h reveal">How the engine is built.</h2>
+        <div class="cards reveal">
+          <div class="card">
+            <h3>Every project is a git repo</h3>
+            <p>Every change is an inspectable, reversible commit made as you.
+              Latris enforces a real identity and never commits as an AI.</p>
+          </div>
+          <div class="card">
+            <h3>Evidence is data</h3>
+            <p>Citations, checks, assumptions, decisions, challenges and
+              sign-offs are structured records in plain YAML, not annotations.</p>
+          </div>
+          <div class="card">
+            <h3>AI returns proposals</h3>
+            <p>AI output is structured and validated, never free-form edits.
+              Keys live in your OS keyring, never on disk.</p>
+          </div>
+          <div class="card">
+            <h3>Inspectable by design</h3>
+            <p>Black-box predictors are excluded on purpose: a model type is
+              admitted only if its reasoning stays inspectable.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="band" id="agents">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow reveal">For agents</p>
+          <h2 class="reveal">Drive it from Claude Code or any agent, with no API key.</h2>
+        </div>
+        <div class="body reveal">
+          <p>
+            Your agent drafts, you approve, and every step stays on the record.
+            Agents start at <a href="/llms.txt">llms.txt</a>, which maps the
+            documentation and the working rules. <code>latris docs</code>
+            prints the agent guide from the installed package with no network,
+            and <code>latris capabilities</code> lists what's available.
+          </p>
+          <p>
+            Any of the engine's AI prompts can be answered by the agent already
+            in the loop instead of a vendor API (<code>latris ai task emit</code>
+            and <code>apply</code>), with the same validation and approval
+            gates.
+          </p>
+          <p>
+            Working in Claude or ChatGPT instead? The
+            <a href="/ai/">connector</a> is simpler.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="band" id="quickstart">
+      <div class="wrap">
+        <div>
+          <p class="eyebrow reveal">Quickstart</p>
+          <h2 class="reveal">A model in a few commands.</h2>
+        </div>
+        <div class="body reveal prose" style="max-width:860px;margin-top:18px">
+<pre><code>latris init volunteers --question "Why are volunteers leaving?"
+cd volunteers
+latris build --spec model.yaml                # factors, links, sources in one step
+latris check handover                         # what's left before a board sees it
+latris export md --pack client -o report.md   # report with a Mermaid diagram
+latris link                                   # a link that opens the full report</code></pre>
+          <p>
+            The full walkthrough is in the
+            <a href="https://github.com/Shannon-Bengtson/latris#readme" target="_blank" rel="noopener">README</a>,
+            and every command is exercised end to end in the
+            <a href="https://github.com/Shannon-Bengtson/latris/blob/main/worked_example/worked_example_output.md" target="_blank" rel="noopener">worked example transcript</a>.
+            What changed recently is in the <a href="/changelog/">changelog</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/" aria-current="page">Library and CLI</a></li>
+            <li><a href="/methods/">Methods</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>

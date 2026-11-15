@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How Latris works: evidence, AI under review, and reports that travel</title>
+  <meta name="description" content="How Latris keeps the reasoning with the model: a five-phase workflow, evidence attached to each claim, AI contributions labelled until a person checks them, disagreement kept on the record, and reports written to be read without you." />
+  <link rel="canonical" href="https://latris.app/how-it-works/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="How Latris works" />
+  <meta property="og:description" content="Evidence on every link, AI under review, disagreement on the record, and reports written to be read without you in the room." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://latris.app/how-it-works/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=c7eef35d3f" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/" aria-current="page">How it works</a>
+        <a href="/formalisms/">Models</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="eyebrow">How it works</p>
+        <h1>Most of the reasoning never makes it into the model. Latris keeps it.</h1>
+        <p class="lead">
+          The diagram is the easy part. What decides whether anyone trusts the
+          result is everything behind it: the evidence for each link, what you
+          considered and ruled out, the assumptions you'd have to defend in a
+          meeting. That usually lives across five tools, or in your head, and
+          six months later nobody can say why a particular arrow is on the page.
+        </p>
+        <p class="sub">
+          AI has made this sharper. When a model takes an afternoon to
+          generate, every relationship needs a reason to exist. Latris records
+          the reason when the arrow is drawn, and keeps the disagreement on the
+          record when there is one.
+        </p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── Workflow ── -->
+    <section class="band" id="workflow">
+      <div class="wrap">
+        <p class="eyebrow reveal">The workflow</p>
+        <h2 class="sec-h reveal">Five phases, one model.</h2>
+        <p class="sec-p reveal">
+          Data and references sit alongside every phase, so evidence can come
+          in whenever you find it. Traffic-light readiness checks between
+          phases show what's missing before you move on.
+        </p>
+        <div class="cards five reveal">
+          <div class="card">
+            <div class="step-n">1</div>
+            <h3>Build</h3>
+            <p>Lay out the factors and the links between them. Stage candidates,
+              edit on the canvas, or review everything in a table.</p>
+          </div>
+          <div class="card">
+            <div class="step-n">2</div>
+            <h3>Formalise</h3>
+            <p>Choose how much to commit to: polarity only, a causal DAG,
+              weights, probabilities, or full system dynamics.
+              <a href="/formalisms/">Which model?</a></p>
+          </div>
+          <div class="card">
+            <div class="step-n">3</div>
+            <h3>Analyse</h3>
+            <p>Feedback loops, effect paths, adjustment sets, simulations,
+              scenarios, uncertainty and sensitivity, each recorded with
+              its result.</p>
+          </div>
+          <div class="card">
+            <div class="step-n">4</div>
+            <h3>Interpret</h3>
+            <p>Turn results into an answer, implications, confidence and open
+              questions, tied to the claims the model actually supports.</p>
+          </div>
+          <div class="card">
+            <div class="step-n">5</div>
+            <h3>Communicate</h3>
+            <p>A hosted report, a Word document, a review pack for outside
+              reviewers, a plain-language story, and diagram exports.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── Evidence ── -->
+    <section class="band" id="evidence">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow reveal">Evidence</p>
+          <h2 class="reveal">Every link is a claim, with its evidence attached.</h2>
+        </div>
+        <div class="body reveal">
+          <p>
+            A source doesn't vouch for a whole diagram. In Latris it attaches
+            to a specific claim, such as "more riparian cover means lower
+            nutrient loads", and it can be cited for that claim or against it.
+          </p>
+          <p>
+            Each check of a source records who checked it, what they could see
+            (the title, the abstract or the full text), whether the source
+            really supports the claim, and the passage it rests on. When an AI
+            quotes a source, the quote is looked up in the text Latris holds;
+            a paraphrase is refused. Until someone checks, the report says the
+            source is "not yet checked against the source".
+          </p>
+          <p>
+            Around the links sit the rest of the reasoning: assumptions,
+            decisions, open questions, deliberate exclusions, predictions and
+            sign-offs, each part of the record rather than a note in a margin.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── AI ── -->
+    <section class="band" id="ai">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow reveal">AI</p>
+          <h2 class="reveal">AI drafts. People decide, and the record shows which is which.</h2>
+        </div>
+        <div class="body reveal">
+          <p>
+            AI is useful for the parts that take the time: candidate factors
+            and links, sources to check, counterarguments, evidence gaps, and
+            first drafts of the report's prose. Latris lets it do that work
+            without letting it pass as yours.
+          </p>
+          <p>
+            Everything an AI adds is recorded as AI-proposed, and evidence it
+            attaches stays unverified until a person reviews it. The report
+            carries those labels, findings show whether a person approved them,
+            and every change stays in the model's history.
+          </p>
+          <p>
+            The AI is your choice: Claude or ChatGPT through the
+            <a href="/ai/">Latris connector</a>, an agent driving the
+            <a href="/open-source/">open-source CLI</a>, or your own API key.
+            Latris itself doesn't send your models to AI providers.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── Disagreement ── -->
+    <section class="band" id="challenges">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow reveal">Disagreement</p>
+          <h2 class="reveal">Contested links stay contested.</h2>
+        </div>
+        <div class="body reveal">
+          <p>
+            When sources disagree, both sides stay on the same link and the
+            report lists them under "Contested links". When a person disputes
+            a factor or a link, that's a challenge, and its outcome is
+            recorded: kept unchanged, kept with a caveat, modified, split,
+            removed, or still unresolved.
+          </p>
+          <p>
+            The diagram shows it too: solid lines for established links,
+            dashed for ones still argued, and a mark on any link where sources
+            disagree or someone has challenged it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── Handover ── -->
+    <section class="band" id="handover">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow reveal">Before it goes out</p>
+          <h2 class="reveal">A checklist for what's left.</h2>
+        </div>
+        <div class="body reveal">
+          <p>
+            Before a model goes to a board, Latris lists what still needs
+            attention, each with a way to fix it: links with no source,
+            citations nobody has checked, quotes that can't be found in the
+            source's text, findings nobody has approved, report sections that
+            are missing or out of date because the model changed, and
+            contradictions.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── Outputs ── -->
+    <section class="band" id="outputs">
+      <div class="wrap">
+        <div class="split">
+          <h2 class="reveal">Made to be handed over.</h2>
+          <div class="body reveal">
+            <p>
+              Most modelling tools assume you'll be next to the screen,
+              explaining. Latris assumes you won't be. Every output comes from
+              the same model, so there's one source of truth.
+            </p>
+          </div>
+        </div>
+        <div class="cards reveal">
+          <div class="card">
+            <h3>Interactive report</h3>
+            <p>A link that opens the typeset diagram, result charts and
+              interpretation. Readers click any arrow for its evidence. No
+              account needed to read it.</p>
+          </div>
+          <div class="card">
+            <h3>Word report</h3>
+            <p>The written case with every claim tied to its evidence, for
+              organisations that live in documents.</p>
+          </div>
+          <div class="card">
+            <h3>Review pack</h3>
+            <p>A single file reviewers open in a browser to add challenges,
+              questions and sign-offs, then send back.
+              <a href="/for-reviewers/">For reviewers</a></p>
+          </div>
+          <div class="card">
+            <h3>Plain-language story</h3>
+            <p>A scrolling walkthrough for the stakeholder who just needs the
+              "why", with no prior knowledge assumed.</p>
+          </div>
+        </div>
+        <p class="note-p reveal">
+          Reports come in versions for different readers: a client report that
+          leads with the answer, plus publication, review, workshop and audit
+          versions. Every report includes a
+          <a href="/methods/">methods section</a> that cites only the methods
+          the model actually used.
+        </p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── History ── -->
+    <section class="band" id="history">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow reveal">History</p>
+          <h2 class="reveal">Every change, kept.</h2>
+        </div>
+        <div class="body reveal">
+          <p>
+            Each model is a git repository. Every change is a recorded,
+            reversible step with a name on it, so you can see who changed
+            what, when, and which version backed a decision. Changes made with
+            AI help say so in the record.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="closing">
+      <div class="wrap">
+        <h2>See it on a real model.</h2>
+        <p>The river-health example shows every piece of this page in one report.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="/examples/">See the example →</a>
+          <a class="btn btn-ghost" href="https://app.latris.app/">Open Latris</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/" aria-current="page">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/">Methods</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>

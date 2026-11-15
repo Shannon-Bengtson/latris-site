@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Use Latris from Claude, ChatGPT or your own agent</title>
+  <meta name="description" content="Add the Latris connector to Claude or ChatGPT and ask a causal question: you get a sourced model and a report link to send. Agents can drive the open-source CLI with no API key." />
+  <link rel="canonical" href="https://latris.app/ai/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="Use Latris from the AI you already use" />
+  <meta property="og:description" content="Ask Claude or ChatGPT a causal question and get a sourced model and a report link, with everything the AI added labelled until a person checks it." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://latris.app/ai/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=c7eef35d3f" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/">Models</a>
+        <a href="/ai/" aria-current="page">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="eyebrow">Use with AI</p>
+        <h1>Use Latris from the AI you already use.</h1>
+        <p class="lead">
+          Ask Claude or ChatGPT a causal question and it builds the model in
+          Latris: factors, links with their reasons, and sources with the
+          passage it read. You get a report link you can send as it is.
+        </p>
+        <p class="sub">
+          The AI does the drafting. Latris keeps it honest: everything the AI
+          adds is labelled AI-proposed, and its evidence stays unverified until
+          a person checks it.
+        </p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── Connector ── -->
+    <section class="band" id="connector">
+      <div class="wrap">
+        <p class="eyebrow reveal">In a chat app</p>
+        <h2 class="sec-h reveal">Add the connector, then ask.</h2>
+        <p class="sec-p reveal">The connector address:</p>
+        <div class="copy-line reveal">
+          <code>https://mcp.latris.app/mcp</code>
+          <button type="button" data-copy="https://mcp.latris.app/mcp">Copy</button>
+        </div>
+        <div class="cards reveal">
+          <div class="card">
+            <div class="step-n">1</div>
+            <h3>Add Latris as a connector</h3>
+            <p>In Claude, add a custom connector. In ChatGPT, add an app in
+              developer mode. Use the address above. No sign-in needed.</p>
+          </div>
+          <div class="card">
+            <div class="step-n">2</div>
+            <h3>Ask a causal question</h3>
+            <p>For example: <em>"Use Latris to map what drives volunteer
+              burnout."</em> It may first ask up to three short questions: the
+              background and the decision, who will read it, and what you
+              expect the answer to be.</p>
+          </div>
+          <div class="card">
+            <div class="step-n">3</div>
+            <h3>Get the report link</h3>
+            <p>The chat hands you a link to the interactive report. Send it as
+              it is: anyone can open it, no account needed.</p>
+          </div>
+          <div class="card">
+            <div class="step-n">4</div>
+            <h3>Save it to keep it</h3>
+            <p>Until it's saved, a model lasts 30 days after its last change.
+              Ask the AI to "save this model", open the one-time link, and sign
+              in with your email. Saved models get a link that doesn't expire
+              and open in the full editor.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── What gets labelled ── -->
+    <section class="band" id="labels">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow reveal">What stays honest</p>
+          <h2 class="reveal">The report says what the AI did.</h2>
+        </div>
+        <div class="body reveal">
+          <p>
+            Factors, links, evidence and prose the AI adds are recorded as
+            AI-proposed. Sources it cites are unverified until someone reads
+            them, and the report says "not yet checked against the source"
+            until then.
+          </p>
+          <p>
+            When the AI says a source supports a link, it has to quote the
+            passage, and Latris looks the quote up in the text it saved for
+            that source. A paraphrase is refused. A study it only read about
+            in another source is marked as read second-hand.
+          </p>
+          <p>
+            None of that makes the model right. It makes it checkable, which
+            is what a reviewer needs. <a href="/for-reviewers/">What reviewers see</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── Agents & CLI ── -->
+    <section class="band" id="agents">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow reveal">Agents and the terminal</p>
+          <h2 class="reveal">Claude Code, Codex, or any agent with a shell.</h2>
+        </div>
+        <div class="body reveal">
+          <p>
+            The open-source engine is a Python CLI built to be driven by an
+            agent. It needs no API key: the agent you're already using does
+            the AI work, and every step stays on the record.
+          </p>
+          <p><code class="install">pip install "latris[data,quant]"</code></p>
+          <p>
+            Agents start at <a href="/llms.txt">llms.txt</a>, which maps the
+            documentation and the working rules. With no network,
+            <code>latris docs</code> prints the same guide from the installed
+            package. <code>latris link</code> turns a model into a report link
+            without any network access, so it works from a sandbox.
+          </p>
+          <p><a href="/open-source/">More on the open-source engine →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ── Data ── -->
+    <section class="band" id="data">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow reveal">Your data</p>
+          <h2 class="reveal">What Latris receives.</h2>
+        </div>
+        <div class="body reveal">
+          <p>
+            Through the connector, Latris receives only the model content the
+            chat app sends it. It doesn't receive your name, your email or your
+            chat history; your conversation stays with the chat app's provider
+            under its own terms. Latris doesn't send your models to AI
+            providers. Model data is stored in Sydney, Australia.
+          </p>
+          <p>Details are in the <a href="/privacy/">Privacy Notice</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="closing">
+      <div class="wrap">
+        <h2>Prefer to build it yourself?</h2>
+        <p>The Latris app has a visual editor for every step, and the same evidence trail.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://app.latris.app/">Open Latris →</a>
+          <a class="btn btn-ghost" href="/support/">Connector help</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/" aria-current="page">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/">Methods</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>
