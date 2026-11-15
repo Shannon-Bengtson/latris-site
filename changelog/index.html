@@ -57,37 +57,111 @@
         <p class="eyebrow">Changelog</p>
         <h1>What's new.</h1>
         <p class="lead">
-          Releases of the open-source engine that Latris runs on. Want a note
-          when something ships? <a href="/about/#contact">Sign up for release notes</a>.
+          Every release of the open-source engine that Latris runs on, from its
+          commit history. Want a note when something ships? <a href="/about/#contact">Sign up for release notes</a>.
         </p>
       </div>
     </section>
 
     <div class="wrap">
       <article class="prose-card prose">
-
-        <h2 id="v0.9.1">0.9.1 <span class="status-pill">10 November 2026</span></h2>
-        <ul>
-          <li>Feedback loops now include feedback through stocks, so a causal loop diagram and a system dynamics model in the same project share their loops.</li>
-          <li>System dynamics: set the model's clock (for example, monthly time steps), mark the outcome, and use the standard delay and smoothing functions.</li>
-          <li>Report links keep the model's stated exclusions.</li>
-          <li>The documentation now says plainly what the open-source library does and what the app adds.</li>
-        </ul>
-
-        <h2 id="v0.9.0">0.9.0 <span class="status-pill">9 November 2026</span></h2>
-        <ul>
-          <li>Bayesian networks: soft evidence ("80% sure"), the most likely explanation for an observation, and Monte Carlo over the probability tables to show how sure a probability is when the tables are estimates.</li>
-          <li>Methods and foundations: every report gets a methods section that cites only the methods the model used, with their limits. The same source drives the <a href="/methods/">methods page</a>.</li>
-        </ul>
-
-        <h2 id="v0.8.0">0.8.0 <span class="status-pill">9 November 2026</span></h2>
-        <ul>
-          <li>System dynamics scenarios: save what-ifs and compare them in one run.</li>
-          <li>Uncertainty: give uncertain values a range, then see Monte Carlo bands and which values the result is most sensitive to.</li>
-          <li>Loop dominance, using the Loops That Matter method: which feedback loop drives the behaviour, and when.</li>
-          <li>Analysis results are recorded and appear in the report with charts, and feed the interpretation.</li>
-          <li>Faster simulation, plus ramp and pulse inputs.</li>
-        </ul>
+        <!-- @changelog:start -->
+<!-- Generated from the latris repo's git history by tools/build.py --changelog. Don't edit by hand. -->
+<h2 id="v0.9.1"><a href="https://github.com/Shannon-Bengtson/latris/commit/6b9bff9cf84910d0034687b818deade6a1e6ab19">0.9.1</a> <span class="status-pill">10 November 2026</span></h2>
+<ul>
+  <li>Share link: carry context exclusions; build --spec applies them</li>
+  <li>Cite Sterman ch. 11 for SMOOTH/SMOOTH3 and DELAY1/DELAY3</li>
+  <li>Sync foundations doc with 0.9.0 BN features (soft evidence, MPE, PSA); regen transcript</li>
+  <li>Delays, readability, commas; docs say what you get where</li>
+  <li>Trust fixes; loops through stocks; the SD clock; SD outcome</li>
+</ul>
+<h2 id="v0.9.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/e14c57664e2f825ee539ddd6281da1dd27e6dac3">0.9.0</a> <span class="status-pill">9 November 2026</span></h2>
+<ul>
+  <li>BN docs and worked example; ties and drivers</li>
+  <li>BN: CLI, routes, reports, claims and links for soft evidence, explanations, PSA</li>
+  <li>BN: soft evidence, most likely explanation, Monte Carlo over the tables</li>
+  <li>Add methods-and-foundations registry across report, manifest, and CLI</li>
+</ul>
+<h2 id="v0.8.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/5b17cb7bb3fa8cd080042e7198b4b3e1665753f4">0.8.0</a> <span class="status-pill">9 November 2026</span></h2>
+<ul>
+  <li>Docs and worked example for scenarios, uncertainty, sensitivity, loops</li>
+  <li>Parameters, scenarios and analyses travel in build specs and links</li>
+  <li>Results in reports; SD interpretation; claims from results</li>
+  <li>SD loop dominance (Loops That Matter)</li>
+  <li>SD uncertainty: Monte Carlo bands and one-at-a-time sensitivity</li>
+  <li>Results store, SD scenarios, recorded BN queries</li>
+  <li>SD fast path: compiled float simulation, RAMP and PULSE</li>
+</ul>
+<h2 id="v0.7.7"><a href="https://github.com/Shannon-Bengtson/latris/commit/079e04cbaeaa5f6bc951a301533fbfa72665f728">0.7.7</a> <span class="status-pill">8 November 2026</span></h2>
+<ul>
+  <li>Honest evidence: quotes looked up, against is not checked, sources correctable</li>
+</ul>
+<h2 id="v0.7.6"><a href="https://github.com/Shannon-Bengtson/latris/commit/21f74a59ff51ae9192ac1e67f1273b04670f92bd">0.7.6</a> <span class="status-pill">8 November 2026</span></h2>
+<ul>
+  <li>Context in the report and the spec; source extracts; JSON for the record</li>
+  <li>SD units error names 'item' for counted things</li>
+</ul>
+<h2 id="v0.7.5"><a href="https://github.com/Shannon-Bengtson/latris/commit/7f0a047a6400d4b5218ad648e5998258c87e03eb">0.7.5</a> <span class="status-pill">8 November 2026</span></h2>
+<ul>
+  <li>JSON output for analyses and quantitative commands; link names in maturity</li>
+</ul>
+<h2 id="v0.7.4"><a href="https://github.com/Shannon-Bengtson/latris/commit/e4fbe30c0d6f305a2c3cf8f40c9ead3409839e6a">0.7.4</a> <span class="status-pill">7 November 2026</span></h2>
+<ul>
+  <li>Initialise fills claims; AI findings record their source as AI</li>
+</ul>
+<h2 id="v0.7.3"><a href="https://github.com/Shannon-Bengtson/latris/commit/64e60c286cefbaec36c7613b622f4ef6f171fc7f">0.7.3</a> <span class="status-pill">7 November 2026</span></h2>
+<ul>
+  <li>Report link says 'the hosted report', not 'the interactive report'</li>
+</ul>
+<h2 id="v0.7.2"><a href="https://github.com/Shannon-Bengtson/latris/commit/29ec7c3e7fd03390d2aeffff68d2de2780703aba">0.7.2</a> <span class="status-pill">7 November 2026</span></h2>
+<ul>
+  <li>Retest fixes from Kimi and Codex: docs in the package, checking sources, handover</li>
+</ul>
+<h2 id="v0.7.1"><a href="https://github.com/Shannon-Bengtson/latris/commit/1370dfbbe8f400d4e9fb726bd9d12271bda47682">0.7.1</a> <span class="status-pill">7 November 2026</span></h2>
+<ul>
+  <li>Report and docs fixes from the 0.7.0 Claude.ai retest</li>
+</ul>
+<h2 id="v0.7.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/bc75a4001e8e6fe7322cd8b92abf727a1e776229">0.7.0</a> <span class="status-pill">6 November 2026</span></h2>
+<ul>
+  <li><code>latris link</code>, a link that opens the model in the Latris app, offline</li>
+  <li>README describes the browser app and open sign-up</li>
+</ul>
+<h2 id="v0.6.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/4378f3bbb11b395cb8595e1676fbd9a6fcbc2bf6">0.6.0</a> <span class="status-pill">6 November 2026</span></h2>
+<ul>
+  <li>Evidence against a link (<code>evidence add --contradicts</code>)</li>
+  <li>Board-ready client report, honest claims, and <code>latris build --spec</code></li>
+  <li>Agent-ready reports and honest provenance (from a Claude.ai trial)</li>
+</ul>
+<h2 id="v0.5.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/33e8cb66e5094f246d7aa605594330edbd761cc7">0.5.0</a> <span class="status-pill">6 November 2026</span></h2>
+<ul>
+  <li>Polished exporters leave the library; Markdown + DOT remain</li>
+  <li>Sync: read a shared project's report link from the control plane</li>
+  <li>Report links and saving models made in a chat</li>
+  <li>Sync: report links, client, <code>latris sync link on|off</code>, server route</li>
+  <li>Mermaid in Markdown reports, global --json, view set, plugin hook</li>
+</ul>
+<h2 id="v0.4.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/b39186d3ee705429a4085590679a3b5dba17f520">0.4.0</a> <span class="status-pill">24 October 2026</span></h2>
+<ul>
+  <li>Roadmap status on every model type</li>
+  <li>Mark which planned model types are on the roadmap</li>
+  <li>System Dynamics (stock-and-flow) formalism, schema, checks, simulation, CLI/API</li>
+  <li>Rewrite 'For AI agents' section in descriptive voice, not direct address</li>
+</ul>
+<h2 id="v0.3.2"><a href="https://github.com/Shannon-Bengtson/latris/commit/b8d5ae34a1f6125a2f061a1d5e9cafe0c9c859dc">0.3.2</a> <span class="status-pill">23 October 2026</span></h2>
+<ul>
+  <li>latris sync login / sync share, the CLI-to-SaaS bridge</li>
+  <li>Add agent-facing capability manifest (latris capabilities)</li>
+  <li>Make delegated AI invocation prominent for agent readers</li>
+  <li>Document delegated AI calls (ai task emit/apply)</li>
+  <li>Delegated AI calls, bring your own agent (ai task emit/apply)</li>
+  <li>Bridge README and llms.txt to latris.app; drop stale PyPI note</li>
+  <li>Add "Made with Latris" badge to document exports</li>
+</ul>
+<h2 id="v0.3.1"><a href="https://github.com/Shannon-Bengtson/latris/commit/5bf3a9f660489548b0d2a66a8d2cc8b058263808">0.3.1</a> <span class="status-pill">11 October 2026</span></h2>
+<ul>
+  <li>First open-source release</li>
+</ul>
+<!-- @changelog:end -->
 
         <p class="meta" style="margin-top:32px">
           Every version is on <a href="https://pypi.org/project/latris/#history" target="_blank" rel="noopener">PyPI</a>,

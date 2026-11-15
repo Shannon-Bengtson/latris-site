@@ -19,7 +19,7 @@ build step on deploy: what's committed is what's served.
 | `/open-source/` | The open engine: library vs app, design, agents, quickstart |
 | `/methods/` | Methods and foundations, generated from `docs/FOUNDATIONS.md` in the latris repo |
 | `/about/` | Founder, "Work with me", contact, release-notes sign-up |
-| `/changelog/` | Releases of the open-source engine |
+| `/changelog/` | Every release of the open-source engine, generated from its git history |
 | `/support/`, `/privacy/`, `/terms/` | Help and legal |
 | `404.html` | Not found |
 
@@ -51,7 +51,15 @@ python3 tools/build.py --check    # exit 1 if any page is out of date
 
 # Also regenerate /methods/ from the library repo (needs: pip install markdown)
 python3 tools/build.py --foundations ../latris/docs/FOUNDATIONS.md
+
+# Also regenerate /changelog/ from the library's git history
+# (needs a full clone: git -C ../latris fetch --unshallow origin main)
+python3 tools/build.py --changelog ../latris
 ```
+
+The changelog has one section per `Bump version to X` commit, listing the
+commit subjects since the previous bump. Style, CI and test commits are left
+out. Run it after each release (`scripts/bump-version.sh` in the latris repo).
 
 A new page needs an entry in `PAGES` in `tools/build.py`, the three marker
 pairs, a `<link rel="canonical">`, and a line in `sitemap.xml`.
@@ -75,5 +83,7 @@ domain on push. DNS: apex `A` records to GitHub Pages, `www` `CNAME` to
 
 ## Style
 
-No em dashes in site copy. `/methods/` is the exception: it mirrors
-`FOUNDATIONS.md` verbatim.
+No em dashes in site copy. `/methods/` and `/changelog/` are generated from
+the latris repo, which does use them; `tools/build.py` rewrites them on the way
+in (`EM_DASH_RULES` for the methods page). After `FOUNDATIONS.md` changes, read
+the generated page and add a rule if a sentence reads badly.

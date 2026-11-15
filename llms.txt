@@ -27,6 +27,7 @@ Working in a chat app (Claude, ChatGPT) rather than a shell? Use the Latris conn
 - [For reviewers](https://latris.app/for-reviewers/): what a decision owner or reviewer can check; review packs.
 - [Example](https://latris.app/examples/): the river-health model and its live report.
 - [Methods](https://latris.app/methods/): methods and foundations, mirrored from docs/FOUNDATIONS.md.
+- [Changelog](https://latris.app/changelog/): every release, from the git history.
 
 ## Engineering docs (source of truth for how the system works)
 

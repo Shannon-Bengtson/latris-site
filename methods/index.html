@@ -75,13 +75,13 @@
         <!-- @foundations:start -->
 <!-- Generated from docs/FOUNDATIONS.md in the latris repo by tools/build.py. Don't edit by hand. -->
 <p>Latris implements established methods and cites them. It does not invent a new
-causal calculus, a new simulation algorithm, or a new theory of evidence — it
+causal calculus, a new simulation algorithm, or a new theory of evidence; it
 implements well-known ones, records which were used in each project, and states
 their limits next to their results. This page is the map: for each formalism,
 the literature it stands on, what Latris actually implements (with the command
 or module that implements it), and what it deliberately does not do.</p>
 <p><strong>The citation rule.</strong> A work is cited only where Latris implements the method
-it describes — not the whole book, and never a method that is only planned.
+it describes, not the whole book, and never a method that is only planned.
 Where Latris borrows an idea as inspiration rather than implementation, the
 text says so. If you find a citation here that overclaims, that is a bug:
 please report it.</p>
@@ -90,16 +90,16 @@ same evidentiary substrate: links are claims, claims carry sources, sources
 are checked against what they are claimed to support, and disagreement is
 recorded rather than resolved silently. The formalisms below differ in what
 kind of reasoning they support; the evidence discipline does not.</p>
-<p><strong>Choosing between them.</strong> The guide by question — "how does this work?"
+<p><strong>Choosing between them.</strong> The guide by question, "how does this work?"
 (CLD), "can it be estimated?" (DAG), "how likely?" (BN), "which forces
-dominate?" (FCM), "how does it behave over time?" (SD) — lives at
+dominate?" (FCM), "how does it behave over time?" (SD), lives at
 <a href="/formalisms/">https://latris.app/formalisms/</a>, mirrored for agents in the repo's
 <a href="/llms.txt"><code>llms.txt</code></a> and the server help topic <code>model-types-overview</code>.</p>
 <h2>Causal loop diagrams (qualitative)</h2>
 <ul>
-<li><strong>Lineage.</strong> Sterman (2000), <em>Business Dynamics</em>, ch. 4 — the canonical
+<li><strong>Lineage.</strong> Sterman (2000), <em>Business Dynamics</em>, ch. 4, the canonical
   treatment of causal loop diagrams and loop polarity. Meadows (2008),
-  <em>Thinking in Systems</em> — the accessible statement of the same tradition.</li>
+  <em>Thinking in Systems</em>, the accessible statement of the same tradition.</li>
 <li><strong>Implemented.</strong> Loop detection by Johnson's (1975) elementary-circuits
   algorithm (<code>latris analyse loops</code>); polarity classification (an odd count of
   <code>−</code> edges makes a balancing loop); qualitative effect propagation along
@@ -107,19 +107,19 @@ dominate?" (FCM), "how does it behave over time?" (SD) — lives at
 <li><strong>Limits.</strong> A polarity of <code>~</code> (ambiguous) is reported as "unknown", not
   guessed. Loop enumeration is capped; beyond the cap Latris raises
   <code>TooManyLoops</code> rather than silently sampling. Decision-rule, governance and
-  definitional edges are excluded from loop and centrality analysis — they
+  definitional edges are excluded from loop and centrality analysis; they
   are policy or identity links, not feedback mechanisms.</li>
 </ul>
-<h2>Causal DAGs — identification, not estimation</h2>
+<h2>Causal DAGs: identification, not estimation</h2>
 <ul>
 <li><strong>Lineage.</strong> Pearl (2009), <em>Causality</em>; Pearl &amp; Mackenzie (2018), <em>The Book
   of Why</em>; Hernán &amp; Robins (2020), <em>Causal Inference: What If</em>. The
   d-separation test follows Shachter (1998), "Bayes-Ball".</li>
 <li><strong>Implemented.</strong> d-separation queries, Markov blankets, path enumeration
   (with chain/fork/collider classification), and backdoor adjustment sets by
-  graph surgery — the exposure's outgoing edges removed, then testing which
+  graph surgery: the exposure's outgoing edges removed, then testing which
   sets d-separate exposure from outcome (<code>latris analyse</code>, DAG-scoped).</li>
-<li><strong>Limits — read this before citing Pearl.</strong> Latris answers the
+<li><strong>Limits: read this before citing Pearl.</strong> Latris answers the
   <em>identification</em> question only: what would have to be measured (conditioned
   on) for an effect to be estimable. There is no do-operator estimation, no
   g-computation, and no counterfactual computation anywhere in the package.
@@ -129,13 +129,13 @@ dominate?" (FCM), "how does it behave over time?" (SD) — lives at
 </ul>
 <h2>Bayesian networks</h2>
 <ul>
-<li><strong>Lineage.</strong> Pearl (1988), <em>Probabilistic Reasoning in Intelligent Systems</em>
-  — the founding text. Fenton &amp; Neil (2018), <em>Risk Assessment and Decision
-  Analysis with Bayesian Networks</em> (2nd ed.) — the closest in spirit to
+<li><strong>Lineage.</strong> Pearl (1988), <em>Probabilistic Reasoning in Intelligent Systems</em>,
+  the founding text. Fenton &amp; Neil (2018), <em>Risk Assessment and Decision
+  Analysis with Bayesian Networks</em> (2nd ed.), the closest in spirit to
   Latris: expert-elicited structure, defensible numbers, argued cases. Soft
   (likelihood) evidence follows Jeffrey (1965), <em>The Logic of Decision</em>.</li>
 <li><strong>Implemented.</strong> Exact inference by variable elimination (pgmpy), per-node
-  posterior marginals; soft (likelihood) evidence per node — weights need not
+  posterior marginals; soft (likelihood) evidence per node; weights need not
   sum to one (<code>--likelihood</code>); <code>bn explain</code> for the most probable joint
   states (MAP, or MPE when all variables are queried) with margins; Noisy-OR
   canonical models (binary nodes); CPT parameter
@@ -145,17 +145,17 @@ dominate?" (FCM), "how does it behave over time?" (SD) — lives at
   cells, with a provenance overlay; probabilistic sensitivity analysis by
   Monte Carlo over uncertain CPT rows (<code>bn set-uncertainty --n</code> with
   <code>bn monte-carlo</code>) (<code>latris bn …</code>).</li>
-<li><strong>Limits.</strong> Variable elimination only — no junction tree or belief
+<li><strong>Limits.</strong> Variable elimination only; no junction tree or belief
   propagation. Marginals, not joints. Noisy-OR requires binary nodes and
   parents. Tornado sensitivity is one-way; probabilistic sensitivity analysis
   ships separately by Monte Carlo, as above; EVPI is deferred. Structure
-  learning is excluded by design — see <code>latris capabilities</code>,
+  learning is excluded by design; see <code>latris capabilities</code>,
   <code>excluded_by_design</code>.</li>
 </ul>
 <h2>Fuzzy cognitive maps</h2>
 <ul>
 <li><strong>Lineage.</strong> Kosko (1986), "Fuzzy Cognitive Maps", <em>International Journal
-  of Man-Machine Studies</em> 24(1) — weighted matrix iteration to a steady state.</li>
+  of Man-Machine Studies</em> 24(1), weighted matrix iteration to a steady state.</li>
 <li><strong>Implemented.</strong> <code>A ← f(A·W)</code> iterated to convergence with sigmoid (default),
   tanh-rescaled, or step transfer functions; clamped scenario nodes; weights
   validated to [−1, +1] (<code>latris fcm …</code>).</li>
@@ -166,8 +166,8 @@ dominate?" (FCM), "how does it behave over time?" (SD) — lives at
 <ul>
 <li><strong>Lineage.</strong> Forrester (1961), <em>Industrial Dynamics</em>; Sterman (2000),
   <em>Business Dynamics</em>; Meadows (2008). Loop dominance follows the Loops That
-  Matter method — Schoenberg, Davidsen &amp; Eberlein (2020), <em>System Dynamics
-  Review</em> — with the revised flow-to-stock link score of Schoenberg, Hayward &amp;
+  Matter method (Schoenberg, Davidsen &amp; Eberlein (2020), <em>System Dynamics
+  Review</em>), with the revised flow-to-stock link score of Schoenberg, Hayward &amp;
   Eberlein (2023), the approach Stella and pysimlin ship.</li>
 <li><strong>Implemented.</strong> Stock-and-flow simulation with dimensional analysis (pint;
   custom base dimensions for person, dollar, item): fixed-step forward Euler,
@@ -179,17 +179,17 @@ dominate?" (FCM), "how does it behave over time?" (SD) — lives at
   percentile bands and Spearman rank correlations; one-at-a-time sensitivity;
   per-step loop dominance scores with dominant loops flagged
   (<code>latris sd loops</code>).</li>
-<li><strong>Limits.</strong> The adaptive RK option is <code>solve_ivp</code> RK45 with a step cap — not
+<li><strong>Limits.</strong> The adaptive RK option is <code>solve_ivp</code> RK45 with a step cap, not
   the classical fixed-step RK4 of Vensim/Stella. Loop dominance enumerates
   loops exhaustively (Johnson's algorithm) up to a cap of 500; larger models
   would need the strongest-path search, which is not implemented. Scores are
-  zero whenever stocks stop changing — the method explains change, not
+  zero whenever stocks stop changing; the method explains change, not
   equilibrium. Monte Carlo is capped at 1000 runs and reports rank
   correlations only.</li>
 </ul>
 <h2>The evidence discipline</h2>
 <ul>
-<li><strong>Lineage.</strong> The substrate's vocabulary — claims, warrants, rebuttals — is
+<li><strong>Lineage.</strong> The substrate's vocabulary (claims, warrants, rebuttals) is
   Toulmin's (1958), <em>The Uses of Argument</em>. The wider tradition of marshalling
   evidence for and against a claim includes Wigmore (1937) and Schum (1994).
   The practice of recording <em>which part of a source was read</em> and <em>whether it
@@ -201,7 +201,7 @@ dominate?" (FCM), "how does it behave over time?" (SD) — lives at
 <li><strong>Implemented.</strong> Source-vs-claim checks with verdicts
   (<code>latris evidence check</code>: supports / contradicts / orthogonal /
   insufficient extract); an AI's check must quote the source and the quote is
-  looked up in the text Latris holds (<code>latris ref snapshot</code>) — a paraphrase
+  looked up in the text Latris holds (<code>latris ref snapshot</code>); a paraphrase
   is refused; every check records who made it and the source's access tier
   (title, abstract, extract, full text). Contested links keep sources for and
   against on the same link and report both. Challenges are an adversarial
@@ -209,7 +209,7 @@ dominate?" (FCM), "how does it behave over time?" (SD) — lives at
 <li><strong>Limits.</strong> A Toulmin/IBIS argument-map model type is registered
   (<code>latris capabilities</code> lists it) but not planned; the substrate borrows the
   vocabulary, it does not implement the formalism. Checks are only as good as
-  the stored source text — a check against an abstract cannot speak for the
+  the stored source text; a check against an abstract cannot speak for the
   full text.</li>
 </ul>
 <h2>Where each formalism sits on the ladder of causation</h2>
@@ -225,7 +225,7 @@ dominate?" (FCM), "how does it behave over time?" (SD) — lives at
 <tbody>
 <tr>
 <td>CLD</td>
-<td>Mechanism claims — qualitative structure only; arrows are argued, not estimated</td>
+<td>Mechanism claims: qualitative structure only; arrows are argued, not estimated</td>
 </tr>
 <tr>
 <td>FCM</td>
@@ -237,17 +237,17 @@ dominate?" (FCM), "how does it behave over time?" (SD) — lives at
 </tr>
 <tr>
 <td>DAG / BN</td>
-<td>Observational queries and identification — what to measure; no interventional estimation</td>
+<td>Observational queries and identification: what to measure; no interventional estimation</td>
 </tr>
 </tbody>
 </table></div>
 <p>A CLD arrow is not a structural equation and carries no do-semantics; a
 successful scenario run says what the model does under an assumed change, not
-what the world would do. Reports should be quoted with that in mind — and
+what the world would do. Reports should be quoted with that in mind, and
 Latris reports say it themselves in the Methods section.</p>
 <h2>Deliberately not implemented</h2>
 <p>Black-box machine learning and opaque structure learning (they fail the
-inspectability test — <code>latris capabilities</code>, <code>excluded_by_design</code>);
+inspectability test: <code>latris capabilities</code>, <code>excluded_by_design</code>);
 interventional and counterfactual estimation on DAGs; XMILE/Vensim import
 (off the roadmap). See the capability manifest for the living list.</p>
 <h2>Machine-readable source of truth</h2>
