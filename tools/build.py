@@ -352,6 +352,9 @@ def main() -> int:
             new = replace_block(new, "foundations", foundations_html(args.foundations), rel)
         if url == "/changelog/" and args.changelog:
             new = replace_block(new, "changelog", changelog_html(args.changelog), rel)
+        bad = [h for h in re.findall(r'href="([^"]*)"', new) if not re.match(r"(https?:|mailto:|/|#)", h)]
+        if bad:
+            raise SystemExit(f"{rel}: links that aren't a URL, a /path or an #anchor: {bad}")
         if new != text:
             stale.append(rel)
             if not args.check:

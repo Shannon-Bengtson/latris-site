@@ -75,6 +75,22 @@ pairs, a `<link rel="canonical">`, and a line in `sitemap.xml`.
 - `CNAME`, `robots.txt`, `sitemap.xml`, `favicon.svg`, `favicon.png`,
   `latris-wordmark.svg`.
 
+## To do
+
+- **River example link (temporary).** The home and Examples pages link to
+  `https://app.latris.app/r/cBK2OuoKfwq1L6VWxk8tWfaa`, an unsaved report made
+  through the connector on 15 Nov 2026. It expires about 15 Dec 2026 (30 days
+  after its last edit) unless it's saved. It was rebuilt from the old
+  `latris link` copy, which can't carry source checks, so its citations show
+  as unchecked and its findings as unapproved. Replace it with the saved,
+  checked model, then restore the "exact passage it was checked against"
+  wording on both pages. Search for `TODO(river-link)`.
+- **Report screenshots.** `assets/report-*.{webp,png}` come from the original
+  river report (checks and approvals shown), so they won't match the
+  temporary link exactly. Retake them from the replacement.
+- **Examples repo.** Planned: a separate repo of example models with an
+  analysis comparing them; `/examples/` would then list them.
+
 ## Deploy
 
 GitHub Pages, deployed from `main` / root. The `CNAME` file sets the custom
