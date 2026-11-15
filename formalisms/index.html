@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/site.css?v=c7eef35d3f" />
+  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
   <script src="/assets/site.js?v=c1a41cf94c" defer></script>
   <!-- @head:end -->
 </head>
@@ -41,6 +41,7 @@
       <nav class="nav" id="site-nav" aria-label="Main">
         <a href="/how-it-works/">How it works</a>
         <a href="/formalisms/" aria-current="page">Models</a>
+        <a href="/methods/">Science</a>
         <a href="/ai/">Use with AI</a>
         <a href="/examples/">Examples</a>
         <a href="/open-source/">Open source</a>
@@ -120,6 +121,7 @@
           <li><strong>What you get:</strong> the structure of the problem: loops, polarity, where an intervention would bite. No numbers.</li>
           <li><strong>Honest limit:</strong> arrows are argued, not estimated. A CLD shows where an effect runs, never how large it is.</li>
         </ul>
+        <p><a href="/formalisms/cld/">Scientific basis: what the arrows mean, lineage, known pitfalls, references →</a></p>
 
         <h3 id="dag">Causal DAG</h3>
         <p class="q">"Can that effect even be estimated, and from what data?"</p>
@@ -129,6 +131,7 @@
           <li><strong>What you get:</strong> an identification strategy: d-separation checks and valid adjustment sets, meaning what to control for, or a statement that no small set suffices.</li>
           <li><strong>Honest limit:</strong> Latris answers identification, not estimation. It will not produce an effect size or a counterfactual; it tells you what data would have to exist for someone to.</li>
         </ul>
+        <p><a href="/formalisms/dag/">Scientific basis: what the arrows mean, lineage, known pitfalls, references →</a></p>
 
         <h3 id="bn">Bayesian network (BN)</h3>
         <p class="q">"How likely is each outcome, and what would change my mind?"</p>
@@ -138,6 +141,7 @@
           <li><strong>What you get:</strong> exact probabilities that update as you enter evidence, including uncertain evidence ("80% sure"); the most likely explanation for what you observed; which unknowns matter most; and, when the tables are estimates, how sure each probability is.</li>
           <li><strong>Honest limit:</strong> discrete states and exact inference on modest networks. If your variables are continuous and tightly coupled over time, system dynamics is the better fit.</li>
         </ul>
+        <p><a href="/formalisms/bn/">Scientific basis: what the arrows mean, lineage, known pitfalls, references →</a></p>
 
         <h3 id="fcm">Fuzzy cognitive map (FCM)</h3>
         <p class="q">"Which forces dominate, roughly?"</p>
@@ -147,6 +151,7 @@
           <li><strong>What you get:</strong> steady-state tendencies under interventions: the direction and rough strength of the net effect.</li>
           <li><strong>Honest limit:</strong> semi-quantitative by design. It says which way the water flows and roughly how fast, not what happens in year three.</li>
         </ul>
+        <p><a href="/formalisms/fcm/">Scientific basis: what the arrows mean, lineage, known pitfalls, references →</a></p>
 
         <h3 id="sd">System dynamics (SD)</h3>
         <p class="q">"How will this behave over time if we intervene?"</p>
@@ -156,6 +161,7 @@
           <li><strong>What you get:</strong> trajectories under scenarios, Monte Carlo uncertainty bands, which values the result is most sensitive to, which feedback loop dominates when (the Loops That Matter method), and charts a board can interrogate. Every parameter carries where it came from.</li>
           <li><strong>Honest limit:</strong> the most commitment of the five. A precise answer to the wrong structure is worse than a vague one, so build the CLD first and quantify it once the structure has survived review.</li>
         </ul>
+        <p><a href="/formalisms/sd/">Scientific basis: what the arrows mean, lineage, known pitfalls, references →</a></p>
         <p class="callout">
           System dynamics runs in the open-source engine and CLI today; the
           visual stock-and-flow editor in the app is on the way.
@@ -197,8 +203,8 @@
         <p><strong>Start with a causal loop diagram.</strong> It's the cheapest honest answer, it forces the arguments into the open, and every other model type builds on it. Promote the same model when, and only when, a question arrives that needs more commitment. Choosing later, with evidence in hand, is a feature: you commit to numbers only when the stakes justify defending them.</p>
         <p>
           Ready to try it? <a href="https://app.latris.app/">Open Latris</a>,
-          or read the <a href="/methods/">methods and foundations</a> for the
-          literature behind each method, with its limits.
+          or read the <a href="/methods/">scientific basis</a> of each model
+          type: its lineage, its known pitfalls and its limits.
         </p>
       </article>
     </div>
@@ -217,6 +223,7 @@
           <ul>
             <li><a href="/how-it-works/">How it works</a></li>
             <li><a href="/formalisms/" aria-current="page">Which model?</a></li>
+            <li><a href="/methods/">Scientific basis</a></li>
             <li><a href="/examples/">Examples</a></li>
             <li><a href="/for-reviewers/">For reviewers</a></li>
             <li><a href="/ai/">Use with AI</a></li>
@@ -227,7 +234,7 @@
           <h2>Open source</h2>
           <ul>
             <li><a href="/open-source/">Library and CLI</a></li>
-            <li><a href="/methods/">Methods</a></li>
+            <li><a href="/methods/reference/">Methods reference</a></li>
             <li><a href="/changelog/">Changelog</a></li>
             <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
             <li><a href="https://pypi.org/project/latris/">PyPI</a></li>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>System dynamics in Latris: simulation, uncertainty and loop dominance</title>
+  <meta name="description" content="How Latris treats system dynamics: the Forrester and Sterman tradition, unit-checked stock-and-flow simulation, delays, Latin-hypercube uncertainty, sensitivity, Loops That Matter, model testing, and the limits." />
+  <link rel="canonical" href="https://latris.app/formalisms/sd/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="System dynamics: the scientific basis" />
+  <meta property="og:description" content="Unit-checked simulation, delays, uncertainty, sensitivity and Loops That Matter, with the limits stated." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://latris.app/formalisms/sd/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/" aria-current="page">Models</a>
+        <a href="/methods/">Science</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="crumb"><a href="/methods/">Scientific basis</a> › <a href="/formalisms/">Model types</a></p>
+        <p class="eyebrow">System dynamics</p>
+        <h1>Stocks, flows and feedback, with every parameter sourced.</h1>
+        <p class="lead">
+          System dynamics simulates how accumulations and feedback produce
+          behaviour over time. It asks the most of a modeller: equations,
+          units and numbers you'd defend in front of a reviewer. Latris gives
+          every one of those numbers a place to record where it came from.
+        </p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <article class="prose-card prose">
+
+        <h2 id="glance" style="margin-top:0">At a glance</h2>
+        <table class="glance">
+          <tr><th scope="row">The model claims</th><td>Stocks accumulate their net flows; flows and auxiliaries are functions of the system's state, written as equations with units.</td></tr>
+          <tr><th scope="row">Numbers</th><td>Initial values, constants, lookup tables and equations, all unit-checked.</td></tr>
+          <tr><th scope="row">Output</th><td>Trajectories over time, under scenarios, with uncertainty bands, sensitivities and the loops that drive the behaviour.</td></tr>
+          <tr><th scope="row">Causal standing</th><td>Quantitative simulation of the claimed mechanism. A scenario intervenes on the model; whether the world would respond the same way depends on the structure being right.</td></tr>
+          <tr><th scope="row">In Latris</th><td>Unit-checked simulation, standard delay structures, scenarios with provenance, Latin-hypercube Monte Carlo, one-at-a-time sensitivity, and Loops That Matter.</td></tr>
+        </table>
+
+        <h2 id="lineage">Where it comes from</h2>
+        <p>
+          System dynamics was founded by Jay Forrester at MIT
+          (<em>Industrial Dynamics</em>, 1961). Sterman's <em>Business
+          Dynamics</em> (2000) is the field's standard text, and Latris's delay
+          structures follow its chapter on delays (ch. 11). Meadows (2008)
+          carried the ideas to a wide audience. On which loop drives behaviour,
+          Latris implements the Loops That Matter method (Schoenberg, Davidsen
+          and Eberlein 2020, with the revised flow-to-stock score of
+          Schoenberg, Hayward and Eberlein 2023), the approach Stella and
+          PySimlin also use. Uncertainty sampling uses Latin hypercubes
+          (McKay, Beckman and Conover 1979).
+        </p>
+        <p>
+          The field's long-standing position on validity is that a model can't
+          be proven true, only tested until it earns confidence, and that tests
+          of structure come before tests of behaviour (Forrester and Senge
+          1980; Barlas 1996; Sterman 2000, ch. 21). That framing is how to read
+          what Latris does and doesn't do below.
+        </p>
+
+        <h2 id="pitfalls">What practitioners know to watch for</h2>
+        <div class="table-wrap">
+          <table class="pitfalls">
+            <thead><tr><th scope="col">The known problem</th><th scope="col">What Latris does</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>Dimensional errors.</strong> Equations that don't balance their units are a common structural fault, and easy to miss by eye.</td>
+                <td>Every equation is unit-checked (with base dimensions for people, money and counted items). An equation whose units don't match its declared units stops the run with an error naming it.</td>
+              </tr>
+              <tr>
+                <td><strong>Parameters nobody can source.</strong> A model's numbers often outlive the memory of where they came from.</td>
+                <td>Parameters sit on factors and links that carry reasons and sources, scenario values carry their own reason, and sensitivity results flag values nobody has reviewed.</td>
+              </tr>
+              <tr>
+                <td><strong>Point estimates hiding uncertainty.</strong> One run says nothing about how sure the answer is.</td>
+                <td>Uncertain constants and initial values take distributions (uniform, triangular, normal, lognormal, beta, gamma). Seeded Latin-hypercube Monte Carlo gives percentile bands and rank correlations; one-at-a-time sensitivity gives a tornado chart.</td>
+              </tr>
+              <tr>
+                <td><strong>Which loop is in charge?</strong> Behaviour shifts as loop dominance shifts, and diagrams can't show it.</td>
+                <td>Loops That Matter scores every feedback loop at every step and flags the loop, or fewest loops, carrying the behaviour.</td>
+              </tr>
+              <tr>
+                <td><strong>Delays done crudely.</strong> Ad hoc lags misrepresent how information and material move.</td>
+                <td>SMOOTH, SMOOTH3, DELAY1 and DELAY3 are expanded into their standard stock-and-flow structures (Sterman 2000, ch. 11).</td>
+              </tr>
+              <tr>
+                <td><strong>Integration artefacts.</strong> Step size and method can change results.</td>
+                <td>The clock (time units, start, end, step) and the method (fixed-step Euler or adaptive Runge-Kutta) are stored with the model, so every run is reproducible.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="testing">Model testing: what's covered</h2>
+        <p>
+          Against the standard battery of tests, Latris covers the structural
+          end. <strong>Dimensional consistency</strong> is enforced.
+          <strong>Structure verification</strong>, whether each relationship
+          reflects the real system, is what the evidence trail is for: every
+          link argued, sourced, checkable and open to challenge.
+          <strong>Parameter verification</strong> is supported by provenance on
+          every value, and <strong>sensitivity</strong> by the analyses above.
+          Behaviour-reproduction tests against historical data, extreme-condition
+          tests and calibration are not implemented.
+        </p>
+
+        <h2 id="implemented">What Latris implements</h2>
+        <ul>
+          <li><strong>Simulation:</strong> stock-and-flow integration by fixed-step Euler or adaptive Runge-Kutta (RK23/RK45), with dimensional analysis on every equation.</li>
+          <li><strong>Functions:</strong> STEP, RAMP, PULSE, lookup tables, MIN, MAX, IF_THEN_ELSE and arithmetic; SMOOTH/SMOOTH3 and DELAY1/DELAY3 as stock-and-flow structure.</li>
+          <li><strong>Scenarios:</strong> named what-ifs that override constants or initial values, unit-checked and carrying their reason.</li>
+          <li><strong>Uncertainty:</strong> seeded Latin-hypercube sampling with percentile bands and Spearman rank correlations.</li>
+          <li><strong>Sensitivity:</strong> one-at-a-time swings across each uncertain value's 5th to 95th percentile.</li>
+          <li><strong>Loop dominance:</strong> Loops That Matter scores at every step, with dominant loops flagged.</li>
+        </ul>
+
+        <h2 id="limits">What it doesn't do</h2>
+        <ul>
+          <li>No calibration to data and no behaviour-reproduction or extreme-condition testing.</li>
+          <li>The adaptive option is RK45 under a step cap, not the classical fixed-step RK4 of Vensim and Stella.</li>
+          <li>Monte Carlo is capped at 1,000 runs and reports rank correlations only: no variance decomposition. Sensitivity is one-at-a-time only.</li>
+          <li>Loop dominance enumerates loops exhaustively up to 500; larger models would need the strongest-path search, which isn't implemented. Scores are zero when stocks stop changing: the method explains change, not equilibrium.</li>
+          <li>No XMILE or Vensim import.</li>
+          <li>System dynamics runs in the open-source engine and CLI today; the visual stock-and-flow editor in the app is on the way.</li>
+        </ul>
+
+        <h2 id="ladder">On the ladder of causation</h2>
+        <p>
+          A simulation is quantitative, but its scenarios intervene on the
+          model, not on the world. What a scenario run shows is what the model
+          does under an assumed change. How far that transfers to the real
+          system depends on the structure, which is why Latris keeps the
+          evidence for every link alongside the results.
+        </p>
+
+        <h2 id="references">References</h2>
+        <ul class="refs">
+          <li><span class="status-pill on">Implemented</span>Forrester, J. W. (1961). <em>Industrial Dynamics</em>. MIT Press.</li>
+          <li><span class="status-pill on">Implemented</span>Sterman, J. D. (2000). <em>Business Dynamics: Systems Thinking and Modeling for a Complex World</em>. Irwin/McGraw-Hill. Ch. 11 (delays).</li>
+          <li><span class="status-pill on">Implemented</span>Schoenberg, W., Davidsen, P., &amp; Eberlein, R. (2020). Understanding model behavior using the Loops that Matter method. <em>System Dynamics Review</em>, 36(2), 158–190.</li>
+          <li><span class="status-pill on">Implemented</span>Schoenberg, W., Hayward, J., &amp; Eberlein, R. (2023). Revised flow-to-stock link score for Loops That Matter. <em>System Dynamics Review</em>.</li>
+          <li><span class="status-pill on">Implemented</span>McKay, M. D., Beckman, R. J., &amp; Conover, W. J. (1979). A comparison of three methods for selecting values of input variables in the analysis of output from a computer code. <em>Technometrics</em>, 21(2), 239–245.</li>
+          <li><span class="status-pill later">Context</span>Forrester, J. W., &amp; Senge, P. M. (1980). Tests for building confidence in system dynamics models. <em>TIMS Studies in the Management Sciences</em>, 14, 209–228.</li>
+          <li><span class="status-pill later">Context</span>Barlas, Y. (1996). Formal aspects of model validity and validation in system dynamics. <em>System Dynamics Review</em>, 12(3), 183–210.</li>
+          <li><span class="status-pill later">Context</span>Sterman, J. D. (2000). <em>Business Dynamics</em>, ch. 21, Truth and beauty: validation and model testing.</li>
+          <li><span class="status-pill later">Context</span>Meadows, D. H. (2008). <em>Thinking in Systems: A Primer</em>. Chelsea Green.</li>
+        </ul>
+        <p class="meta"><strong>Implemented</strong>: Latris implements the method the work describes. <strong>Context</strong>: the work frames or critiques the method; Latris doesn't claim to implement it.</p>
+
+        <nav class="type-nav" aria-label="Model types">
+          <a href="/formalisms/fcm/">← Fuzzy cognitive maps</a>
+          <a href="/methods/">Scientific basis →</a>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/methods/">Scientific basis</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/reference/">Methods reference</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>
