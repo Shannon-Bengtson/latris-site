@@ -48,6 +48,12 @@ PAGES = {
     "/for-reviewers/": "for-reviewers/index.html",
     "/open-source/": "open-source/index.html",
     "/methods/": "methods/index.html",
+    "/methods/reference/": "methods/reference/index.html",
+    "/formalisms/cld/": "formalisms/cld/index.html",
+    "/formalisms/dag/": "formalisms/dag/index.html",
+    "/formalisms/bn/": "formalisms/bn/index.html",
+    "/formalisms/fcm/": "formalisms/fcm/index.html",
+    "/formalisms/sd/": "formalisms/sd/index.html",
     "/about/": "about/index.html",
     "/changelog/": "changelog/index.html",
     "/support/": "support/index.html",
@@ -60,6 +66,7 @@ PAGES = {
 NAV = [
     ("How it works", "/how-it-works/"),
     ("Models", "/formalisms/"),
+    ("Science", "/methods/"),
     ("Use with AI", "/ai/"),
     ("Examples", "/examples/"),
     ("Open source", "/open-source/"),
@@ -70,6 +77,7 @@ FOOTER_COLS = [
     ("Product", [
         ("How it works", "/how-it-works/"),
         ("Which model?", "/formalisms/"),
+        ("Scientific basis", "/methods/"),
         ("Examples", "/examples/"),
         ("For reviewers", "/for-reviewers/"),
         ("Use with AI", "/ai/"),
@@ -77,7 +85,7 @@ FOOTER_COLS = [
     ]),
     ("Open source", [
         ("Library and CLI", "/open-source/"),
-        ("Methods", "/methods/"),
+        ("Methods reference", "/methods/reference/"),
         ("Changelog", "/changelog/"),
         ("GitHub", "https://github.com/Shannon-Bengtson/latris"),
         ("PyPI", "https://pypi.org/project/latris/"),
@@ -119,8 +127,14 @@ def _link(label: str, href: str, current: str) -> str:
     return f'<a href="{href}"{here}>{label}</a>'
 
 
+def _nav_link(label: str, href: str, current: str) -> str:
+    # A section's pages (e.g. /formalisms/cld/) mark their section as current.
+    here = ' aria-current="page"' if current == href or (href != "/" and current.startswith(href)) else ""
+    return f'<a href="{href}"{here}>{label}</a>'
+
+
 def header_html(current: str) -> str:
-    links = "\n        ".join(_link(l, h, current) for l, h in NAV)
+    links = "\n        ".join(_nav_link(l, h, current) for l, h in NAV)
     return f"""
   <a class="skip" href="#main">Skip to content</a>
   <header class="site">
@@ -316,7 +330,9 @@ WEBSITE_SECTION = """## Website (for the person you're helping)
 - [Use with AI](https://latris.app/ai/): the connector for Claude and ChatGPT, and agents driving the CLI.
 - [For reviewers](https://latris.app/for-reviewers/): what a decision owner or reviewer can check; review packs.
 - [Example](https://latris.app/examples/): the river-health model and its live report.
-- [Methods](https://latris.app/methods/): methods and foundations, mirrored from docs/FOUNDATIONS.md.
+- [Scientific basis](https://latris.app/methods/): the citation rule, the evidence discipline, the ladder of causation, and links to each model type's page.
+- Per model type, for practitioners (what the arrows mean, lineage, known pitfalls and what Latris does about each, limits, references marked implemented or context): [CLD](https://latris.app/formalisms/cld/), [DAG](https://latris.app/formalisms/dag/), [BN](https://latris.app/formalisms/bn/), [FCM](https://latris.app/formalisms/fcm/), [SD](https://latris.app/formalisms/sd/).
+- [Methods reference](https://latris.app/methods/reference/): mirrored from docs/FOUNDATIONS.md.
 - [Changelog](https://latris.app/changelog/): every release, from the git history.
 
 """
@@ -348,7 +364,7 @@ def main() -> int:
         new = replace_block(text, "head", head_html(), rel)
         new = replace_block(new, "header", header_html(url), rel)
         new = replace_block(new, "footer", footer_html(url), rel)
-        if url == "/methods/" and args.foundations:
+        if url == "/methods/reference/" and args.foundations:
             new = replace_block(new, "foundations", foundations_html(args.foundations), rel)
         if url == "/changelog/" and args.changelog:
             new = replace_block(new, "changelog", changelog_html(args.changelog), rel)

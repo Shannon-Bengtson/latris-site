@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Causal loop diagrams in Latris: semantics, lineage and limits</title>
+  <meta name="description" content="How Latris treats causal loop diagrams: Sterman's polarity semantics, the system dynamics lineage, the known problems with CLDs and what Latris does about each, what it implements and what it doesn't." />
+  <link rel="canonical" href="https://latris.app/formalisms/cld/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="Causal loop diagrams: the scientific basis" />
+  <meta property="og:description" content="Polarity semantics, the system dynamics lineage, known pitfalls and how Latris handles them." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://latris.app/formalisms/cld/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/" aria-current="page">Models</a>
+        <a href="/methods/">Science</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="crumb"><a href="/methods/">Scientific basis</a> › <a href="/formalisms/">Model types</a></p>
+        <p class="eyebrow">Causal loop diagrams</p>
+        <h1>Feedback structure, argued link by link.</h1>
+        <p class="lead">
+          The qualitative core of the system dynamics tradition: variables,
+          signed causal links, and the feedback loops they form. A causal loop
+          diagram is a hypothesis about structure. Latris treats it as one,
+          and keeps the argument for every link on the record.
+        </p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <article class="prose-card prose">
+
+        <h2 id="glance" style="margin-top:0">At a glance</h2>
+        <table class="glance">
+          <tr><th scope="row">An arrow claims</th><td>A change in the cause produces a change in the effect: in the same direction (+) or the opposite direction (−), all else equal.</td></tr>
+          <tr><th scope="row">A loop is</th><td>Reinforcing if it contains an even number of negative links, balancing if odd.</td></tr>
+          <tr><th scope="row">Numbers</th><td>None. Direction only.</td></tr>
+          <tr><th scope="row">Causal standing</th><td>Claims about mechanism. An arrow is argued, not estimated, and carries no interventional semantics.</td></tr>
+          <tr><th scope="row">In Latris</th><td>Loop detection and classification, qualitative effect tracing along paths, and a reason, confidence and sources (for and against) on every link.</td></tr>
+        </table>
+
+        <h2 id="lineage">Where it comes from</h2>
+        <p>
+          Causal loop diagrams come out of system dynamics, the field Jay
+          Forrester founded at MIT in the late 1950s (<em>Industrial
+          Dynamics</em>, 1961). Their job was to communicate the feedback
+          structure of a simulation model to people who would never read its
+          equations. The notation most practitioners now learn, and the
+          guidelines for drawing it well, are Sterman's (2000, chs. 4 and 5);
+          Meadows (2008) is the accessible statement of the same way of
+          thinking. The tradition's central proposition is that a system's
+          behaviour over time comes from its feedback structure, which is why
+          getting the structure right, and being able to defend it, matters.
+        </p>
+        <p>
+          Latris uses Sterman's definition of polarity. A positive link from X
+          to Y means that if X increases, Y increases <em>above what it would
+          otherwise have been</em> (and a decrease, below). A negative link
+          means the opposite. The qualifier matters for links into
+          accumulations, where the effect is on a rate of change, not a level.
+        </p>
+
+        <h2 id="pitfalls">What practitioners know to watch for</h2>
+        <p>
+          The weaknesses of causal loop diagrams are well documented, most
+          sharply by Richardson (1986). Latris doesn't make them go away. It
+          makes them visible.
+        </p>
+        <div class="table-wrap">
+          <table class="pitfalls">
+            <thead><tr><th scope="col">The known problem</th><th scope="col">What Latris does</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>Ambiguous polarity.</strong> Many real links are positive in some conditions and negative in others, and a diagram forces a choice.</td>
+                <td>A link can be marked <code>~</code> (ambiguous). Loops through it are reported as of unknown polarity rather than guessed, and every polarity carries a written reason, so the condition it assumes is on the record.</td>
+              </tr>
+              <tr>
+                <td><strong>Hidden accumulations.</strong> A CLD doesn't distinguish stocks from flows, so it can mislead about how quickly anything changes.</td>
+                <td>The same factors can be given stock and flow roles in a system dynamics view of the same model, without redrawing. When a project has both, loop analysis includes feedback through the stocks.</td>
+              </tr>
+              <tr>
+                <td><strong>Reading behaviour from polarity.</strong> Which loop dominates, and when, can't be read off a diagram.</td>
+                <td>Latris says so in the report. Loop dominance is computed only where it can be: in a simulated system dynamics model, with the Loops That Matter method.</td>
+              </tr>
+              <tr>
+                <td><strong>Unexplained arrows.</strong> Diagrams from workshops rarely record why an arrow is there, or who disagreed.</td>
+                <td>Every link holds its reason, a confidence (low, medium, high, or true by definition), and sources cited for or against it. Each source can be checked against what it actually says, and challenges keep dissent on the record with an outcome.</td>
+              </tr>
+              <tr>
+                <td><strong>Definitions passing as causes.</strong> Accounting identities and definitional links get counted as feedback.</td>
+                <td>Links true by definition are marked as such and need no source. Decision-rule, governance and definitional links are left out of loop and centrality analysis.</td>
+              </tr>
+              <tr>
+                <td><strong>Too many loops to read.</strong> Loop counts grow combinatorially with model size.</td>
+                <td>Enumeration is capped, and Latris stops with an error past the cap rather than silently sampling.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="implemented">What Latris implements</h2>
+        <ul>
+          <li><strong>Loop detection:</strong> every elementary circuit, by Johnson's (1975) algorithm.</li>
+          <li><strong>Loop classification:</strong> reinforcing or balancing by the count of negative links; unknown if any link is ambiguous.</li>
+          <li><strong>Effect tracing:</strong> the qualitative effect of a change propagated along each path from a factor to the outcome.</li>
+          <li><strong>Candidate leverage points:</strong> factors that many causal paths run through (betweenness centrality), with the outcome excluded. The report labels this as structural, not a measured effect size.</li>
+        </ul>
+
+        <h2 id="limits">What it doesn't do</h2>
+        <ul>
+          <li>No magnitudes, delays or timing. For those, quantify the same model as a <a href="/formalisms/fcm/">fuzzy cognitive map</a> or <a href="/formalisms/sd/">system dynamics model</a>.</li>
+          <li>No guessing of ambiguous polarity, and no inference of which loop dominates.</li>
+          <li>No interventional claims. "If we increase X, Y rises" is a statement about the diagram's logic, not an estimate of what would happen.</li>
+        </ul>
+
+        <h2 id="ladder">On the ladder of causation</h2>
+        <p>
+          On Pearl's ladder (association, intervention, counterfactual), a
+          causal loop diagram makes claims about mechanism without sitting
+          cleanly on any rung: its arrows are argued, not identified or
+          estimated. Latris reports say this in their methods section.
+        </p>
+
+        <h2 id="references">References</h2>
+        <ul class="refs">
+          <li><span class="status-pill on">Implemented</span>Sterman, J. D. (2000). <em>Business Dynamics: Systems Thinking and Modeling for a Complex World</em>. Irwin/McGraw-Hill. Chs. 4 and 5.</li>
+          <li><span class="status-pill on">Implemented</span>Meadows, D. H. (2008). <em>Thinking in Systems: A Primer</em>. Chelsea Green.</li>
+          <li><span class="status-pill on">Implemented</span>Johnson, D. B. (1975). Finding all the elementary circuits of a directed graph. <em>SIAM Journal on Computing</em>, 4(1), 77–84.</li>
+          <li><span class="status-pill later">Context</span>Forrester, J. W. (1961). <em>Industrial Dynamics</em>. MIT Press.</li>
+          <li><span class="status-pill later">Context</span>Richardson, G. P. (1986). Problems with causal-loop diagrams. <em>System Dynamics Review</em>, 2(2), 158–170.</li>
+          <li><span class="status-pill later">Context</span>Pearl, J., &amp; Mackenzie, D. (2018). <em>The Book of Why</em>. Basic Books.</li>
+        </ul>
+        <p class="meta"><strong>Implemented</strong>: Latris implements the method the work describes. <strong>Context</strong>: the work frames or critiques the method; Latris doesn't claim to implement it.</p>
+
+        <nav class="type-nav" aria-label="Model types">
+          <a href="/formalisms/">← Which model?</a>
+          <a href="/formalisms/dag/">Causal DAGs →</a>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/methods/">Scientific basis</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/reference/">Methods reference</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>

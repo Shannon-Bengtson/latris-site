@@ -520,3 +520,29 @@ footer.site {
 .prose pre code { overflow-wrap: normal; }
 
 @media (min-width: 1100px) { .cards.five { grid-template-columns: repeat(5, 1fr); } }
+
+/* Release-notes form: stack on narrow screens so the email field keeps its width. */
+@media (max-width: 560px) {
+  .updates { flex-direction: column; max-width: none; }
+  .updates input[type="email"], .updates button { width: 100%; }
+}
+
+/* ── Scientific-basis pages ── */
+.glance { width: 100%; border-collapse: collapse; margin: 6px 0 8px; font-size: 15.5px; }
+.glance th { width: 30%; text-align: left; vertical-align: top; padding: 9px 12px 9px 0; font-family: "Outfit", sans-serif; font-weight: 600; color: var(--ink); border-bottom: 1px solid var(--border); }
+.glance td { padding: 9px 0; color: var(--ink-2); border-bottom: 1px solid var(--border); vertical-align: top; }
+@media (max-width: 560px) { .glance th, .glance td { display: block; width: auto; padding: 8px 0 0; border: 0; } .glance td { padding: 2px 0 10px; border-bottom: 1px solid var(--border); } }
+.pitfalls { width: 100%; border-collapse: collapse; font-size: 15px; }
+.pitfalls th, .pitfalls td { text-align: left; vertical-align: top; padding: 10px 10px; border-bottom: 1px solid var(--border); }
+.pitfalls thead th { font-family: "Outfit", sans-serif; color: var(--ink); }
+.pitfalls td:first-child { width: 42%; }
+.pitfalls td strong { display: block; margin-bottom: 3px; }
+@media (max-width: 640px) { .pitfalls thead { display: none; } .pitfalls tr { display: block; border-bottom: 1px solid var(--border); padding: 8px 0; } .pitfalls td { display: block; width: auto !important; border: 0; padding: 4px 0; } }
+.refs { list-style: none; padding-left: 0 !important; }
+.refs li { padding-left: 0; margin: 0 0 10px; }
+.refs .status-pill { margin-right: 8px; font-size: 11.5px; vertical-align: 1px; }
+.type-nav { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--border); font-family: "Outfit", sans-serif; font-weight: 600; }
+.type-nav a { text-decoration: none; }
+.type-nav a:hover { text-decoration: underline; }
+.page-hero .crumb { font-size: 14px; margin: 0 0 14px; }
+.page-hero .crumb a { text-decoration: none; font-weight: 600; }

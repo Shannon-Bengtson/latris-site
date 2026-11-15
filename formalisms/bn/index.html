@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bayesian networks in Latris: inference, elicitation and uncertainty</title>
+  <meta name="description" content="How Latris treats discrete Bayesian networks: Pearl's lineage and Fenton and Neil's defensible-model tradition, exact inference, soft evidence, per-cell provenance, uncertainty over the tables, the known pitfalls and the limits." />
+  <link rel="canonical" href="https://latris.app/formalisms/bn/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="Bayesian networks: the scientific basis" />
+  <meta property="og:description" content="Exact inference, soft evidence, per-cell provenance and uncertainty over the tables, with the limits stated." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://latris.app/formalisms/bn/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/" aria-current="page">Models</a>
+        <a href="/methods/">Science</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="crumb"><a href="/methods/">Scientific basis</a> › <a href="/formalisms/">Model types</a></p>
+        <p class="eyebrow">Bayesian networks</p>
+        <h1>Probabilities you can trace back to where they came from.</h1>
+        <p class="lead">
+          A discrete Bayesian network puts probabilities on the states of each
+          factor, conditional on its causes, and updates them as evidence
+          arrives. Latris follows the tradition of defensible, partly
+          expert-elicited networks: every cell records whether it was elicited or learned, and each table can say how well it's known.
+        </p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <article class="prose-card prose">
+
+        <h2 id="glance" style="margin-top:0">At a glance</h2>
+        <table class="glance">
+          <tr><th scope="row">An arrow claims</th><td>The parent's state changes the probability distribution of the child's state. Together with the child's conditional probability table, the arrows define the joint distribution.</td></tr>
+          <tr><th scope="row">Numbers</th><td>Discrete states for every factor and a conditional probability table for each.</td></tr>
+          <tr><th scope="row">Causal standing</th><td>Observational: posterior probabilities given evidence. A causal reading of the arrows is an assumption the modeller makes, not something the network establishes.</td></tr>
+          <tr><th scope="row">In Latris</th><td>Exact inference; hard, soft and likelihood evidence; most likely explanations; parameter learning that respects elicited values; one-way sensitivity; Monte Carlo over uncertain tables.</td></tr>
+        </table>
+
+        <h2 id="lineage">Where it comes from</h2>
+        <p>
+          Bayesian networks were founded by Pearl (1988). Fenton and Neil
+          (2018) set out the practice closest to Latris's: networks built
+          with domain experts, numbers that have to be defended, and causal
+          structure argued rather than mined from data. Soft evidence follows
+          Jeffrey's (1965) rule for updating on uncertain observations.
+        </p>
+        <p>
+          In environmental and natural-resource modelling, Bayesian networks
+          are a well-established decision-support method, and the field has
+          its own good-practice guidance (Marcot et al. 2006; Chen and Pollino
+          2012). That guidance stresses a clear model purpose, a documented
+          conceptual model, transparent parameterisation from experts and
+          data, sensitivity analysis, and documentation a reviewer can follow.
+          Latris records each of those as part of the model rather than in a
+          separate report, though it doesn't cover every step: see the limits
+          below.
+        </p>
+
+        <h2 id="pitfalls">What practitioners know to watch for</h2>
+        <div class="table-wrap">
+          <table class="pitfalls">
+            <thead><tr><th scope="col">The known problem</th><th scope="col">What Latris does</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>Where did this number come from?</strong> A finished network rarely shows which probabilities were elicited, which were learned, and from what.</td>
+                <td>Provenance is kept per cell. Learned rows are marked as data-derived, and learning never overwrites a row a person elicited.</td>
+              </tr>
+              <tr>
+                <td><strong>False precision.</strong> A single number in each cell hides how little is known about it.</td>
+                <td>Any table, or any row, can be marked as "worth about n observations". Monte Carlo over those Dirichlet distributions gives the target probability with 50% and 95% intervals, and names the tables that drive the spread.</td>
+              </tr>
+              <tr>
+                <td><strong>Elicitation burden.</strong> Tables grow exponentially with the number of parents, and experts can't fill them reliably.</td>
+                <td>Noisy-OR canonical models for binary effects with independent binary causes: one probability per cause plus a leak, instead of a full table.</td>
+              </tr>
+              <tr>
+                <td><strong>Uncertain observations.</strong> Real evidence is often "probably", not "yes".</td>
+                <td>Soft evidence by Jeffrey's rule (the node ends up at the stated probability) and likelihood evidence (relative weights), alongside hard evidence. The report says which kind was entered.</td>
+              </tr>
+              <tr>
+                <td><strong>Structure mined from data.</strong> Learned structures are hard to defend causally and unstable on small samples.</td>
+                <td>Structure learning is excluded by design. The structure is argued link by link, with sources, like any other Latris model; only the parameters can be learned.</td>
+              </tr>
+              <tr>
+                <td><strong>Discretisation drives results.</strong> Where the state boundaries fall changes the answer.</td>
+                <td>The modeller defines the states. Binning a data column is a recorded, reversible step in the data workspace, and sensitivity analysis shows which tables the result depends on.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="implemented">What Latris implements</h2>
+        <ul>
+          <li><strong>Exact inference</strong> by variable elimination (via pgmpy): posterior marginals for every node given the evidence.</li>
+          <li><strong>Evidence:</strong> hard, soft (Jeffrey's rule) and likelihood evidence, per node.</li>
+          <li><strong>Most likely explanation:</strong> the most probable joint states (MPE, or MAP over chosen nodes), with how much more likely each state is than its runner-up.</li>
+          <li><strong>Parameter learning</strong> from discrete data by maximum likelihood or a Bayesian estimator (BDeu prior), protecting elicited rows.</li>
+          <li><strong>Noisy-OR</strong> canonical tables.</li>
+          <li><strong>Sensitivity:</strong> one-way (tornado) sensitivity of a target over table cells, with each cell's provenance shown; probabilistic sensitivity by Monte Carlo over uncertain rows.</li>
+        </ul>
+
+        <h2 id="limits">What it doesn't do</h2>
+        <ul>
+          <li>Variable elimination only: no junction tree or belief propagation. Marginals, not joint posteriors (apart from the most-likely-explanation query).</li>
+          <li>Discrete variables only. No continuous or hybrid networks, and no dynamic (time-sliced) networks.</li>
+          <li>No structure learning, by design.</li>
+          <li>No predictive validation against held-out data, and no value-of-information (EVPI) analysis yet.</li>
+          <li>Noisy-OR needs binary effects and binary causes.</li>
+        </ul>
+
+        <h2 id="ladder">On the ladder of causation</h2>
+        <p>
+          Latris uses Bayesian networks for the first rung: what is likely,
+          given what has been observed. It doesn't compute interventional
+          (do-operator) queries on them. If you need to know what to adjust
+          for to estimate an effect, that's a question for a
+          <a href="/formalisms/dag/">causal DAG</a> on the same factors.
+        </p>
+
+        <h2 id="references">References</h2>
+        <ul class="refs">
+          <li><span class="status-pill on">Implemented</span>Pearl, J. (1988). <em>Probabilistic Reasoning in Intelligent Systems: Networks of Plausible Inference</em>. Morgan Kaufmann.</li>
+          <li><span class="status-pill on">Implemented</span>Fenton, N., &amp; Neil, M. (2018). <em>Risk Assessment and Decision Analysis with Bayesian Networks</em> (2nd ed.). CRC Press.</li>
+          <li><span class="status-pill on">Implemented</span>Jeffrey, R. (1965). <em>The Logic of Decision</em>. McGraw-Hill.</li>
+          <li><span class="status-pill on">Implemented</span>McKay, M. D., Beckman, R. J., &amp; Conover, W. J. (1979). A comparison of three methods for selecting values of input variables in the analysis of output from a computer code. <em>Technometrics</em>, 21(2), 239–245. (Sampling practice for the Monte Carlo.)</li>
+          <li><span class="status-pill later">Context</span>Marcot, B. G., Steventon, J. D., Sutherland, G. D., &amp; McCann, R. K. (2006). Guidelines for developing and updating Bayesian belief networks applied to ecological modeling and conservation. <em>Canadian Journal of Forest Research</em>, 36(12), 3063–3074.</li>
+          <li><span class="status-pill later">Context</span>Chen, S. H., &amp; Pollino, C. A. (2012). Good practice in Bayesian network modelling. <em>Environmental Modelling &amp; Software</em>, 37, 134–145.</li>
+        </ul>
+        <p class="meta"><strong>Implemented</strong>: Latris implements the method the work describes. <strong>Context</strong>: the work frames or critiques the method; Latris doesn't claim to implement it.</p>
+
+        <nav class="type-nav" aria-label="Model types">
+          <a href="/formalisms/dag/">← Causal DAGs</a>
+          <a href="/formalisms/fcm/">Fuzzy cognitive maps →</a>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/methods/">Scientific basis</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/reference/">Methods reference</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>

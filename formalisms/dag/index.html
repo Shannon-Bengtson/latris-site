@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Causal DAGs in Latris: identification, not estimation</title>
+  <meta name="description" content="How Latris treats causal directed acyclic graphs: Pearl's graphical causal models as used in epidemiology, d-separation, backdoor adjustment sets, the known pitfalls, and why Latris stops at identification." />
+  <link rel="canonical" href="https://latris.app/formalisms/dag/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="Causal DAGs: the scientific basis" />
+  <meta property="og:description" content="d-separation, backdoor adjustment sets, the known pitfalls, and why Latris stops at identification." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://latris.app/formalisms/dag/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/" aria-current="page">Models</a>
+        <a href="/methods/">Science</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="crumb"><a href="/methods/">Scientific basis</a> › <a href="/formalisms/">Model types</a></p>
+        <p class="eyebrow">Causal DAGs</p>
+        <h1>Identification, not estimation.</h1>
+        <p class="lead">
+          A directed acyclic graph, as used in modern causal inference, writes
+          down your assumptions about what causes what, so you can work out
+          what would have to be measured before an effect could be estimated.
+          Latris answers that question and deliberately stops there.
+        </p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <article class="prose-card prose">
+
+        <h2 id="glance" style="margin-top:0">At a glance</h2>
+        <table class="glance">
+          <tr><th scope="row">An arrow claims</th><td>The cause may have a direct effect on the effect, relative to the other variables in the graph.</td></tr>
+          <tr><th scope="row">A missing arrow claims</th><td>No direct effect. These absences are the graph's strongest assumptions.</td></tr>
+          <tr><th scope="row">Numbers</th><td>None.</td></tr>
+          <tr><th scope="row">Causal standing</th><td>Identification of interventional questions: which variables to condition on so that an effect could be estimated from observational data.</td></tr>
+          <tr><th scope="row">In Latris</th><td>Acyclicity enforced; d-separation queries; Markov blankets; path enumeration with each path classified; minimal backdoor adjustment sets.</td></tr>
+        </table>
+
+        <h2 id="lineage">Where it comes from</h2>
+        <p>
+          Graphical causal models were developed by Pearl and colleagues and
+          set out in <em>Causality</em> (2000; 2nd ed. 2009). Greenland, Pearl
+          and Robins (1999) brought them into epidemiology, where they are now
+          the standard way to reason about confounding, and Hernán and Robins
+          (<em>Causal Inference: What If</em>, 2020) is the standard text.
+          Textor and colleagues' dagitty (2016) is the tool most researchers
+          use to find adjustment sets. Latris's d-separation test follows
+          Shachter's (1998) Bayes-Ball algorithm.
+        </p>
+        <p>
+          Latris uses the backdoor criterion as Pearl states it. A set Z is a
+          valid adjustment set for the effect of X on Y if no member of Z is a
+          descendant of X, and Z blocks every path between X and Y in the graph
+          with X's outgoing arrows removed.
+        </p>
+
+        <h2 id="pitfalls">What practitioners know to watch for</h2>
+        <div class="table-wrap">
+          <table class="pitfalls">
+            <thead><tr><th scope="col">The known problem</th><th scope="col">What Latris does</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>The missing arrows carry the assumptions.</strong> Reviewers argue about the arrows that are drawn; the identifying assumptions are the ones that aren't.</td>
+                <td>Every arrow carries its reason and sources, and choices to leave a link out can be recorded as decisions with their rationale, so the absences are on the record too.</td>
+              </tr>
+              <tr>
+                <td><strong>Adjusting for the wrong thing.</strong> Conditioning on a collider or a mediator opens or blocks paths it shouldn't.</td>
+                <td>Path enumeration labels every path between two variables as a chain, fork or collider, so you can see why a variable belongs in an adjustment set or must stay out. Descendants of the exposure are never offered.</td>
+              </tr>
+              <tr>
+                <td><strong>Unmeasured confounding.</strong> An adjustment set is only valid if the graph includes the confounders that matter.</td>
+                <td>Latris finds adjustment sets among the variables in the graph and cannot know about variables left out. It also treats every variable in the graph as measurable: marking a variable as unobserved isn't supported yet.</td>
+              </tr>
+              <tr>
+                <td><strong>Identification mistaken for estimation.</strong> A valid adjustment set says what to control for, not how big the effect is.</td>
+                <td>Latris stops at identification and labels it as such in every report. It produces no effect sizes, no do-calculus estimates and no counterfactuals.</td>
+              </tr>
+              <tr>
+                <td><strong>Feedback in the real system.</strong> DAGs can't contain cycles, but many systems feed back on themselves.</td>
+                <td>Latris refuses a DAG with a cycle. Feedback stays in the <a href="/formalisms/cld/">causal loop diagram</a> view of the same factors; for the DAG, unroll it over time or split the loop.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="implemented">What Latris implements</h2>
+        <ul>
+          <li><strong>Acyclicity:</strong> a DAG view with a directed cycle is rejected.</li>
+          <li><strong>d-separation:</strong> whether two variables are independent given a conditioning set, by Bayes-Ball (Shachter 1998).</li>
+          <li><strong>Markov blankets</strong> of any variable.</li>
+          <li><strong>Path enumeration</strong> between two variables, each path classified by its chain, fork and collider structure.</li>
+          <li><strong>Adjustment sets:</strong> minimal sufficient sets by the backdoor criterion (Pearl 2009), or a statement that no adjustment is needed.</li>
+        </ul>
+
+        <h2 id="limits">What it doesn't do</h2>
+        <ul>
+          <li>No estimation of any kind: no effect sizes, no g-methods, no counterfactuals. Take the adjustment set to your statistical software.</li>
+          <li>Adjustment sets are searched only up to three variables. If no valid set of three or fewer exists, Latris says so rather than searching further.</li>
+          <li>No latent or unobserved variables, and no front-door or instrumental-variable identification.</li>
+          <li>Analyses run on the causal links only; other kinds of link in the model are ignored.</li>
+        </ul>
+
+        <h2 id="ladder">On the ladder of causation</h2>
+        <p>
+          The questions a DAG answers are about the second rung,
+          intervention: could this effect be estimated, and by conditioning on
+          what? Latris answers them by graph analysis. It never climbs the
+          rung itself by estimating an effect, and the report's methods
+          section says so.
+        </p>
+
+        <h2 id="references">References</h2>
+        <ul class="refs">
+          <li><span class="status-pill on">Implemented</span>Pearl, J. (2009). <em>Causality: Models, Reasoning and Inference</em> (2nd ed.). Cambridge University Press.</li>
+          <li><span class="status-pill on">Implemented</span>Hernán, M. A., &amp; Robins, J. M. (2020). <em>Causal Inference: What If</em>. Chapman &amp; Hall/CRC.</li>
+          <li><span class="status-pill on">Implemented</span>Shachter, R. D. (1998). Bayes-Ball: The rational pastime. <em>Proceedings of the 14th Conference on Uncertainty in Artificial Intelligence</em>.</li>
+          <li><span class="status-pill later">Context</span>Greenland, S., Pearl, J., &amp; Robins, J. M. (1999). Causal diagrams for epidemiologic research. <em>Epidemiology</em>, 10(1), 37–48.</li>
+          <li><span class="status-pill later">Context</span>Textor, J., van der Zander, B., Gilthorpe, M. S., Liśkiewicz, M., &amp; Ellison, G. T. H. (2016). Robust causal inference using directed acyclic graphs: the R package "dagitty". <em>International Journal of Epidemiology</em>, 45(6), 1887–1894.</li>
+          <li><span class="status-pill later">Context</span>Pearl, J., &amp; Mackenzie, D. (2018). <em>The Book of Why</em>. Basic Books.</li>
+        </ul>
+        <p class="meta"><strong>Implemented</strong>: Latris implements the method the work describes. <strong>Context</strong>: the work frames or critiques the method; Latris doesn't claim to implement it.</p>
+
+        <nav class="type-nav" aria-label="Model types">
+          <a href="/formalisms/cld/">← Causal loop diagrams</a>
+          <a href="/formalisms/bn/">Bayesian networks →</a>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/methods/">Scientific basis</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/reference/">Methods reference</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>

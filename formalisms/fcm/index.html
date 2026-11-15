@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fuzzy cognitive maps in Latris: Kosko inference, scenarios and limits</title>
+  <meta name="description" content="How Latris treats fuzzy cognitive maps: Kosko's weighted-matrix inference, its roots in cognitive mapping and participatory modelling, the known sensitivities, what Latris implements and what it doesn't." />
+  <link rel="canonical" href="https://latris.app/formalisms/fcm/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="Fuzzy cognitive maps: the scientific basis" />
+  <meta property="og:description" content="Kosko inference, scenario clamps, the known sensitivities, and the limits." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://latris.app/formalisms/fcm/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/" aria-current="page">Models</a>
+        <a href="/methods/">Science</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="crumb"><a href="/methods/">Scientific basis</a> › <a href="/formalisms/">Model types</a></p>
+        <p class="eyebrow">Fuzzy cognitive maps</p>
+        <h1>Which forces dominate, roughly.</h1>
+        <p class="lead">
+          A fuzzy cognitive map adds signed weights to a causal diagram and
+          iterates them to see where the system tends to settle. It's the
+          middle ground between arrows alone and full equations, and a
+          workhorse of participatory modelling. Latris implements Kosko's
+          original formulation and is explicit about its sensitivities.
+        </p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <article class="prose-card prose">
+
+        <h2 id="glance" style="margin-top:0">At a glance</h2>
+        <table class="glance">
+          <tr><th scope="row">An arrow claims</th><td>The cause pushes the effect up (positive weight) or down (negative weight), with a strength between −1 and +1.</td></tr>
+          <tr><th scope="row">Numbers</th><td>One weight per link, usually elicited from people who know the system.</td></tr>
+          <tr><th scope="row">Output</th><td>Activation levels between 0 and 1 at the state the iteration settles into: relative tendencies, not quantities with units.</td></tr>
+          <tr><th scope="row">Causal standing</th><td>A semi-quantitative simulation of the claimed mechanism. Scenarios intervene on the model, not on the world.</td></tr>
+          <tr><th scope="row">In Latris</th><td>Kosko's update rule with sigmoid, rescaled tanh or step transfer functions; clamped scenario factors; non-convergence flagged.</td></tr>
+        </table>
+
+        <h2 id="lineage">Where it comes from</h2>
+        <p>
+          Kosko (1986) introduced fuzzy cognitive maps as an extension of the
+          cognitive maps Axelrod (1976) used to represent decision-makers'
+          causal beliefs: signed graphs became weighted ones that could be
+          iterated. In ecology and natural-resource management, Özesmi and
+          Özesmi (2004) set out a multi-step method for building them from
+          stakeholders' knowledge, and fuzzy cognitive mapping is now a common
+          tool in participatory modelling.
+        </p>
+        <p>
+          Latris uses Kosko's update rule: each factor's next activation is the
+          transfer function applied to the weighted sum of the others' current
+          activations, <code>A<sub>j</sub>(t+1) = f(Σ<sub>i</sub> A<sub>i</sub>(t) · W<sub>ij</sub>)</code>,
+          iterated until no activation changes by more than a threshold.
+          Variants that add each factor's previous activation to the sum are
+          not offered.
+        </p>
+
+        <h2 id="pitfalls">What practitioners know to watch for</h2>
+        <div class="table-wrap">
+          <table class="pitfalls">
+            <thead><tr><th scope="col">The known problem</th><th scope="col">What Latris does</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>Results depend on the transfer function.</strong> The function and its steepness (λ) can change where the map settles.</td>
+                <td>The transfer function, steepness, threshold and iteration cap are settings stored with the model, not hidden defaults, so a reviewer can see and rerun them.</td>
+              </tr>
+              <tr>
+                <td><strong>Not every map settles.</strong> Iteration can oscillate or wander instead of reaching a fixed point.</td>
+                <td>A run that doesn't converge within the cap is flagged as not converged, so it can't pass for a steady state.</td>
+              </tr>
+              <tr>
+                <td><strong>The start often doesn't matter.</strong> With a sigmoid and this update rule, the steady state is often independent of the initial activations.</td>
+                <td>Scenarios work by clamping factors at fixed activations. Read a clamped run against an unclamped one: the difference is the scenario's effect.</td>
+              </tr>
+              <tr>
+                <td><strong>Weights are judgements.</strong> They come from people, and different people weight the same link differently.</td>
+                <td>Weights sit on links that already carry a reason, a confidence and sources for and against, and disagreement can be recorded as a challenge with its outcome.</td>
+              </tr>
+              <tr>
+                <td><strong>Activations read as quantities.</strong> A steady-state activation of 0.8 isn't 80% of anything.</td>
+                <td>Activations are bounded between 0 and 1 by the transfer function, so read them as relative tendencies. When quantities and timing are the question, give the same model stocks and flows as <a href="/formalisms/sd/">system dynamics</a>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="implemented">What Latris implements</h2>
+        <ul>
+          <li><strong>Inference:</strong> Kosko's weighted-matrix iteration to a fixed point, with a convergence threshold and iteration cap.</li>
+          <li><strong>Transfer functions:</strong> sigmoid (the default), tanh rescaled to [0, 1], and step, with adjustable steepness.</li>
+          <li><strong>Scenarios:</strong> factors clamped at chosen activations for the whole run.</li>
+          <li><strong>Weights</strong> validated to the range −1 to +1, set on the links of an existing causal loop diagram without redrawing it.</li>
+        </ul>
+
+        <h2 id="limits">What it doesn't do</h2>
+        <ul>
+          <li>Fixed-point analysis only. Limit cycles and chaotic behaviour are not detected or classified, only flagged as non-convergence.</li>
+          <li>No aggregation of several participants' maps into one, and no learning of weights from data.</li>
+          <li>No self-memory (modified-Kosko) update rule.</li>
+        </ul>
+
+        <h2 id="ladder">On the ladder of causation</h2>
+        <p>
+          A fuzzy cognitive map simulates the mechanism you claimed. A clamped
+          scenario says what the model does under an assumed change, not what
+          the world would do, and the methods section of a Latris report says so.
+        </p>
+
+        <h2 id="references">References</h2>
+        <ul class="refs">
+          <li><span class="status-pill on">Implemented</span>Kosko, B. (1986). Fuzzy cognitive maps. <em>International Journal of Man-Machine Studies</em>, 24(1), 65–75.</li>
+          <li><span class="status-pill later">Context</span>Axelrod, R. (Ed.) (1976). <em>Structure of Decision: The Cognitive Maps of Political Elites</em>. Princeton University Press.</li>
+          <li><span class="status-pill later">Context</span>Özesmi, U., &amp; Özesmi, S. L. (2004). Ecological models based on people's knowledge: a multi-step fuzzy cognitive mapping approach. <em>Ecological Modelling</em>, 176(1–2), 43–64.</li>
+        </ul>
+        <p class="meta"><strong>Implemented</strong>: Latris implements the method the work describes. <strong>Context</strong>: the work frames or critiques the method; Latris doesn't claim to implement it.</p>
+
+        <nav class="type-nav" aria-label="Model types">
+          <a href="/formalisms/bn/">← Bayesian networks</a>
+          <a href="/formalisms/sd/">System dynamics →</a>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/methods/">Scientific basis</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/reference/">Methods reference</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>

@@ -17,7 +17,9 @@ build step on deploy: what's committed is what's served.
 | `/examples/` | The river-health model, what to click, the fields Latris fits |
 | `/for-reviewers/` | For decision owners and reviewers: what they can check; review packs |
 | `/open-source/` | The open engine: library vs app, design, agents, quickstart |
-| `/methods/` | Methods and foundations, generated from `docs/FOUNDATIONS.md` in the latris repo |
+| `/formalisms/{cld,dag,bn,fcm,sd}/` | The scientific basis of each model type, for practitioners: what the arrows mean, lineage, known pitfalls and what Latris does about each, what's implemented, limits, references marked Implemented or Context. Hand-written; keep in step with `FOUNDATIONS.md` and the code |
+| `/methods/` | "Scientific basis" hub: the citation rule, the evidence discipline, the ladder of causation, good practice, exclusions |
+| `/methods/reference/` | Methods and foundations reference, generated from `docs/FOUNDATIONS.md` in the latris repo |
 | `/about/` | Founder, "Work with me", contact, release-notes sign-up |
 | `/changelog/` | Every release of the open-source engine, generated from its git history |
 | `/support/`, `/privacy/`, `/terms/` | Help and legal |
@@ -50,7 +52,7 @@ python3 tools/build.py            # restamp every page
 python3 tools/build.py --check    # exit 1 if any page is out of date
 
 # Also regenerate /methods/ from the library repo (needs: pip install markdown)
-python3 tools/build.py --foundations ../latris/docs/FOUNDATIONS.md
+python3 tools/build.py --foundations ../latris/docs/FOUNDATIONS.md   # writes /methods/reference/
 
 # Also regenerate /changelog/ from the library's git history
 # (needs a full clone: git -C ../latris fetch --unshallow origin main)
@@ -99,7 +101,7 @@ domain on push. DNS: apex `A` records to GitHub Pages, `www` `CNAME` to
 
 ## Style
 
-No em dashes in site copy. `/methods/` and `/changelog/` are generated from
+No em dashes in site copy. `/methods/reference/` and `/changelog/` are generated from
 the latris repo, which does use them; `tools/build.py` rewrites them on the way
 in (`EM_DASH_RULES` for the methods page). After `FOUNDATIONS.md` changes, read
 the generated page and add a rule if a sentence reads badly.
