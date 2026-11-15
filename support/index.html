@@ -3,43 +3,49 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Support — Latris</title>
+  <title>Support | Latris</title>
   <meta name="description" content="How to get help with Latris: the app, report links, the connector for AI chat apps, and the library." />
   <link rel="canonical" href="https://latris.app/support/" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root { --bg: #f4f1eb; --dot: #d4dcd6; --ink: #1c2420; --soft: #3a4a42; --accent: #2a6b5e; --card: #fffdf9; --rule: #e2ded5; }
-    html { -webkit-text-size-adjust: 100%; }
-    body {
-      margin: 0; font-family: "DM Sans", system-ui, sans-serif; font-size: 17px; line-height: 1.65;
-      background-color: var(--bg); background-image: radial-gradient(var(--dot) 1px, transparent 1px);
-      background-size: 22px 22px; color: var(--ink);
-    }
-    header, main, footer { max-width: 760px; margin: 0 auto; padding: 0 16px; }
-    header { padding-top: 28px; }
-    header a { font-family: "Outfit", sans-serif; font-weight: 700; font-size: 22px; color: var(--accent); text-decoration: none; }
-    main { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; margin-top: 20px; padding: 28px 24px 32px; box-sizing: border-box; }
-    @media (min-width: 800px) { main { padding: 40px 48px 44px; } }
-    h1 { font-family: "Outfit", sans-serif; font-size: 34px; line-height: 1.2; margin: 0 0 6px; }
-    h2 { font-family: "Outfit", sans-serif; font-size: 21px; margin: 32px 0 8px; color: var(--accent); }
-    h3 { font-family: "Outfit", sans-serif; font-size: 17px; margin: 20px 0 6px; }
-    p, li { color: var(--soft); }
-    ul { padding-left: 22px; }
-    li { margin: 4px 0; }
-    a { color: var(--accent); }
-    strong { color: var(--ink); font-weight: 500; }
-    .meta { color: var(--soft); font-size: 15px; margin: 0 0 20px; }
-    .summary { background: #eef3ef; border-radius: 10px; padding: 14px 18px; margin: 0 0 8px; }
-    .summary p { margin: 0; }
-    footer { padding: 24px 16px 40px; font-size: 15px; color: var(--soft); display: flex; gap: 16px; flex-wrap: wrap; }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=c7eef35d3f" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
 </head>
 <body>
-  <header><a href="/">Latris</a></header>
-  <main>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/">Models</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+  <main id="main">
+    <div class="wrap">
+    <article class="prose-card prose" style="margin-top:48px">
     <h1>Support</h1>
     <p class="meta">Latris is operated by Shannon Bengtson (ABN 98 855 839 418), New South Wales, Australia</p>
 
@@ -65,11 +71,51 @@
 
     <h2>Contact</h2>
     <p><a href="mailto:hello@latris.app">hello@latris.app</a></p>
+  </article>
+    </div>
   </main>
-  <footer>
-    <a href="/">Home</a>
-    <a href="/privacy/">Privacy Notice</a>
-    <a href="/terms/">Terms of Use</a>
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/">Methods</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/" aria-current="page">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
   </footer>
+  <!-- @footer:end -->
 </body>
 </html>

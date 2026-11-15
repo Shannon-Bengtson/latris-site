@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Methods and foundations: the literature behind Latris</title>
+  <meta name="description" content="The established methods Latris implements, the literature behind each, what Latris actually implements, and the limits it states next to its results. A work is cited only where Latris implements it." />
+  <link rel="canonical" href="https://latris.app/methods/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="Methods and foundations" />
+  <meta property="og:description" content="The methods Latris implements, the literature behind each, and their stated limits." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://latris.app/methods/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=c7eef35d3f" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/">Models</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="eyebrow">Methods</p>
+        <h1>Standing on established ground.</h1>
+        <p class="lead">
+          Causal-loop analysis in the system-dynamics tradition of Forrester,
+          Sterman and Meadows; identification on a DAG following Pearl;
+          Bayesian networks after Pearl and Fenton and Neil; fuzzy cognitive
+          maps after Kosko; loop dominance by the Loops That Matter method;
+          and an evidence discipline in the line of Toulmin and Bradford Hill.
+        </p>
+        <p class="sub">
+          Every report carries a methods section generated from the same
+          source as this page, citing only the methods that model used.
+        </p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <article class="prose-card prose">
+        <!-- @foundations:start -->
+<!-- Generated from docs/FOUNDATIONS.md in the latris repo by tools/build.py. Don't edit by hand. -->
+<p>Latris implements established methods and cites them. It does not invent a new
+causal calculus, a new simulation algorithm, or a new theory of evidence; it
+implements well-known ones, records which were used in each project, and states
+their limits next to their results. This page is the map: for each formalism,
+the literature it stands on, what Latris actually implements (with the command
+or module that implements it), and what it deliberately does not do.</p>
+<p><strong>The citation rule.</strong> A work is cited only where Latris implements the method
+it describes, not the whole book, and never a method that is only planned.
+Where Latris borrows an idea as inspiration rather than implementation, the
+text says so. If you find a citation here that overclaims, that is a bug:
+please report it.</p>
+<p><strong>One substrate, several formalisms.</strong> Every model type in Latris shares the
+same evidentiary substrate: links are claims, claims carry sources, sources
+are checked against what they are claimed to support, and disagreement is
+recorded rather than resolved silently. The formalisms below differ in what
+kind of reasoning they support; the evidence discipline does not.</p>
+<p><strong>Choosing between them.</strong> The guide by question, "how does this work?"
+(CLD), "can it be estimated?" (DAG), "how likely?" (BN), "which forces
+dominate?" (FCM), "how does it behave over time?" (SD), lives at
+<a href="/formalisms/">https://latris.app/formalisms/</a>, mirrored for agents in the repo's
+<a href="/llms.txt"><code>llms.txt</code></a> and the server help topic <code>model-types-overview</code>.</p>
+<h2>Causal loop diagrams (qualitative)</h2>
+<ul>
+<li><strong>Lineage.</strong> Sterman (2000), <em>Business Dynamics</em>, ch. 4, the canonical
+  treatment of causal loop diagrams and loop polarity. Meadows (2008),
+  <em>Thinking in Systems</em>, the accessible statement of the same tradition.</li>
+<li><strong>Implemented.</strong> Loop detection by Johnson's (1975) elementary-circuits
+  algorithm (<code>latris analyse loops</code>); polarity classification (an odd count of
+  <code>−</code> edges makes a balancing loop); qualitative effect propagation along
+  paths (<code>operations/graph_analysis.py</code>).</li>
+<li><strong>Limits.</strong> A polarity of <code>~</code> (ambiguous) is reported as "unknown", not
+  guessed. Loop enumeration is capped; beyond the cap Latris raises
+  <code>TooManyLoops</code> rather than silently sampling. Decision-rule, governance and
+  definitional edges are excluded from loop and centrality analysis; they
+  are policy or identity links, not feedback mechanisms.</li>
+</ul>
+<h2>Causal DAGs: identification, not estimation</h2>
+<ul>
+<li><strong>Lineage.</strong> Pearl (2009), <em>Causality</em>; Pearl &amp; Mackenzie (2018), <em>The Book
+  of Why</em>; Hernán &amp; Robins (2020), <em>Causal Inference: What If</em>. The
+  d-separation test follows Shachter (1998), "Bayes-Ball".</li>
+<li><strong>Implemented.</strong> d-separation queries, Markov blankets, path enumeration
+  (with chain/fork/collider classification), and backdoor adjustment sets by
+  graph surgery: the exposure's outgoing edges removed, then testing which
+  sets d-separate exposure from outcome (<code>latris analyse</code>, DAG-scoped).</li>
+<li><strong>Limits: read this before citing Pearl.</strong> Latris answers the
+  <em>identification</em> question only: what would have to be measured (conditioned
+  on) for an effect to be estimable. There is no do-operator estimation, no
+  g-computation, and no counterfactual computation anywhere in the package.
+  Adjustment sets are enumerated only up to size 3; if no valid set of three
+  or fewer exists, Latris says so instead of searching further. Analyses run
+  on the causal-edge subgraph only.</li>
+</ul>
+<h2>Bayesian networks</h2>
+<ul>
+<li><strong>Lineage.</strong> Pearl (1988), <em>Probabilistic Reasoning in Intelligent Systems</em>,
+  the founding text. Fenton &amp; Neil (2018), <em>Risk Assessment and Decision
+  Analysis with Bayesian Networks</em> (2nd ed.), the closest in spirit to
+  Latris: expert-elicited structure, defensible numbers, argued cases. Soft
+  (likelihood) evidence follows Jeffrey (1965), <em>The Logic of Decision</em>.</li>
+<li><strong>Implemented.</strong> Exact inference by variable elimination (pgmpy), per-node
+  posterior marginals; soft (likelihood) evidence per node; weights need not
+  sum to one (<code>--likelihood</code>); <code>bn explain</code> for the most probable joint
+  states (MAP, or MPE when all variables are queried) with margins; Noisy-OR
+  canonical models (binary nodes); CPT parameter
+  learning from data (MLE / Bayesian-Dirichlet estimators) with
+  human-elicited rows protected from overwrite and learned rows marked
+  <code>data-derived</code>; one-way (tornado) sensitivity of a target node over CPT
+  cells, with a provenance overlay; probabilistic sensitivity analysis by
+  Monte Carlo over uncertain CPT rows (<code>bn set-uncertainty --n</code> with
+  <code>bn monte-carlo</code>) (<code>latris bn …</code>).</li>
+<li><strong>Limits.</strong> Variable elimination only; no junction tree or belief
+  propagation. Marginals, not joints. Noisy-OR requires binary nodes and
+  parents. Tornado sensitivity is one-way; probabilistic sensitivity analysis
+  ships separately by Monte Carlo, as above; EVPI is deferred. Structure
+  learning is excluded by design; see <code>latris capabilities</code>,
+  <code>excluded_by_design</code>.</li>
+</ul>
+<h2>Fuzzy cognitive maps</h2>
+<ul>
+<li><strong>Lineage.</strong> Kosko (1986), "Fuzzy Cognitive Maps", <em>International Journal
+  of Man-Machine Studies</em> 24(1), weighted matrix iteration to a steady state.</li>
+<li><strong>Implemented.</strong> <code>A ← f(A·W)</code> iterated to convergence with sigmoid (default),
+  tanh-rescaled, or step transfer functions; clamped scenario nodes; weights
+  validated to [−1, +1] (<code>latris fcm …</code>).</li>
+<li><strong>Limits.</strong> Fixed-point analysis only. A run that does not converge is
+  flagged <code>converged=False</code>; limit cycles are not detected or classified.</li>
+</ul>
+<h2>System dynamics</h2>
+<ul>
+<li><strong>Lineage.</strong> Forrester (1961), <em>Industrial Dynamics</em>; Sterman (2000),
+  <em>Business Dynamics</em>; Meadows (2008). Loop dominance follows the Loops That
+  Matter method (Schoenberg, Davidsen &amp; Eberlein (2020), <em>System Dynamics
+  Review</em>), with the revised flow-to-stock link score of Schoenberg, Hayward &amp;
+  Eberlein (2023), the approach Stella and pysimlin ship.</li>
+<li><strong>Implemented.</strong> Stock-and-flow simulation with dimensional analysis (pint;
+  custom base dimensions for person, dollar, item): fixed-step forward Euler,
+  or adaptive RK23/RK45; STEP, RAMP, PULSE, TABLE and arithmetic builtins;
+  SMOOTH/SMOOTH3 information smoothing and DELAY1/DELAY3 material delays,
+  expanded into stock-and-flow structure (Sterman 2000, ch. 11);
+  unit-checked scenario overrides with provenance (<code>latris sd …</code>); uncertainty
+  by seeded Latin-hypercube sampling (McKay, Beckman &amp; Conover 1979) with
+  percentile bands and Spearman rank correlations; one-at-a-time sensitivity;
+  per-step loop dominance scores with dominant loops flagged
+  (<code>latris sd loops</code>).</li>
+<li><strong>Limits.</strong> The adaptive RK option is <code>solve_ivp</code> RK45 with a step cap, not
+  the classical fixed-step RK4 of Vensim/Stella. Loop dominance enumerates
+  loops exhaustively (Johnson's algorithm) up to a cap of 500; larger models
+  would need the strongest-path search, which is not implemented. Scores are
+  zero whenever stocks stop changing; the method explains change, not
+  equilibrium. Monte Carlo is capped at 1000 runs and reports rank
+  correlations only.</li>
+</ul>
+<h2>The evidence discipline</h2>
+<ul>
+<li><strong>Lineage.</strong> The substrate's vocabulary (claims, warrants, rebuttals) is
+  Toulmin's (1958), <em>The Uses of Argument</em>. The wider tradition of marshalling
+  evidence for and against a claim includes Wigmore (1937) and Schum (1994).
+  The practice of recording <em>which part of a source was read</em> and <em>whether it
+  supports the claim</em> follows the evidence-assessment tradition of Bradford
+  Hill (1965) and the grading of evidence quality in GRADE (Guyatt et al.
+  2008). These are inspirations for the audit trail, not implemented
+  criteria: Latris does not score a link against the Bradford Hill checklist,
+  and it does not assign GRADE ratings.</li>
+<li><strong>Implemented.</strong> Source-vs-claim checks with verdicts
+  (<code>latris evidence check</code>: supports / contradicts / orthogonal /
+  insufficient extract); an AI's check must quote the source and the quote is
+  looked up in the text Latris holds (<code>latris ref snapshot</code>); a paraphrase
+  is refused; every check records who made it and the source's access tier
+  (title, abstract, extract, full text). Contested links keep sources for and
+  against on the same link and report both. Challenges are an adversarial
+  review log with a conversation and a terminal state.</li>
+<li><strong>Limits.</strong> A Toulmin/IBIS argument-map model type is registered
+  (<code>latris capabilities</code> lists it) but not planned; the substrate borrows the
+  vocabulary, it does not implement the formalism. Checks are only as good as
+  the stored source text; a check against an abstract cannot speak for the
+  full text.</li>
+</ul>
+<h2>Where each formalism sits on the ladder of causation</h2>
+<p>Pearl &amp; Mackenzie (2018) order causal questions as association → intervention
+→ counterfactual. Honest placement:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Formalism</th>
+<th>Position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLD</td>
+<td>Mechanism claims: qualitative structure only; arrows are argued, not estimated</td>
+</tr>
+<tr>
+<td>FCM</td>
+<td>Semi-quantitative simulation of the claimed mechanism</td>
+</tr>
+<tr>
+<td>SD</td>
+<td>Quantitative mechanism simulation; scenario analysis intervenes <em>on the model</em></td>
+</tr>
+<tr>
+<td>DAG / BN</td>
+<td>Observational queries and identification: what to measure; no interventional estimation</td>
+</tr>
+</tbody>
+</table></div>
+<p>A CLD arrow is not a structural equation and carries no do-semantics; a
+successful scenario run says what the model does under an assumed change, not
+what the world would do. Reports should be quoted with that in mind, and
+Latris reports say it themselves in the Methods section.</p>
+<h2>Deliberately not implemented</h2>
+<p>Black-box machine learning and opaque structure learning (they fail the
+inspectability test: <code>latris capabilities</code>, <code>excluded_by_design</code>);
+interventional and counterfactual estimation on DAGs; XMILE/Vensim import
+(off the roadmap). See the capability manifest for the living list.</p>
+<h2>Machine-readable source of truth</h2>
+<p>The report's <strong>Methods and foundations</strong> section and the capability manifest's
+<code>foundations</code> block are generated from the same registry,
+<code>latris.operations.foundations</code> (<code>latris foundations --json</code> for the raw
+list). This page is the prose companion; if the two disagree, the registry and
+the code it describes win, and this page is wrong.</p>
+<h2>References</h2>
+<ul>
+<li>Bradford Hill, A. (1965). "The Environment and Disease: Association or
+  Causation?" <em>Proceedings of the Royal Society of Medicine</em>, 58(5), 295–300.</li>
+<li>Fenton, N., &amp; Neil, M. (2018). <em>Risk Assessment and Decision Analysis with
+  Bayesian Networks</em> (2nd ed.). CRC Press.</li>
+<li>Forrester, J. W. (1961). <em>Industrial Dynamics</em>. MIT Press.</li>
+<li>Guyatt, G., et al. (2008). "GRADE: an emerging consensus on rating quality
+  of evidence and strength of recommendations." <em>BMJ</em>, 336, 924–926.</li>
+<li>Hernán, M., &amp; Robins, J. (2020). <em>Causal Inference: What If</em>. Chapman &amp;
+  Hall/CRC. <a href="https://hsph.harvard.edu/causalinference/">https://hsph.harvard.edu/causalinference/</a></li>
+<li>Jeffrey, R. (1965). <em>The Logic of Decision</em>. McGraw-Hill.</li>
+<li>Johnson, D. B. (1975). "Finding all the elementary circuits of a directed
+  graph." <em>SIAM Journal on Computing</em>, 4(1), 77–84.</li>
+<li>Kosko, B. (1986). "Fuzzy Cognitive Maps." <em>International Journal of
+  Man-Machine Studies</em>, 24(1), 65–75.</li>
+<li>McKay, M. D., Beckman, R. J., &amp; Conover, W. J. (1979). "A Comparison of
+  Three Methods for Selecting Values of Input Variables in the Analysis of
+  Output from a Computer Code." <em>Technometrics</em>, 21(2), 239–245.</li>
+<li>Meadows, D. H. (2008). <em>Thinking in Systems: A Primer</em>. Chelsea Green.</li>
+<li>Pearl, J. (1988). <em>Probabilistic Reasoning in Intelligent Systems: Networks
+  of Plausible Inference</em>. Morgan Kaufmann.</li>
+<li>Pearl, J. (2009). <em>Causality: Models, Reasoning and Inference</em> (2nd ed.).
+  Cambridge University Press.</li>
+<li>Pearl, J., &amp; Mackenzie, D. (2018). <em>The Book of Why: The New Science of
+  Cause and Effect</em>. Basic Books.</li>
+<li>Schum, D. A. (1994). <em>Evidential Foundations of Probabilistic Reasoning</em>.
+  Wiley.</li>
+<li>Schoenberg, S., Davidsen, P., &amp; Eberlein, R. (2020). "Loops That Matter."
+  <em>System Dynamics Review</em>.</li>
+<li>Schoenberg, S., Hayward, J., &amp; Eberlein, R. (2023). Revised flow-to-stock
+  link score for Loops That Matter. <em>System Dynamics Review</em>.</li>
+<li>Shachter, R. D. (1998). "Bayes-Ball: The Rational Pastime." <em>Proceedings of
+  the 14th Conference on Uncertainty in Artificial Intelligence (UAI)</em>.</li>
+<li>Sterman, J. D. (2000). <em>Business Dynamics: Systems Thinking and Modeling
+  for a Complex World</em>. Irwin/McGraw-Hill.</li>
+<li>Toulmin, S. E. (1958). <em>The Uses of Argument</em>. Cambridge University Press.</li>
+<li>Wigmore, J. H. (1937). <em>The Science of Judicial Proof</em> (3rd ed.). Little,
+  Brown.</li>
+</ul>
+<!-- @foundations:end -->
+        <p class="meta" style="margin-top:32px">
+          This page mirrors
+          <a href="https://github.com/Shannon-Bengtson/latris/blob/main/docs/FOUNDATIONS.md">docs/FOUNDATIONS.md</a>
+          in the open-source repository. Found a citation that overclaims?
+          That's a bug: <a href="https://github.com/Shannon-Bengtson/latris/issues">please report it</a>.
+        </p>
+      </article>
+    </div>
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/" aria-current="page">Methods</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>

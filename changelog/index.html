@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Changelog: what's new in Latris</title>
+  <meta name="description" content="Recent releases of Latris: system dynamics scenarios and uncertainty, Bayesian network soft evidence and explanations, the methods and foundations registry, and more." />
+  <link rel="canonical" href="https://latris.app/changelog/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="What's new in Latris" />
+  <meta property="og:description" content="Recent releases of the Latris engine." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://latris.app/changelog/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=c7eef35d3f" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/">Models</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="eyebrow">Changelog</p>
+        <h1>What's new.</h1>
+        <p class="lead">
+          Every release of the open-source engine that Latris runs on, from its
+          commit history. Want a note when something ships? <a href="/about/#contact">Sign up for release notes</a>.
+        </p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <article class="prose-card prose">
+        <!-- @changelog:start -->
+<!-- Generated from the latris repo's git history by tools/build.py --changelog. Don't edit by hand. -->
+<h2 id="v0.9.1"><a href="https://github.com/Shannon-Bengtson/latris/commit/6b9bff9cf84910d0034687b818deade6a1e6ab19">0.9.1</a> <span class="status-pill">10 November 2026</span></h2>
+<ul>
+  <li>Share link: carry context exclusions; build --spec applies them</li>
+  <li>Cite Sterman ch. 11 for SMOOTH/SMOOTH3 and DELAY1/DELAY3</li>
+  <li>Sync foundations doc with 0.9.0 BN features (soft evidence, MPE, PSA); regen transcript</li>
+  <li>Delays, readability, commas; docs say what you get where</li>
+  <li>Trust fixes; loops through stocks; the SD clock; SD outcome</li>
+</ul>
+<h2 id="v0.9.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/e14c57664e2f825ee539ddd6281da1dd27e6dac3">0.9.0</a> <span class="status-pill">9 November 2026</span></h2>
+<ul>
+  <li>BN docs and worked example; ties and drivers</li>
+  <li>BN: CLI, routes, reports, claims and links for soft evidence, explanations, PSA</li>
+  <li>BN: soft evidence, most likely explanation, Monte Carlo over the tables</li>
+  <li>Add methods-and-foundations registry across report, manifest, and CLI</li>
+</ul>
+<h2 id="v0.8.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/5b17cb7bb3fa8cd080042e7198b4b3e1665753f4">0.8.0</a> <span class="status-pill">9 November 2026</span></h2>
+<ul>
+  <li>Docs and worked example for scenarios, uncertainty, sensitivity, loops</li>
+  <li>Parameters, scenarios and analyses travel in build specs and links</li>
+  <li>Results in reports; SD interpretation; claims from results</li>
+  <li>SD loop dominance (Loops That Matter)</li>
+  <li>SD uncertainty: Monte Carlo bands and one-at-a-time sensitivity</li>
+  <li>Results store, SD scenarios, recorded BN queries</li>
+  <li>SD fast path: compiled float simulation, RAMP and PULSE</li>
+</ul>
+<h2 id="v0.7.7"><a href="https://github.com/Shannon-Bengtson/latris/commit/079e04cbaeaa5f6bc951a301533fbfa72665f728">0.7.7</a> <span class="status-pill">8 November 2026</span></h2>
+<ul>
+  <li>Honest evidence: quotes looked up, against is not checked, sources correctable</li>
+</ul>
+<h2 id="v0.7.6"><a href="https://github.com/Shannon-Bengtson/latris/commit/21f74a59ff51ae9192ac1e67f1273b04670f92bd">0.7.6</a> <span class="status-pill">8 November 2026</span></h2>
+<ul>
+  <li>Context in the report and the spec; source extracts; JSON for the record</li>
+  <li>SD units error names 'item' for counted things</li>
+</ul>
+<h2 id="v0.7.5"><a href="https://github.com/Shannon-Bengtson/latris/commit/7f0a047a6400d4b5218ad648e5998258c87e03eb">0.7.5</a> <span class="status-pill">8 November 2026</span></h2>
+<ul>
+  <li>JSON output for analyses and quantitative commands; link names in maturity</li>
+</ul>
+<h2 id="v0.7.4"><a href="https://github.com/Shannon-Bengtson/latris/commit/e4fbe30c0d6f305a2c3cf8f40c9ead3409839e6a">0.7.4</a> <span class="status-pill">7 November 2026</span></h2>
+<ul>
+  <li>Initialise fills claims; AI findings record their source as AI</li>
+</ul>
+<h2 id="v0.7.3"><a href="https://github.com/Shannon-Bengtson/latris/commit/64e60c286cefbaec36c7613b622f4ef6f171fc7f">0.7.3</a> <span class="status-pill">7 November 2026</span></h2>
+<ul>
+  <li>Report link says 'the hosted report', not 'the interactive report'</li>
+</ul>
+<h2 id="v0.7.2"><a href="https://github.com/Shannon-Bengtson/latris/commit/29ec7c3e7fd03390d2aeffff68d2de2780703aba">0.7.2</a> <span class="status-pill">7 November 2026</span></h2>
+<ul>
+  <li>Retest fixes from Kimi and Codex: docs in the package, checking sources, handover</li>
+</ul>
+<h2 id="v0.7.1"><a href="https://github.com/Shannon-Bengtson/latris/commit/1370dfbbe8f400d4e9fb726bd9d12271bda47682">0.7.1</a> <span class="status-pill">7 November 2026</span></h2>
+<ul>
+  <li>Report and docs fixes from the 0.7.0 Claude.ai retest</li>
+</ul>
+<h2 id="v0.7.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/bc75a4001e8e6fe7322cd8b92abf727a1e776229">0.7.0</a> <span class="status-pill">6 November 2026</span></h2>
+<ul>
+  <li><code>latris link</code>, a link that opens the model in the Latris app, offline</li>
+  <li>README describes the browser app and open sign-up</li>
+</ul>
+<h2 id="v0.6.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/4378f3bbb11b395cb8595e1676fbd9a6fcbc2bf6">0.6.0</a> <span class="status-pill">6 November 2026</span></h2>
+<ul>
+  <li>Evidence against a link (<code>evidence add --contradicts</code>)</li>
+  <li>Board-ready client report, honest claims, and <code>latris build --spec</code></li>
+  <li>Agent-ready reports and honest provenance (from a Claude.ai trial)</li>
+</ul>
+<h2 id="v0.5.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/33e8cb66e5094f246d7aa605594330edbd761cc7">0.5.0</a> <span class="status-pill">6 November 2026</span></h2>
+<ul>
+  <li>Polished exporters leave the library; Markdown + DOT remain</li>
+  <li>Sync: read a shared project's report link from the control plane</li>
+  <li>Report links and saving models made in a chat</li>
+  <li>Sync: report links, client, <code>latris sync link on|off</code>, server route</li>
+  <li>Mermaid in Markdown reports, global --json, view set, plugin hook</li>
+</ul>
+<h2 id="v0.4.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/b39186d3ee705429a4085590679a3b5dba17f520">0.4.0</a> <span class="status-pill">24 October 2026</span></h2>
+<ul>
+  <li>Roadmap status on every model type</li>
+  <li>Mark which planned model types are on the roadmap</li>
+  <li>System Dynamics (stock-and-flow) formalism, schema, checks, simulation, CLI/API</li>
+  <li>Rewrite 'For AI agents' section in descriptive voice, not direct address</li>
+</ul>
+<h2 id="v0.3.2"><a href="https://github.com/Shannon-Bengtson/latris/commit/b8d5ae34a1f6125a2f061a1d5e9cafe0c9c859dc">0.3.2</a> <span class="status-pill">23 October 2026</span></h2>
+<ul>
+  <li>latris sync login / sync share, the CLI-to-SaaS bridge</li>
+  <li>Add agent-facing capability manifest (latris capabilities)</li>
+  <li>Make delegated AI invocation prominent for agent readers</li>
+  <li>Document delegated AI calls (ai task emit/apply)</li>
+  <li>Delegated AI calls, bring your own agent (ai task emit/apply)</li>
+  <li>Bridge README and llms.txt to latris.app; drop stale PyPI note</li>
+  <li>Add "Made with Latris" badge to document exports</li>
+</ul>
+<h2 id="v0.3.1"><a href="https://github.com/Shannon-Bengtson/latris/commit/5bf3a9f660489548b0d2a66a8d2cc8b058263808">0.3.1</a> <span class="status-pill">11 October 2026</span></h2>
+<ul>
+  <li>First open-source release</li>
+</ul>
+<!-- @changelog:end -->
+
+        <p class="meta" style="margin-top:32px">
+          Every version is on <a href="https://pypi.org/project/latris/#history" target="_blank" rel="noopener">PyPI</a>,
+          and the full history is on <a href="https://github.com/Shannon-Bengtson/latris/commits/main" target="_blank" rel="noopener">GitHub</a>.
+        </p>
+      </article>
+    </div>
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/">Methods</a></li>
+            <li><a href="/changelog/" aria-current="page">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>
