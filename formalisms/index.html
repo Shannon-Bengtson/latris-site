@@ -58,10 +58,12 @@
         <p class="eyebrow">Models</p>
         <h1>Which model should you build?</h1>
         <p class="lead">
-          Latris has five model types. They're not five apps: they're five
+          Latris's causal core is five model types. They're not five apps: they're five
           answers to the same question, <em>what causes what here, and what
           happens if we act?</em>, at five levels of commitment. This guide is
-          the reasoning behind the Formalise step in the app.
+          the reasoning behind the Formalise step in the app. Beyond them, Latris
+          has model types for decisions, evaluation and risk on the same
+          substrate: <a href="#every">every model type</a> is listed below.
         </p>
       </div>
     </section>
@@ -110,6 +112,29 @@
             </tbody>
           </table>
         </div>
+
+        <!-- @formalisms:start -->
+        <h2 id="every">Every model type</h2>
+        <p>The full list, from the library itself. Each links to what it claims, the methods behind it,
+          their references and their limits.</p>
+        <div class="table-wrap">
+          <table class="glance">
+          <tr><th scope="row"><a href="/formalisms/cld/">Causal Loop Diagram</a></th><td>Directed graph with polarity (+/−) on edges; cycles allowed.</td></tr>
+          <tr><th scope="row"><a href="/formalisms/dag/">Directed Acyclic Graph</a></th><td>Directed graph that must be acyclic; directionality mandatory.</td></tr>
+          <tr><th scope="row"><a href="/formalisms/bn/">Bayesian Network</a></th><td>DAG with state spaces and conditional probability tables.</td></tr>
+          <tr><th scope="row"><a href="/formalisms/sd/">System Dynamics</a></th><td>Stocks, flows, and feedback loops with unit-checked equations, simulated over time, with scenarios, Monte Carlo uncertainty bands, sensitivity, and loop dominance.</td></tr>
+          <tr><th scope="row"><a href="/formalisms/bow-tie/">Bow-Tie Diagram</a></th><td>Threats and consequences of one top event and the barriers between them: lines that rest on one barrier or none, shared barriers, uncontrolled escalation factors, and layer-of-protection frequencies with each value&#x27;s provenance.</td></tr>
+          <tr><th scope="row"><a href="/formalisms/fault-tree/">Fault Tree</a></th><td>Top-down failure decomposition with AND, OR and k-out-of-n gates: minimal cut sets, single points of failure, exact top-event probability and importance, with each probability&#x27;s provenance.</td></tr>
+          <tr><th scope="row"><a href="/formalisms/markov/">Markov Cohort Model</a></th><td>A cohort moving between states each cycle: the trace, discounted costs and outcomes per strategy, and incremental cost-effectiveness (ICERs, dominance, net benefit at a willingness to pay).</td></tr>
+          <tr><th scope="row"><a href="/formalisms/decision-tree/">Decision Tree</a></th><td>Decision, chance and terminal nodes: the optimal strategy by expected value, what perfect information on each uncertainty is worth (EVPI), and the probabilities at which the best choice changes.</td></tr>
+          <tr><th scope="row"><a href="/formalisms/event-tree/">Event Tree</a></th><td>Forward from one initiating event through yes/no headings to end states: a complete-tree check, sequence and end-state probabilities and frequencies, with each value&#x27;s provenance.</td></tr>
+          <tr><th scope="row"><a href="/formalisms/theory-of-change/">Theory of Change</a></th><td>Results chain from activities through outputs and outcomes to impact, with the evidence and assumptions behind each step laid out pathway by pathway.</td></tr>
+          <tr><th scope="row"><a href="/formalisms/mcda/">Multi-Criteria Decision Analysis</a></th><td>Options scored against weighted criteria: the ranking, each criterion&#x27;s contribution, dominated options, and how far each weight would have to move to change the choice.</td></tr>
+          <tr><th scope="row"><a href="/formalisms/ach/">Analysis of Competing Hypotheses</a></th><td>Hypotheses against the evidence: which one the evidence fails to rule out, which items don&#x27;t discriminate, and which linchpins the conclusion turns on.</td></tr>
+          <tr><th scope="row"><a href="/formalisms/fcm/">Fuzzy Cognitive Map</a></th><td>Weighted directed graph with edge strengths in [−1, +1]; cycles allowed.</td></tr>
+          </table>
+        </div>
+        <!-- @formalisms:end -->
 
         <h2 id="five">The five, by the question they answer</h2>
 

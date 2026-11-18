@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Event Tree in Latris: methods and limits</title>
+  <meta name="description" content="How Latris builds and analyses event tree models: the methods, references and limits." />
+  <link rel="canonical" href="https://latris.app/formalisms/event-tree/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="Event Tree: the scientific basis" />
+  <meta property="og:description" content="How Latris builds and analyses event tree models: the methods, references and limits." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://latris.app/formalisms/event-tree/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/" aria-current="page">Models</a>
+        <a href="/methods/">Science</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+  <!-- @formalism:start -->
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="crumb"><a href="/methods/">Scientific basis</a> › <a href="/formalisms/">Model types</a></p>
+        <p class="eyebrow">Event Tree</p>
+        <h1>Event Tree</h1>
+        <p class="lead">Forward from one initiating event through yes/no headings to end states: a complete-tree check, sequence and end-state probabilities and frequencies, with each value&#x27;s provenance.</p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <article class="prose-card prose">
+        <h2 id="glance" style="margin-top:0">At a glance</h2>
+        <table class="glance">
+          <tr><th scope="row">In Latris</th><td>Built on the same factors, links and evidence as every other model
+            type, with <code>latris et</code>, in chat (the Latris connector) or in a share link.</td></tr>
+          <tr><th scope="row">Results in the report</th><td><ul><li>Event tree: sequences and end states</li><li>Event tree: uncertainty (Monte Carlo)</li></ul></td></tr>
+        </table>
+
+        <h2 id="methods">The methods, their references and their limits</h2>
+        <h3>Event tree analysis</h3>
+<p><strong>Used for:</strong> sequences from one initiating event through ordered yes/no headings to end states; a check that the sequences cover every branch exactly once; sequence probabilities as products of branch probabilities (conditional on earlier answers where given), end-state totals and, with the initiating frequency, frequencies per year.</p>
+<p><strong>Limits:</strong> Binary branches only; dependence between headings only as explicitly stated conditional probabilities; point values with no uncertainty propagation; heading probabilities are entered, not linked live to fault trees.</p>
+<p class="refs"><strong>References:</strong> IEC 62502:2010, <em>Event tree analysis (ETA)</em>; US NRC (1983), <em>PRA Procedures Guide</em> (NUREG/CR-2300); US NRC (1975), <em>Reactor Safety Study</em> (WASH-1400)</p>
+<h3>Monte Carlo propagation of parameter uncertainty in risk models</h3>
+<p><strong>Used for:</strong> how sure a fault tree&#x27;s top-event probability, a bow-tie&#x27;s frequencies or an event tree&#x27;s end-state frequencies are: a distribution (or a lognormal median and error factor) on each uncertain input, seeded Latin hypercube sampling through the model&#x27;s own calculation, percentiles and the mean against the point estimate, and Spearman rank correlation for what drives the spread.</p>
+<p><strong>Limits:</strong> Inputs are sampled independently, except that each input takes one value per run wherever it appears (state-of-knowledge dependence within a model); no correlation between different inputs. Inputs without a range are treated as exact, so the spread is a lower bound. Rank correlation measures monotone influence only.</p>
+<p class="refs"><strong>References:</strong> US Nuclear Regulatory Commission (1983), <em>PRA Procedures Guide</em> (NUREG/CR-2300), ch. 12 (uncertainty, lognormal error factors); Apostolakis (1990), &quot;The Concept of Probability in Safety Assessments of Technological Systems&quot;, <em>Science</em> 250; McKay, Beckman &amp; Conover (1979), Latin hypercube sampling; Helton &amp; Davis (2003), &quot;Latin hypercube sampling and the propagation of uncertainty in analyses of complex systems&quot;, <em>Reliability Engineering &amp; System Safety</em> 81</p>
+
+        <p>Every number carries where it came from, and a value nobody has verified is flagged where the result
+          rests on it. Every method Latris implements is in the <a href="/methods/reference/">methods reference</a>.</p>
+      </article>
+    </div>
+    <!-- @formalism:end -->
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/methods/">Scientific basis</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/reference/">Methods reference</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>

@@ -25,6 +25,16 @@ and the Methods page body from the library's methods reference (needs
 
     <!-- @foundations:start --> ... <!-- @foundations:end -->
 
+`--formalisms` generates, from the installed `latris` (its capability and
+surface manifests and its methods registry), a page for every stable model
+type that has no hand-written one (`formalisms/<type>/`, everything between
+`@formalism` markers), the "Every model type" list on the Models page
+(`@formalisms` markers) and their sitemap entries. Hand-written pages keep
+their prose; the list of types and what each runs can't drift from the
+library. Needs `pip install latris` (or `-e ../latris`).
+
+    python3 tools/build.py --formalisms
+
 `--check` exits 1 if any page is out of date (useful in CI).
 Standard library only, except `markdown` for --foundations.
 """
@@ -338,6 +348,157 @@ WEBSITE_SECTION = """## Website (for the person you're helping)
 """
 
 
+# ── model types, from the installed library ──────────────────────────
+
+HAND_WRITTEN = {"cld", "dag", "bn", "fcm", "sd"}  # formalisms/<id>/ pages written by hand
+
+
+def _latris_json(*args: str):
+    import json
+    import subprocess
+
+    out = subprocess.run([sys.executable, "-m", "latris", *args], capture_output=True, text=True, check=True)
+    return json.loads(out.stdout)
+
+
+def latris_types() -> list[dict]:
+    """Every stable model type: id, names, description, results, and the methods behind it."""
+    caps = {t["id"]: t for t in _latris_json("capabilities", "--json")["model_types"]}
+    surface = _latris_json("capabilities", "--surface")["model_types"]
+    foundations = _latris_json("foundations", "--json")
+    out = []
+    for t in surface:
+        c = caps[t["id"]]
+        out.append({
+            **t, "description": c["description"], "short_name": c["short_name"],
+            "methods": [f for f in foundations if t["id"] in f["applies_to"]],
+            "slug": t["id"].replace("_", "-"),
+        })
+    return out
+
+
+def _esc(s: str) -> str:
+    """Escaped, with the site's no-em-dash rule applied to text that comes from the library."""
+    import html
+
+    s = re.sub(r"\s*—\s*", ", ", s)
+    return html.escape(s, quote=True)
+
+
+def _md_inline(s: str) -> str:
+    """*Title* → <em>Title</em>, `code` → <code>code</code>, on escaped text."""
+    s = _esc(s)
+    s = re.sub(r"\*([^*]+)\*", r"<em>\1</em>", s)
+    return re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
+
+
+def type_href(t: dict) -> str:
+    return f"/formalisms/{t['id'] if t['id'] in HAND_WRITTEN else t['slug']}/"
+
+
+def formalisms_list_html(types: list[dict]) -> str:
+    rows = "\n".join(
+        f'          <tr><th scope="row"><a href="{type_href(t)}">{_esc(t["display_name"])}</a></th>'
+        f"<td>{_esc(t['description'])}</td></tr>"
+        for t in types
+    )
+    return f"""
+        <h2 id="every">Every model type</h2>
+        <p>The full list, from the library itself. Each links to what it claims, the methods behind it,
+          their references and their limits.</p>
+        <div class="table-wrap">
+          <table class="glance">
+{rows}
+          </table>
+        </div>
+        """
+
+
+def formalism_page_body(t: dict) -> str:
+    results = "".join(f"<li>{_esc(r['title'])}</li>" for r in t["results"])
+    methods = "".join(
+        f'<h3>{_esc(m["method"])}</h3>\n'
+        f"<p><strong>Used for:</strong> {_md_inline(m['used_for'])}.</p>\n"
+        + (f"<p><strong>Limits:</strong> {_md_inline(m['limits'])}</p>\n" if m.get("limits") else "")
+        + f"<p class=\"refs\"><strong>References:</strong> {_md_inline(m['citation'])}</p>\n"
+        for m in t["methods"]
+    )
+    cli = f"<code>latris {_esc(t['cli'])}</code>" if t.get("cli") else ""
+    return f"""
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="crumb"><a href="/methods/">Scientific basis</a> › <a href="/formalisms/">Model types</a></p>
+        <p class="eyebrow">{_esc(t["display_name"])}</p>
+        <h1>{_esc(t["display_name"])}</h1>
+        <p class="lead">{_esc(t["description"])}</p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <article class="prose-card prose">
+        <h2 id="glance" style="margin-top:0">At a glance</h2>
+        <table class="glance">
+          <tr><th scope="row">In Latris</th><td>Built on the same factors, links and evidence as every other model
+            type{(", with " + cli) if cli else ""}, in chat (the Latris connector) or in a share link.</td></tr>
+          <tr><th scope="row">Results in the report</th><td><ul>{results}</ul></td></tr>
+        </table>
+
+        <h2 id="methods">The methods, their references and their limits</h2>
+        {methods}
+        <p>Every number carries where it came from, and a value nobody has verified is flagged where the result
+          rests on it. Every method Latris implements is in the <a href="/methods/reference/">methods reference</a>.</p>
+      </article>
+    </div>
+    """
+
+
+def formalism_page_shell(t: dict) -> str:
+    url = f"https://latris.app/formalisms/{t['slug']}/"
+    title = f"{t['display_name']} in Latris: methods and limits"
+    desc = f"How Latris builds and analyses {t['display_name'].lower()} models: the methods, references and limits."
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{_esc(title)}</title>
+  <meta name="description" content="{_esc(desc)}" />
+  <link rel="canonical" href="{url}" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="{_esc(t['display_name'])}: the scientific basis" />
+  <meta property="og:description" content="{_esc(desc)}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{url}" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <!-- @header:end -->
+
+  <main id="main">
+  <!-- @formalism:start -->
+  <!-- @formalism:end -->
+  </main>
+
+  <!-- @footer:start -->
+  <!-- @footer:end -->
+</body>
+</html>
+"""
+
+
+def sitemap_with(urls: list[str], text: str, lastmod: str) -> str:
+    missing = [u for u in urls if f"<loc>{u}</loc>" not in text]
+    entries = "".join(
+        f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{lastmod}</lastmod>\n    <changefreq>monthly</changefreq>\n"
+        f"    <priority>0.6</priority>\n  </url>\n" for u in missing
+    )
+    return text.replace("</urlset>", entries + "</urlset>") if missing else text
+
+
 def llms_txt(repo_llms: Path) -> str:
     """The repo's llms.txt with absolute links, pointing humans at the site,
     plus the website pages. Everything else is maintained in the latris repo."""
@@ -355,10 +516,28 @@ def main() -> int:
     ap.add_argument("--foundations", type=Path, help="path to latris/docs/FOUNDATIONS.md")
     ap.add_argument("--changelog", type=Path, help="path to a full (unshallow) clone of the latris repo")
     ap.add_argument("--llms", type=Path, help="path to latris/llms.txt; writes the site's llms.txt from it")
+    ap.add_argument("--formalisms", action="store_true",
+                    help="generate model-type pages and the Models list from the installed latris")
     args = ap.parse_args()
 
     stale = []
-    for url, rel in PAGES.items():
+    types = latris_types() if args.formalisms else []
+    generated = {f"/formalisms/{t['slug']}/": t for t in types if t["id"] not in HAND_WRITTEN}
+    for url, t in generated.items():
+        path = SITE / url.strip("/") / "index.html"
+        if not path.exists():
+            stale.append(str(path.relative_to(SITE)))
+            if args.check:
+                continue
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(formalism_page_shell(t), encoding="utf-8")
+    # Generated pages found on disk get the shared chrome even on runs without --formalisms.
+    pages = dict(PAGES)
+    for page in sorted(SITE.glob("formalisms/*/index.html")):
+        if "@formalism:start" in page.read_text(encoding="utf-8"):
+            pages.setdefault(f"/{page.parent.relative_to(SITE).as_posix()}/", page.relative_to(SITE).as_posix())
+
+    for url, rel in pages.items():
         path = SITE / rel
         text = path.read_text(encoding="utf-8")
         new = replace_block(text, "head", head_html(), rel)
@@ -366,6 +545,10 @@ def main() -> int:
         new = replace_block(new, "footer", footer_html(url), rel)
         if url == "/methods/reference/" and args.foundations:
             new = replace_block(new, "foundations", foundations_html(args.foundations), rel)
+        if url in generated:
+            new = replace_block(new, "formalism", formalism_page_body(generated[url]), rel)
+        if url == "/formalisms/" and types:
+            new = replace_block(new, "formalisms", formalisms_list_html(types), rel)
         if url == "/changelog/" and args.changelog:
             new = replace_block(new, "changelog", changelog_html(args.changelog), rel)
         bad = [h for h in re.findall(r'href="([^"]*)"', new) if not re.match(r"(https?:|mailto:|/|#)", h)]
@@ -375,6 +558,17 @@ def main() -> int:
             stale.append(rel)
             if not args.check:
                 path.write_text(new, encoding="utf-8")
+
+    if generated:
+        import datetime
+
+        target = SITE / "sitemap.xml"
+        text = target.read_text(encoding="utf-8")
+        new = sitemap_with([f"https://latris.app{u}" for u in generated], text, datetime.date.today().isoformat())
+        if new != text:
+            stale.append("sitemap.xml")
+            if not args.check:
+                target.write_text(new, encoding="utf-8")
 
     if args.llms:
         target = SITE / "llms.txt"

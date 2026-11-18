@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Theory of Change in Latris: methods and limits</title>
+  <meta name="description" content="How Latris builds and analyses theory of change models: the methods, references and limits." />
+  <link rel="canonical" href="https://latris.app/formalisms/theory-of-change/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="Theory of Change: the scientific basis" />
+  <meta property="og:description" content="How Latris builds and analyses theory of change models: the methods, references and limits." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://latris.app/formalisms/theory-of-change/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/" aria-current="page">Models</a>
+        <a href="/methods/">Science</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+  <!-- @formalism:start -->
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="crumb"><a href="/methods/">Scientific basis</a> › <a href="/formalisms/">Model types</a></p>
+        <p class="eyebrow">Theory of Change</p>
+        <h1>Theory of Change</h1>
+        <p class="lead">Results chain from activities through outputs and outcomes to impact, with the evidence and assumptions behind each step laid out pathway by pathway.</p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <article class="prose-card prose">
+        <h2 id="glance" style="margin-top:0">At a glance</h2>
+        <table class="glance">
+          <tr><th scope="row">In Latris</th><td>Built on the same factors, links and evidence as every other model
+            type, with <code>latris toc</code>, in chat (the Latris connector) or in a share link.</td></tr>
+          <tr><th scope="row">Results in the report</th><td><ul><li>Theory of change: pathways and their evidence</li><li>Theory of change: process tracing</li><li>Theory of change: impact estimate</li></ul></td></tr>
+        </table>
+
+        <h2 id="methods">The methods, their references and their limits</h2>
+        <h3>Theory of change as a results chain</h3>
+<p><strong>Used for:</strong> logic-model levels (input, activity, output, short- and long-term outcome, impact), every pathway from an activity to an impact, and for each link its sources for and against, whether they were checked, and the assumptions stated for it.</p>
+<p><strong>Limits:</strong> Structural and evidential only, it shows where a results chain is unsupported, not how large an effect is or how much of an outcome the intervention caused; pathways are enumerated up to 200.</p>
+<p class="refs"><strong>References:</strong> Weiss (1995), &quot;Nothing as Practical as Good Theory&quot;, in Connell et al. (eds), <em>New Approaches to Evaluating Community Initiatives</em>; W.K. Kellogg Foundation (2004), <em>Logic Model Development Guide</em>; Mayne (2012), &quot;Contribution Analysis: Coming of Age?&quot;, <em>Evaluation</em> 18(3)</p>
+<h3>Impact estimation: interrupted time series and difference-in-differences</h3>
+<p><strong>Used for:</strong> the change in a theory-of-change outcome when the intervention started: with no comparison group, segmented regression (step and change of slope, AR(1) errors, the effect by the last period against the projected pre-period trend); with one, difference-in-differences (cluster-robust errors with 20 or more groups) after comparing the groups&#x27; pre-period trends.</p>
+<p><strong>Limits:</strong> Impact only under the design&#x27;s assumptions, no other change at the same time (ITS), parallel trends (DiD), which the data can test only in part; no seasonal terms, covariates, staggered starts or synthetic controls; rows are averaged to one value per period (per group). Each failed or impossible check is reported as a caution with the result.</p>
+<p class="refs"><strong>References:</strong> Wagner, Soumerai, Zhang &amp; Ross-Degnan (2002), &quot;Segmented regression analysis of interrupted time series studies&quot;, <em>J Clin Pharm Ther</em> 27(4); Bernal, Cummins &amp; Gasparrini (2017), &quot;Interrupted time series regression for the evaluation of public health interventions&quot;, <em>Int J Epidemiol</em> 46(1); Angrist &amp; Pischke (2009), <em>Mostly Harmless Econometrics</em>, ch. 5; Bertrand, Duflo &amp; Mullainathan (2004), &quot;How Much Should We Trust Differences-in-Differences Estimates?&quot;, <em>QJE</em> 119(1); Prais &amp; Winsten (1954), AR(1) errors; Seabold &amp; Perktold (2010), statsmodels</p>
+<h3>Bayesian process tracing</h3>
+<p><strong>Used for:</strong> how far the evidence supports each link of a theory of change: a prior per link, each test&#x27;s P(evidence | link holds) and P(evidence | it doesn&#x27;t), odds-form updating for tests passed or failed, Van Evera&#x27;s classification of each test, pathway confidence, and which test still to run would move a link most.</p>
+<p><strong>Limits:</strong> The probabilities are judgements, and the answer is only as good as them; tests on a link are treated as independent given whether it holds, and pathway confidence multiplies link posteriors as if the links were independent. It weighs evidence for a causal step; it doesn&#x27;t estimate how large the effect is.</p>
+<p class="refs"><strong>References:</strong> Van Evera (1997), <em>Guide to Methods for Students of Political Science</em> (hoop, smoking-gun, doubly-decisive and straw-in-the-wind tests); Bennett (2015), &quot;Disciplining Our Conjectures&quot;, in Bennett &amp; Checkel (eds), <em>Process Tracing</em>; Befani &amp; Mayne (2014), &quot;Process Tracing and Contribution Analysis&quot;, <em>IDS Bulletin</em> 45(6); Fairfield &amp; Charman (2017), &quot;Explicit Bayesian Analysis for Process Tracing&quot;, <em>Political Analysis</em> 25(3)</p>
+
+        <p>Every number carries where it came from, and a value nobody has verified is flagged where the result
+          rests on it. Every method Latris implements is in the <a href="/methods/reference/">methods reference</a>.</p>
+      </article>
+    </div>
+    <!-- @formalism:end -->
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/methods/">Scientific basis</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/reference/">Methods reference</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>

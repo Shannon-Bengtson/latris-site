@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Decision Tree in Latris: methods and limits</title>
+  <meta name="description" content="How Latris builds and analyses decision tree models: the methods, references and limits." />
+  <link rel="canonical" href="https://latris.app/formalisms/decision-tree/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="Decision Tree: the scientific basis" />
+  <meta property="og:description" content="How Latris builds and analyses decision tree models: the methods, references and limits." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://latris.app/formalisms/decision-tree/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/" aria-current="page">Models</a>
+        <a href="/methods/">Science</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+  <!-- @formalism:start -->
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="crumb"><a href="/methods/">Scientific basis</a> › <a href="/formalisms/">Model types</a></p>
+        <p class="eyebrow">Decision Tree</p>
+        <h1>Decision Tree</h1>
+        <p class="lead">Decision, chance and terminal nodes: the optimal strategy by expected value, what perfect information on each uncertainty is worth (EVPI), and the probabilities at which the best choice changes.</p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <article class="prose-card prose">
+        <h2 id="glance" style="margin-top:0">At a glance</h2>
+        <table class="glance">
+          <tr><th scope="row">In Latris</th><td>Built on the same factors, links and evidence as every other model
+            type, with <code>latris dt</code>, in chat (the Latris connector) or in a share link.</td></tr>
+          <tr><th scope="row">Results in the report</th><td><ul><li>Decision tree: best choice and the value of information</li></ul></td></tr>
+        </table>
+
+        <h2 id="methods">The methods, their references and their limits</h2>
+        <h3>Decision trees and the value of information</h3>
+<p><strong>Used for:</strong> rolling back expected values to the optimal strategy; the expected value of perfect information for each uncertainty (grouping chance nodes that resolve the same uncertainty under different choices) and for all of them together; the probabilities at which the best first choice changes.</p>
+<p><strong>Limits:</strong> Risk-neutral (expected value, no utility function); point probabilities and payoffs, no probabilistic sensitivity analysis yet; EVPI needs an uncertainty to have the same probabilities whatever is chosen, and treats separate uncertainties as independent; no imperfect information (EVSI); thresholds for two-state uncertainties only.</p>
+<p class="refs"><strong>References:</strong> Raiffa (1968), <em>Decision Analysis</em>; Clemen &amp; Reilly (2014), <em>Making Hard Decisions</em>, 3rd ed.; Howard (1966), &quot;Information Value Theory&quot;, <em>IEEE Trans. Systems Science and Cybernetics</em> 2(1)</p>
+
+        <p>Every number carries where it came from, and a value nobody has verified is flagged where the result
+          rests on it. Every method Latris implements is in the <a href="/methods/reference/">methods reference</a>.</p>
+      </article>
+    </div>
+    <!-- @formalism:end -->
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/methods/">Scientific basis</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/methods/reference/">Methods reference</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>
