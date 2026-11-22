@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Causal DAGs in Latris: identification, not estimation</title>
-  <meta name="description" content="How Latris treats causal directed acyclic graphs: Pearl's graphical causal models as used in epidemiology, d-separation, backdoor adjustment sets, the known pitfalls, and why Latris stops at identification." />
+  <title>Causal DAGs in Latris: identification first, then estimation</title>
+  <meta name="description" content="How Latris treats causal directed acyclic graphs: Pearl's graphical causal models as used in epidemiology, d-separation, backdoor adjustment sets, the known pitfalls, and effect estimation by adjusted regression under stated assumptions." />
   <link rel="canonical" href="https://latris.app/formalisms/dag/" />
   <meta property="og:site_name" content="Latris" />
   <meta property="og:title" content="Causal DAGs: the scientific basis" />
-  <meta property="og:description" content="d-separation, backdoor adjustment sets, the known pitfalls, and why Latris stops at identification." />
+  <meta property="og:description" content="d-separation, backdoor adjustment sets, the known pitfalls, and effect estimation under stated assumptions." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://latris.app/formalisms/dag/" />
   <meta property="og:image" content="https://latris.app/assets/og-image.png" />
@@ -57,12 +57,13 @@
       <div class="wrap">
         <p class="crumb"><a href="/methods/">Scientific basis</a> › <a href="/formalisms/">Model types</a></p>
         <p class="eyebrow">Causal DAGs</p>
-        <h1>Identification, not estimation.</h1>
+        <h1>Identification first, then estimation.</h1>
         <p class="lead">
           A directed acyclic graph, as used in modern causal inference, writes
           down your assumptions about what causes what, so you can work out
           what would have to be measured before an effect could be estimated.
-          Latris answers that question and deliberately stops there.
+          Latris answers that question first. With a dataset it will then
+          estimate the effect, and say what the estimate rests on.
         </p>
       </div>
     </section>
@@ -74,9 +75,9 @@
         <table class="glance">
           <tr><th scope="row">An arrow claims</th><td>The cause may have a direct effect on the effect, relative to the other variables in the graph.</td></tr>
           <tr><th scope="row">A missing arrow claims</th><td>No direct effect. These absences are the graph's strongest assumptions.</td></tr>
-          <tr><th scope="row">Numbers</th><td>None.</td></tr>
-          <tr><th scope="row">Causal standing</th><td>Identification of interventional questions: which variables to condition on so that an effect could be estimated from observational data.</td></tr>
-          <tr><th scope="row">In Latris</th><td>Acyclicity enforced; d-separation queries; Markov blankets; path enumeration with each path classified; minimal backdoor adjustment sets.</td></tr>
+          <tr><th scope="row">Numbers</th><td>None for identification. With a dataset, an average effect with its confidence interval.</td></tr>
+          <tr><th scope="row">Causal standing</th><td>Identification of interventional questions: which variables to condition on so that an effect could be estimated from observational data. An estimate from data is causal only under the graph's assumptions.</td></tr>
+          <tr><th scope="row">In Latris</th><td>Acyclicity enforced; d-separation queries; Markov blankets; path enumeration with each path classified; minimal backdoor adjustment sets; effect estimation by adjusted regression.</td></tr>
         </table>
 
         <h2 id="lineage">Where it comes from</h2>
@@ -116,7 +117,7 @@
               </tr>
               <tr>
                 <td><strong>Identification mistaken for estimation.</strong> A valid adjustment set says what to control for, not how big the effect is.</td>
-                <td>Latris stops at identification and labels it as such in every report. It produces no effect sizes, no do-calculus estimates and no counterfactuals.</td>
+                <td>Latris keeps the two apart. Graph analysis is labelled identification. An effect size comes only from the separate estimation step, on a dataset, with the adjustment set it used, the unadjusted association beside it and its assumptions stated. No counterfactuals.</td>
               </tr>
               <tr>
                 <td><strong>Feedback in the real system.</strong> DAGs can't contain cycles, but many systems feed back on themselves.</td>
@@ -133,12 +134,14 @@
           <li><strong>Markov blankets</strong> of any variable.</li>
           <li><strong>Path enumeration</strong> between two variables, each path classified by its chain, fork and collider structure.</li>
           <li><strong>Adjustment sets:</strong> minimal sufficient sets by the backdoor criterion (Pearl 2009), or a statement that no adjustment is needed.</li>
+          <li><strong>Effect estimation:</strong> with a dataset, the average effect of one factor on another by backdoor adjustment: the smallest valid set made only of measured factors (or a set you give, checked against the graph), then outcome regression (Hernán &amp; Robins 2020). Ordinary least squares with robust standard errors (MacKinnon &amp; White 1985) for a numeric outcome; logistic regression, as an odds ratio and an average marginal effect, for a two-valued one. The unadjusted association is reported beside it. If every valid set needs a factor the dataset doesn't measure, Latris names what to measure and estimates nothing.</li>
         </ul>
 
         <h2 id="limits">What it doesn't do</h2>
         <ul>
-          <li>No estimation of any kind: no effect sizes, no g-methods, no counterfactuals. Take the adjustment set to your statistical software.</li>
-          <li>Adjustment sets are searched only up to three variables. If no valid set of three or fewer exists, Latris says so rather than searching further.</li>
+          <li>An estimate is causal only if the graph leaves out no common cause of treatment and outcome, the regression's form is right (linear or logistic, additive, no effect modification) and positivity holds. The report states these every time.</li>
+          <li>Complete cases only, and one numeric or two-valued treatment at a time. No g-computation, inverse-probability weighting or instrumental variables, and no counterfactuals.</li>
+          <li>Minimal adjustment sets are listed up to three variables; the search for a set the dataset measures goes to six. If none exists, Latris says so rather than searching further.</li>
           <li>No latent or unobserved variables, and no front-door or instrumental-variable identification.</li>
           <li>Analyses run on the causal links only; other kinds of link in the model are ignored.</li>
         </ul>
@@ -147,15 +150,18 @@
         <p>
           The questions a DAG answers are about the second rung,
           intervention: could this effect be estimated, and by conditioning on
-          what? Latris answers them by graph analysis. It never climbs the
-          rung itself by estimating an effect, and the report's methods
-          section says so.
+          what? Latris answers them by graph analysis. With a dataset it
+          estimates an average effect by adjusted regression, which reaches
+          that rung only if the graph's assumptions hold, and the report's
+          methods section says so. It computes no counterfactuals.
         </p>
 
         <h2 id="references">References</h2>
         <ul class="refs">
           <li><span class="status-pill on">Implemented</span>Pearl, J. (2009). <em>Causality: Models, Reasoning and Inference</em> (2nd ed.). Cambridge University Press.</li>
           <li><span class="status-pill on">Implemented</span>Hernán, M. A., &amp; Robins, J. M. (2020). <em>Causal Inference: What If</em>. Chapman &amp; Hall/CRC.</li>
+          <li><span class="status-pill on">Implemented</span>MacKinnon, J. G., &amp; White, H. (1985). Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties. <em>Journal of Econometrics</em>, 29(3), 305–325.</li>
+          <li><span class="status-pill on">Implemented</span>Seabold, S., &amp; Perktold, J. (2010). statsmodels: Econometric and statistical modeling with Python. <em>Proceedings of the 9th Python in Science Conference</em>.</li>
           <li><span class="status-pill on">Implemented</span>Shachter, R. D. (1998). Bayes-Ball: The rational pastime. <em>Proceedings of the 14th Conference on Uncertainty in Artificial Intelligence</em>.</li>
           <li><span class="status-pill later">Context</span>Greenland, S., Pearl, J., &amp; Robins, J. M. (1999). Causal diagrams for epidemiologic research. <em>Epidemiology</em>, 10(1), 37–48.</li>
           <li><span class="status-pill later">Context</span>Textor, J., van der Zander, B., Gilthorpe, M. S., Liśkiewicz, M., &amp; Ellison, G. T. H. (2016). Robust causal inference using directed acyclic graphs: the R package "dagitty". <em>International Journal of Epidemiology</em>, 45(6), 1887–1894.</li>

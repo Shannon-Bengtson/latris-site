@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Which model? Latris's five model types and when to use each</title>
-  <meta name="description" content="Latris has five ways to answer a causal question: causal loop diagrams, causal DAGs, Bayesian networks, fuzzy cognitive maps and system dynamics. Here's how to choose, and why they're one model, not five." />
+  <title>Which model? Latris's model types and when to use each</title>
+  <meta name="description" content="Latris has five ways to answer a causal question, from causal loop diagrams to system dynamics, and model types for decisions, evaluation, risk, arguments and equation-based models on the same evidence. Here's how to choose." />
   <link rel="canonical" href="https://latris.app/formalisms/" />
   <meta property="og:site_name" content="Latris" />
   <meta property="og:title" content="Which model should you build?" />
-  <meta property="og:description" content="Five model types, chosen by the question you need answered. Start with a causal loop diagram; you never redraw." />
+  <meta property="og:description" content="Model types chosen by the question you need answered. Start with a causal loop diagram; you never redraw." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://latris.app/formalisms/" />
   <meta property="og:image" content="https://latris.app/assets/og-image.png" />
@@ -62,8 +62,10 @@
           answers to the same question, <em>what causes what here, and what
           happens if we act?</em>, at five levels of commitment. This guide is
           the reasoning behind the Formalise step in the app. Beyond them, Latris
-          has model types for decisions, evaluation and risk on the same
-          substrate: <a href="#every">every model type</a> is listed below.
+          has model types for decisions, evaluation, risk, arguments and
+          equation-based models on the same factors and evidence:
+          <a href="#beyond">chosen by the question</a>, and
+          <a href="#every">every model type</a> is listed below.
         </p>
       </div>
     </section>
@@ -105,7 +107,7 @@
             </thead>
             <tbody>
               <tr><td>Causal loop diagram</td><td>How does this work? What feeds back on what?</td><td>None: direction only</td><td>Shows where an effect runs, never how large</td></tr>
-              <tr><td>Causal DAG</td><td>Can this effect be estimated, and from what data?</td><td>None: identification only</td><td>No effect sizes or counterfactuals</td></tr>
+              <tr><td>Causal DAG</td><td>Can this effect be estimated, and from what data?</td><td>None to identify; with a dataset, an adjusted effect estimate</td><td>An estimate holds only if the graph leaves out no confounder; no counterfactuals</td></tr>
               <tr><td>Fuzzy cognitive map</td><td>Which forces dominate, roughly?</td><td>Soft weights from −1 to +1</td><td>Tendencies, not year-three numbers</td></tr>
               <tr><td>Bayesian network</td><td>How likely is each outcome, and what would change my mind?</td><td>Probabilities on discrete states</td><td>Discrete states, modest networks</td></tr>
               <tr><td>System dynamics</td><td>How will it behave over time if we intervene?</td><td>Equations, units and parameters</td><td>Only as good as the structure under it</td></tr>
@@ -131,6 +133,8 @@
           <tr><th scope="row"><a href="/formalisms/theory-of-change/">Theory of Change</a></th><td>Results chain from activities through outputs and outcomes to impact, with the evidence and assumptions behind each step laid out pathway by pathway.</td></tr>
           <tr><th scope="row"><a href="/formalisms/mcda/">Multi-Criteria Decision Analysis</a></th><td>Options scored against weighted criteria: the ranking, each criterion&#x27;s contribution, dominated options, and how far each weight would have to move to change the choice.</td></tr>
           <tr><th scope="row"><a href="/formalisms/ach/">Analysis of Competing Hypotheses</a></th><td>Hypotheses against the evidence: which one the evidence fails to rule out, which items don&#x27;t discriminate, and which linchpins the conclusion turns on.</td></tr>
+          <tr><th scope="row"><a href="/formalisms/argument-map/">Argument Map</a></th><td>An argument laid out as claims, the reasons for and objections against them, and the answers to those: whether the conclusion stands, what it rests on, and which objection is still unanswered.</td></tr>
+          <tr><th scope="row"><a href="/formalisms/equation-model/">Equation Model</a></th><td>Quantities joined by sourced formulas, with units checked and no clock: what a physical law or a published parameterisation gives for these inputs, how an output responds to each input, and how sure the result is.</td></tr>
           <tr><th scope="row"><a href="/formalisms/fcm/">Fuzzy Cognitive Map</a></th><td>Weighted directed graph with edge strengths in [−1, +1]; cycles allowed.</td></tr>
           </table>
         </div>
@@ -153,8 +157,8 @@
         <ul>
           <li><strong>Reach for it when:</strong> you have (or are about to collect) observational data and someone will ask whether the estimate is confounded.</li>
           <li><strong>You'll need:</strong> a graph you can defend, every edge a causal claim, plus clarity about what could be measured.</li>
-          <li><strong>What you get:</strong> an identification strategy: d-separation checks and valid adjustment sets, meaning what to control for, or a statement that no small set suffices.</li>
-          <li><strong>Honest limit:</strong> Latris answers identification, not estimation. It will not produce an effect size or a counterfactual; it tells you what data would have to exist for someone to.</li>
+          <li><strong>What you get:</strong> an identification strategy: d-separation checks and valid adjustment sets, meaning what to control for, or a statement that no small set suffices. With a dataset, the effect itself by adjusted regression, shown beside the unadjusted association.</li>
+          <li><strong>Honest limit:</strong> identification comes first, and an estimate is causal only if the graph leaves out no common cause and the regression's form is right; the report says so every time. No counterfactuals.</li>
         </ul>
         <p><a href="/formalisms/dag/">Scientific basis: what the arrows mean, lineage, known pitfalls, references →</a></p>
 
@@ -187,10 +191,40 @@
           <li><strong>Honest limit:</strong> the most commitment of the five. A precise answer to the wrong structure is worse than a vague one, so build the CLD first and quantify it once the structure has survived review.</li>
         </ul>
         <p><a href="/formalisms/sd/">Scientific basis: what the arrows mean, lineage, known pitfalls, references →</a></p>
-        <p class="callout">
-          System dynamics runs in the open-source engine and CLI today; the
-          visual stock-and-flow editor in the app is on the way.
+        <h2 id="beyond">Beyond the causal core, by the question</h2>
+        <p>
+          The other model types answer a different kind of question. They are
+          built on the same factors, sources and challenges, so the evidence
+          discipline is the same, and each has a page on its methods, their
+          references and their limits.
         </p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">The question</th><th scope="col">Model type</th></tr></thead>
+            <tbody>
+              <tr><td>What do the equations give for these inputs, and how far can the answer be trusted?</td><td><a href="/formalisms/equation-model/">Equation model</a></td></tr>
+              <tr><td>How is this programme supposed to work, and which steps are taken on trust?</td><td><a href="/formalisms/theory-of-change/">Theory of change</a></td></tr>
+              <tr><td>Which option should we choose, given what we care about?</td><td><a href="/formalisms/mcda/">Multi-criteria decision analysis</a></td></tr>
+              <tr><td>What should we do, given what we don't know, and is it worth finding out more first?</td><td><a href="/formalisms/decision-tree/">Decision tree</a></td></tr>
+              <tr><td>What does each option cost and achieve over years?</td><td><a href="/formalisms/markov/">Markov cohort model</a></td></tr>
+              <tr><td>Which explanation does the evidence fail to rule out?</td><td><a href="/formalisms/ach/">Analysis of competing hypotheses</a></td></tr>
+              <tr><td>Does the case hold up, and what does it rest on?</td><td><a href="/formalisms/argument-map/">Argument map</a></td></tr>
+              <tr><td>What combinations of failures cause this, and how likely is it?</td><td><a href="/formalisms/fault-tree/">Fault tree</a></td></tr>
+              <tr><td>What stands between this hazard and harm, and where is it thin?</td><td><a href="/formalisms/bow-tie/">Bow-tie</a></td></tr>
+              <tr><td>Once this happens, how does it play out, and how often does it end badly?</td><td><a href="/formalisms/event-tree/">Event tree</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="equation-model">Equation model</h3>
+        <p class="q">"What do the equations give for these inputs, and how far can the answer be trusted?"</p>
+        <ul>
+          <li><strong>Reach for it when:</strong> the model is a calculation, not a simulation: a physical law, an engineering relationship or a published parameterisation, such as a hydraulics formula, an emissions calculation or a dose-response curve.</li>
+          <li><strong>You'll need:</strong> inputs and coefficients with their units, the formulas that join them, and for each formula and coefficient the source it came from and the range that source covers.</li>
+          <li><strong>What you get:</strong> every quantity worked out, with the units checked so that a formula adding metres to seconds is refused; the result under named scenarios; how an output responds as one input moves; and, with ranges on the uncertain values, the spread of the result and what drives it. A value outside its valid range is reported as an extrapolation, never silently clamped.</li>
+          <li><strong>Honest limit:</strong> units that balance don't make a formula right, and an empirical relationship is only as good as the study behind it. Formulas must be explicit: nothing is solved simultaneously, and there is no clock. If the behaviour over time is the question, that is system dynamics.</li>
+        </ul>
+        <p><a href="/formalisms/equation-model/">Scientific basis: methods, references, limits →</a></p>
 
         <h2 id="combine">Using more than one</h2>
         <p>
@@ -210,10 +244,15 @@
               <tr><td>Causal DAGs</td><td><span class="status-pill on">Available now</span></td></tr>
               <tr><td>Fuzzy cognitive maps</td><td><span class="status-pill on">Available now</span></td></tr>
               <tr><td>Bayesian networks</td><td><span class="status-pill on">Available now</span></td></tr>
-              <tr><td>System dynamics</td><td><span class="status-pill on">Available now</span> (visual editor on the way)</td></tr>
-              <tr><td>Theory of change</td><td><span class="status-pill later">On the roadmap</span></td></tr>
+              <tr><td>System dynamics</td><td><span class="status-pill on">Available now</span></td></tr>
+              <tr><td>Equation models</td><td><span class="status-pill on">Available now</span></td></tr>
+              <tr><td>Theory of change, with process tracing and impact estimates</td><td><span class="status-pill on">Available now</span></td></tr>
+              <tr><td>Multi-criteria decision analysis, decision trees, Markov cohort models</td><td><span class="status-pill on">Available now</span></td></tr>
+              <tr><td>Analysis of competing hypotheses</td><td><span class="status-pill on">Available now</span></td></tr>
+              <tr><td>Fault trees, event trees, bow-tie diagrams</td><td><span class="status-pill on">Available now</span></td></tr>
+              <tr><td>Argument maps</td><td><span class="status-pill on">Available now</span> in chat, the open-source library and reports (editor in the app on the way)</td></tr>
+              <tr><td>Influence diagrams</td><td><span class="status-pill later">On the roadmap</span></td></tr>
               <tr><td>Goal structuring notation (safety cases)</td><td><span class="status-pill later">On the roadmap</span></td></tr>
-              <tr><td>Fault trees, event trees, bow-tie diagrams</td><td><span class="status-pill later">On the roadmap</span></td></tr>
             </tbody>
           </table>
         </div>

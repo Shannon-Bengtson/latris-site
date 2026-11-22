@@ -336,12 +336,12 @@ def changelog_html(repo: Path) -> str:
 WEBSITE_SECTION = """## Website (for the person you're helping)
 
 - [How it works](https://latris.app/how-it-works/): the workflow, evidence on each claim, AI-proposed labelling, challenges, outputs.
-- [Which model?](https://latris.app/formalisms/): the five model types by the question each answers; what's available and what's on the roadmap.
+- [Which model?](https://latris.app/formalisms/): the five causal model types by the question each answers, then every other model type (decisions, evaluation, risk, arguments, equation models); what's available and what's on the roadmap.
 - [Use with AI](https://latris.app/ai/): the connector for Claude and ChatGPT, and agents driving the CLI.
 - [For reviewers](https://latris.app/for-reviewers/): what a decision owner or reviewer can check; review packs.
 - [Example](https://latris.app/examples/): the river-health model and its live report.
 - [Scientific basis](https://latris.app/methods/): the citation rule, the evidence discipline, the ladder of causation, and links to each model type's page.
-- Per model type, for practitioners (what the arrows mean, lineage, known pitfalls and what Latris does about each, limits, references marked implemented or context): [CLD](https://latris.app/formalisms/cld/), [DAG](https://latris.app/formalisms/dag/), [BN](https://latris.app/formalisms/bn/), [FCM](https://latris.app/formalisms/fcm/), [SD](https://latris.app/formalisms/sd/).
+- Per model type, for practitioners (what the arrows mean, lineage, known pitfalls and what Latris does about each, limits, references marked implemented or context): [CLD](https://latris.app/formalisms/cld/), [DAG](https://latris.app/formalisms/dag/), [BN](https://latris.app/formalisms/bn/), [FCM](https://latris.app/formalisms/fcm/), [SD](https://latris.app/formalisms/sd/). Every other model type has a page generated from the library (methods, limits, references), linked from [Which model?](https://latris.app/formalisms/#every), e.g. [equation models](https://latris.app/formalisms/equation-model/).
 - [Methods reference](https://latris.app/methods/reference/): mirrored from docs/FOUNDATIONS.md.
 - [Changelog](https://latris.app/changelog/): every release, from the git history.
 
@@ -452,10 +452,16 @@ def formalism_page_body(t: dict) -> str:
     """
 
 
+def _plural(display_name: str) -> str:
+    """'Equation Model' → 'equation models'; 'Fault Tree' → 'fault tree models'."""
+    name = display_name.lower()
+    return f"{name}s" if name.endswith("model") else f"{name} models"
+
+
 def formalism_page_shell(t: dict) -> str:
     url = f"https://latris.app/formalisms/{t['slug']}/"
     title = f"{t['display_name']} in Latris: methods and limits"
-    desc = f"How Latris builds and analyses {t['display_name'].lower()} models: the methods, references and limits."
+    desc = f"How Latris builds and analyses {_plural(t['display_name'])}: the methods, references and limits."
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>

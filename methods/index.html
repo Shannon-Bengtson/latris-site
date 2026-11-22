@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The scientific basis of Latris: established methods, cited honestly</title>
-  <meta name="description" content="Latris implements established methods for causal loop diagrams, causal DAGs, Bayesian networks, fuzzy cognitive maps and system dynamics, cites them only where it implements them, and states their limits. The scientific basis of each model type." />
+  <meta name="description" content="Latris implements established methods for causal loop diagrams, causal DAGs, Bayesian networks, fuzzy cognitive maps, system dynamics and its other model types, cites them only where it implements them, and states their limits. The scientific basis of each model type." />
   <link rel="canonical" href="https://latris.app/methods/" />
   <meta property="og:site_name" content="Latris" />
   <meta property="og:title" content="The scientific basis of Latris" />
@@ -78,12 +78,14 @@
     <section class="band" id="types">
       <div class="wrap">
         <p class="eyebrow reveal">Model types</p>
-        <h2 class="sec-h reveal">Five methods, one evidence base.</h2>
+        <h2 class="sec-h reveal">Five causal methods, one evidence base.</h2>
         <p class="sec-p reveal">
           All five are built on the same factors, links and evidence, so a
           model can be quantified, or examined another way, without being
           redrawn. <a href="/formalisms/">Which model should you build?</a>
-          compares them by the question each answers.
+          compares them by the question each answers, and lists the model
+          types for decisions, evaluation, risk, arguments and equations,
+          each with <a href="/formalisms/#every">a page of its own</a>.
         </p>
         <div class="cards reveal">
           <a class="card" href="/formalisms/cld/">
@@ -95,7 +97,7 @@
           <a class="card" href="/formalisms/dag/">
             <p class="who">Pearl · Hernán &amp; Robins</p>
             <h3>Causal DAGs</h3>
-            <p>d-separation and backdoor adjustment sets. Identification, never presented as estimation.</p>
+            <p>d-separation and backdoor adjustment sets; with a dataset, an adjusted effect estimate that states the assumptions it rests on.</p>
             <span class="more">Read →</span>
           </a>
           <a class="card" href="/formalisms/bn/">
@@ -203,11 +205,18 @@
               <tr><th scope="row">Causal loop diagram</th><td>Claims about mechanism: qualitative structure only. Arrows are argued, not estimated, and carry no interventional semantics.</td></tr>
               <tr><th scope="row">Fuzzy cognitive map</th><td>A semi-quantitative simulation of the claimed mechanism.</td></tr>
               <tr><th scope="row">System dynamics</th><td>A quantitative simulation of the claimed mechanism. Scenarios intervene on the model, not the world.</td></tr>
-              <tr><th scope="row">Causal DAG</th><td>Identification: what would have to be measured for an effect to be estimable. No estimation.</td></tr>
+              <tr><th scope="row">Causal DAG</th><td>Identification: what would have to be measured for an effect to be estimable. With data, an average effect by adjusted regression, valid only under the graph's assumptions. No counterfactuals.</td></tr>
               <tr><th scope="row">Bayesian network</th><td>Observational queries: what is likely, given what has been observed.</td></tr>
+              <tr><th scope="row">Equation model</th><td>A quantitative mechanism computed from stated formulas. Changing an input intervenes on the model, and the answer is only as causal as the formulas' sources make it.</td></tr>
             </tbody>
           </table>
         </div>
+        <p class="sec-p reveal">
+          The decision, evaluation, risk and argument types are placed the same
+          way in the <a href="/methods/reference/">methods reference</a>, and
+          each has its own page under
+          <a href="/formalisms/#every">every model type</a>.
+        </p>
       </div>
     </section>
 

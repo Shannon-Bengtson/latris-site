@@ -160,10 +160,9 @@
         <ul>
           <li>No calibration to data and no behaviour-reproduction or extreme-condition testing.</li>
           <li>The adaptive option is RK45 under a step cap, not the classical fixed-step RK4 of Vensim and Stella.</li>
-          <li>Monte Carlo is capped at 1,000 runs and reports rank correlations only: no variance decomposition. Sensitivity is one-at-a-time only.</li>
+          <li>Monte Carlo is capped at 1,000 runs and reports rank correlations only. Sensitivity here is one-at-a-time; apportioning the result's variance among the uncertain values is the separate global sensitivity analysis (Sobol indices, Morris screening).</li>
           <li>Loop dominance enumerates loops exhaustively up to 500; larger models would need the strongest-path search, which isn't implemented. Scores are zero when stocks stop changing: the method explains change, not equilibrium.</li>
           <li>No XMILE or Vensim import.</li>
-          <li>System dynamics runs in the open-source engine and CLI today; the visual stock-and-flow editor in the app is on the way.</li>
         </ul>
 
         <h2 id="ladder">On the ladder of causation</h2>

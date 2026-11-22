@@ -69,7 +69,7 @@
         <table class="glance">
           <tr><th scope="row">In Latris</th><td>Built on the same factors, links and evidence as every other model
             type, with <code>latris et</code>, in chat (the Latris connector) or in a share link.</td></tr>
-          <tr><th scope="row">Results in the report</th><td><ul><li>Event tree: sequences and end states</li><li>Event tree: uncertainty (Monte Carlo)</li></ul></td></tr>
+          <tr><th scope="row">Results in the report</th><td><ul><li>Event tree: sequences and end states</li><li>Event tree: uncertainty (Monte Carlo)</li><li>Event tree: global sensitivity</li></ul></td></tr>
         </table>
 
         <h2 id="methods">The methods, their references and their limits</h2>
@@ -77,6 +77,10 @@
 <p><strong>Used for:</strong> sequences from one initiating event through ordered yes/no headings to end states; a check that the sequences cover every branch exactly once; sequence probabilities as products of branch probabilities (conditional on earlier answers where given), end-state totals and, with the initiating frequency, frequencies per year.</p>
 <p><strong>Limits:</strong> Binary branches only; dependence between headings only as explicitly stated conditional probabilities; point values with no uncertainty propagation; heading probabilities are entered, not linked live to fault trees.</p>
 <p class="refs"><strong>References:</strong> IEC 62502:2010, <em>Event tree analysis (ETA)</em>; US NRC (1983), <em>PRA Procedures Guide</em> (NUREG/CR-2300); US NRC (1975), <em>Reactor Safety Study</em> (WASH-1400)</p>
+<h3>Global sensitivity analysis: Sobol indices and Morris screening</h3>
+<p><strong>Used for:</strong> apportioning the variance of a result among every input with a range, varied together over their distributions: first-order and total Sobol indices (Saltelli and Jansen estimators on a scrambled Sobol sequence, bootstrap intervals), or Morris elementary effects (μ*, σ) as a cheaper screen.</p>
+<p><strong>Limits:</strong> Inputs are independent (correlations between ranges are ignored here); a set of probabilities (a Dirichlet: a chance node&#x27;s branches, a state&#x27;s transitions out, a Bayesian-network table) is one input, indexed as a group; indices are estimates, with heavy-tailed inputs or few samples they can stray below 0 or above 1 (the intervals say how far to trust them); Morris effects are per unit of an input&#x27;s quantile, comparable within one result only.</p>
+<p class="refs"><strong>References:</strong> Saltelli et al. (2008), <em>Global Sensitivity Analysis: The Primer</em>; Sobol (2001), <em>Mathematics and Computers in Simulation</em> 55; Saltelli et al. (2010), <em>Computer Physics Communications</em> 181(2); Jansen (1999), <em>Computer Physics Communications</em> 117; Morris (1991), <em>Technometrics</em> 33(2); Campolongo, Cariboni &amp; Saltelli (2007), <em>Environmental Modelling &amp; Software</em> 22(10)</p>
 <h3>Monte Carlo propagation of parameter uncertainty in risk models</h3>
 <p><strong>Used for:</strong> how sure a fault tree&#x27;s top-event probability, a bow-tie&#x27;s frequencies or an event tree&#x27;s end-state frequencies are: a distribution (or a lognormal median and error factor) on each uncertain input, seeded Latin hypercube sampling through the model&#x27;s own calculation, percentiles and the mean against the point estimate, and Spearman rank correlation for what drives the spread.</p>
 <p><strong>Limits:</strong> Inputs are sampled independently, except that each input takes one value per run wherever it appears (state-of-knowledge dependence within a model); no correlation between different inputs. Inputs without a range are treated as exact, so the spread is a lower bound. Rank correlation measures monotone influence only.</p>
