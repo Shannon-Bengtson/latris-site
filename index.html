@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Latris: causal models that hold up when someone asks "how do you know?"</title>
-  <meta name="description" content="Latris is a modelling workbench for causal arguments that have to survive review. Every link carries its reason and its source, your AI drafts while you decide, and the report shows its evidence. Free during early access." />
+  <title>Latris: models that hold up when someone asks "how do you know?"</title>
+  <meta name="description" content="Latris is a modelling workbench for reasoning that has to survive review: causal models, decisions, risk cases, arguments and calculations. Every claim carries its reason and its source, your AI drafts while you decide, and the report shows its evidence. Free during early access." />
   <link rel="canonical" href="https://latris.app/" />
 
   <!-- Open Graph / link previews -->
   <meta property="og:site_name" content="Latris" />
-  <meta property="og:title" content="Latris: every arrow, backed by a reason and a source" />
-  <meta property="og:description" content="Build the causal case for a decision and keep the evidence with it: what each link rests on, what was checked against the source, and what stays contested." />
+  <meta property="og:title" content="Latris: every claim, backed by a reason and a source" />
+  <meta property="og:description" content="Build the model behind a decision and keep the evidence with it: what each claim rests on, what was checked against the source, and what stays contested." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://latris.app/" />
   <meta property="og:image" content="https://latris.app/assets/og-image.png" />
@@ -52,7 +52,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
+  <link rel="stylesheet" href="/assets/site.css?v=5ab268cef5" />
   <script src="/assets/site.js?v=c1a41cf94c" defer></script>
   <!-- @head:end -->
 </head>
@@ -89,16 +89,17 @@
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Evidence-native modelling</p>
-          <h1>Causal models that hold up when someone asks <em>"how do you know?"</em></h1>
+          <h1>Models that hold up when someone asks <em>"how do you know?"</em></h1>
           <p class="lead">
-            Latris is a modelling workbench for work that lives or dies on a
-            causal argument: a catchment plan, a program's logic, a risk case.
-            Every link between factors carries its reason and its source.
+            Latris is a modelling workbench for work that lives or dies on its
+            reasoning: what's driving a river's decline, which option to fund,
+            how a failure could happen, whether a case stands. Every claim in
+            the model carries its reason and its source.
           </p>
           <p class="sub">
             Draft with the AI you already use. Everything it adds is labelled
             as AI-proposed until a person checks it, and the report shows its
-            work: what each arrow rests on, what was checked against the
+            work: what each claim rests on, what was checked against the
             source, and what stays contested.
           </p>
 
@@ -182,8 +183,8 @@
         <div class="points" style="margin-top:28px">
           <div class="point reveal">
             <div class="dot"><span style="background:#2a6b5e"></span></div>
-            <h3>Every arrow carries its evidence</h3>
-            <p>Each link holds its reason and its sources, for and against. Sources
+            <h3>Every claim carries its evidence</h3>
+            <p>Each link, number and formula holds its reason and its sources, for and against. Sources
               are checked against what they actually say, so "why is this
               here?" has an answer one click away.</p>
           </div>
@@ -208,14 +209,59 @@
 
     <hr class="rule" />
 
+    <!-- ── Model types ── -->
+    <section class="band" id="models">
+      <div class="wrap">
+        <p class="eyebrow reveal">Model types</p>
+        <h2 class="sec-h reveal">Pick the model by the question.</h2>
+        <p class="sec-p reveal">
+          Fifteen model types in seven families, all built from the same
+          factors, links and sources. Add a second one and nothing is redrawn.
+        </p>
+        <div class="usecases reveal">
+          <a class="uc" href="/formalisms/#systems">
+            <h3>Systems</h3>
+            <p>How does this work, and how will it behave over time? Causal loop diagrams, fuzzy cognitive maps, system dynamics.</p>
+          </a>
+          <a class="uc" href="/formalisms/#causal-inference">
+            <h3>Causal inference</h3>
+            <p>Can this effect be estimated, and how likely is each outcome? Causal DAGs, Bayesian networks.</p>
+          </a>
+          <a class="uc" href="/formalisms/#evaluation">
+            <h3>Evaluation</h3>
+            <p>How is this programme supposed to work, and what did it change? Theory of change.</p>
+          </a>
+          <a class="uc" href="/formalisms/#risk">
+            <h3>Risk and safety</h3>
+            <p>How could this fail, and what stands in the way? Bow-ties, fault trees, event trees.</p>
+          </a>
+          <a class="uc" href="/formalisms/#decisions">
+            <h3>Decisions</h3>
+            <p>Which option, and is it worth finding out more first? Multi-criteria analysis, decision trees, Markov models.</p>
+          </a>
+          <a class="uc" href="/formalisms/#arguments">
+            <h3>Arguments</h3>
+            <p>Which explanation survives the evidence, and does the case hold up? Competing hypotheses, argument maps.</p>
+          </a>
+          <a class="uc" href="/formalisms/#equations">
+            <h3>Equations</h3>
+            <p>What do the formulas give for these inputs? Sourced equations with units checked.</p>
+          </a>
+        </div>
+        <p class="note-p reveal"><a href="/formalisms/">Which model should you build? →</a></p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
     <!-- ── Who it's for ── -->
     <section class="band">
       <div class="wrap">
         <p class="eyebrow reveal">Who it's for</p>
         <h2 class="sec-h reveal">People who have to defend the reasoning.</h2>
         <p class="sec-p reveal">
-          Consultants, researchers and in-house teams working on causal
-          questions in environment, policy, health and risk, where the report
+          Consultants, researchers and in-house teams whose models inform
+          decisions in environment, policy, health and risk, where the report
           will be read by someone whose job is to ask hard questions.
         </p>
         <div class="cards reveal">
@@ -223,8 +269,8 @@
             <p class="who">You build the model</p>
             <h3>Modellers and analysts</h3>
             <p>Fifteen model types on one evidence base, from causal loop
-              diagrams to system dynamics and equation models, with every
-              claim sourced.</p>
+              diagrams and system dynamics to decision trees, fault trees and
+              argument maps, with every claim sourced.</p>
             <span class="more">How it works →</span>
           </a>
           <a class="card" href="/for-reviewers/">
@@ -237,7 +283,7 @@
           <a class="card" href="/ai/">
             <p class="who">You work in a chat</p>
             <h3>Claude and ChatGPT users</h3>
-            <p>Add the Latris connector and ask a causal question. You get a
+            <p>Add the Latris connector and ask your question. You get a
               sourced model and a report link to send.</p>
             <span class="more">Use with AI →</span>
           </a>
@@ -289,7 +335,7 @@
     <div class="wrap foot-grid">
       <div class="foot-brand">
         <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
-        <p>Causal models that show their evidence.</p>
+        <p>Models that show their evidence.</p>
         <p>© 2026 Latris · Made in Australia</p>
       </div>
         <div>

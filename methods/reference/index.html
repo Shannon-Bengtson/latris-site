@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
+  <link rel="stylesheet" href="/assets/site.css?v=5ab268cef5" />
   <script src="/assets/site.js?v=c1a41cf94c" defer></script>
   <!-- @head:end -->
 </head>
@@ -108,7 +108,7 @@ dominate?" (FCM), "how does it behave over time?" (SD), lives at
   definitional edges are excluded from loop and centrality analysis; they
   are policy or identity links, not feedback mechanisms.</li>
 </ul>
-<h2>Causal DAGs: identification, not estimation</h2>
+<h2>Causal DAGs: identification, then estimation under stated assumptions</h2>
 <ul>
 <li><strong>Lineage.</strong> Pearl (2009), <em>Causality</em>; Pearl &amp; Mackenzie (2018), <em>The Book
   of Why</em>; Hernán &amp; Robins (2020), <em>Causal Inference: What If</em>. The
@@ -117,13 +117,26 @@ dominate?" (FCM), "how does it behave over time?" (SD), lives at
   (with chain/fork/collider classification), and backdoor adjustment sets by
   graph surgery: the exposure's outgoing edges removed, then testing which
   sets d-separate exposure from outcome (<code>latris analyse</code>, DAG-scoped).</li>
-<li><strong>Limits: read this before citing Pearl.</strong> Latris answers the
-  <em>identification</em> question only: what would have to be measured (conditioned
-  on) for an effect to be estimable. There is no do-operator estimation, no
-  g-computation, and no counterfactual computation anywhere in the package.
-  Adjustment sets are enumerated only up to size 3; if no valid set of three
-  or fewer exists, Latris says so instead of searching further. Analyses run
-  on the causal-edge subgraph only.</li>
+<li><strong>Effect estimation</strong> (<code>latris analyse estimate</code>). With a dataset, the
+  average effect of one factor on another by back-door adjustment (Pearl
+  2009): the smallest valid back-door set made only of measured factors (or
+  a set you give, checked against the DAG), then outcome regression
+  (Hernán &amp; Robins 2020, ch. 15), ordinary least squares with HC3 robust
+  standard errors (MacKinnon &amp; White 1985) for a numeric outcome, logistic
+  regression (odds ratio and average marginal effect) for a two-valued one,
+  via statsmodels (Seabold &amp; Perktold 2010). The unadjusted association is
+  reported beside it. If every valid set needs a factor the dataset doesn't
+  measure, Latris names what to measure and estimates nothing.</li>
+<li><strong>Limits: read this before citing Pearl.</strong> An estimate is causal only if
+  the DAG leaves out no common cause of treatment and outcome, the model's
+  form is right (linear or logistic, additive in the adjustment variables,
+  no effect modification), and positivity holds; the report states these
+  every time. Complete cases only. One numeric or two-valued treatment at a
+  time. No g-computation, inverse-probability weighting, instrumental
+  variables or front-door estimation, and no counterfactual computation
+  anywhere in the package. Minimal adjustment sets are enumerated up to size
+  3; the search for a measured set goes to size 6. Analyses run on the
+  causal-edge subgraph only.</li>
 </ul>
 <h2>Bayesian networks</h2>
 <ul>
@@ -185,6 +198,373 @@ dominate?" (FCM), "how does it behave over time?" (SD), lives at
   equilibrium. Monte Carlo is capped at 1000 runs and reports rank
   correlations only.</li>
 </ul>
+<h2>Fault trees</h2>
+<ul>
+<li><strong>Lineage.</strong> Vesely, Goldberg, Roberts &amp; Haasl (1981), <em>Fault Tree
+  Handbook</em> (NUREG-0492, US Nuclear Regulatory Commission), and IEC
+  61025:2006. Minimal cut sets by MOCUS-style expansion (Fussell &amp; Vesely
+  1972); the exact top-event probability from a binary decision diagram
+  (Rauzy 1993); importance after Birnbaum (1969) and Fussell (1975).</li>
+<li><strong>Implemented.</strong> Event types as view roles (top, intermediate, basic,
+  undeveloped); AND, OR and k-out-of-n (vote) gates stored on their events.
+  Minimal cut sets with superset elimination at every gate, so an event that
+  feeds several gates is handled correctly; single points of failure (cut
+  sets of one). When every leaf has a probability: the exact top-event
+  probability from a reduced ordered BDD, with the rare-event approximation
+  and the min-cut upper bound beside it; Birnbaum importance
+  (P(top | e) − P(top | not e)), Fussell–Vesely importance
+  ((P(top) − P(top | not e)) / P(top)) and risk achievement worth
+  (P(top | e) / P(top)), each computed exactly on the diagram. Every
+  probability keeps its origin, source and verification, and important
+  values nobody has verified are flagged (<code>latris ft …</code>).</li>
+<li><strong>Limits.</strong> Static, coherent trees only: no NOT, priority-AND, sequence or
+  other dynamic gates. Basic events are assumed independent, there is no
+  common-cause failure model (beta factor, MGL), so redundancy can look
+  stronger than it is. Uncertainty is propagated by Monte Carlo (below),
+  but there is no conversion from failure rates and exposure times
+  (enter the probability for the period the tree is about). Cut sets are
+  listed up to 20,000; past that, limit the order.</li>
+</ul>
+<h2>Bow-ties</h2>
+<ul>
+<li><strong>Lineage.</strong> CCPS &amp; Energy Institute (2018), <em>Bow Ties in Risk
+  Management: A Concept Book for Process Safety</em>, the elements, the barrier
+  types and the rules for drawing lines; the quantification is layer of
+  protection analysis, CCPS (2001).</li>
+<li><strong>Implemented.</strong> Hazard, top event, threats, consequences, barriers and
+  escalation factors as view roles; lines as ordinary links, checked against
+  the bow-tie pattern. Per barrier: CCPS type, status (in place, degraded,
+  not in place), owner and probability of failure on demand, with
+  provenance. The analysis lists every line with its effective barriers
+  (degraded or missing ones don't count) and flags lines with none or one,
+  barriers on more than one line, escalation factors with no control and
+  barriers with no owner. With every threat's frequency and every barrier's
+  PFD: the top-event frequency (Σ over threats of frequency × probability
+  that some route gets through), each consequence's frequency, and risk
+  achievement worth per barrier. A threat's routes are combined exactly with
+  the fault-tree decision diagram, so a barrier on two routes counts once.</li>
+<li><strong>Limits.</strong> Barriers are assumed to fail independently, shared barriers
+  are flagged, but common-cause failure isn't modelled; LOPA is an
+  order-of-magnitude method; its values are points unless given ranges for
+  Monte Carlo (below). Escalation factors
+  are drawn and checked but not quantified, and there is no consequence
+  severity or risk matrix.</li>
+</ul>
+<h2>Event trees</h2>
+<ul>
+<li><strong>Lineage.</strong> IEC 62502:2010, <em>Event tree analysis</em>; the US NRC <em>PRA
+  Procedures Guide</em> (NUREG/CR-2300, 1983), descending from the <em>Reactor
+  Safety Study</em> (WASH-1400, 1975).</li>
+<li><strong>Implemented.</strong> Initiating event, headings (functional events) and end
+  states as view roles; the heading order and the sequences stored as data.
+  A check that the sequences form a complete tree: at every branch point all
+  sequences ask the same next heading, both answers are covered, and none
+  stops while a sibling continues. P(yes) per heading, in general or given
+  earlier answers (the most specific match applies; two equally specific
+  values that disagree are reported, not guessed). Each sequence's
+  probability is the product of its branch probabilities; with the
+  initiating frequency, its frequency per year; totals per end state with
+  the dominant sequence behind each. Every value keeps its provenance.</li>
+<li><strong>Limits.</strong> Binary branches only; dependence between headings exists only
+  as the conditional probabilities you state; uncertainty only by Monte
+  Carlo over stated ranges (below); heading probabilities are entered (they can cite a fault-tree
+  run) rather than computed from linked fault trees.</li>
+</ul>
+<h2>Uncertainty in the risk models (Monte Carlo)</h2>
+<ul>
+<li><strong>Lineage.</strong> Probabilistic risk assessment propagates parameter
+  uncertainty by sampling (NUREG/CR-2300, ch. 12), with each input's
+  state-of-knowledge distribution usually a lognormal stated by its median
+  and <em>error factor</em> (95th percentile over the median); the epistemic
+  reading of those distributions is Apostolakis (1990). Latin hypercube
+  sampling follows McKay, Beckman &amp; Conover (1979) and Helton &amp; Davis
+  (2003).</li>
+<li><strong>Implemented.</strong> <code>latris ft|bowtie|et uncertainty</code> gives a basic event's
+  probability, a barrier's PFD, a threat's or initiator's frequency, or a
+  heading's (conditional) P(yes) a distribution, lognormal by median and
+  error factor, or uniform, triangular, normal, beta, gamma, kept within
+  [0, 1] for probabilities, with provenance and a reason; the range must
+  include the current value. <code>monte-carlo</code> samples them (seeded Latin
+  hypercube by default) through the type's own calculation, the fault
+  tree's exact decision diagram, the bow-tie's line combination, the event
+  tree's sequence products, and reports each result's 5th, 50th and 95th
+  percentiles and mean beside the point estimate, and Spearman rank
+  correlations for what drives the spread. Each input takes one value per
+  run wherever it appears, so a barrier on two lines or an event under two
+  gates is not treated as two independent copies.</li>
+<li><strong>Limits.</strong> Different inputs are sampled independently: no correlation
+  between, say, two pumps' failure probabilities beyond what a shared event
+  expresses. Inputs without a range are held exact, so the spread is a lower
+  bound. Rank correlation captures monotone influence only; global
+  sensitivity indices are not computed.</li>
+</ul>
+<h2>Multi-criteria decision analysis</h2>
+<ul>
+<li><strong>Lineage.</strong> The additive value model of multi-attribute value theory
+  (Keeney &amp; Raiffa 1976), as set out for practice by Belton &amp; Stewart
+  (2002) and for public-sector appraisal in the UK government's
+  <em>Multi-criteria analysis: a manual</em> (DCLG 2009). Weights are swing
+  weights: how much moving from the worst to the best of each criterion's
+  scale matters, relative to the other criteria's swings.</li>
+<li><strong>Implemented.</strong> Options and criteria as view roles. Each score becomes a
+  value from 0 to 1 on a linear scale between the criterion's worst and best
+  (stated, or the options' range, flagged); values are combined by
+  normalised weights into a total out of 100. The analysis gives the
+  ranking with each criterion's contribution, dominated options, and for
+  each weight the nearest values, the others keeping their proportions, at which the top choice changes (exact, since totals are linear in one
+  weight). It names the scores the winning margin rests on that nobody has
+  verified. Every weight and score keeps its provenance.</li>
+<li><strong>Limits.</strong> Assumes preferential independence and linear value between
+  worst and best; scores outside a stated scale are clipped (and flagged).
+  Weights mean nothing apart from their scales, and scales taken from the
+  options' range shift when an option is added. One-way weight sensitivity
+  only; no probabilistic weights or scores; no AHP, outranking (ELECTRE,
+  PROMETHEE) or TOPSIS.</li>
+</ul>
+<h2>Analysis of competing hypotheses</h2>
+<ul>
+<li><strong>Lineage.</strong> Heuer (1999), <em>Psychology of Intelligence Analysis</em>, ch. 8;
+  Heuer &amp; Pherson (2015), <em>Structured Analytic Techniques for Intelligence
+  Analysis</em>. The method's core: judge hypotheses by the evidence <em>against</em>
+  them, because evidence consistent with every hypothesis proves nothing.</li>
+<li><strong>Implemented.</strong> Hypotheses and evidence items as view roles; every item
+  rated against every hypothesis (CC very consistent, C, N neutral or not
+  applicable, I, II very inconsistent) with its reasoning and provenance;
+  each item's credibility and relevance. Hypotheses ranked by weighted
+  inconsistency; items rated identically against every hypothesis flagged as
+  non-diagnostic; linchpins, items without which the lead changes or ties, found by leaving each out in turn, with whether their own sources (the
+  item's citations) were checked.</li>
+<li><strong>Limits.</strong> Ratings and weights are judgements. The weights, high 1.0,
+  medium 0.7, low 0.4 (credibility × relevance), an inconsistency 1 and a
+  strong one 2, are Latris's stated convention, not Heuer's. Items are
+  treated as independent, and no probabilities are computed: the ranking
+  orders hypotheses, it doesn't say how likely each is.</li>
+</ul>
+<h2>Decision trees and the value of information</h2>
+<ul>
+<li><strong>Lineage.</strong> Raiffa (1968), <em>Decision Analysis</em>; Clemen &amp; Reilly (2014),
+  <em>Making Hard Decisions</em>; the value of information after Howard (1966).</li>
+<li><strong>Implemented.</strong> Decision, chance and terminal nodes as view roles;
+  branches as links, each with a label, a probability (from chance nodes)
+  and an optional value along it; payoffs at terminals; maximise or
+  minimise. Rollback by expected value to the optimal strategy and each
+  first choice's value. The expected value of perfect information for each
+  uncertainty, chance nodes that resolve the same uncertainty under
+  different choices are grouped by name and must agree on its states and
+  probabilities, and for all of them together (treated as independent).
+  For each two-state uncertainty, the probabilities at which the best first
+  choice changes, found by scanning and bisection. Every value keeps its
+  provenance; unverified values on the best path are named.</li>
+<li><strong>Limits.</strong> Risk-neutral (no utility function). Probabilities and payoffs
+  are point values unless given a range for the probabilistic sensitivity
+  analysis (below). EVPI is undefined for
+  an uncertainty whose probabilities depend on the choice (it is reported
+  as not priced), and is an upper bound, imperfect information (EVSI) is
+  not computed. A node has one parent; shared subtrees are repeated.</li>
+</ul>
+<h2>Markov cohort models and cost-effectiveness</h2>
+<ul>
+<li><strong>Lineage.</strong> Sonnenberg &amp; Beck (1993), "Markov Models in Medical Decision
+  Making"; Briggs, Claxton &amp; Sculpher (2006), <em>Decision Modelling for Health
+  Economic Evaluation</em>; incremental analysis after Drummond et al. (2015).</li>
+<li><strong>Implemented.</strong> States and strategies as view roles; per-cycle transition
+  probabilities on links (for every strategy, or overridden for one), the
+  rest staying; per-state cost per cycle and utility per year (likewise);
+  the starting cohort. The cohort trace; discounted costs and outcomes
+  (separate rates allowed) with optional half-cycle correction, the
+  trapezoid rule, discounting at mid-cycle; expected time in each state.
+  Incremental analysis: dominated and extendedly dominated strategies,
+  ICERs along the frontier, and net monetary benefit at a willingness to
+  pay. Every value keeps its provenance.</li>
+<li><strong>Limits.</strong> Memoryless, the chance of moving depends only on the current
+  state (no tunnel states or time-varying probabilities yet). Values are
+  point estimates unless given a range for the probabilistic sensitivity
+  analysis (below). A cohort expectation, not individual simulation; MDPs
+  (choosing actions in each state) are not implemented.</li>
+</ul>
+<h2>Argument maps</h2>
+<ul>
+<li><strong>Lineage.</strong> Toulmin (1958), <em>The Uses of Argument</em> (claim, grounds,
+  warrant, qualifier, rebuttal); IBIS, Kunz &amp; Rittel (1970); abstract
+  argumentation and grounded semantics, Dung (1995); support relations
+  (bipolar argumentation), Cayrol &amp; Lagasquie-Schiex (2005); undercutting
+  defeaters, Pollock (1987).</li>
+<li><strong>Implemented.</strong> A conclusion, claims and an optional question as view
+  roles; a link from a premise to a claim supports or attacks it, belongs to
+  a named reason (premises in one reason work only together) and can carry a
+  warrant and qualifier. Grounded labelling with support, to a fixed point:
+  a claim is in when every attack on it fails and a reason for it holds (all
+  its premises in, its inference unchallenged) or it is a premise taken as
+  given (not argued further, not rejected, its sources not against it); out
+  when an attack succeeds, a person rejected it, or every reason fails;
+  otherwise undecided. An open challenge on a link suspends that inference.
+  Objections and answers are told apart by side (attacks on claims that help
+  the conclusion are objections). Linchpins by leave-one-out; the premises
+  the conclusion rests on classified as checked, cited, accepted or
+  unsourced from their citations.</li>
+<li><strong>Limits.</strong> Qualitative: qualifiers are reported, not weighed, and one
+  reason that holds is enough, no numeric strengths, probabilities or
+  preference orderings between arguments (no value-based or structured
+  argumentation such as ASPIC+). A premise not argued further stands by
+  default; the report lists those without a checked source. One conclusion
+  per map.</li>
+</ul>
+<h2>Equation models</h2>
+<ul>
+<li><strong>Lineage.</strong> Dimensional analysis after Buckingham (1914) and Bridgman
+  (1922): a physical equation must balance in its units. Propagating
+  distributions through a model by Monte Carlo after JCGM 101:2008
+  (Supplement 1 to the <em>Guide to the expression of uncertainty in
+  measurement</em>). One-at-a-time sensitivity and its limits after Saltelli et
+  al. (2008).</li>
+<li><strong>Implemented.</strong> Inputs, parameters, computed quantities and outputs as
+  view roles; each input and parameter a value with units, a source and an
+  optional valid range; each computed quantity a formula with declared units
+  and a source. Formulas are evaluated in dependency order with every value
+  carrying its units (<code>pint</code>), so a formula that is dimensionally
+  inconsistent, or gives other units than it declares, is refused. Named
+  scenarios; a sweep of one input across a range with the output's shape and
+  its elasticity at the reference value; Monte Carlo over the stated ranges
+  with Spearman rank correlations for what drives the spread. A value
+  outside its stated valid range is reported in every result and never
+  clamped.</li>
+<li><strong>Limits.</strong> Explicit formulas only: a circular set is refused, not solved,
+  and there are no lookup tables or time-varying inputs (system dynamics has
+  both). Dimensional consistency is necessary, not sufficient: it does not
+  make a formula right, and an empirical relationship is only as good as the
+  study behind it, inside the range that study covered. Sweeps move one
+  input at a time and miss interactions; the Monte Carlo samples ranges
+  independently. Units with an offset (°C, °F) can't be used in arithmetic.</li>
+</ul>
+<h2>Probabilistic sensitivity analysis (decision trees and Markov models)</h2>
+<ul>
+<li><strong>Lineage.</strong> Briggs, Claxton &amp; Sculpher (2006), <em>Decision Modelling for
+  Health Economic Evaluation</em>, ch. 4–7; acceptability curves after Fenwick,
+  Claxton &amp; Sculpher (2001); the expected value of perfect information over
+  the parameters after Claxton (1999); partial EVPI after Strong &amp; Oakley
+  (2013) and Strong, Oakley &amp; Brennan (2014); correlated draws after Iman &amp;
+  Conover (1982); Latin hypercube sampling after McKay, Beckman &amp; Conover
+  (1979).</li>
+<li><strong>Implemented.</strong> Ranges on a decision tree's payoffs, branch values and
+  probabilities (one branch of a two-branch chance node, or every branch as
+  a Dirichlet worth n observations; chance nodes resolving the same
+  uncertainty take the same sampled probabilities), and on a Markov model's
+  transition probabilities, costs and utilities (each for every strategy or
+  one; a state's transitions out as a Dirichlet). Beta and gamma by mean
+  and standard deviation (method of moments), or any of uniform,
+  triangular, normal and lognormal; each range keeps its reason, source and
+  verification and must include the current value. Seeded Latin hypercube
+  sampling through each model's own calculation. Decision trees: each first
+  choice's expected value across the runs, how often each is best, and the
+  EVPI over the parameters. Markov: each strategy's cost and outcome across
+  the runs, the incremental analysis on the means, the cost-effectiveness
+  acceptability curve and EVPI over a willingness-to-pay grid, and the
+  probability the chosen strategy is cost-effective at the stated
+  willingness to pay. Spearman rank correlation names the inputs driving
+  the decision (the best option's advantage, or its net monetary benefit,
+  over the runner-up). The partial EVPI of each input, what knowing it
+  alone before choosing is worth, comes from the same runs, without
+  rerunning the model: for a single value by sorting the runs on it and
+  taking each option's mean net benefit within equal bins (Strong &amp; Oakley
+  2013); for a set of probabilities by a quadratic regression of net
+  benefit on its components. Two ranged values can be given a rank
+  correlation (two estimates from one study): Iman–Conover reordering pairs
+  their draws to it while each keeps exactly its own distribution and
+  Latin hypercube strata; a set of correlations that can't hold together
+  is refused.</li>
+<li><strong>Limits.</strong> Correlations join single values, not Dirichlet sets. The
+  partial EVPI is an estimate from the PSA runs, biased a little upward
+  when bins hold few runs, and prices one input at a time; sample
+  information (EVSI) is not computed. Separately sampled probabilities of
+  leaving a Markov state that sum past 1 are scaled down to 1, and the
+  report counts how often; a Dirichlet over the state avoids it.</li>
+</ul>
+<h2>Global sensitivity analysis (Sobol indices, Morris screening)</h2>
+<ul>
+<li><strong>Lineage.</strong> Saltelli et al. (2008), <em>Global Sensitivity Analysis: The
+  Primer</em>; variance-based indices after Sobol (2001), estimated as in
+  Saltelli et al. (2010) (first order) and Jansen (1999) (total); elementary
+  effects after Morris (1991), with μ* after Campolongo, Cariboni &amp; Saltelli
+  (2007).</li>
+<li><strong>Implemented.</strong> For fault trees, bow-ties, event trees, decision trees,
+  Markov models, system dynamics and Bayesian networks, every input with a range (the same
+  distributions their Monte Carlo or PSA samples) is varied together on the
+  unit hypercube and mapped through its quantile function. Sobol: a
+  scrambled Sobol sequence, n·(k + 2) runs, first-order and total indices
+  for every output with bootstrap 95% intervals. Morris: r trajectories on a
+  four-level grid over each input's central 95%, r·(k + 1) runs, μ<em>, μ and σ
+  with a bootstrap interval on μ</em>. The headline output is the model's main
+  result (the top event, the best option's advantage over the runner-up,
+  the net monetary benefit at the willingness to pay, an SD variable's
+  metric, a Bayesian network's posterior). A set of probabilities, a
+  chance node's branches, a state's transitions out, a Bayesian-network
+  table worth n observations, is one input spanning several columns,
+  decoded into an exact Dirichlet draw (each component a gamma quantile,
+  normalised) and indexed as a group (Jacques, Lavergne &amp; Devictor 2006).
+  Implemented on numpy and scipy rather than SALib; checked
+  against the Ishigami function's analytic indices and closed forms.</li>
+<li><strong>Limits.</strong> Inputs must be independent (correlations between ranges are
+  ignored by this analysis); a group's index covers the whole set, not each
+  of its rows. Index
+  estimates carry sampling error, with heavy-tailed inputs or small n they
+  can stray outside [0, 1]; the intervals say how far to trust them. Morris
+  effects are per unit of an input's quantile and comparable only within
+  one result.</li>
+</ul>
+<h2>Theory of change</h2>
+<ul>
+<li><strong>Lineage.</strong> Weiss (1995), "Nothing as Practical as Good Theory", a theory
+  of change states how an intervention is expected to work, step by step,
+  with its assumptions made explicit; the logic-model levels follow the W.K.
+  Kellogg Foundation (2004), <em>Logic Model Development Guide</em>; reading the
+  chain link by link against the evidence follows contribution analysis
+  (Mayne 2012, <em>Evaluation</em> 18(3)).</li>
+<li><strong>Implemented.</strong> Six levels as view roles, input, activity, output,
+  short-term outcome, long-term outcome, impact (the outcome of interest).
+  Readiness requires a level on every factor, no link back to an earlier
+  level, an activity and an impact, every impact reached from an activity and
+  no dead ends. <code>latris toc check</code> enumerates every simple pathway from an
+  activity to an impact (up to 200) and gives each link an evidence status, <em>checked</em> (a source read and found to support it), <em>cited</em> (a source not yet
+  checked), <em>untested</em> (none) or <em>contested</em> (a source against it), with its
+  count of stated assumptions; a pathway takes its weakest link's status.
+  Links that skip two or more levels are flagged as leaps. The result is
+  recorded and goes out of date when sources, checks or assumptions change.</li>
+<li><strong>Process tracing.</strong> Bayesian process tracing (Bennett 2015; Befani &amp;
+  Mayne 2014; Fairfield &amp; Charman 2017) weighs how far the evidence supports
+  each link. A link has a prior (default 0.5) and evidence <em>tests</em>, each with
+  P(E | link holds): its certainty, and P(E | it doesn't), whose complement
+  is its uniqueness. <code>latris toc trace</code> multiplies the link's odds by
+  P(E|H)/P(E|¬H) for each test passed and (1−P(E|H))/(1−P(E|¬H)) for each
+  failed, classifies each test by Van Evera's (1997) four types (hoop: certain,
+  P(E|H) ≥ 0.8; smoking gun: unique, P(E|¬H) ≤ 0.2; doubly decisive: both;
+  straw in the wind: neither), gives each pathway the product of its links'
+  posteriors, and ranks tests still to run by how far they could move their
+  link. Probabilities are kept open (strictly between 0 and 1), so no single
+  test settles a link outright.</li>
+<li><strong>Impact.</strong> <code>latris toc impact</code> estimates the change in an outcome from a
+  registered dataset. Without a comparison group it is an interrupted time
+  series: segmented regression (Wagner et al. 2002; Bernal, Cummins &amp;
+  Gasparrini 2017) with a step and change of slope at the start, AR(1) errors
+  by iterated GLS (Prais &amp; Winsten 1954), in simulation, Newey–West errors
+  covered well under 95% on series this short, and the effect by the last period
+  against the projected pre-period trend. With one it is
+  difference-in-differences (Angrist &amp; Pischke 2009): the interaction of group
+  and period, cluster-robust by group when there are 20 or more groups
+  (Bertrand, Duflo &amp; Mullainathan 2004), after a test of whether the groups'
+  pre-period trends differ. Each check that fails or can't be made, fewer
+  than 8 periods a side, strong autocorrelation in a short series, diverging pre-trends, too few groups
+  to cluster, uneven spacing, is reported as a caution.</li>
+<li><strong>Limits.</strong> The check and process tracing are structural and evidential:
+  they show where a results chain rests on untested or contested steps, not
+  how large an effect is. The impact estimate attributes a change to the
+  intervention only under its design's assumptions (no other change at the
+  same time; parallel trends), which the data test only in part; it has no
+  seasonal terms, covariates, staggered starts or synthetic controls.
+  Process tracing is only as good as its probability judgements; it treats
+  tests on a link as independent given the link, and links on a pathway as
+  independent of each other. Feedback within a programme (a ToC is kept
+  acyclic) belongs in a CLD on the same substrate.</li>
+</ul>
 <h2>The evidence discipline</h2>
 <ul>
 <li><strong>Lineage.</strong> The substrate's vocabulary (claims, warrants, rebuttals) is
@@ -234,8 +614,48 @@ dominate?" (FCM), "how does it behave over time?" (SD), lives at
 <td>Quantitative mechanism simulation; scenario analysis intervenes <em>on the model</em></td>
 </tr>
 <tr>
+<td>Theory of Change</td>
+<td>Mechanism claims laid out as a results chain, each step read against its evidence: with process tracing, weighed by Bayes' rule; with data, an interrupted-time-series or difference-in-differences impact estimate, valid only under that design's assumptions</td>
+</tr>
+<tr>
+<td>Fault Tree</td>
+<td>Logical decomposition of how a failure can occur; probabilities assume independent basic events, optionally with Monte Carlo over their uncertainty: no causal estimation</td>
+</tr>
+<tr>
+<td>Bow-Tie</td>
+<td>Barrier structure around one event; LOPA frequencies are order-of-magnitude, barriers assumed independent</td>
+</tr>
+<tr>
+<td>Event Tree</td>
+<td>Forward sequences from one event; probabilities are as conditional as you state them: no causal estimation</td>
+</tr>
+<tr>
+<td>MCDA</td>
+<td>Not causal: a structured comparison of options under stated weights</td>
+</tr>
+<tr>
+<td>ACH</td>
+<td>Weighs explanations against evidence; orders hypotheses, gives no probabilities</td>
+</tr>
+<tr>
+<td>Decision tree</td>
+<td>Choices under stated probabilities; the value of knowing them first: not causal estimation</td>
+</tr>
+<tr>
+<td>Markov model</td>
+<td>Expected costs and outcomes under stated transition probabilities: not causal estimation</td>
+</tr>
+<tr>
+<td>Argument map</td>
+<td>Whether a conclusion stands given the reasons and objections stated, and what it rests on: qualitative, not a probability</td>
+</tr>
+<tr>
+<td>Equation model</td>
+<td>Quantitative mechanism, computed from stated formulas; changing an input intervenes <em>on the model</em>, and the answer is only as causal as the formulas' sources make it</td>
+</tr>
+<tr>
 <td>DAG / BN</td>
-<td>Observational queries and identification: what to measure; no interventional estimation</td>
+<td>Observational queries and identification: what to measure; with data, an average effect by back-door adjusted regression, valid only under the DAG's assumptions; no counterfactuals</td>
 </tr>
 </tbody>
 </table></div>
@@ -246,7 +666,10 @@ Latris reports say it themselves in the Methods section.</p>
 <h2>Deliberately not implemented</h2>
 <p>Black-box machine learning and opaque structure learning (they fail the
 inspectability test: <code>latris capabilities</code>, <code>excluded_by_design</code>);
-interventional and counterfactual estimation on DAGs; XMILE/Vensim import
+counterfactual estimation, and interventional estimation beyond back-door
+adjusted regression on a DAG and the two quasi-experimental impact designs on
+a theory of change (interrupted time series, difference-in-differences);
+XMILE/Vensim import
 (off the roadmap). See the capability manifest for the living list.</p>
 <h2>Machine-readable source of truth</h2>
 <p>The report's <strong>Methods and foundations</strong> section and the capability manifest's
@@ -256,41 +679,190 @@ list). This page is the prose companion; if the two disagree, the registry and
 the code it describes win, and this page is wrong.</p>
 <h2>References</h2>
 <ul>
+<li>Angrist, J. D., &amp; Pischke, J.-S. (2009). <em>Mostly Harmless Econometrics:
+  An Empiricist's Companion</em>. Princeton University Press.</li>
+<li>Apostolakis, G. (1990). "The Concept of Probability in Safety Assessments
+  of Technological Systems." <em>Science</em>, 250(4986), 1359–1364.</li>
+<li>Befani, B., &amp; Mayne, J. (2014). "Process Tracing and Contribution
+  Analysis: A Combined Approach to Generative Causal Inference for Impact
+  Evaluation." <em>IDS Bulletin</em>, 45(6), 17–36.</li>
+<li>Belton, V., &amp; Stewart, T. J. (2002). <em>Multiple Criteria Decision Analysis:
+  An Integrated Approach</em>. Kluwer.</li>
+<li>Bennett, A. (2015). "Disciplining Our Conjectures: Systematizing Process
+  Tracing with Bayesian Analysis." In A. Bennett &amp; J. T. Checkel (Eds.),
+  <em>Process Tracing: From Metaphor to Analytic Tool</em>. Cambridge University
+  Press.</li>
+<li>Bernal, J. L., Cummins, S., &amp; Gasparrini, A. (2017). "Interrupted time
+  series regression for the evaluation of public health interventions: a
+  tutorial." <em>International Journal of Epidemiology</em>, 46(1), 348–355.</li>
+<li>Bertrand, M., Duflo, E., &amp; Mullainathan, S. (2004). "How Much Should We
+  Trust Differences-in-Differences Estimates?" <em>Quarterly Journal of
+  Economics</em>, 119(1), 249–275.</li>
+<li>Birnbaum, Z. W. (1969). "On the Importance of Different Components in a
+  Multicomponent System." In P. R. Krishnaiah (Ed.), <em>Multivariate Analysis
+  II</em>. Academic Press.</li>
 <li>Bradford Hill, A. (1965). "The Environment and Disease: Association or
   Causation?" <em>Proceedings of the Royal Society of Medicine</em>, 58(5), 295–300.</li>
+<li>Briggs, A., Claxton, K., &amp; Sculpher, M. (2006). <em>Decision Modelling for
+  Health Economic Evaluation</em>. Oxford University Press.</li>
+<li>Bridgman, P. W. (1922). <em>Dimensional Analysis</em>. Yale University Press.</li>
+<li>Buckingham, E. (1914). "On Physically Similar Systems; Illustrations of
+  the Use of Dimensional Equations." <em>Physical Review</em>, 4(4), 345–376.</li>
+<li>Campolongo, F., Cariboni, J., &amp; Saltelli, A. (2007). "An effective screening
+  design for sensitivity analysis of large models." <em>Environmental Modelling
+  &amp; Software</em>, 22(10), 1509–1518.</li>
+<li>Cayrol, C., &amp; Lagasquie-Schiex, M.-C. (2005). "On the acceptability of
+  arguments in bipolar argumentation frameworks." In <em>Symbolic and
+  Quantitative Approaches to Reasoning with Uncertainty (ECSQARU)</em>, LNCS
+  3571, 378–389. Springer.</li>
+<li>CCPS &amp; Energy Institute (2018). <em>Bow Ties in Risk Management: A Concept
+  Book for Process Safety</em>. AIChE / Wiley.</li>
+<li>CCPS, Center for Chemical Process Safety (2001). <em>Layer of Protection
+  Analysis: Simplified Process Risk Assessment</em>. AIChE.</li>
+<li>Claxton, K. (1999). "The irrelevance of inference: a decision-making
+  approach to the stochastic evaluation of health care technologies."
+  <em>Journal of Health Economics</em>, 18(3), 341–364.</li>
+<li>Clemen, R. T., &amp; Reilly, T. (2014). <em>Making Hard Decisions with
+  DecisionTools</em> (3rd ed.). Cengage.</li>
+<li>Department for Communities and Local Government (2009). <em>Multi-criteria
+  analysis: a manual</em>. London: DCLG.</li>
+<li>Drummond, M. F., Sculpher, M. J., Claxton, K., Stoddart, G. L., &amp;
+  Torrance, G. W. (2015). <em>Methods for the Economic Evaluation of Health
+  Care Programmes</em> (4th ed.). Oxford University Press.</li>
+<li>Dung, P. M. (1995). "On the acceptability of arguments and its
+  fundamental role in nonmonotonic reasoning, logic programming and n-person
+  games." <em>Artificial Intelligence</em>, 77(2), 321–357.</li>
+<li>Fairfield, T., &amp; Charman, A. E. (2017). "Explicit Bayesian Analysis for
+  Process Tracing: Guidelines, Opportunities, and Caveats." <em>Political
+  Analysis</em>, 25(3), 363–380.</li>
 <li>Fenton, N., &amp; Neil, M. (2018). <em>Risk Assessment and Decision Analysis with
   Bayesian Networks</em> (2nd ed.). CRC Press.</li>
+<li>Fenwick, E., Claxton, K., &amp; Sculpher, M. (2001). "Representing
+  uncertainty: the role of cost-effectiveness acceptability curves."
+  <em>Health Economics</em>, 10(8), 779–787.</li>
 <li>Forrester, J. W. (1961). <em>Industrial Dynamics</em>. MIT Press.</li>
+<li>Fussell, J. B. (1975). "How to Hand-Calculate System Reliability and
+  Safety Characteristics." <em>IEEE Transactions on Reliability</em>, R-24(3),
+  169–174.</li>
+<li>Fussell, J. B., &amp; Vesely, W. E. (1972). "A New Methodology for Obtaining
+  Cut Sets for Fault Trees." <em>Transactions of the American Nuclear
+  Society</em>, 15, 262–263.</li>
 <li>Guyatt, G., et al. (2008). "GRADE: an emerging consensus on rating quality
   of evidence and strength of recommendations." <em>BMJ</em>, 336, 924–926.</li>
+<li>Helton, J. C., &amp; Davis, F. J. (2003). "Latin hypercube sampling and the
+  propagation of uncertainty in analyses of complex systems." <em>Reliability
+  Engineering &amp; System Safety</em>, 81(1), 23–69.</li>
 <li>Hernán, M., &amp; Robins, J. (2020). <em>Causal Inference: What If</em>. Chapman &amp;
   Hall/CRC. <a href="https://hsph.harvard.edu/causalinference/">https://hsph.harvard.edu/causalinference/</a></li>
+<li>Heuer, R. J. (1999). <em>Psychology of Intelligence Analysis</em>. Center for the
+  Study of Intelligence, Central Intelligence Agency.</li>
+<li>Heuer, R. J., &amp; Pherson, R. H. (2015). <em>Structured Analytic Techniques for
+  Intelligence Analysis</em> (2nd ed.). CQ Press.</li>
+<li>Howard, R. A. (1966). "Information Value Theory." <em>IEEE Transactions on
+  Systems Science and Cybernetics</em>, 2(1), 22–26.</li>
+<li>IEC 61025:2006. <em>Fault tree analysis (FTA)</em>. International
+  Electrotechnical Commission.</li>
+<li>IEC 62502:2010. <em>Analysis techniques for dependability, Event tree
+  analysis (ETA)</em>. International Electrotechnical Commission.</li>
+<li>Iman, R. L., &amp; Conover, W. J. (1982). "A distribution-free approach to
+  inducing rank correlation among input variables." <em>Communications in
+  Statistics, Simulation and Computation</em>, 11(3), 311–334.</li>
+<li>Jacques, J., Lavergne, C., &amp; Devictor, N. (2006). "Sensitivity analysis
+  in presence of model uncertainty and correlated inputs." <em>Reliability
+  Engineering &amp; System Safety</em>, 91(10–11), 1126–1134.</li>
+<li>Jansen, M. J. W. (1999). "Analysis of variance designs for model output."
+  <em>Computer Physics Communications</em>, 117(1–2), 35–43.</li>
+<li>JCGM 101:2008. <em>Evaluation of measurement data, Supplement 1 to the
+  "Guide to the expression of uncertainty in measurement", Propagation of
+  distributions using a Monte Carlo method</em>. Joint Committee for Guides in
+  Metrology.</li>
 <li>Jeffrey, R. (1965). <em>The Logic of Decision</em>. McGraw-Hill.</li>
 <li>Johnson, D. B. (1975). "Finding all the elementary circuits of a directed
   graph." <em>SIAM Journal on Computing</em>, 4(1), 77–84.</li>
+<li>Keeney, R. L., &amp; Raiffa, H. (1976). <em>Decisions with Multiple Objectives:
+  Preferences and Value Tradeoffs</em>. Wiley.</li>
+<li>Kellogg Foundation, W.K. (2004). <em>Logic Model Development Guide</em>. W.K.
+  Kellogg Foundation.</li>
 <li>Kosko, B. (1986). "Fuzzy Cognitive Maps." <em>International Journal of
   Man-Machine Studies</em>, 24(1), 65–75.</li>
+<li>Kunz, W., &amp; Rittel, H. W. J. (1970). <em>Issues as Elements of Information
+  Systems</em>. Working Paper 131, Institute of Urban and Regional Development,
+  University of California, Berkeley.</li>
+<li>MacKinnon, J. G., &amp; White, H. (1985). "Some heteroskedasticity-consistent
+  covariance matrix estimators with improved finite sample properties."
+  <em>Journal of Econometrics</em>, 29(3), 305–325.</li>
+<li>Mayne, J. (2012). "Contribution analysis: Coming of age?" <em>Evaluation</em>,
+  18(3), 270–280.</li>
 <li>McKay, M. D., Beckman, R. J., &amp; Conover, W. J. (1979). "A Comparison of
   Three Methods for Selecting Values of Input Variables in the Analysis of
   Output from a Computer Code." <em>Technometrics</em>, 21(2), 239–245.</li>
 <li>Meadows, D. H. (2008). <em>Thinking in Systems: A Primer</em>. Chelsea Green.</li>
+<li>Morris, M. D. (1991). "Factorial sampling plans for preliminary
+  computational experiments." <em>Technometrics</em>, 33(2), 161–174.</li>
 <li>Pearl, J. (1988). <em>Probabilistic Reasoning in Intelligent Systems: Networks
   of Plausible Inference</em>. Morgan Kaufmann.</li>
 <li>Pearl, J. (2009). <em>Causality: Models, Reasoning and Inference</em> (2nd ed.).
   Cambridge University Press.</li>
 <li>Pearl, J., &amp; Mackenzie, D. (2018). <em>The Book of Why: The New Science of
   Cause and Effect</em>. Basic Books.</li>
-<li>Schum, D. A. (1994). <em>Evidential Foundations of Probabilistic Reasoning</em>.
-  Wiley.</li>
+<li>Pollock, J. L. (1987). "Defeasible reasoning." <em>Cognitive Science</em>, 11(4),
+  481–518.</li>
+<li>Prais, S. J., &amp; Winsten, C. B. (1954). <em>Trend Estimators and Serial
+  Correlation</em>. Cowles Commission Discussion Paper No. 383.</li>
+<li>Raiffa, H. (1968). <em>Decision Analysis: Introductory Lectures on Choices
+  under Uncertainty</em>. Addison-Wesley.</li>
+<li>Rauzy, A. (1993). "New Algorithms for Fault Trees Analysis."
+  <em>Reliability Engineering &amp; System Safety</em>, 40(3), 203–211.</li>
+<li>Saltelli, A., Annoni, P., Azzini, I., Campolongo, F., Ratto, M., &amp;
+  Tarantola, S. (2010). "Variance based sensitivity analysis of model
+  output." <em>Computer Physics Communications</em>, 181(2), 259–270.</li>
+<li>Saltelli, A., Ratto, M., Andres, T., Campolongo, F., Cariboni, J.,
+  Gatelli, D., Saisana, M., &amp; Tarantola, S. (2008). <em>Global Sensitivity
+  Analysis: The Primer</em>. Wiley.</li>
 <li>Schoenberg, S., Davidsen, P., &amp; Eberlein, R. (2020). "Loops That Matter."
   <em>System Dynamics Review</em>.</li>
 <li>Schoenberg, S., Hayward, J., &amp; Eberlein, R. (2023). Revised flow-to-stock
   link score for Loops That Matter. <em>System Dynamics Review</em>.</li>
+<li>Schum, D. A. (1994). <em>Evidential Foundations of Probabilistic Reasoning</em>.
+  Wiley.</li>
+<li>Seabold, S., &amp; Perktold, J. (2010). "statsmodels: Econometric and
+  Statistical Modeling with Python." <em>Proceedings of the 9th Python in
+  Science Conference</em>.</li>
 <li>Shachter, R. D. (1998). "Bayes-Ball: The Rational Pastime." <em>Proceedings of
   the 14th Conference on Uncertainty in Artificial Intelligence (UAI)</em>.</li>
+<li>Sobol, I. M. (2001). "Global sensitivity indices for nonlinear
+  mathematical models and their Monte Carlo estimates." <em>Mathematics and
+  Computers in Simulation</em>, 55(1–3), 271–280.</li>
+<li>Sonnenberg, F. A., &amp; Beck, J. R. (1993). "Markov Models in Medical
+  Decision Making: A Practical Guide." <em>Medical Decision Making</em>, 13(4),
+  322–338.</li>
 <li>Sterman, J. D. (2000). <em>Business Dynamics: Systems Thinking and Modeling
   for a Complex World</em>. Irwin/McGraw-Hill.</li>
+<li>Strong, M., &amp; Oakley, J. E. (2013). "An efficient method for computing
+  single-parameter partial expected value of perfect information."
+  <em>Medical Decision Making</em>, 33(6), 755–766.</li>
+<li>Strong, M., Oakley, J. E., &amp; Brennan, A. (2014). "Estimating
+  multiparameter partial expected value of perfect information from a
+  probabilistic sensitivity analysis sample: a nonparametric regression
+  approach." <em>Medical Decision Making</em>, 34(3), 311–326.</li>
 <li>Toulmin, S. E. (1958). <em>The Uses of Argument</em>. Cambridge University Press.</li>
+<li>US Nuclear Regulatory Commission (1975). <em>Reactor Safety Study</em>
+  (WASH-1400, NUREG-75/014).</li>
+<li>US Nuclear Regulatory Commission (1983). <em>PRA Procedures Guide</em>
+  (NUREG/CR-2300).</li>
+<li>Van Evera, S. (1997). <em>Guide to Methods for Students of Political
+  Science</em>. Cornell University Press.</li>
+<li>Vesely, W. E., Goldberg, F. F., Roberts, N. H., &amp; Haasl, D. F. (1981).
+  <em>Fault Tree Handbook</em> (NUREG-0492). U.S. Nuclear Regulatory Commission.</li>
+<li>Wagner, A. K., Soumerai, S. B., Zhang, F., &amp; Ross-Degnan, D. (2002).
+  "Segmented regression analysis of interrupted time series studies in
+  medication use research." <em>Journal of Clinical Pharmacy and Therapeutics</em>,
+  27(4), 299–309.</li>
+<li>Weiss, C. H. (1995). "Nothing as Practical as Good Theory: Exploring
+  Theory-Based Evaluation for Comprehensive Community Initiatives for
+  Children and Families." In J. P. Connell, A. C. Kubisch, L. B. Schorr &amp; C.
+  H. Weiss (Eds.), <em>New Approaches to Evaluating Community Initiatives</em>.
+  Aspen Institute.</li>
 <li>Wigmore, J. H. (1937). <em>The Science of Judicial Proof</em> (3rd ed.). Little,
   Brown.</li>
 </ul>
@@ -310,7 +882,7 @@ the code it describes win, and this page is wrong.</p>
     <div class="wrap foot-grid">
       <div class="foot-brand">
         <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
-        <p>Causal models that show their evidence.</p>
+        <p>Models that show their evidence.</p>
         <p>© 2026 Latris · Made in Australia</p>
       </div>
         <div>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The scientific basis of Latris: established methods, cited honestly</title>
-  <meta name="description" content="Latris implements established methods for causal loop diagrams, causal DAGs, Bayesian networks, fuzzy cognitive maps, system dynamics and its other model types, cites them only where it implements them, and states their limits. The scientific basis of each model type." />
+  <meta name="description" content="Latris implements established methods for systems and causal models, evaluation, risk, decisions, arguments and equation-based models, cites them only where it implements them, and states their limits. The scientific basis of each of its fifteen model types." />
   <link rel="canonical" href="https://latris.app/methods/" />
   <meta property="og:site_name" content="Latris" />
   <meta property="og:title" content="The scientific basis of Latris" />
@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
+  <link rel="stylesheet" href="/assets/site.css?v=5ab268cef5" />
   <script src="/assets/site.js?v=c1a41cf94c" defer></script>
   <!-- @head:end -->
 </head>
@@ -58,15 +58,16 @@
         <p class="eyebrow">Scientific basis</p>
         <h1>Established methods, cited only where they're implemented.</h1>
         <p class="lead">
-          Latris doesn't invent a causal calculus, a simulation algorithm or a
-          theory of evidence. It implements well-known ones from system
-          dynamics, graphical causal inference, Bayesian networks and fuzzy
-          cognitive mapping, records which were used in each model, and states
+          Latris doesn't invent a causal calculus, a simulation algorithm, a
+          decision rule or a theory of evidence. It implements well-known ones
+          from system dynamics, graphical causal inference, Bayesian networks,
+          programme evaluation, reliability engineering, decision analysis and
+          argumentation, records which were used in each model, and states
           their limits next to their results.
         </p>
         <p class="sub">
           If you've been building these models for years, the pages below are
-          written for you: what each model type's arrows mean in Latris, where
+          written for you: what each model type's links mean in Latris, where
           the method comes from, the problems practitioners already know about
           and what Latris does about each, and what it deliberately doesn't do.
         </p>
@@ -78,14 +79,14 @@
     <section class="band" id="types">
       <div class="wrap">
         <p class="eyebrow reveal">Model types</p>
-        <h2 class="sec-h reveal">Five causal methods, one evidence base.</h2>
+        <h2 class="sec-h reveal">Fifteen model types, one evidence base.</h2>
         <p class="sec-p reveal">
-          All five are built on the same factors, links and evidence, so a
-          model can be quantified, or examined another way, without being
+          All of them are built on the same factors, links and evidence, so
+          a model can be quantified, or examined another way, without being
           redrawn. <a href="/formalisms/">Which model should you build?</a>
-          compares them by the question each answers, and lists the model
-          types for decisions, evaluation, risk, arguments and equations,
-          each with <a href="/formalisms/#every">a page of its own</a>.
+          compares them by the question each answers. Each page below gives
+          the methods behind one model type, their references and their
+          limits.
         </p>
         <div class="cards reveal">
           <a class="card" href="/formalisms/cld/">
@@ -116,6 +117,66 @@
             <p class="who">Forrester · Sterman · Loops That Matter</p>
             <h3>System dynamics</h3>
             <p>Unit-checked simulation, standard delays, Latin-hypercube uncertainty, sensitivity and loop dominance, read against the field's tests of model validity.</p>
+            <span class="more">Read →</span>
+          </a>
+          <a class="card" href="/formalisms/theory-of-change/">
+            <p class="who">Weiss · Mayne · Bennett</p>
+            <h3>Theory of change</h3>
+            <p>Results chains read against their evidence, Bayesian process tracing, and impact by interrupted time series or difference-in-differences.</p>
+            <span class="more">Read →</span>
+          </a>
+          <a class="card" href="/formalisms/bow-tie/">
+            <p class="who">CCPS · LOPA</p>
+            <h3>Bow-ties</h3>
+            <p>Barrier analysis around one top event, with layer-of-protection frequencies and their order-of-magnitude limits stated.</p>
+            <span class="more">Read →</span>
+          </a>
+          <a class="card" href="/formalisms/fault-tree/">
+            <p class="who">Vesely · Rauzy · Birnbaum</p>
+            <h3>Fault trees</h3>
+            <p>Minimal cut sets, the exact top-event probability from a binary decision diagram, and importance measures.</p>
+            <span class="more">Read →</span>
+          </a>
+          <a class="card" href="/formalisms/event-tree/">
+            <p class="who">IEC 62502 · WASH-1400</p>
+            <h3>Event trees</h3>
+            <p>Sequences from one initiating event, checked for completeness, with conditional branch probabilities.</p>
+            <span class="more">Read →</span>
+          </a>
+          <a class="card" href="/formalisms/mcda/">
+            <p class="who">Keeney &amp; Raiffa · Belton &amp; Stewart</p>
+            <h3>Multi-criteria decision analysis</h3>
+            <p>An additive value model with swing weights, dominance, and how far each weight must move to change the choice.</p>
+            <span class="more">Read →</span>
+          </a>
+          <a class="card" href="/formalisms/decision-tree/">
+            <p class="who">Raiffa · Howard · Clemen</p>
+            <h3>Decision trees</h3>
+            <p>Expected-value rollback, the value of perfect information, and probabilistic sensitivity analysis.</p>
+            <span class="more">Read →</span>
+          </a>
+          <a class="card" href="/formalisms/markov/">
+            <p class="who">Sonnenberg &amp; Beck · Briggs · Drummond</p>
+            <h3>Markov cohort models</h3>
+            <p>Cohort traces, discounting, incremental cost-effectiveness and acceptability curves.</p>
+            <span class="more">Read →</span>
+          </a>
+          <a class="card" href="/formalisms/ach/">
+            <p class="who">Heuer · Pherson</p>
+            <h3>Analysis of competing hypotheses</h3>
+            <p>Evidence rated against every hypothesis, ranked by what counts against each, with the linchpins named.</p>
+            <span class="more">Read →</span>
+          </a>
+          <a class="card" href="/formalisms/argument-map/">
+            <p class="who">Toulmin · IBIS · Dung</p>
+            <h3>Argument maps</h3>
+            <p>Claims, reasons and objections evaluated by grounded labelling: does the conclusion stand, and on what?</p>
+            <span class="more">Read →</span>
+          </a>
+          <a class="card" href="/formalisms/equation-model/">
+            <p class="who">Dimensional analysis · Monte Carlo</p>
+            <h3>Equation models</h3>
+            <p>Sourced formulas with units checked, valid ranges stated, scenarios, sweeps and uncertainty.</p>
             <span class="more">Read →</span>
           </a>
         </div>
@@ -196,7 +257,8 @@
         <p class="sec-p reveal">
           Pearl and Mackenzie (2018) order causal questions as association,
           intervention and counterfactual. Latris places each model type
-          honestly, and its reports say the same in their methods section.
+          honestly, including the ones that make no causal estimate at all,
+          and its reports say the same in their methods section.
         </p>
         <div class="table-wrap reveal" style="margin-top:20px">
           <table class="grid">
@@ -208,13 +270,18 @@
               <tr><th scope="row">Causal DAG</th><td>Identification: what would have to be measured for an effect to be estimable. With data, an average effect by adjusted regression, valid only under the graph's assumptions. No counterfactuals.</td></tr>
               <tr><th scope="row">Bayesian network</th><td>Observational queries: what is likely, given what has been observed.</td></tr>
               <tr><th scope="row">Equation model</th><td>A quantitative mechanism computed from stated formulas. Changing an input intervenes on the model, and the answer is only as causal as the formulas' sources make it.</td></tr>
+              <tr><th scope="row">Theory of change</th><td>Claims about mechanism laid out as a results chain, each step read against its evidence. With data, an impact estimate valid only under its design's assumptions.</td></tr>
+              <tr><th scope="row">Fault tree, bow-tie, event tree</th><td>The logic of how a failure occurs, what protects against it and what follows, under stated probabilities. No causal estimation.</td></tr>
+              <tr><th scope="row">Decision tree, Markov model</th><td>Expected outcomes of choices under stated probabilities. Not causal estimation.</td></tr>
+              <tr><th scope="row">Multi-criteria decision analysis</th><td>Not causal: a structured comparison of options under stated weights.</td></tr>
+              <tr><th scope="row">Analysis of competing hypotheses</th><td>Weighs explanations against evidence. Orders hypotheses and gives no probabilities.</td></tr>
+              <tr><th scope="row">Argument map</th><td>Whether a conclusion stands given the reasons and objections stated. Qualitative, not a probability.</td></tr>
             </tbody>
           </table>
         </div>
         <p class="sec-p reveal">
-          The decision, evaluation, risk and argument types are placed the same
-          way in the <a href="/methods/reference/">methods reference</a>, and
-          each has its own page under
+          The <a href="/methods/reference/">methods reference</a> has the
+          same table in full, and each model type has its own page under
           <a href="/formalisms/#every">every model type</a>.
         </p>
       </div>
@@ -320,7 +387,7 @@
     <div class="wrap foot-grid">
       <div class="foot-brand">
         <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
-        <p>Causal models that show their evidence.</p>
+        <p>Models that show their evidence.</p>
         <p>© 2026 Latris · Made in Australia</p>
       </div>
         <div>
