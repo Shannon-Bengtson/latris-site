@@ -22,6 +22,7 @@ build step on deploy: what's committed is what's served.
 | `/formalisms/{cld,dag,bn,fcm,sd}/` | The scientific basis of each model type, for practitioners: what the arrows mean, lineage, known pitfalls and what Latris does about each, what's implemented, limits, references marked Implemented or Context. Hand-written; keep in step with `FOUNDATIONS.md` and the code |
 | `/methods/` | "Scientific basis" hub: the citation rule, the evidence discipline, the ladder of causation, good practice, exclusions |
 | `/methods/reference/` | Methods and foundations reference, generated from `docs/FOUNDATIONS.md` in the latris repo |
+| `/examples/explorer/beach.html` | The live explorer embedded in How it works ("Made to be handed over"): a real Latris explorer page, self-contained. Built from `tools/explorer-example/beach.yaml` by `tools/explorer-example/build.py`, which needs the Latris app's `latris_present` installed. Rebuild after a release that changes the explorer. Not a stamped page: no markers, not in `PAGES` |
 | `/about/` | Founder, "Work with me", contact, release-notes sign-up |
 | `/changelog/` | Every release of the open-source engine, generated from its git history |
 | `/support/`, `/privacy/`, `/terms/` | Help and legal |

@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/site.css?v=5ab268cef5" />
+  <link rel="stylesheet" href="/assets/site.css?v=4840aacd77" />
   <script src="/assets/site.js?v=c1a41cf94c" defer></script>
   <!-- @head:end -->
 </head>
@@ -119,7 +119,8 @@
             <div class="step-n">5</div>
             <h3>Communicate &amp; Use</h3>
             <p>A hosted report, a Word document, a review pack for outside
-              reviewers, a plain-language story, and diagram exports. And for
+              reviewers, a plain-language story, an interactive explorer
+              anyone can play with, and diagram exports. And for
               code: <a href="/open-source/pipelines/">a contract</a> that lets a
               script run the model on a version you pin.</p>
           </div>
@@ -252,6 +253,11 @@
               explaining. Latris assumes you won't be. Every output comes from
               the same model, so there's one source of truth.
             </p>
+            <p>
+              And most assume your reader has the software, a licence and the
+              training to drive it. Latris doesn't. Whoever you hand the model
+              to needs a web browser, not an account, an install or a PhD.
+            </p>
           </div>
         </div>
         <div class="cards reveal">
@@ -281,6 +287,25 @@
               model. Share it by link; readers need no account.</p>
           </div>
         </div>
+        <div class="split live-intro">
+          <h3 class="reveal">Or hand over the model itself.</h3>
+          <div class="body reveal">
+            <p>An <strong>interactive explorer</strong> is the model as a page
+              anyone can play with. Readers set evidence on a Bayesian network,
+              move a slider on a simulation, weaken a barrier on a bow-tie or
+              reweight a decision, and watch the answer move against the model
+              as you built it. Every arrow still opens its reasoning and
+              sources. It's one file: send it, share it by link, or put it on
+              your own website, like the one below.</p>
+          </div>
+        </div>
+        <figure class="live-demo reveal">
+          <iframe src="/examples/explorer/beach.html" title="A live explorer: will the beach close?"
+            loading="lazy"></iframe>
+          <figcaption class="shot-cap">This is a real explorer, made by Latris from an illustrative
+            model with made-up numbers. Click <em>severe</em> under Storm and watch the chance
+            of a closed beach. <a href="/examples/explorer/beach.html">Open it full page</a>.</figcaption>
+        </figure>
         <p class="note-p reveal">
           Reports come in versions for different readers: a client report that
           leads with the answer, plus publication, review, workshop and audit
