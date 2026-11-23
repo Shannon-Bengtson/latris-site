@@ -1,0 +1,165 @@
+{
+  "generated_by": "latris-examples tools/build_all.py",
+  "models": [
+    {
+      "slug": "air-quality-dag",
+      "title": "Traffic restrictions and respiratory health",
+      "domain": "Environment / health",
+      "formalisms": [
+        "dag"
+      ],
+      "summary": "A causal DAG with confounders made explicit, then an effect estimate on data with the backdoor set the DAG demands.",
+      "question": "How much do traffic restrictions improve respiratory health in the city?",
+      "featured": false,
+      "artifacts": {
+        "report": "air-quality-dag/report.html",
+        "explorer": "air-quality-dag/explorer.html",
+        "story": "air-quality-dag/story.html"
+      }
+    },
+    {
+      "slug": "cooling-ft",
+      "title": "Loss of cooling at the data centre",
+      "domain": "Engineering",
+      "formalisms": [
+        "fault_tree"
+      ],
+      "summary": "A fault tree with a vote gate on the power supplies \u2014 cut sets, importance rankings, and Monte Carlo over the uncertain probabilities.",
+      "question": "How likely is a loss of cooling this year, and what drives it?",
+      "featured": false,
+      "artifacts": {
+        "report": "cooling-ft/report.html",
+        "explorer": "cooling-ft/explorer.html",
+        "story": "cooling-ft/story.html"
+      }
+    },
+    {
+      "slug": "fisheries-sd",
+      "title": "A fishery under quota pressure",
+      "domain": "Environment",
+      "formalisms": [
+        "sd"
+      ],
+      "summary": "A stock-and-flow model of a fishery \u2014 biomass, recruitment, harvest \u2014 with quota scenarios and a Monte Carlo over uncertain growth.",
+      "question": "Can the fishery stay sustainable under the current quota regime?",
+      "featured": false,
+      "artifacts": {
+        "report": "fisheries-sd/report.html",
+        "explorer": "fisheries-sd/explorer.html",
+        "story": "fisheries-sd/story.html"
+      }
+    },
+    {
+      "slug": "hospital-mcda",
+      "title": "Siting the new hospital",
+      "domain": "Public sector",
+      "formalisms": [
+        "mcda"
+      ],
+      "summary": "Three sites, five criteria, swing weights from a board workshop \u2014 and the weight at which the answer flips.",
+      "question": "Which site should the new hospital go on?",
+      "featured": false,
+      "artifacts": {
+        "report": "hospital-mcda/report.html",
+        "explorer": "hospital-mcda/explorer.html",
+        "story": "hospital-mcda/story.html"
+      }
+    },
+    {
+      "slug": "intrusion-ach",
+      "title": "Unusual activity on the network",
+      "domain": "Security",
+      "formalisms": [
+        "ach"
+      ],
+      "summary": "Three hypotheses, eight pieces of evidence, and the matrix that shows which hypothesis the evidence fails to rule out.",
+      "question": "What explains the unusual outbound traffic on the finance VLAN?",
+      "featured": false,
+      "artifacts": {
+        "report": "intrusion-ach/report.html",
+        "explorer": "intrusion-ach/explorer.html",
+        "story": "intrusion-ach/story.html"
+      }
+    },
+    {
+      "slug": "launch-dt",
+      "title": "Launch, license, or do nothing",
+      "domain": "Business",
+      "formalisms": [
+        "decision_tree"
+      ],
+      "summary": "A decision tree with the value of knowing demand before choosing \u2014 and the probability at which the answer flips.",
+      "question": "Should we launch the product ourselves, license it, or do nothing?",
+      "featured": false,
+      "artifacts": {
+        "report": "launch-dt/report.html",
+        "explorer": "launch-dt/explorer.html",
+        "story": "launch-dt/story.html"
+      }
+    },
+    {
+      "slug": "mentoring-toc",
+      "title": "Does mentoring raise school completion?",
+      "domain": "Development",
+      "formalisms": [
+        "theory_of_change"
+      ],
+      "summary": "A theory of change with process tracing \u2014 each link's posterior, the tests that matter, and an impact estimate on register data.",
+      "question": "Does the mentoring programme raise school completion, and how would we know?",
+      "featured": false,
+      "artifacts": {
+        "report": "mentoring-toc/report.html",
+        "explorer": "mentoring-toc/explorer.html",
+        "story": "mentoring-toc/story.html"
+      }
+    },
+    {
+      "slug": "policy-fcm",
+      "title": "An EV subsidy in the regional transport system",
+      "domain": "Policy",
+      "formalisms": [
+        "fcm"
+      ],
+      "summary": "A fuzzy cognitive map elicited from stakeholders \u2014 clamp the subsidy and watch the system settle somewhere new.",
+      "question": "What does an EV subsidy do to emissions, congestion and household costs across the region?",
+      "featured": false,
+      "artifacts": {
+        "report": "policy-fcm/report.html",
+        "explorer": "policy-fcm/explorer.html",
+        "story": "policy-fcm/story.html"
+      }
+    },
+    {
+      "slug": "screening-markov",
+      "title": "Is the screening programme worth its cost?",
+      "domain": "Health economics",
+      "formalisms": [
+        "markov"
+      ],
+      "summary": "A Markov cohort over thirty years \u2014 costs, QALYs, the ICER, and the strategy the committee's willingness-to-pay threshold picks.",
+      "question": "Is a national bowel-cancer screening programme cost-effective at the usual threshold?",
+      "featured": false,
+      "artifacts": {
+        "report": "screening-markov/report.html",
+        "explorer": "screening-markov/explorer.html",
+        "story": "screening-markov/story.html"
+      }
+    },
+    {
+      "slug": "sepsis-bn",
+      "title": "Sepsis risk on the ward",
+      "domain": "Health",
+      "formalisms": [
+        "bn"
+      ],
+      "summary": "A Bayesian network over sepsis risk. Condition on what you've observed \u2014 a rising SOFA score, a high lactate \u2014 and watch the posteriors move.",
+      "question": "How likely is a deteriorating ward patient to develop sepsis, and which observations change that most?",
+      "featured": true,
+      "artifacts": {
+        "report": "sepsis-bn/report.html",
+        "explorer": "sepsis-bn/explorer.html",
+        "story": "sepsis-bn/story.html"
+      }
+    }
+  ]
+}

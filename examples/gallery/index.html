@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Latris model gallery</title>
+  <meta name="description" content="Ten worked Latris models across health, environment, policy, security and engineering — each with a hosted report, an interactive explorer and a story, rebuilt from source on every change." />
+  <link rel="canonical" href="https://latris.app/examples/gallery/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="The Latris model gallery" />
+  <meta property="og:description" content="Ten worked models, one per model type — every link sourced, every finding traced, rebuilt from source on every change." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://latris.app/examples/gallery/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=cb3d8315ee" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <style>
+    /* Gallery-specific bits; everything else comes from site.css. */
+    .g-status { font-style: italic; opacity: .7; }
+    .g-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); margin-top: 2rem; }
+    .g-card { display: flex; flex-direction: column; }
+    .g-card .g-q { font-style: italic; }
+    .g-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 .75rem; }
+    .g-tag { font-size: .8rem; font-weight: 600; letter-spacing: .02em; padding: .15rem .55rem; border-radius: 999px; border: 1px solid currentColor; opacity: .8; }
+    .g-tag.g-domain { border-style: dashed; font-weight: 500; }
+    .g-links { margin-top: auto; padding-top: 1rem; display: flex; flex-wrap: wrap; gap: .35rem 1.1rem; font-weight: 600; }
+    .g-links a { text-decoration: none; }
+    .g-links a:hover { text-decoration: underline; }
+    .g-src { margin-top: .5rem; font-size: .85rem; opacity: .75; }
+    .g-featured { border-width: 2px; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/">Models</a>
+        <a href="/methods/">Science</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/" aria-current="page">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="eyebrow">The model gallery</p>
+        <h1>Ten questions, ten model types, one evidence trail.</h1>
+        <p class="lead">
+          Each model below is a small but complete Latris project: a substrate
+          built from published sources, showcase analyses, findings a person
+          signed off, and three ways in — a hosted report, an interactive
+          explorer, and a plain-language story.
+        </p>
+        <p class="lead">
+          Nothing here is a screenshot. Every page is rebuilt from source by
+          <a href="https://github.com/Shannon-Bengtson/latris-examples">latris-examples</a>:
+          change a number or a source in the repo and the gallery rebuilds itself.
+        </p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="band">
+      <div class="wrap">
+        <p class="g-status" id="gallery-status">Loading the gallery…</p>
+        <div class="g-grid" id="gallery-grid"></div>
+        <noscript>
+          <p class="g-status">The gallery index loads with JavaScript. The models, in the meantime:</p>
+          <ul>
+            <li><a href="sepsis-bn/report.html">Sepsis risk on the ward</a> — Bayesian network</li>
+            <li><a href="fisheries-sd/report.html">A fishery under quota pressure</a> — system dynamics</li>
+            <li><a href="air-quality-dag/report.html">Traffic restrictions and respiratory health</a> — causal DAG</li>
+            <li><a href="policy-fcm/report.html">An EV subsidy in the regional transport system</a> — fuzzy cognitive map</li>
+            <li><a href="hospital-mcda/report.html">Siting the new hospital</a> — multi-criteria analysis</li>
+            <li><a href="intrusion-ach/report.html">Unusual activity on the network</a> — analysis of competing hypotheses</li>
+            <li><a href="launch-dt/report.html">Launch, license, or do nothing</a> — decision tree</li>
+            <li><a href="screening-markov/report.html">Is the screening programme worth its cost?</a> — Markov cohort model</li>
+            <li><a href="mentoring-toc/report.html">Does mentoring raise school completion?</a> — theory of change</li>
+            <li><a href="cooling-ft/report.html">Loss of cooling at the data centre</a> — fault tree</li>
+          </ul>
+        </noscript>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="band">
+      <div class="wrap">
+        <p class="eyebrow">How this page is made</p>
+        <h2 class="sec-h">A gallery that rebuilds itself.</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Models as code</h3>
+            <p>Each model is a <code>spec.yaml</code> (substrate and sources) plus a
+              <code>build.py</code> (parameters, analyses, evidence checks) in the
+              public <a href="https://github.com/Shannon-Bengtson/latris-examples">latris-examples</a> repo.</p>
+          </div>
+          <div class="card">
+            <h3>Rebuilt on every change</h3>
+            <p>A GitHub Action reruns the build scripts against the current
+              Latris release, re-renders every artifact, and republishes this
+              directory. Update a model, push, and the site follows.</p>
+          </div>
+          <div class="card">
+            <h3>Three ways in</h3>
+            <p>The report for a reviewer, the explorer for someone who wants to
+              interrogate the model, and the story for the person who just wants
+              the answer. Same project underneath all three.</p>
+          </div>
+          <div class="card">
+            <h3>Nothing hand-drawn</h3>
+            <p>Every number on these pages came out of the CLI: estimates,
+              simulations, sensitivity runs. If the model changes and a finding
+              no longer holds, the rebuild makes that visible.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="wrap">
+        <h2>Build one on your own question.</h2>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://app.latris.app/">Open Latris →</a>
+          <a class="btn btn-ghost" href="/ai/">Use it from your AI</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/methods/">Scientific basis</a></li>
+            <li><a href="/examples/" aria-current="page">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/open-source/pipelines/">Use in a pipeline</a></li>
+            <li><a href="/methods/reference/">Methods reference</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    "use strict";
+
+    var FORMALISM_NAMES = {
+      bn: "Bayesian network",
+      sd: "System dynamics",
+      dag: "Causal DAG",
+      fcm: "Fuzzy cognitive map",
+      mcda: "Multi-criteria analysis",
+      ach: "Competing hypotheses",
+      decision_tree: "Decision tree",
+      markov: "Markov model",
+      theory_of_change: "Theory of change",
+      fault_tree: "Fault tree",
+      bow_tie: "Bow-tie",
+      event_tree: "Event tree",
+      cld: "Causal loop diagram",
+      system_map: "System map",
+      gsn: "Assurance case",
+      calculation: "Calculation"
+    };
+
+    var ARTIFACT_LABELS = [
+      ["report", "Read the report"],
+      ["explorer", "Open the explorer"],
+      ["story", "Read the story"]
+    ];
+
+    var REPO_TREE = "https://github.com/Shannon-Bengtson/latris-examples/tree/main/models/";
+
+    function el(tag, className, text) {
+      var node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text != null) node.textContent = text;
+      return node;
+    }
+
+    function formalismName(key) {
+      return FORMALISM_NAMES[key] || key;
+    }
+
+    function modelCard(model) {
+      var card = el("article", "card g-card" + (model.featured ? " g-featured" : ""));
+
+      var tags = el("div", "g-tags");
+      tags.appendChild(el("span", "g-tag g-domain", model.domain));
+      (model.formalisms || []).forEach(function (f) {
+        tags.appendChild(el("span", "g-tag", formalismName(f)));
+      });
+      card.appendChild(tags);
+
+      card.appendChild(el("h3", null, model.title));
+      card.appendChild(el("p", "g-q", model.question));
+      card.appendChild(el("p", null, model.summary));
+
+      var links = el("div", "g-links");
+      ARTIFACT_LABELS.forEach(function (pair) {
+        var href = model.artifacts && model.artifacts[pair[0]];
+        if (href) {
+          var a = el("a", null, pair[1] + " →");
+          a.href = href;
+          links.appendChild(a);
+        }
+      });
+      card.appendChild(links);
+
+      var src = el("p", "g-src");
+      var srcLink = el("a", null, "See how it's built");
+      srcLink.href = REPO_TREE + model.slug;
+      src.appendChild(srcLink);
+      card.appendChild(src);
+
+      return card;
+    }
+
+    function render(index) {
+      var grid = document.getElementById("gallery-grid");
+      var status = document.getElementById("gallery-status");
+      var models = (index && index.models) || [];
+      models.sort(function (a, b) {
+        if (!!a.featured !== !!b.featured) return a.featured ? -1 : 1;
+        return String(a.title).localeCompare(String(b.title));
+      });
+      grid.textContent = "";
+      models.forEach(function (m) { grid.appendChild(modelCard(m)); });
+      status.textContent = models.length
+        ? models.length + " models, rebuilt from source on every change."
+        : "No models published yet — the next build populates this page.";
+    }
+
+    fetch("gallery.json", { cache: "no-store" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("gallery.json: HTTP " + r.status);
+        return r.json();
+      })
+      .then(render)
+      .catch(function (err) {
+        document.getElementById("gallery-status").textContent =
+          "The gallery index could not be loaded (" + err.message + ").";
+      });
+  })();
+  </script>
+</body>
+</html>
