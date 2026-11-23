@@ -57,6 +57,7 @@ PAGES = {
     "/examples/": "examples/index.html",
     "/for-reviewers/": "for-reviewers/index.html",
     "/open-source/": "open-source/index.html",
+    "/open-source/pipelines/": "open-source/pipelines/index.html",
     "/methods/": "methods/index.html",
     "/methods/reference/": "methods/reference/index.html",
     "/formalisms/cld/": "formalisms/cld/index.html",
@@ -95,6 +96,7 @@ FOOTER_COLS = [
     ]),
     ("Open source", [
         ("Library and CLI", "/open-source/"),
+        ("Use in a pipeline", "/open-source/pipelines/"),
         ("Methods reference", "/methods/reference/"),
         ("Changelog", "/changelog/"),
         ("GitHub", "https://github.com/Shannon-Bengtson/latris"),
@@ -342,6 +344,7 @@ WEBSITE_SECTION = """## Website (for the person you're helping)
 - [Example](https://latris.app/examples/): the river-health model and its live report.
 - [Scientific basis](https://latris.app/methods/): the citation rule, the evidence discipline, the ladder of causation, and links to each model type's page.
 - Per model type, for practitioners (what the arrows mean, lineage, known pitfalls and what Latris does about each, limits, references marked implemented or context): [CLD](https://latris.app/formalisms/cld/), [DAG](https://latris.app/formalisms/dag/), [BN](https://latris.app/formalisms/bn/), [FCM](https://latris.app/formalisms/fcm/), [SD](https://latris.app/formalisms/sd/). Every other model type has a page generated from the library (methods, limits, references), linked from [Which model?](https://latris.app/formalisms/#every), e.g. [equation models](https://latris.app/formalisms/equation-model/).
+- [Use a model in a pipeline](https://latris.app/open-source/pipelines/): a model's contract (inputs and outputs), `latris predict` and `latris.load()` on a pinned version, and checking whether a newer version breaks a caller.
 - [Methods reference](https://latris.app/methods/reference/): mirrored from docs/FOUNDATIONS.md.
 - [Changelog](https://latris.app/changelog/): every release, from the git history.
 

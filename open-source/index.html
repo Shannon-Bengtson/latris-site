@@ -166,6 +166,30 @@
 
     <hr class="rule" />
 
+    <section class="band" id="pipelines">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow reveal">Pipelines</p>
+          <h2 class="reveal">Call a model from your own code.</h2>
+        </div>
+        <div class="body reveal">
+          <p>
+            A finished model can declare a contract (the inputs a caller may
+            set and the outputs it returns) and be run from a script or a
+            scheduled job. It records nothing, it can be pinned to the
+            version a person signed off, and every result says which version
+            produced it.
+          </p>
+<pre><code>import latris
+model = latris.load("path/to/project", ref="Signed off")
+model.predict({"flow_depth": 2.5})</code></pre>
+          <p><a href="/open-source/pipelines/">Use a model in a pipeline →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
     <section class="band" id="quickstart">
       <div class="wrap">
         <div>
@@ -216,6 +240,7 @@ latris link                                   # a link that opens the full repor
           <h2>Open source</h2>
           <ul>
             <li><a href="/open-source/" aria-current="page">Library and CLI</a></li>
+            <li><a href="/open-source/pipelines/">Use in a pipeline</a></li>
             <li><a href="/methods/reference/">Methods reference</a></li>
             <li><a href="/changelog/">Changelog</a></li>
             <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>

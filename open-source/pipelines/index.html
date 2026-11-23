@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Use a Latris model in a pipeline: contract, predict and pinned versions</title>
+  <meta name="description" content="A Latris model can be called from a script or a scheduled job. It declares a contract of inputs and outputs, runs without recording anything, and can be pinned to the version a person signed off." />
+  <link rel="canonical" href="https://latris.app/open-source/pipelines/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="Use a Latris model in a pipeline" />
+  <meta property="og:description" content="Declare a model's inputs and outputs, run it from Python on a version you pin, and know which version produced every number." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://latris.app/open-source/pipelines/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
+  <script src="/assets/site.js?v=c1a41cf94c" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/">Models</a>
+        <a href="/methods/">Science</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/" aria-current="page">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="crumb"><a href="/open-source/">Open source</a></p>
+        <p class="eyebrow">Pipelines</p>
+        <h1>Use a model in a pipeline.</h1>
+        <p class="lead">
+          A model you have built and argued for in Latris can be called from
+          a script, a notebook or a scheduled job. It says which values a
+          caller may set and which results it returns, it runs without
+          recording anything, and every result says which version of the
+          model produced it.
+        </p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <article class="prose-card prose">
+
+        <h2 id="contract" style="margin-top:0">1. Declare the contract</h2>
+        <p>
+          A contract names the model's <strong>inputs</strong> (what a caller
+          may set, with units, a default and the range the value is valid
+          over) and its <strong>outputs</strong> (what comes back). It is
+          drafted from the model, then pruned: every input is a promise to
+          whoever calls it, so expose only what a caller should set.
+        </p>
+<pre><code>latris contract init equation_model   # draft it from the model
+latris contract show                  # inputs, outputs, units, valid ranges
+latris contract input equation_model "Roughness" --name mannings_n
+latris contract check                 # does it still fit the model?</code></pre>
+        <p>
+          The names are the interface. A caller writes
+          <code>flow_depth</code>, and the name stays when the factor behind
+          it is renamed. In the app, the same thing is under
+          <strong>Communicate &amp; Use → Use</strong>.
+        </p>
+
+        <h2 id="predict">2. Run it</h2>
+<pre><code>import latris
+
+model = latris.load("path/to/project", ref="Signed off")
+
+result = model.predict({"flow_depth": 2.5})
+result["outputs"]["discharge"]["value"]    # 24.08
+result["outputs"]["discharge"]["units"]    # "m**3/s"
+result["warnings"]                         # [] here
+result["provenance"]["commit"]             # the version that produced it</code></pre>
+        <p>
+          From a terminal, <code>latris predict --set flow_depth=2.5</code>
+          does the same, and <code>latris --json predict …</code> prints the
+          whole result as one JSON object. Nothing is written to the project:
+          a prediction is a call, not an analysis recorded for the report.
+        </p>
+        <ul>
+          <li><strong>An input you leave out</strong> takes the contract's default, or the model's own value.</li>
+          <li><strong>Units are converted.</strong> <code>"250 cm"</code> is accepted where the input is in metres; seconds are refused.</li>
+          <li><strong>A value outside its valid range is used as given, and flagged.</strong> The result carries a warning that it is an extrapolation. Nothing is clamped silently.</li>
+        </ul>
+
+        <h2 id="pin">3. Pin a version</h2>
+        <p>
+          A Latris project is a git repository, so a pipeline can run the
+          model exactly as it was when someone signed it off, whatever has
+          changed since. <code>ref</code> takes a milestone's name, a
+          version's name or a commit.
+        </p>
+        <p>
+          Predict never refuses a version for being unreviewed. It reports
+          the review state with the result, and a pipeline that wants a gate
+          asks for one: <code>model.predict(inputs, require="approved")</code>
+          or <code>--require approved</code>.
+        </p>
+
+        <h2 id="upgrade">4. Move to a newer version safely</h2>
+<pre><code>latris contract diff "Signed off"     # that version against the latest</code></pre>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Verdict</th><th scope="col">What it means for a caller</th></tr></thead>
+            <tbody>
+              <tr><td>Breaking</td><td>An input or output was removed or renamed, its units changed, or an input became required. The command exits 1, so a pipeline can refuse the upgrade.</td></tr>
+              <tr><td>Compatible</td><td>Something optional was added, or a default or valid range changed. The caller still works.</td></tr>
+              <tr><td>Internal only</td><td>The contract is the same, but the model behind it changed, so the same inputs may give different outputs.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="types">Which models</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Model type</th><th scope="col">Inputs</th><th scope="col">Outputs</th></tr></thead>
+            <tbody>
+              <tr><td><a href="/formalisms/equation-model/">Equation model</a></td><td>Its inputs and parameters, with units</td><td>Any formula's value</td></tr>
+              <tr><td><a href="/formalisms/sd/">System dynamics</a></td><td>Constants and stocks' starting values</td><td>A variable's whole run, or one value of it (final, peak, mean)</td></tr>
+              <tr><td><a href="/formalisms/bn/">Bayesian network</a></td><td>A factor's state, observed or set as an intervention</td><td>The probability of each state</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="limits">Honest limits</h2>
+        <ul>
+          <li>Inputs are single values. A caller who needs a time series loops over values in their own code.</li>
+          <li>A prediction returns the model's point answer. Run the model's Monte Carlo analysis for the spread.</li>
+          <li>There is no hosted endpoint: a pipeline clones the project and calls the library. Pin the latris version as well as the model's.</li>
+          <li>A contract doesn't make a model right for a use it wasn't built for. Valid ranges are how a caller learns it has left the ground the evidence covers, so state them.</li>
+        </ul>
+        <p>
+          The design, with what is planned next, is in the
+          <a href="https://github.com/Shannon-Bengtson/latris/blob/main/docs/engineering/PREDICT.md" target="_blank" rel="noopener">engineering note</a>.
+        </p>
+
+      </article>
+    </div>
+  </main>
+
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Causal models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/methods/">Scientific basis</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/open-source/pipelines/" aria-current="page">Use in a pipeline</a></li>
+            <li><a href="/methods/reference/">Methods reference</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>
