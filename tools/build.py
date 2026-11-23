@@ -183,7 +183,7 @@ def footer_html(current: str) -> str:
     <div class="wrap foot-grid">
       <div class="foot-brand">
         <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
-        <p>Causal models that show their evidence.</p>
+        <p>Models that show their evidence.</p>
         <p>© 2026 Latris · Made in Australia</p>
       </div>{"".join(cols)}
     </div>
@@ -338,7 +338,7 @@ def changelog_html(repo: Path) -> str:
 WEBSITE_SECTION = """## Website (for the person you're helping)
 
 - [How it works](https://latris.app/how-it-works/): the workflow, evidence on each claim, AI-proposed labelling, challenges, outputs.
-- [Which model?](https://latris.app/formalisms/): the five causal model types by the question each answers, then every other model type (decisions, evaluation, risk, arguments, equation models); what's available and what's on the roadmap.
+- [Which model?](https://latris.app/formalisms/): fifteen model types in seven families (systems, causal inference, evaluation, risk and safety, decisions, arguments, equations), chosen by the question each answers; what's available and what's on the roadmap.
 - [Use with AI](https://latris.app/ai/): the connector for Claude and ChatGPT, and agents driving the CLI.
 - [For reviewers](https://latris.app/for-reviewers/): what a decision owner or reviewer can check; review packs.
 - [Example](https://latris.app/examples/): the river-health model and its live report.

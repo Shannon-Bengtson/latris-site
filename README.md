@@ -10,9 +10,9 @@ build step on deploy: what's committed is what's served.
 
 | Path | What it's for |
 |---|---|
-| `/` | Short landing page: hero, the live river example, three pillars, who it's for, key facts |
+| `/` | Short landing page: hero, the live river example, three pillars, the seven model families, who it's for, key facts |
 | `/how-it-works/` | The workflow, evidence on each claim, AI labelling, challenges, handover check, outputs, history |
-| `/formalisms/` | "Which model?": the five causal model types in depth, the other types by the question each answers (hand-written, with the equation model in depth), then every model type (a generated list), what's available, what's on the roadmap. The "by the question" table and "What's available" are hand-kept: update both when a type ships. Keep this URL: the library's README and `llms.txt` link to it |
+| `/formalisms/` | "Which model?": every model type by the question it answers (one table), then the seven families (systems, causal inference, evaluation, risk and safety, decisions, arguments, equations) with each type in depth, every model type (a generated list), uncertainty and sensitivity, what's available, what's on the roadmap. All hand-written except the generated list: when a type ships, add its row to the question table, a block under its family and its row in "What's available", and update the "fifteen" / "seven families" counts here, on the home page and on `/methods/`. Keep this URL: the library's README and `llms.txt` link to it |
 | `/ai/` | The connector for Claude and ChatGPT; agents driving the CLI; what data Latris receives |
 | `/examples/` | The river-health model, what to click, the fields Latris fits |
 | `/for-reviewers/` | For decision owners and reviewers: what they can check; review packs |
@@ -87,10 +87,11 @@ pairs, a `<link rel="canonical">`, and a line in `sitemap.xml`.
   AI and How it works, and the "Communicate & Use" stage name describe what
   ships with that release and the app pin that follows it.
 
-- **Publish after the latris release with the equation model.** The
-  equation-model page, its row in "What's available" and the "fifteen model
-  types" count describe a type that is live only once that release is on PyPI
-  and pinned in the app. Merge this to `main` after both.
+- **Publish after the latris 0.17 release is pinned in the app.** The site
+  describes argument maps, equation models, probabilistic sensitivity
+  analysis and global sensitivity analysis as available now. They are live
+  only once latris 0.15 to 0.17 are on PyPI and pinned in the app (it pinned
+  0.14.2 on 23 Nov 2026). Merge this to `main` after both.
 - **Argument maps have no editor in the app yet.** "What's available" says
   so. Drop the note when the editor ships.
 - **River example link (temporary).** The home and Examples pages link to
