@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
 <title>Will the beach close?</title>
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxyZWN0IHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiIGZpbGw9IiMyYTZiNWUiLz48dGV4dCB4PSI1MDAiIHk9IjczNSIgZm9udC1mYW1pbHk9IkFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjY2MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2Y0ZjFlYiI+TDwvdGV4dD48L3N2Zz4=">
 <style>
@@ -1044,7 +1045,7 @@ td.ex-ach-cell{ display:table-cell; }
 </script>
 <script>
 // The explorer page's controller. Plain script, no dependencies, no network.
-// Model text reaches the page only through textContent — never as markup.
+// Model text reaches the page only through textContent, never as markup.
 (function () {
   "use strict";
   var D = JSON.parse(document.getElementById("ex-data").textContent);

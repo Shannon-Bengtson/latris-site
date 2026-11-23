@@ -11,6 +11,7 @@ Rerun after a release that changes the explorer, so the example matches what rea
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import sys
 import tempfile
@@ -38,6 +39,18 @@ except ImportError:
 INTRO = ("An illustrative model with made-up numbers, to show what a reader can do. "
          "Click a state to say you've seen it (a severe storm, a bloom), and watch the chance of a closed beach move.")
 
+
+def for_the_site(page: str) -> str:
+    """The app's page, fitted to the site: kept out of search results (it's a demo with made-up
+    numbers, reached from How it works), and with the site's no-em-dash rule applied (the app's
+    template has them in its script comments)."""
+    viewport = '<meta name="viewport" content="width=device-width, initial-scale=1">'
+    if viewport not in page:
+        sys.exit("the explorer page's <head> has changed: no viewport line to put the robots meta after")
+    page = page.replace(viewport, viewport + '\n<meta name="robots" content="noindex">', 1)
+    return re.sub(r"\s*(—|&mdash;)\s*", ", ", page)
+
+
 work = Path(tempfile.mkdtemp())
 try:
     root = work / "beach"
@@ -47,7 +60,7 @@ try:
     doc, _ = ops.create_explorer(name="Website example", model_type="bn", root=root)
     ops.update_explorer(doc.id, title="Will the beach close?", intro=INTRO, root=root)
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(explorer_html.render(ProjectPaths(root), doc.id), encoding="utf-8")
+    OUT.write_text(for_the_site(explorer_html.render(ProjectPaths(root), doc.id)), encoding="utf-8")
     print(OUT)
 finally:
     os.chdir(HERE)

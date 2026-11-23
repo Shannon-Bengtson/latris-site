@@ -11,7 +11,7 @@ build step on deploy: what's committed is what's served.
 | Path | What it's for |
 |---|---|
 | `/` | Short landing page: hero, the live river example, three pillars, the seven model families, who it's for, key facts |
-| `/how-it-works/` | The workflow, evidence on each claim, AI labelling, challenges, handover check, outputs, history |
+| `/how-it-works/` | The workflow, evidence on each claim, AI labelling, challenges, handover check, outputs (with the live explorer, `/examples/explorer/beach.html`, embedded in an iframe under "Made to be handed over"; narrow screens also get a button that opens it full page), history |
 | `/formalisms/` | "Which model?": every model type by the question it answers (one table), then the seven families (systems, causal inference, evaluation, risk and safety, decisions, arguments, equations) with each type in depth, every model type (a generated list), uncertainty and sensitivity, what's available, what's on the roadmap. All hand-written except the generated list: when a type ships, add its row to the question table, a block under its family and its row in "What's available", and update the "fifteen" / "seven families" counts here, on the home page and on `/methods/`. Keep this URL: the library's README and `llms.txt` link to it |
 | `/ai/` | The connector for Claude and ChatGPT; agents driving the CLI; what data Latris receives |
 | `/examples/` | The river-health model, what to click, the fields Latris fits |
@@ -22,7 +22,7 @@ build step on deploy: what's committed is what's served.
 | `/formalisms/{cld,dag,bn,fcm,sd}/` | The scientific basis of each model type, for practitioners: what the arrows mean, lineage, known pitfalls and what Latris does about each, what's implemented, limits, references marked Implemented or Context. Hand-written; keep in step with `FOUNDATIONS.md` and the code |
 | `/methods/` | "Scientific basis" hub: the citation rule, the evidence discipline, the ladder of causation, good practice, exclusions |
 | `/methods/reference/` | Methods and foundations reference, generated from `docs/FOUNDATIONS.md` in the latris repo |
-| `/examples/explorer/beach.html` | The live explorer embedded in How it works ("Made to be handed over"): a real Latris explorer page, self-contained. Built from `tools/explorer-example/beach.yaml` by `tools/explorer-example/build.py`, which needs the Latris app's `latris_present` installed. Rebuild after a release that changes the explorer. Not a stamped page: no markers, not in `PAGES` |
+| `/examples/explorer/beach.html` | The live explorer embedded in How it works ("Made to be handed over"): a real Latris explorer page, self-contained. Built from `tools/explorer-example/beach.yaml` by `tools/explorer-example/build.py`, which needs the Latris app's `latris_present` installed. Rebuild after a release that changes the explorer. Not a stamped page: no markers, not in `PAGES`. The build script adds `noindex` (made-up numbers; it stays out of the sitemap) and rewrites the app template's em dashes |
 | `/about/` | Founder, "Work with me", contact, release-notes sign-up |
 | `/changelog/` | Every release of the open-source engine, generated from its git history |
 | `/support/`, `/privacy/`, `/terms/` | Help and legal |
@@ -58,14 +58,19 @@ python3 tools/build.py --check    # exit 1 if any page is out of date
 python3 tools/build.py --foundations ../latris/docs/FOUNDATIONS.md   # writes /methods/reference/
 
 # Also regenerate /changelog/ from the library's git history
-# (needs a full clone: git -C ../latris fetch --unshallow origin main)
+# (needs a full clone with its tags: git -C ../latris fetch --unshallow --tags origin main)
 python3 tools/build.py --changelog ../latris
+python3 tools/build.py --llms ../latris/llms.txt   # the site's llms.txt, from the library's
 python3 tools/build.py --formalisms   # model-type pages and list, from the installed latris
 ```
 
-The changelog has one section per `Bump version to X` commit, listing the
-commit subjects since the previous bump. Style, CI and test commits are left
-out. Run it after each release (`scripts/bump-version.sh` in the latris repo).
+The changelog has one section per version (a `Bump version to X` commit, or a
+`v*` tag with no bump commit), listing the commits that version has and no
+earlier one had. Merges, style, CI and test commits, and commits that touch
+only tests, CI or contributor notes are left out. A version with no `v*` tag
+was never published (pushing the tag is what publishes to PyPI) and is marked
+"Not published to PyPI". Run it after each release (`scripts/bump-version.sh`
+in the latris repo), once the tag is pushed.
 
 A new page needs an entry in `PAGES` in `tools/build.py`, the three marker
 pairs, a `<link rel="canonical">`, and a line in `sitemap.xml`.
@@ -75,7 +80,8 @@ pairs, a `<link rel="canonical">`, and a line in `sitemap.xml`.
 - `llms.txt`: the documentation map for AI agents. It's the latris repo's
   `llms.txt` with absolute links, plus the install line, the connector
   pointer, the website pages and the "Choosing a model type" guide. Keep the
-  two in step.
+  two in step: `tools/build.py --llms ../latris/llms.txt` rewrites it (links
+  made absolute, the website section added, em dashes rewritten).
 - `assets/og-image.png`: 1200×630 link-preview image.
 - `assets/report-*.{webp,png}`: crops of the river-health report.
 - `CNAME`, `robots.txt`, `sitemap.xml`, `favicon.svg`, `favicon.png`,
@@ -83,16 +89,17 @@ pairs, a `<link rel="canonical">`, and a line in `sitemap.xml`.
 
 ## To do
 
-- **Publish the pipelines page after the latris release with contract and
-  predict.** `/open-source/pipelines/`, its sections on Open source, Use with
-  AI and How it works, and the "Communicate & Use" stage name describe what
-  ships with that release and the app pin that follows it.
+The site is merged to `main` and live.
 
-- **Publish after the latris 0.17 release is pinned in the app.** The site
-  describes argument maps, equation models, probabilistic sensitivity
-  analysis and global sensitivity analysis as available now. They are live
-  only once latris 0.15 to 0.17 are on PyPI and pinned in the app (it pinned
-  0.14.2 on 23 Nov 2026). Merge this to `main` after both.
+- **latris 0.18.0 must be published to PyPI and pinned in the app.** The
+  site describes argument maps, equation models, probabilistic and global
+  sensitivity analysis, and contract and predict (`/open-source/pipelines/`,
+  its sections on Open source, Use with AI and How it works, and the
+  "Communicate & Use" stage name) as available now. None of that is in a
+  published release yet: 0.15.0 to 0.17.0 were numbered but never published,
+  and PyPI and the app are on 0.14.2 (pinned 23 Nov 2026). 0.18.0 will be the
+  first published version with all of it. After it is published, regenerate
+  the changelog and `llms.txt` (commands above).
 - **Argument maps have no editor in the app yet.** "What's available" says
   so. Drop the note when the editor ships.
 - **River example link (temporary).** The home and Examples pages link to
@@ -101,8 +108,9 @@ pairs, a `<link rel="canonical">`, and a line in `sitemap.xml`.
   after its last edit) unless it's saved. It was rebuilt from the old
   `latris link` copy, which can't carry source checks, so its citations show
   as unchecked and its findings as unapproved. Replace it with the saved,
-  checked model, then restore the "exact passage it was checked against"
-  wording on both pages. Search for `TODO(river-link)`.
+  checked model (the owner supplies the permanent link), then restore the
+  "exact passage it was checked against" wording on both pages (`index.html`
+  and `examples/index.html`). Search for `TODO(river-link)`.
 - **Report screenshots.** `assets/report-*.{webp,png}` come from the original
   river report (checks and approvals shown), so they won't match the
   temporary link exactly. Retake them from the replacement.
@@ -117,7 +125,8 @@ domain on push. DNS: apex `A` records to GitHub Pages, `www` `CNAME` to
 
 ## Style
 
-No em dashes in site copy. `/methods/reference/` and `/changelog/` are generated from
-the latris repo, which does use them; `tools/build.py` rewrites them on the way
-in (`EM_DASH_RULES` for the methods page). After `FOUNDATIONS.md` changes, read
+No em dashes in site copy. `/methods/reference/`, `/changelog/` and `llms.txt` are
+generated from the latris repo, which does use them; `tools/build.py` rewrites them on
+the way in (`EM_DASH_RULES` for the methods page), and `tools/explorer-example/build.py`
+does the same for the explorer example. After `FOUNDATIONS.md` changes, read
 the generated page and add a rule if a sentence reads badly.
