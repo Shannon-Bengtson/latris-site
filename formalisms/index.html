@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Which model? Latris's model types and when to use each</title>
-  <meta name="description" content="Latris has five ways to answer a causal question, from causal loop diagrams to system dynamics, and model types for decisions, evaluation, risk, arguments and equation-based models on the same evidence. Here's how to choose." />
+  <meta name="description" content="Latris has fifteen model types in seven families: systems, causal inference, evaluation, risk, decisions, arguments and equations, all on one evidence base. Here's how to choose by the question you need answered." />
   <link rel="canonical" href="https://latris.app/formalisms/" />
   <meta property="og:site_name" content="Latris" />
   <meta property="og:title" content="Which model should you build?" />
-  <meta property="og:description" content="Model types chosen by the question you need answered. Start with a causal loop diagram; you never redraw." />
+  <meta property="og:description" content="Fifteen model types on one evidence base, chosen by the question you need answered. You never redraw." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://latris.app/formalisms/" />
   <meta property="og:image" content="https://latris.app/assets/og-image.png" />
@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/site.css?v=7e44a511e9" />
+  <link rel="stylesheet" href="/assets/site.css?v=5ab268cef5" />
   <script src="/assets/site.js?v=c1a41cf94c" defer></script>
   <!-- @head:end -->
 </head>
@@ -58,14 +58,13 @@
         <p class="eyebrow">Models</p>
         <h1>Which model should you build?</h1>
         <p class="lead">
-          Latris's causal core is five model types. They're not five apps: they're five
-          answers to the same question, <em>what causes what here, and what
-          happens if we act?</em>, at five levels of commitment. This guide is
-          the reasoning behind the Formalise step in the app. Beyond them, Latris
-          has model types for decisions, evaluation, risk, arguments and
-          equation-based models on the same factors and evidence:
-          <a href="#beyond">chosen by the question</a>, and
-          <a href="#every">every model type</a> is listed below.
+          Latris has fifteen model types in seven families: systems, causal
+          inference, evaluation, risk and safety, decisions, arguments and
+          equations. They're not fifteen apps. Every one is built from the
+          same factors, links and sources, so the choice is about
+          <em>the question you need answered</em>, not about which drawing
+          tool to open. This guide is the reasoning behind the Formalise step
+          in the app.
         </p>
       </div>
     </section>
@@ -74,46 +73,66 @@
       <article class="prose-card prose">
 
         <div class="summary">
-          <p><strong>Short answer:</strong> start with a causal loop diagram. It is the cheapest honest answer, and every other model type builds on it. Add a DAG when someone will ask "can we actually estimate that?"; quantify the same diagram as a fuzzy cognitive map or a Bayesian network when magnitudes or probabilities matter; go to full system dynamics when the behaviour over time <em>is</em> the question. You never redraw: the same factors, links and evidence carry across.</p>
+          <p><strong>Short answer:</strong> pick by the question, using the table below. If the question is how something works or what drives an outcome, start with a causal loop diagram: it is the cheapest honest answer, and the systems and causal types build on it. If it's a choice, a risk, a programme, a case to argue or a calculation, there is a model type made for that question. Whichever you pick, you never redraw: the same factors, sources and challenges carry across when you add another.</p>
         </div>
 
-        <h2 id="levels">One model, five levels of commitment</h2>
-        <p>
-          All five are made of the same things: factors and links, where every
-          link is a claim that carries its sources, for and against. What
-          differs is how much you claim:
-        </p>
-        <ul>
-          <li>A <strong>causal loop diagram</strong> keeps every claim qualitative: direction only.</li>
-          <li>A <strong>causal DAG</strong> asks the estimation question: what would have to be measured before an effect could be separated from confounding?</li>
-          <li>A <strong>fuzzy cognitive map</strong> adds soft magnitudes ("strongly", "weakly") and simulates the tendency of the mechanism.</li>
-          <li>A <strong>Bayesian network</strong> puts probabilities on discrete states and answers "how likely, given what we know?"</li>
-          <li>A <strong>system dynamics model</strong> commits fully: stocks, flows, units, and numbers you'd defend in front of a reviewer, to simulate how the system behaves over time.</li>
-        </ul>
-        <p>
-          The evidence discipline is identical at every level: a link without a
-          source is a visible gap, a source that argues against the link stays on
-          the record, and the report says which methods were used and what they
-          can't do. That's what makes any of them defensible, and it's why the
-          choice of model type is a choice about <em>how much you can commit to</em>,
-          not about which drawing tool to open.
-        </p>
-
-        <h2 id="glance">At a glance</h2>
+        <h2 id="question">Start with the question</h2>
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th scope="col">Model type</th><th scope="col">The question</th><th scope="col">Numbers?</th><th scope="col">Honest limit</th></tr>
+              <tr><th scope="col">The question</th><th scope="col">Model type</th><th scope="col">Family</th><th scope="col">Honest limit</th></tr>
             </thead>
             <tbody>
-              <tr><td>Causal loop diagram</td><td>How does this work? What feeds back on what?</td><td>None: direction only</td><td>Shows where an effect runs, never how large</td></tr>
-              <tr><td>Causal DAG</td><td>Can this effect be estimated, and from what data?</td><td>None to identify; with a dataset, an adjusted effect estimate</td><td>An estimate holds only if the graph leaves out no confounder; no counterfactuals</td></tr>
-              <tr><td>Fuzzy cognitive map</td><td>Which forces dominate, roughly?</td><td>Soft weights from −1 to +1</td><td>Tendencies, not year-three numbers</td></tr>
-              <tr><td>Bayesian network</td><td>How likely is each outcome, and what would change my mind?</td><td>Probabilities on discrete states</td><td>Discrete states, modest networks</td></tr>
-              <tr><td>System dynamics</td><td>How will it behave over time if we intervene?</td><td>Equations, units and parameters</td><td>Only as good as the structure under it</td></tr>
+              <tr><td>How does this work? What feeds back on what?</td><td><a href="#cld">Causal loop diagram</a></td><td>Systems</td><td>Shows where an effect runs, never how large</td></tr>
+              <tr><td>Which forces dominate, roughly?</td><td><a href="#fcm">Fuzzy cognitive map</a></td><td>Systems</td><td>Tendencies, not year-three numbers</td></tr>
+              <tr><td>How will it behave over time if we intervene?</td><td><a href="#sd">System dynamics</a></td><td>Systems</td><td>Only as good as the structure under it</td></tr>
+              <tr><td>Can this effect be estimated, and from what data?</td><td><a href="#dag">Causal DAG</a></td><td>Causal inference</td><td>An estimate holds only if the graph leaves out no confounder</td></tr>
+              <tr><td>How likely is each outcome, and what would change my mind?</td><td><a href="#bn">Bayesian network</a></td><td>Causal inference</td><td>Discrete states, modest networks</td></tr>
+              <tr><td>How is this programme supposed to work, and which steps are taken on trust?</td><td><a href="#theory-of-change">Theory of change</a></td><td>Evaluation</td><td>Impact only under the design's assumptions</td></tr>
+              <tr><td>What stands between this hazard and harm, and where is it thin?</td><td><a href="#bow-tie">Bow-tie</a></td><td>Risk and safety</td><td>Order-of-magnitude; barriers assumed independent</td></tr>
+              <tr><td>What combinations of failures cause this, and how likely is it?</td><td><a href="#fault-tree">Fault tree</a></td><td>Risk and safety</td><td>Static; failures assumed independent</td></tr>
+              <tr><td>Once this happens, how does it play out, and how often does it end badly?</td><td><a href="#event-tree">Event tree</a></td><td>Risk and safety</td><td>Yes/no branches; dependence only where stated</td></tr>
+              <tr><td>Which option should we choose, given what we care about?</td><td><a href="#mcda">Multi-criteria decision analysis</a></td><td>Decisions</td><td>Additive and linear; weights are judgements</td></tr>
+              <tr><td>What should we do, given what we don't know, and is it worth finding out more first?</td><td><a href="#decision-tree">Decision tree</a></td><td>Decisions</td><td>Risk-neutral expected value</td></tr>
+              <tr><td>What does each option cost and achieve over years?</td><td><a href="#markov">Markov cohort model</a></td><td>Decisions</td><td>Memoryless; a cohort average</td></tr>
+              <tr><td>Which explanation does the evidence fail to rule out?</td><td><a href="#ach">Analysis of competing hypotheses</a></td><td>Arguments</td><td>Orders hypotheses; doesn't say how likely</td></tr>
+              <tr><td>Does the case hold up, and what does it rest on?</td><td><a href="#argument-map">Argument map</a></td><td>Arguments</td><td>Qualitative; reasons aren't weighed</td></tr>
+              <tr><td>What do the equations give for these inputs, and how far can the answer be trusted?</td><td><a href="#equation-model">Equation model</a></td><td>Equations</td><td>Balanced units don't make a formula right</td></tr>
             </tbody>
           </table>
         </div>
+
+        <h2 id="families">Seven families, one evidence base</h2>
+        <p>
+          Every model type is made of the same things: factors and links,
+          where each claim carries its sources, for and against. What differs
+          is what a link means (a cause, a failure path, a reason, a formula)
+          and how much you commit to. Within a family the types form a
+          ladder, from qualitative to quantitative, and a model climbs a rung
+          without being redrawn.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Family</th><th scope="col">Model types</th><th scope="col">What it's for</th></tr></thead>
+            <tbody>
+              <tr><td><a href="#systems">Systems</a></td><td>Causal loop diagram → fuzzy cognitive map → system dynamics</td><td>How a system with feedback works, which forces dominate, and how it behaves over time</td></tr>
+              <tr><td><a href="#causal-inference">Causal inference</a></td><td>Causal DAG → Bayesian network</td><td>Whether an effect can be estimated, and how likely each outcome is given what you know</td></tr>
+              <tr><td><a href="#evaluation">Evaluation</a></td><td>Theory of change, with process tracing and impact estimates</td><td>Whether a programme's logic holds, step by step, and what it changed</td></tr>
+              <tr><td><a href="#risk">Risk and safety</a></td><td>Bow-tie, fault tree, event tree</td><td>How a failure comes about, what protects against it, and what follows</td></tr>
+              <tr><td><a href="#decisions">Decisions</a></td><td>Multi-criteria decision analysis; decision tree → Markov cohort model</td><td>Which option to choose: on several criteria, under uncertainty, or over years</td></tr>
+              <tr><td><a href="#arguments">Arguments</a></td><td>Analysis of competing hypotheses; argument map</td><td>Which explanation survives the evidence, and whether a case holds up</td></tr>
+              <tr><td><a href="#equations">Equations</a></td><td>Equation model</td><td>What sourced formulas give for these inputs, with units checked</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          The evidence discipline is identical in every family: a claim without a
+          source is a visible gap, a source that argues against it stays on
+          the record, and the report says which methods were used and what they
+          can't do. That's what makes any of them defensible, and it's why the
+          choice of model type is a choice about the question and about
+          <em>how much you can commit to</em>.
+        </p>
 
         <!-- @formalisms:start -->
         <h2 id="every">Every model type</h2>
@@ -140,7 +159,14 @@
         </div>
         <!-- @formalisms:end -->
 
-        <h2 id="five">The five, by the question they answer</h2>
+        <h2 id="systems">Systems</h2>
+        <p>
+          For questions about how something works as a whole: what feeds back
+          on what, which forces dominate, and how the system behaves over
+          time. The three types are one diagram at three levels of
+          commitment: direction only, soft weights, then stocks, flows and
+          equations.
+        </p>
 
         <h3 id="cld">Causal loop diagram (CLD)</h3>
         <p class="q">"How does this work? What feeds back on what?"</p>
@@ -151,6 +177,34 @@
           <li><strong>Honest limit:</strong> arrows are argued, not estimated. A CLD shows where an effect runs, never how large it is.</li>
         </ul>
         <p><a href="/formalisms/cld/">Scientific basis: what the arrows mean, lineage, known pitfalls, references →</a></p>
+
+        <h3 id="fcm">Fuzzy cognitive map (FCM)</h3>
+        <p class="q">"Which forces dominate, roughly?"</p>
+        <ul>
+          <li><strong>Reach for it when:</strong> you want more than arrows but can't defend full equations: expert judgement in the form "this pushes hard, that resists weakly".</li>
+          <li><strong>You'll need:</strong> signed, weighted links (from −1 to +1) and, for scenarios, which factors to hold fixed.</li>
+          <li><strong>What you get:</strong> steady-state tendencies under interventions: the direction and rough strength of the net effect.</li>
+          <li><strong>Honest limit:</strong> semi-quantitative by design. It says which way the water flows and roughly how fast, not what happens in year three.</li>
+        </ul>
+        <p><a href="/formalisms/fcm/">Scientific basis: what the arrows mean, lineage, known pitfalls, references →</a></p>
+
+        <h3 id="sd">System dynamics (SD)</h3>
+        <p class="q">"How will this behave over time if we intervene?"</p>
+        <ul>
+          <li><strong>Reach for it when:</strong> the behaviour over time is the question (accumulation, delays, tipping points, capacity trade-offs) and you're prepared to defend equations and parameters.</li>
+          <li><strong>You'll need:</strong> stocks and flows with units that check out, scenario definitions, and, for uncertainty, which parameters are uncertain and by how much.</li>
+          <li><strong>What you get:</strong> trajectories under scenarios, Monte Carlo uncertainty bands, which values the result is most sensitive to, which feedback loop dominates when (the Loops That Matter method), and charts a board can interrogate. Every parameter carries where it came from.</li>
+          <li><strong>Honest limit:</strong> the most commitment in this family. A precise answer to the wrong structure is worse than a vague one, so build the CLD first and quantify it once the structure has survived review.</li>
+        </ul>
+        <p><a href="/formalisms/sd/">Scientific basis: what the arrows mean, lineage, known pitfalls, references →</a></p>
+
+        <h2 id="causal-inference">Causal inference</h2>
+        <p>
+          For questions about a specific effect: can it be separated from
+          confounding, and how likely is each outcome given what has been
+          observed? Both types need an acyclic graph, and a causal loop
+          diagram's factors and evidence carry straight across.
+        </p>
 
         <h3 id="dag">Causal DAG</h3>
         <p class="q">"Can that effect even be estimated, and from what data?"</p>
@@ -172,49 +226,131 @@
         </ul>
         <p><a href="/formalisms/bn/">Scientific basis: what the arrows mean, lineage, known pitfalls, references →</a></p>
 
-        <h3 id="fcm">Fuzzy cognitive map (FCM)</h3>
-        <p class="q">"Which forces dominate, roughly?"</p>
-        <ul>
-          <li><strong>Reach for it when:</strong> you want more than arrows but can't defend full equations: expert judgement in the form "this pushes hard, that resists weakly".</li>
-          <li><strong>You'll need:</strong> signed, weighted links (from −1 to +1) and, for scenarios, which factors to hold fixed.</li>
-          <li><strong>What you get:</strong> steady-state tendencies under interventions: the direction and rough strength of the net effect.</li>
-          <li><strong>Honest limit:</strong> semi-quantitative by design. It says which way the water flows and roughly how fast, not what happens in year three.</li>
-        </ul>
-        <p><a href="/formalisms/fcm/">Scientific basis: what the arrows mean, lineage, known pitfalls, references →</a></p>
-
-        <h3 id="sd">System dynamics (SD)</h3>
-        <p class="q">"How will this behave over time if we intervene?"</p>
-        <ul>
-          <li><strong>Reach for it when:</strong> the behaviour over time is the question (accumulation, delays, tipping points, capacity trade-offs) and you're prepared to defend equations and parameters.</li>
-          <li><strong>You'll need:</strong> stocks and flows with units that check out, scenario definitions, and, for uncertainty, which parameters are uncertain and by how much.</li>
-          <li><strong>What you get:</strong> trajectories under scenarios, Monte Carlo uncertainty bands, which values the result is most sensitive to, which feedback loop dominates when (the Loops That Matter method), and charts a board can interrogate. Every parameter carries where it came from.</li>
-          <li><strong>Honest limit:</strong> the most commitment of the five. A precise answer to the wrong structure is worse than a vague one, so build the CLD first and quantify it once the structure has survived review.</li>
-        </ul>
-        <p><a href="/formalisms/sd/">Scientific basis: what the arrows mean, lineage, known pitfalls, references →</a></p>
-        <h2 id="beyond">Beyond the causal core, by the question</h2>
+        <h2 id="evaluation">Evaluation</h2>
         <p>
-          The other model types answer a different kind of question. They are
-          built on the same factors, sources and challenges, so the evidence
-          discipline is the same, and each has a page on its methods, their
-          references and their limits.
+          For programmes and policies: how the intervention is supposed to
+          lead to its impact, how well each step is evidenced, and, with
+          data, what changed when it started.
         </p>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th scope="col">The question</th><th scope="col">Model type</th></tr></thead>
-            <tbody>
-              <tr><td>What do the equations give for these inputs, and how far can the answer be trusted?</td><td><a href="/formalisms/equation-model/">Equation model</a></td></tr>
-              <tr><td>How is this programme supposed to work, and which steps are taken on trust?</td><td><a href="/formalisms/theory-of-change/">Theory of change</a></td></tr>
-              <tr><td>Which option should we choose, given what we care about?</td><td><a href="/formalisms/mcda/">Multi-criteria decision analysis</a></td></tr>
-              <tr><td>What should we do, given what we don't know, and is it worth finding out more first?</td><td><a href="/formalisms/decision-tree/">Decision tree</a></td></tr>
-              <tr><td>What does each option cost and achieve over years?</td><td><a href="/formalisms/markov/">Markov cohort model</a></td></tr>
-              <tr><td>Which explanation does the evidence fail to rule out?</td><td><a href="/formalisms/ach/">Analysis of competing hypotheses</a></td></tr>
-              <tr><td>Does the case hold up, and what does it rest on?</td><td><a href="/formalisms/argument-map/">Argument map</a></td></tr>
-              <tr><td>What combinations of failures cause this, and how likely is it?</td><td><a href="/formalisms/fault-tree/">Fault tree</a></td></tr>
-              <tr><td>What stands between this hazard and harm, and where is it thin?</td><td><a href="/formalisms/bow-tie/">Bow-tie</a></td></tr>
-              <tr><td>Once this happens, how does it play out, and how often does it end badly?</td><td><a href="/formalisms/event-tree/">Event tree</a></td></tr>
-            </tbody>
-          </table>
-        </div>
+
+        <h3 id="theory-of-change">Theory of change</h3>
+        <p class="q">"How is this programme supposed to work, and which steps are taken on trust?"</p>
+        <ul>
+          <li><strong>Reach for it when:</strong> you're designing or evaluating a programme or policy, and a funder or evaluator needs to see which steps of its logic are evidenced and which are assumed.</li>
+          <li><strong>You'll need:</strong> factors placed on levels from activity through outputs and outcomes to impact, the links between them, and the assumptions each step relies on. For an impact estimate, a dataset of the outcome over time.</li>
+          <li><strong>What you get:</strong> every pathway from an activity to an impact, link by link: checked, cited, untested or contested, with its assumptions. Process tracing weighs the evidence for each step (hoop and smoking-gun tests) and gives a confidence per pathway. With data, an impact estimate by interrupted time series or difference-in-differences, with its validity checks.</li>
+          <li><strong>Honest limit:</strong> the pathway view shows where the chain is unsupported, not how large an effect is. An impact estimate holds only under its design's assumptions (nothing else changed at the same time; the groups were on parallel trends), and each failed check is reported with the result.</li>
+        </ul>
+        <p><a href="/formalisms/theory-of-change/">Scientific basis: methods, references, limits →</a></p>
+
+        <h2 id="risk">Risk and safety</h2>
+        <p>
+          For one undesired event: the barriers around it, the failures
+          behind it and the sequences after it. Each type takes point values
+          or ranges, and every probability and frequency carries where it
+          came from.
+        </p>
+
+        <h3 id="bow-tie">Bow-tie</h3>
+        <p class="q">"What stands between this hazard and harm, and where is it thin?"</p>
+        <ul>
+          <li><strong>Reach for it when:</strong> you need to show, for one hazardous event, what could cause it, what could follow, and the barriers in between, for a risk register, an operator or a regulator.</li>
+          <li><strong>You'll need:</strong> one top event, its threats and consequences, and the barriers on each line with their type, status and owner. For numbers, threat frequencies and barrier failure probabilities, each with its source.</li>
+          <li><strong>What you get:</strong> lines that rest on one barrier or none, barriers shared between lines, escalation factors with no control, and barriers nobody owns. With numbers, the layer-of-protection frequency of the top event and of each consequence, and how much each barrier buys. With ranges, Monte Carlo over them.</li>
+          <li><strong>Honest limit:</strong> barriers are assumed to fail independently, and frequencies are order-of-magnitude, as in any layer-of-protection analysis. There is no severity scoring and no risk matrix.</li>
+        </ul>
+        <p><a href="/formalisms/bow-tie/">Scientific basis: methods, references, limits →</a></p>
+
+        <h3 id="fault-tree">Fault tree</h3>
+        <p class="q">"What combinations of failures cause this, and how likely is it?"</p>
+        <ul>
+          <li><strong>Reach for it when:</strong> the question is how one undesired event can come about, and which failures matter most to preventing it.</li>
+          <li><strong>You'll need:</strong> the top event broken down through AND, OR and k-of-n gates to basic events, and a probability for each basic event with its source.</li>
+          <li><strong>What you get:</strong> the minimal cut sets, the single points of failure, the exact top-event probability, and which events matter most (Birnbaum, Fussell–Vesely and risk-achievement-worth importance). With ranges, how sure the probability is and which inputs drive it.</li>
+          <li><strong>Honest limit:</strong> static, and basic events are assumed independent: there is no common-cause model, and no NOT or sequence gates.</li>
+        </ul>
+        <p><a href="/formalisms/fault-tree/">Scientific basis: methods, references, limits →</a></p>
+
+        <h3 id="event-tree">Event tree</h3>
+        <p class="q">"Once this happens, how does it play out, and how often does it end badly?"</p>
+        <ul>
+          <li><strong>Reach for it when:</strong> you're following one initiating event forward: which safety functions work or fail, in what order, and how often each ending results.</li>
+          <li><strong>You'll need:</strong> one initiating event and its frequency, ordered yes/no headings, an end state for every path, and a probability for each branch, conditional on earlier answers where it depends on them.</li>
+          <li><strong>What you get:</strong> a check that the tree is complete, the probability and yearly frequency of each sequence and end state, and the sequences that dominate. With ranges, Monte Carlo over them.</li>
+          <li><strong>Honest limit:</strong> branches are yes or no; headings depend on each other only where you state a conditional probability; and heading probabilities are entered by hand, not linked live to a fault tree.</li>
+        </ul>
+        <p><a href="/formalisms/event-tree/">Scientific basis: methods, references, limits →</a></p>
+
+        <h2 id="decisions">Decisions</h2>
+        <p>
+          For a choice between options. Which type depends on what makes the
+          choice hard: several things to trade off, an outcome that depends
+          on chance, or costs and benefits that build up over years.
+        </p>
+
+        <h3 id="mcda">Multi-criteria decision analysis (MCDA)</h3>
+        <p class="q">"Which option should we choose, given what we care about?"</p>
+        <ul>
+          <li><strong>Reach for it when:</strong> options have to be judged on several things at once (cost, risk, fairness, time) and you need to show how the choice was reached.</li>
+          <li><strong>You'll need:</strong> the options, the criteria with their weights and scales (worst and best), and a score for each option on each criterion, with its source.</li>
+          <li><strong>What you get:</strong> the ranking with each criterion's contribution, the options that are dominated, and how far each weight would have to move before the top choice changes.</li>
+          <li><strong>Honest limit:</strong> additive and linear. Weights are judgements, and they mean nothing apart from their scales. No AHP or outranking methods.</li>
+        </ul>
+        <p><a href="/formalisms/mcda/">Scientific basis: methods, references, limits →</a></p>
+
+        <h3 id="decision-tree">Decision tree</h3>
+        <p class="q">"What should we do, given what we don't know, and is it worth finding out more first?"</p>
+        <ul>
+          <li><strong>Reach for it when:</strong> the outcome of a choice depends on chance, and someone will ask whether to commission another study before committing.</li>
+          <li><strong>You'll need:</strong> the decisions, the chance events with their probabilities, and a payoff for each ending, with sources.</li>
+          <li><strong>What you get:</strong> the best strategy by expected value, what perfect information on each uncertainty would be worth, and the probabilities at which the best choice flips. With ranges on the inputs, a probabilistic sensitivity analysis: how often each choice is best, and the value of information input by input.</li>
+          <li><strong>Honest limit:</strong> risk-neutral: expected value, with no utility function. It values perfect information only, not an imperfect study.</li>
+        </ul>
+        <p><a href="/formalisms/decision-tree/">Scientific basis: methods, references, limits →</a></p>
+
+        <h3 id="markov">Markov cohort model</h3>
+        <p class="q">"What does each option cost and achieve over years, and is the better one worth its price?"</p>
+        <ul>
+          <li><strong>Reach for it when:</strong> the options play out over years across a population moving between states, such as well, ill and dead, and the question is what each strategy costs and achieves.</li>
+          <li><strong>You'll need:</strong> the states, transition probabilities per cycle for each strategy, a cost and a utility for each state, a discount rate and a willingness to pay.</li>
+          <li><strong>What you get:</strong> the cohort's trace over time, discounted costs and outcomes per strategy, and incremental cost-effectiveness: ICERs, dominance and net benefit. With ranges, acceptability curves and the value of information.</li>
+          <li><strong>Honest limit:</strong> memoryless: the chance of moving depends on the current state, not on how long the cohort has been in it. It is a cohort average, not a simulation of individuals.</li>
+        </ul>
+        <p><a href="/formalisms/markov/">Scientific basis: methods, references, limits →</a></p>
+
+        <h2 id="arguments">Arguments</h2>
+        <p>
+          For reasoning that isn't a mechanism: weighing explanations against
+          the evidence, or laying out a case so a reader can see what it
+          stands on.
+        </p>
+
+        <h3 id="ach">Analysis of competing hypotheses (ACH)</h3>
+        <p class="q">"Which explanation does the evidence fail to rule out?"</p>
+        <ul>
+          <li><strong>Reach for it when:</strong> there are several explanations for what happened, and the risk is settling on the first plausible one.</li>
+          <li><strong>You'll need:</strong> the hypotheses, the evidence items with their credibility and relevance, and a rating of every item against every hypothesis, with the reasoning.</li>
+          <li><strong>What you get:</strong> hypotheses ranked by the evidence against them (the least evidence against, not the most for), the items that don't discriminate, and the linchpins the conclusion turns on, with whether their sources were checked.</li>
+          <li><strong>Honest limit:</strong> ratings are judgements and items are treated as independent. The ranking orders the hypotheses; it doesn't say how likely each one is.</li>
+        </ul>
+        <p><a href="/formalisms/ach/">Scientific basis: methods, references, limits →</a></p>
+
+        <h3 id="argument-map">Argument map</h3>
+        <p class="q">"Does the case hold up, and what does it rest on?"</p>
+        <ul>
+          <li><strong>Reach for it when:</strong> the deliverable is a case: a recommendation to a board, a position put to a regulator, a conclusion a reviewer will probe for its weakest premise.</li>
+          <li><strong>You'll need:</strong> one conclusion, the claims for and against it, the reasons that work together or alone, the answers to each objection, and sources on the premises.</li>
+          <li><strong>What you get:</strong> whether the conclusion stands, the premises it turns on, the objections still unanswered, and which premises rest on checked sources, unchecked sources or none.</li>
+          <li><strong>Honest limit:</strong> qualitative: reasons aren't weighed numerically. A premise nobody argues against stands unless its sources contest it, and a map has one conclusion.</li>
+        </ul>
+        <p><a href="/formalisms/argument-map/">Scientific basis: methods, references, limits →</a></p>
+
+        <h2 id="equations">Equations</h2>
+        <p>
+          For a model that is a calculation: quantities joined by formulas
+          from physics, engineering or the published literature, with every
+          coefficient sourced.
+        </p>
 
         <h3 id="equation-model">Equation model</h3>
         <p class="q">"What do the equations give for these inputs, and how far can the answer be trusted?"</p>
@@ -226,11 +362,26 @@
         </ul>
         <p><a href="/formalisms/equation-model/">Scientific basis: methods, references, limits →</a></p>
 
+        <h2 id="uncertainty">Uncertainty and sensitivity, in every quantitative type</h2>
+        <p>
+          Any number can carry a range instead of a single value, with the
+          reason for the range on the record. Monte Carlo then runs the model
+          across the ranges and reports the spread: for system dynamics,
+          Bayesian networks, the three risk types and equation models.
+          Decision trees and Markov models get a probabilistic sensitivity
+          analysis: how often each choice is best, and what it would be worth
+          to know each input. Global sensitivity analysis (Sobol indices, or
+          Morris screening as a cheaper screen) says which inputs drive a
+          result when they all vary together, for the risk types, decision
+          trees, Markov models, system dynamics and Bayesian networks.
+        </p>
+
         <h2 id="combine">Using more than one</h2>
         <p>
-          More than one model type can be right. Triangulating, say a causal
-          loop diagram for the mechanism plus a DAG for what could be estimated,
-          is a strength, not a mistake. Because every model type sits on the
+          More than one model type can be right. Triangulating is a strength,
+          not a mistake: a causal loop diagram for the mechanism plus a DAG
+          for what could be estimated, or a fault tree that shares its events
+          with the causal map around it. Because every model type sits on the
           same factors, links and evidence, adding one never means starting
           again, and the report records which you chose and why.
         </p>
@@ -240,17 +391,15 @@
           <table>
             <thead><tr><th scope="col">Model type</th><th scope="col">Status</th></tr></thead>
             <tbody>
-              <tr><td>Causal loop diagrams</td><td><span class="status-pill on">Available now</span></td></tr>
-              <tr><td>Causal DAGs</td><td><span class="status-pill on">Available now</span></td></tr>
-              <tr><td>Fuzzy cognitive maps</td><td><span class="status-pill on">Available now</span></td></tr>
-              <tr><td>Bayesian networks</td><td><span class="status-pill on">Available now</span></td></tr>
-              <tr><td>System dynamics</td><td><span class="status-pill on">Available now</span></td></tr>
-              <tr><td>Equation models</td><td><span class="status-pill on">Available now</span></td></tr>
+              <tr><td>Causal loop diagrams, fuzzy cognitive maps, system dynamics</td><td><span class="status-pill on">Available now</span></td></tr>
+              <tr><td>Causal DAGs, with effect estimates from data; Bayesian networks</td><td><span class="status-pill on">Available now</span></td></tr>
               <tr><td>Theory of change, with process tracing and impact estimates</td><td><span class="status-pill on">Available now</span></td></tr>
+              <tr><td>Bow-tie diagrams, fault trees, event trees</td><td><span class="status-pill on">Available now</span></td></tr>
               <tr><td>Multi-criteria decision analysis, decision trees, Markov cohort models</td><td><span class="status-pill on">Available now</span></td></tr>
               <tr><td>Analysis of competing hypotheses</td><td><span class="status-pill on">Available now</span></td></tr>
-              <tr><td>Fault trees, event trees, bow-tie diagrams</td><td><span class="status-pill on">Available now</span></td></tr>
               <tr><td>Argument maps</td><td><span class="status-pill on">Available now</span> in chat, the open-source library and reports (editor in the app on the way)</td></tr>
+              <tr><td>Equation models</td><td><span class="status-pill on">Available now</span></td></tr>
+              <tr><td>Monte Carlo, probabilistic sensitivity analysis and global sensitivity analysis</td><td><span class="status-pill on">Available now</span></td></tr>
               <tr><td>Influence diagrams</td><td><span class="status-pill later">On the roadmap</span></td></tr>
               <tr><td>Goal structuring notation (safety cases)</td><td><span class="status-pill later">On the roadmap</span></td></tr>
             </tbody>
@@ -264,7 +413,7 @@
         </p>
 
         <h2 id="in-doubt">If in doubt</h2>
-        <p><strong>Start with a causal loop diagram.</strong> It's the cheapest honest answer, it forces the arguments into the open, and every other model type builds on it. Promote the same model when, and only when, a question arrives that needs more commitment. Choosing later, with evidence in hand, is a feature: you commit to numbers only when the stakes justify defending them.</p>
+        <p><strong>Start from the question, not the method.</strong> If you can't yet say what kind of question it is, start with a causal loop diagram. It's the cheapest honest answer, it forces the arguments into the open, and its factors and evidence carry into whichever model type the question turns out to need. Add another when, and only when, a question arrives that needs more commitment. Choosing later, with evidence in hand, is a feature: you commit to numbers only when the stakes justify defending them.</p>
         <p>
           Ready to try it? <a href="https://app.latris.app/">Open Latris</a>,
           or read the <a href="/methods/">scientific basis</a> of each model
@@ -279,7 +428,7 @@
     <div class="wrap foot-grid">
       <div class="foot-brand">
         <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
-        <p>Causal models that show their evidence.</p>
+        <p>Models that show their evidence.</p>
         <p>© 2026 Latris · Made in Australia</p>
       </div>
         <div>

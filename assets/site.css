@@ -185,6 +185,8 @@ section.band { padding: 60px 0; }
   background: rgba(255,255,255,0.45); border: 1px solid var(--border);
   border-left: 3px solid var(--terra); border-radius: 13px; padding: 22px 24px 24px;
 }
+a.uc { display: block; text-decoration: none; color: inherit; transition: border-color .15s; }
+a.uc:hover { border-color: var(--teal); }
 .uc h3 { font-family: "Outfit", sans-serif; font-size: 16px; margin: 0 0 7px; color: var(--teal); }
 .uc p { margin: 0; font-size: 14px; color: var(--ink-2); }
 
