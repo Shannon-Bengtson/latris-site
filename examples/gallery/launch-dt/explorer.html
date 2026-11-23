@@ -27,6 +27,14 @@ a{ color:var(--ex-accent-dark); }
 .ex-question{ margin:0 0 .6rem; font-size:1.1rem; max-width:60ch; }
 .ex-intro{ margin:0 0 .5rem; max-width:70ch; }
 .ex-status{ margin:.4rem 0 0; font-size:.9rem; color:var(--ex-muted); }
+/* On a wide screen the heading sits in two columns, so the picture keeps more of the window's height. */
+@media (min-width:1000px){
+  .ex-head{ max-width:none; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); column-gap:2.5rem; align-items:end; padding:.9rem 1.5rem .7rem; }
+  .ex-head h1{ margin-bottom:.4rem; }
+  .ex-head-main .ex-question{ margin-bottom:0; }
+  .ex-head-side .ex-intro{ font-size:.95rem; }
+  .ex-head-side .ex-intro:last-of-type{ margin-bottom:0; }
+}
 .ex-noscript{ background:var(--ex-tint); padding:.7rem 1.5rem; font-size:.95rem; }
 
 /* On a wide screen the page is one screen tall: the picture fills what the heading leaves, the panel scrolls. */
@@ -51,10 +59,10 @@ body{ display:flex; flex-direction:column; height:100vh; }
 }
 .ex-zoom button:hover, .ex-layer:hover, .ex-btn:hover{ border-color:var(--ex-accent); }
 .ex-layer[aria-pressed="true"], .ex-btn[aria-pressed="true"]{ background:var(--ex-accent); border-color:var(--ex-accent); color:#fff; }
-.ex-canvas{ flex:1 1 auto; overflow:auto; cursor:grab; padding:.5rem; }
+.ex-canvas{ flex:1 1 auto; overflow:auto; cursor:grab; padding:.5rem; display:flex; }
 .ex-canvas.ex-dragging{ cursor:grabbing; user-select:none; }
-.ex-canvas svg{ display:block; margin:0 auto; max-width:none; height:auto; }
-.ex-empty{ color:var(--ex-muted); padding:2rem; text-align:center; }
+.ex-canvas svg{ display:block; margin:auto; flex:none; max-width:none; height:auto; }  /* centred; flush to the edge once it is larger */
+.ex-empty{ flex:1; color:var(--ex-muted); padding:2rem; text-align:center; }
 .ex-hint{ margin:0; padding:.4rem .7rem; font-size:.8rem; color:var(--ex-muted); border-top:1px solid var(--ex-border); }
 .no-js .ex-toolbar, .no-js .ex-hint, .no-js .ex-tabs{ display:none; }
 .no-js body{ display:block; height:auto; }
@@ -260,9 +268,12 @@ td.ex-ach-cell{ display:table-cell; }
 </head>
 <body>
 <header class="ex-head">
+  <div class="ex-head-main">
   <p class="ex-eyebrow">Interactive model · Decision Tree</p>
   <h1>Launch, license, or do nothing</h1>
   <p class="ex-question"><span class="ex-label">The question</span>Should we launch the product ourselves, license it, or do nothing?</p>
+  </div>
+  <div class="ex-head-side">
   
   <p class="ex-status">
     8 factors, 7 links.
@@ -270,6 +281,7 @@ td.ex-ach-cell{ display:table-cell; }
     
     
   </p>
+  </div>
 </header>
 
 <noscript><div class="ex-noscript">Turn on JavaScript to explore the model. The figure, the list of what is in it and the results are shown below regardless.</div></noscript>
@@ -378,42 +390,42 @@ td.ex-ach-cell{ display:table-cell; }
       <h3 class="ex-h">Factors</h3>
       <ul class="ex-list" id="ex-list-nodes">
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZYVK92XBYRSGRX9B2VDXV">
+        <li><button type="button" class="ex-item" data-id="node_01M852YW5PVTGJAFJSDC1HE00X">
           <span class="ex-item-main">Strategy</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZYVKC2BWB4VMD5KMF3Q5D">
+        <li><button type="button" class="ex-item" data-id="node_01M852YW5RJWG0597VRG44ARR5">
           <span class="ex-item-main">Demand if launched</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZYVKG3W00H1SZE494H759">
+        <li><button type="button" class="ex-item" data-id="node_01M852YW5VS10FJJX1KTCBRPHW">
           <span class="ex-item-main">Demand if licensed</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZYVKM5YNXMHYPJEYHNV7G">
+        <li><button type="button" class="ex-item" data-id="node_01M852YW5ZQXCCPWGGZPFQ0VBQ">
           <span class="ex-item-main">Launched, high demand</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZYVKVQXE8J8FWXGMVQ0EP">
+        <li><button type="button" class="ex-item" data-id="node_01M852YW65A5M0RJXC66Q5891P">
           <span class="ex-item-main">Launched, low demand</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZYVM2WT2N8Y691VWV6989">
+        <li><button type="button" class="ex-item" data-id="node_01M852YW6E4V6EW0H8ZQDZR64T">
           <span class="ex-item-main">Licensed, high demand</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZYVMB7KKBXMKXZQSQ5T1R">
+        <li><button type="button" class="ex-item" data-id="node_01M852YW6N5PMNR9GY5SXYN05K">
           <span class="ex-item-main">Licensed, low demand</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZYVMM5BY5P169F42T246F">
+        <li><button type="button" class="ex-item" data-id="node_01M852YW6XYVYT32VRREGANW54">
           <span class="ex-item-main">Do nothing</span>
           
         </button></li>
@@ -422,37 +434,37 @@ td.ex-ach-cell{ display:table-cell; }
       <h3 class="ex-h">Links</h3>
       <ul class="ex-list" id="ex-list-links">
         
-        <li><button type="button" class="ex-item" data-id="edge_01M84ZYVMZV8RMP1Z7YKTTFREP">
+        <li><button type="button" class="ex-item" data-id="edge_01M852YW76MW5MVCNTS9CRXYMT">
           <span class="ex-item-main">Strategy → Demand if launched</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="edge_01M84ZYVNE149AM64Z72BKKR72">
+        <li><button type="button" class="ex-item" data-id="edge_01M852YW7F72BFGMR8T2J2E92J">
           <span class="ex-item-main">Strategy → Demand if licensed</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="edge_01M84ZYVNWX2D92WCAZH3FATAD">
+        <li><button type="button" class="ex-item" data-id="edge_01M852YW7TD7PR8260AG4BSPFH">
           <span class="ex-item-main">Strategy → Do nothing</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="edge_01M84ZYVPBJV0NT4VRKFMNWZZV">
+        <li><button type="button" class="ex-item" data-id="edge_01M852YW86Y2AQXQ1SSKTC3ACJ">
           <span class="ex-item-main">Demand if launched → Launched, high demand</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="edge_01M84ZYVPVMYR7VXSDV0WENQ7W">
+        <li><button type="button" class="ex-item" data-id="edge_01M852YW8KHQ5VRZWPKPN1DPVF">
           <span class="ex-item-main">Demand if launched → Launched, low demand</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="edge_01M84ZYVQD6HWY00WFGNXWRG5Z">
+        <li><button type="button" class="ex-item" data-id="edge_01M852YW91ZQB5Z8WE7KXHT569">
           <span class="ex-item-main">Demand if licensed → Licensed, high demand</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="edge_01M84ZYVR0YY89XXQE0JV1WPN5">
+        <li><button type="button" class="ex-item" data-id="edge_01M852YW9G82JTP0RK45NSWXD1">
           <span class="ex-item-main">Demand if licensed → Licensed, low demand</span>
           
         </button></li>
@@ -463,12 +475,12 @@ td.ex-ach-cell{ display:table-cell; }
 </main>
 
 <footer class="ex-footer">
-  <p>Generated on 2026-11-23 from the Decision Tree model, version <code>f4cff65597</code>. This page is a snapshot: it does not update when the model changes.</p>
+  <p>Generated on 2026-11-23 from the Decision Tree model, version <code>c0d85b027a</code>. This page is a snapshot: it does not update when the model changes.</p>
   <p class="ex-badge"><a href="https://latris.app/?utm_source=latris-export&utm_medium=badge">Made with Latris</a></p>
 </footer>
 
 <div class="ex-tip" id="ex-tip" role="tooltip" hidden></div>
-<script type="application/json" id="ex-data">{"v": 1, "model": {"type": "decision_tree", "name": "Decision Tree", "signed": false}, "show_sources": true, "nodes": [{"id": "node_01M84ZYVK92XBYRSGRX9B2VDXV", "label": "Strategy", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZYVKC2BWB4VMD5KMF3Q5D", "label": "Demand if launched", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZYVKG3W00H1SZE494H759", "label": "Demand if licensed", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZYVKM5YNXMHYPJEYHNV7G", "label": "Launched, high demand", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZYVKVQXE8J8FWXGMVQ0EP", "label": "Launched, low demand", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZYVM2WT2N8Y691VWV6989", "label": "Licensed, high demand", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZYVMB7KKBXMKXZQSQ5T1R", "label": "Licensed, low demand", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZYVMM5BY5P169F42T246F", "label": "Do nothing", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}], "links": [{"id": "edge_01M84ZYVMZV8RMP1Z7YKTTFREP", "from": "node_01M84ZYVK92XBYRSGRX9B2VDXV", "to": "node_01M84ZYVKC2BWB4VMD5KMF3Q5D", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "edge_01M84ZYVNE149AM64Z72BKKR72", "from": "node_01M84ZYVK92XBYRSGRX9B2VDXV", "to": "node_01M84ZYVKG3W00H1SZE494H759", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "edge_01M84ZYVNWX2D92WCAZH3FATAD", "from": "node_01M84ZYVK92XBYRSGRX9B2VDXV", "to": "node_01M84ZYVMM5BY5P169F42T246F", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "edge_01M84ZYVPBJV0NT4VRKFMNWZZV", "from": "node_01M84ZYVKC2BWB4VMD5KMF3Q5D", "to": "node_01M84ZYVKM5YNXMHYPJEYHNV7G", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "edge_01M84ZYVPVMYR7VXSDV0WENQ7W", "from": "node_01M84ZYVKC2BWB4VMD5KMF3Q5D", "to": "node_01M84ZYVKVQXE8J8FWXGMVQ0EP", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "edge_01M84ZYVQD6HWY00WFGNXWRG5Z", "from": "node_01M84ZYVKG3W00H1SZE494H759", "to": "node_01M84ZYVM2WT2N8Y691VWV6989", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "edge_01M84ZYVR0YY89XXQE0JV1WPN5", "from": "node_01M84ZYVKG3W00H1SZE494H759", "to": "node_01M84ZYVMB7KKBXMKXZQSQ5T1R", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}], "loops": [], "live": {"decision_tree": {"root": "node_01M84ZYVK92XBYRSGRX9B2VDXV", "maximise": true, "units": "$k", "nodes": [{"id": "node_01M84ZYVK92XBYRSGRX9B2VDXV", "kind": "decision", "branches": [{"edge": "edge_01M84ZYVMZV8RMP1Z7YKTTFREP", "to": "node_01M84ZYVKC2BWB4VMD5KMF3Q5D", "label": "Launch", "probability": null, "value": 0.0}, {"edge": "edge_01M84ZYVNE149AM64Z72BKKR72", "to": "node_01M84ZYVKG3W00H1SZE494H759", "label": "License", "probability": null, "value": 0.0}, {"edge": "edge_01M84ZYVNWX2D92WCAZH3FATAD", "to": "node_01M84ZYVMM5BY5P169F42T246F", "label": "Do nothing", "probability": null, "value": 0.0}]}, {"id": "node_01M84ZYVKC2BWB4VMD5KMF3Q5D", "kind": "chance", "branches": [{"edge": "edge_01M84ZYVPBJV0NT4VRKFMNWZZV", "to": "node_01M84ZYVKM5YNXMHYPJEYHNV7G", "label": "High demand", "probability": 0.4, "value": 0.0}, {"edge": "edge_01M84ZYVPVMYR7VXSDV0WENQ7W", "to": "node_01M84ZYVKVQXE8J8FWXGMVQ0EP", "label": "Low demand", "probability": 0.6, "value": 0.0}], "uncertainty": "Demand"}, {"id": "node_01M84ZYVKG3W00H1SZE494H759", "kind": "chance", "branches": [{"edge": "edge_01M84ZYVQD6HWY00WFGNXWRG5Z", "to": "node_01M84ZYVM2WT2N8Y691VWV6989", "label": "High demand", "probability": 0.4, "value": 0.0}, {"edge": "edge_01M84ZYVR0YY89XXQE0JV1WPN5", "to": "node_01M84ZYVMB7KKBXMKXZQSQ5T1R", "label": "Low demand", "probability": 0.6, "value": 0.0}], "uncertainty": "Demand"}, {"id": "node_01M84ZYVKM5YNXMHYPJEYHNV7G", "kind": "terminal", "payoff": 1200.0}, {"id": "node_01M84ZYVKVQXE8J8FWXGMVQ0EP", "kind": "terminal", "payoff": -400.0}, {"id": "node_01M84ZYVM2WT2N8Y691VWV6989", "kind": "terminal", "payoff": 350.0}, {"id": "node_01M84ZYVMB7KKBXMKXZQSQ5T1R", "kind": "terminal", "payoff": 150.0}, {"id": "node_01M84ZYVMM5BY5P169F42T246F", "kind": "terminal", "payoff": 0.0}]}}}</script>
+<script type="application/json" id="ex-data">{"v": 1, "model": {"type": "decision_tree", "name": "Decision Tree", "signed": false}, "show_sources": true, "nodes": [{"id": "node_01M852YW5PVTGJAFJSDC1HE00X", "label": "Strategy", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852YW5RJWG0597VRG44ARR5", "label": "Demand if launched", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852YW5VS10FJJX1KTCBRPHW", "label": "Demand if licensed", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852YW5ZQXCCPWGGZPFQ0VBQ", "label": "Launched, high demand", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852YW65A5M0RJXC66Q5891P", "label": "Launched, low demand", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852YW6E4V6EW0H8ZQDZR64T", "label": "Licensed, high demand", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852YW6N5PMNR9GY5SXYN05K", "label": "Licensed, low demand", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852YW6XYVYT32VRREGANW54", "label": "Do nothing", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}], "links": [{"id": "edge_01M852YW76MW5MVCNTS9CRXYMT", "from": "node_01M852YW5PVTGJAFJSDC1HE00X", "to": "node_01M852YW5RJWG0597VRG44ARR5", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "edge_01M852YW7F72BFGMR8T2J2E92J", "from": "node_01M852YW5PVTGJAFJSDC1HE00X", "to": "node_01M852YW5VS10FJJX1KTCBRPHW", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "edge_01M852YW7TD7PR8260AG4BSPFH", "from": "node_01M852YW5PVTGJAFJSDC1HE00X", "to": "node_01M852YW6XYVYT32VRREGANW54", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "edge_01M852YW86Y2AQXQ1SSKTC3ACJ", "from": "node_01M852YW5RJWG0597VRG44ARR5", "to": "node_01M852YW5ZQXCCPWGGZPFQ0VBQ", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "edge_01M852YW8KHQ5VRZWPKPN1DPVF", "from": "node_01M852YW5RJWG0597VRG44ARR5", "to": "node_01M852YW65A5M0RJXC66Q5891P", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "edge_01M852YW91ZQB5Z8WE7KXHT569", "from": "node_01M852YW5VS10FJJX1KTCBRPHW", "to": "node_01M852YW6E4V6EW0H8ZQDZR64T", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "edge_01M852YW9G82JTP0RK45NSWXD1", "from": "node_01M852YW5VS10FJJX1KTCBRPHW", "to": "node_01M852YW6N5PMNR9GY5SXYN05K", "kind": "causal", "polarity": "", "sourced": false, "contested": false, "by_definition": false, "reason": "", "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}], "loops": [], "live": {"decision_tree": {"root": "node_01M852YW5PVTGJAFJSDC1HE00X", "maximise": true, "units": "$k", "nodes": [{"id": "node_01M852YW5PVTGJAFJSDC1HE00X", "kind": "decision", "branches": [{"edge": "edge_01M852YW76MW5MVCNTS9CRXYMT", "to": "node_01M852YW5RJWG0597VRG44ARR5", "label": "Launch", "probability": null, "value": 0.0}, {"edge": "edge_01M852YW7F72BFGMR8T2J2E92J", "to": "node_01M852YW5VS10FJJX1KTCBRPHW", "label": "License", "probability": null, "value": 0.0}, {"edge": "edge_01M852YW7TD7PR8260AG4BSPFH", "to": "node_01M852YW6XYVYT32VRREGANW54", "label": "Do nothing", "probability": null, "value": 0.0}]}, {"id": "node_01M852YW5RJWG0597VRG44ARR5", "kind": "chance", "branches": [{"edge": "edge_01M852YW86Y2AQXQ1SSKTC3ACJ", "to": "node_01M852YW5ZQXCCPWGGZPFQ0VBQ", "label": "High demand", "probability": 0.4, "value": 0.0}, {"edge": "edge_01M852YW8KHQ5VRZWPKPN1DPVF", "to": "node_01M852YW65A5M0RJXC66Q5891P", "label": "Low demand", "probability": 0.6, "value": 0.0}], "uncertainty": "Demand"}, {"id": "node_01M852YW5VS10FJJX1KTCBRPHW", "kind": "chance", "branches": [{"edge": "edge_01M852YW91ZQB5Z8WE7KXHT569", "to": "node_01M852YW6E4V6EW0H8ZQDZR64T", "label": "High demand", "probability": 0.4, "value": 0.0}, {"edge": "edge_01M852YW9G82JTP0RK45NSWXD1", "to": "node_01M852YW6N5PMNR9GY5SXYN05K", "label": "Low demand", "probability": 0.6, "value": 0.0}], "uncertainty": "Demand"}, {"id": "node_01M852YW5ZQXCCPWGGZPFQ0VBQ", "kind": "terminal", "payoff": 1200.0}, {"id": "node_01M852YW65A5M0RJXC66Q5891P", "kind": "terminal", "payoff": -400.0}, {"id": "node_01M852YW6E4V6EW0H8ZQDZR64T", "kind": "terminal", "payoff": 350.0}, {"id": "node_01M852YW6N5PMNR9GY5SXYN05K", "kind": "terminal", "payoff": 150.0}, {"id": "node_01M852YW6XYVYT32VRREGANW54", "kind": "terminal", "payoff": 0.0}]}}}</script>
 <script>
 // Decision-tree rollback for the page, as latris's (operations/decision_tree.py). No dependencies.
 //
@@ -1305,6 +1317,21 @@ td.ex-ach-cell{ display:table-cell; }
   render();
   if (live && !S.sel && !S.loop) showTab("whatif");
   if (S.sel) reveal(S.sel);
+  // The first fit runs before fonts and the panel settle, so it measures a smaller frame than the one
+  // the picture ends up in. Fit again once they have, and when the window changes size, until the
+  // reader zooms by hand.
+  var autoFit = true;
+  function refit() { if (autoFit) setZoom(fitZoom()); }
+  ["ex-zoom-in", "ex-zoom-out"].forEach(function (id) {
+    document.getElementById(id).addEventListener("click", function () { autoFit = false; });
+  });
+  document.getElementById("ex-zoom-fit").addEventListener("click", function () { autoFit = true; });
+  canvas.addEventListener("wheel", function (e) { if (e.ctrlKey || e.metaKey) autoFit = false; }, { passive: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refit);
+  window.addEventListener("load", refit);
+  var resizeTimer = 0;
+  window.addEventListener("resize", function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(refit, 120); });
+  requestAnimationFrame(refit);
   window.addEventListener("hashchange", function () {
     var next = readHash();
     Object.keys(next).forEach(function (k) { S[k] = next[k]; });

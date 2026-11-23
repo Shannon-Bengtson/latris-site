@@ -27,6 +27,14 @@ a{ color:var(--ex-accent-dark); }
 .ex-question{ margin:0 0 .6rem; font-size:1.1rem; max-width:60ch; }
 .ex-intro{ margin:0 0 .5rem; max-width:70ch; }
 .ex-status{ margin:.4rem 0 0; font-size:.9rem; color:var(--ex-muted); }
+/* On a wide screen the heading sits in two columns, so the picture keeps more of the window's height. */
+@media (min-width:1000px){
+  .ex-head{ max-width:none; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); column-gap:2.5rem; align-items:end; padding:.9rem 1.5rem .7rem; }
+  .ex-head h1{ margin-bottom:.4rem; }
+  .ex-head-main .ex-question{ margin-bottom:0; }
+  .ex-head-side .ex-intro{ font-size:.95rem; }
+  .ex-head-side .ex-intro:last-of-type{ margin-bottom:0; }
+}
 .ex-noscript{ background:var(--ex-tint); padding:.7rem 1.5rem; font-size:.95rem; }
 
 /* On a wide screen the page is one screen tall: the picture fills what the heading leaves, the panel scrolls. */
@@ -51,10 +59,10 @@ body{ display:flex; flex-direction:column; height:100vh; }
 }
 .ex-zoom button:hover, .ex-layer:hover, .ex-btn:hover{ border-color:var(--ex-accent); }
 .ex-layer[aria-pressed="true"], .ex-btn[aria-pressed="true"]{ background:var(--ex-accent); border-color:var(--ex-accent); color:#fff; }
-.ex-canvas{ flex:1 1 auto; overflow:auto; cursor:grab; padding:.5rem; }
+.ex-canvas{ flex:1 1 auto; overflow:auto; cursor:grab; padding:.5rem; display:flex; }
 .ex-canvas.ex-dragging{ cursor:grabbing; user-select:none; }
-.ex-canvas svg{ display:block; margin:0 auto; max-width:none; height:auto; }
-.ex-empty{ color:var(--ex-muted); padding:2rem; text-align:center; }
+.ex-canvas svg{ display:block; margin:auto; flex:none; max-width:none; height:auto; }  /* centred; flush to the edge once it is larger */
+.ex-empty{ flex:1; color:var(--ex-muted); padding:2rem; text-align:center; }
 .ex-hint{ margin:0; padding:.4rem .7rem; font-size:.8rem; color:var(--ex-muted); border-top:1px solid var(--ex-border); }
 .no-js .ex-toolbar, .no-js .ex-hint, .no-js .ex-tabs{ display:none; }
 .no-js body{ display:block; height:auto; }
@@ -260,9 +268,12 @@ td.ex-ach-cell{ display:table-cell; }
 </head>
 <body>
 <header class="ex-head">
+  <div class="ex-head-main">
   <p class="ex-eyebrow">Interactive model · Multi-Criteria Decision Analysis</p>
   <h1>Siting the new hospital</h1>
   <p class="ex-question"><span class="ex-label">The question</span>Which site should the new hospital go on?</p>
+  </div>
+  <div class="ex-head-side">
   
   <p class="ex-status">
     8 factors, 0 links.
@@ -270,6 +281,7 @@ td.ex-ach-cell{ display:table-cell; }
     
     
   </p>
+  </div>
 </header>
 
 <noscript><div class="ex-noscript">Turn on JavaScript to explore the model. The figure, the list of what is in it and the results are shown below regardless.</div></noscript>
@@ -429,42 +441,42 @@ td.ex-ach-cell{ display:table-cell; }
       <h3 class="ex-h">Factors</h3>
       <ul class="ex-list" id="ex-list-nodes">
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZQWP0HEFMM2X9WJV9PK7N">
+        <li><button type="button" class="ex-item" data-id="node_01M852RBA1CY85AEPBSW50HQGA">
           <span class="ex-item-main">Riverside</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZQWP2HY9MV02BFT9FKEBC">
+        <li><button type="button" class="ex-item" data-id="node_01M852RBA382YYZXR7ZDKD2Z6B">
           <span class="ex-item-main">North Park</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZQWP6AQFT4M897MJ0WQSA">
+        <li><button type="button" class="ex-item" data-id="node_01M852RBA6BAHCF6MBY6WJYZVR">
           <span class="ex-item-main">Old Depot</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZQWPBS9DTM25MFYAKNSBD">
+        <li><button type="button" class="ex-item" data-id="node_01M852RBAAGS8N2666FQGBHPNF">
           <span class="ex-item-main">Build cost</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZQWPJX4W3X6Z9JKSNKAM7">
+        <li><button type="button" class="ex-item" data-id="node_01M852RBAGVN2AMPFKAJP8M8AX">
           <span class="ex-item-main">Travel time</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZQWPSAH98CK69PA7T2FGF">
+        <li><button type="button" class="ex-item" data-id="node_01M852RBANB12KJN24JR5R2GK8">
           <span class="ex-item-main">Bed capacity</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZQWQ2AP90S278MFGP9NSY">
+        <li><button type="button" class="ex-item" data-id="node_01M852RBAXQ0NNJQ2Z88R5PPJH">
           <span class="ex-item-main">Expansion potential</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZQWQCA59TJPTCJ5JZQTED">
+        <li><button type="button" class="ex-item" data-id="node_01M852RBB52Y635HAHRTZ48V90">
           <span class="ex-item-main">Community acceptance</span>
           
         </button></li>
@@ -479,12 +491,12 @@ td.ex-ach-cell{ display:table-cell; }
 </main>
 
 <footer class="ex-footer">
-  <p>Generated on 2026-11-23 from the Multi-Criteria Decision Analysis model, version <code>1d991f3f07</code>. This page is a snapshot: it does not update when the model changes.</p>
+  <p>Generated on 2026-11-23 from the Multi-Criteria Decision Analysis model, version <code>5bf3b95e4b</code>. This page is a snapshot: it does not update when the model changes.</p>
   <p class="ex-badge"><a href="https://latris.app/?utm_source=latris-export&utm_medium=badge">Made with Latris</a></p>
 </footer>
 
 <div class="ex-tip" id="ex-tip" role="tooltip" hidden></div>
-<script type="application/json" id="ex-data">{"v": 1, "model": {"type": "mcda", "name": "Multi-Criteria Decision Analysis", "signed": false}, "show_sources": true, "nodes": [{"id": "node_01M84ZQWP0HEFMM2X9WJV9PK7N", "label": "Riverside", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZQWP2HY9MV02BFT9FKEBC", "label": "North Park", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZQWP6AQFT4M897MJ0WQSA", "label": "Old Depot", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZQWPBS9DTM25MFYAKNSBD", "label": "Build cost", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": [{"title": "Multiple Criteria Decision Analysis for Health Care Decision Making \u2014 ISPOR Good Practices", "authors": "Thokala, P. et al.", "year": 2016, "container": "", "url": "https://doi.org/10.1016/j.jval.2015.12.003", "against": false, "checked": true, "verdict": "supports", "checked_by": "human", "second_hand": false, "quote": ""}]}, {"id": "node_01M84ZQWPJX4W3X6Z9JKSNKAM7", "label": "Travel time", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZQWPSAH98CK69PA7T2FGF", "label": "Bed capacity", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZQWQ2AP90S278MFGP9NSY", "label": "Expansion potential", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZQWQCA59TJPTCJ5JZQTED", "label": "Community acceptance", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}], "links": [], "loops": [], "live": {"mcda": {"options": [{"id": "node_01M84ZQWP2HY9MV02BFT9FKEBC", "label": "North Park"}, {"id": "node_01M84ZQWP6AQFT4M897MJ0WQSA", "label": "Old Depot"}, {"id": "node_01M84ZQWP0HEFMM2X9WJV9PK7N", "label": "Riverside"}], "criteria": [{"id": "node_01M84ZQWPSAH98CK69PA7T2FGF", "label": "Bed capacity", "weight": 0.2, "direction": "higher", "units": "beds", "unsourced": true}, {"id": "node_01M84ZQWPBS9DTM25MFYAKNSBD", "label": "Build cost", "weight": 0.3, "direction": "lower", "units": "\u00a3m", "unsourced": true}, {"id": "node_01M84ZQWQCA59TJPTCJ5JZQTED", "label": "Community acceptance", "weight": 0.15, "direction": "higher", "units": "%", "unsourced": true}, {"id": "node_01M84ZQWQ2AP90S278MFGP9NSY", "label": "Expansion potential", "weight": 0.1, "direction": "higher", "units": "index", "unsourced": true}, {"id": "node_01M84ZQWPJX4W3X6Z9JKSNKAM7", "label": "Travel time", "weight": 0.25, "direction": "lower", "units": "min", "unsourced": true}], "values": [[0.75, 0.6, 0.4166666666666667, 0.8, 0.48], [0.6, 0.9, 0.16666666666666666, 0.6, 0.2], [0.4, 0.1, 0.9166666666666666, 0.2, 0.88]], "scores": [[450.0, 70.0, 55.0, 80.0, 28.0], [420.0, 55.0, 40.0, 60.0, 35.0], [380.0, 95.0, 85.0, 20.0, 18.0]], "unverified": [[true, false, false, true, false], [true, false, false, true, false], [true, false, false, true, false]]}}}</script>
+<script type="application/json" id="ex-data">{"v": 1, "model": {"type": "mcda", "name": "Multi-Criteria Decision Analysis", "signed": false}, "show_sources": true, "nodes": [{"id": "node_01M852RBA1CY85AEPBSW50HQGA", "label": "Riverside", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852RBA382YYZXR7ZDKD2Z6B", "label": "North Park", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852RBA6BAHCF6MBY6WJYZVR", "label": "Old Depot", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852RBAAGS8N2666FQGBHPNF", "label": "Build cost", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": [{"title": "Multiple Criteria Decision Analysis for Health Care Decision Making \u2014 ISPOR Good Practices", "authors": "Thokala, P. et al.", "year": 2016, "container": "", "url": "https://doi.org/10.1016/j.jval.2015.12.003", "against": false, "checked": true, "verdict": "supports", "checked_by": "human", "second_hand": false, "quote": ""}]}, {"id": "node_01M852RBAGVN2AMPFKAJP8M8AX", "label": "Travel time", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852RBANB12KJN24JR5R2GK8", "label": "Bed capacity", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852RBAXQ0NNJQ2Z88R5PPJH", "label": "Expansion potential", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852RBB52Y635HAHRTZ48V90", "label": "Community acceptance", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}], "links": [], "loops": [], "live": {"mcda": {"options": [{"id": "node_01M852RBA382YYZXR7ZDKD2Z6B", "label": "North Park"}, {"id": "node_01M852RBA6BAHCF6MBY6WJYZVR", "label": "Old Depot"}, {"id": "node_01M852RBA1CY85AEPBSW50HQGA", "label": "Riverside"}], "criteria": [{"id": "node_01M852RBANB12KJN24JR5R2GK8", "label": "Bed capacity", "weight": 0.2, "direction": "higher", "units": "beds", "unsourced": true}, {"id": "node_01M852RBAAGS8N2666FQGBHPNF", "label": "Build cost", "weight": 0.3, "direction": "lower", "units": "\u00a3m", "unsourced": true}, {"id": "node_01M852RBB52Y635HAHRTZ48V90", "label": "Community acceptance", "weight": 0.15, "direction": "higher", "units": "%", "unsourced": true}, {"id": "node_01M852RBAXQ0NNJQ2Z88R5PPJH", "label": "Expansion potential", "weight": 0.1, "direction": "higher", "units": "index", "unsourced": true}, {"id": "node_01M852RBAGVN2AMPFKAJP8M8AX", "label": "Travel time", "weight": 0.25, "direction": "lower", "units": "min", "unsourced": true}], "values": [[0.75, 0.6, 0.4166666666666667, 0.8, 0.48], [0.6, 0.9, 0.16666666666666666, 0.6, 0.2], [0.4, 0.1, 0.9166666666666666, 0.2, 0.88]], "scores": [[450.0, 70.0, 55.0, 80.0, 28.0], [420.0, 55.0, 40.0, 60.0, 35.0], [380.0, 95.0, 85.0, 20.0, 18.0]], "unverified": [[true, false, false, true, false], [true, false, false, true, false], [true, false, false, true, false]]}}}</script>
 <script>
 // Multi-criteria ranking for the page: the additive value model latris uses
 // (operations/mcda.py). No dependencies.
@@ -1331,6 +1343,21 @@ td.ex-ach-cell{ display:table-cell; }
   render();
   if (live && !S.sel && !S.loop) showTab("whatif");
   if (S.sel) reveal(S.sel);
+  // The first fit runs before fonts and the panel settle, so it measures a smaller frame than the one
+  // the picture ends up in. Fit again once they have, and when the window changes size, until the
+  // reader zooms by hand.
+  var autoFit = true;
+  function refit() { if (autoFit) setZoom(fitZoom()); }
+  ["ex-zoom-in", "ex-zoom-out"].forEach(function (id) {
+    document.getElementById(id).addEventListener("click", function () { autoFit = false; });
+  });
+  document.getElementById("ex-zoom-fit").addEventListener("click", function () { autoFit = true; });
+  canvas.addEventListener("wheel", function (e) { if (e.ctrlKey || e.metaKey) autoFit = false; }, { passive: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refit);
+  window.addEventListener("load", refit);
+  var resizeTimer = 0;
+  window.addEventListener("resize", function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(refit, 120); });
+  requestAnimationFrame(refit);
   window.addEventListener("hashchange", function () {
     var next = readHash();
     Object.keys(next).forEach(function (k) { S[k] = next[k]; });

@@ -27,6 +27,14 @@ a{ color:var(--ex-accent-dark); }
 .ex-question{ margin:0 0 .6rem; font-size:1.1rem; max-width:60ch; }
 .ex-intro{ margin:0 0 .5rem; max-width:70ch; }
 .ex-status{ margin:.4rem 0 0; font-size:.9rem; color:var(--ex-muted); }
+/* On a wide screen the heading sits in two columns, so the picture keeps more of the window's height. */
+@media (min-width:1000px){
+  .ex-head{ max-width:none; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); column-gap:2.5rem; align-items:end; padding:.9rem 1.5rem .7rem; }
+  .ex-head h1{ margin-bottom:.4rem; }
+  .ex-head-main .ex-question{ margin-bottom:0; }
+  .ex-head-side .ex-intro{ font-size:.95rem; }
+  .ex-head-side .ex-intro:last-of-type{ margin-bottom:0; }
+}
 .ex-noscript{ background:var(--ex-tint); padding:.7rem 1.5rem; font-size:.95rem; }
 
 /* On a wide screen the page is one screen tall: the picture fills what the heading leaves, the panel scrolls. */
@@ -51,10 +59,10 @@ body{ display:flex; flex-direction:column; height:100vh; }
 }
 .ex-zoom button:hover, .ex-layer:hover, .ex-btn:hover{ border-color:var(--ex-accent); }
 .ex-layer[aria-pressed="true"], .ex-btn[aria-pressed="true"]{ background:var(--ex-accent); border-color:var(--ex-accent); color:#fff; }
-.ex-canvas{ flex:1 1 auto; overflow:auto; cursor:grab; padding:.5rem; }
+.ex-canvas{ flex:1 1 auto; overflow:auto; cursor:grab; padding:.5rem; display:flex; }
 .ex-canvas.ex-dragging{ cursor:grabbing; user-select:none; }
-.ex-canvas svg{ display:block; margin:0 auto; max-width:none; height:auto; }
-.ex-empty{ color:var(--ex-muted); padding:2rem; text-align:center; }
+.ex-canvas svg{ display:block; margin:auto; flex:none; max-width:none; height:auto; }  /* centred; flush to the edge once it is larger */
+.ex-empty{ flex:1; color:var(--ex-muted); padding:2rem; text-align:center; }
 .ex-hint{ margin:0; padding:.4rem .7rem; font-size:.8rem; color:var(--ex-muted); border-top:1px solid var(--ex-border); }
 .no-js .ex-toolbar, .no-js .ex-hint, .no-js .ex-tabs{ display:none; }
 .no-js body{ display:block; height:auto; }
@@ -260,9 +268,12 @@ td.ex-ach-cell{ display:table-cell; }
 </head>
 <body>
 <header class="ex-head">
+  <div class="ex-head-main">
   <p class="ex-eyebrow">Interactive model · Analysis of Competing Hypotheses</p>
   <h1>Unusual activity on the network</h1>
   <p class="ex-question"><span class="ex-label">The question</span>What explains the unusual outbound traffic on the finance VLAN?</p>
+  </div>
+  <div class="ex-head-side">
   
   <p class="ex-status">
     11 factors, 0 links.
@@ -270,6 +281,7 @@ td.ex-ach-cell{ display:table-cell; }
     
     
   </p>
+  </div>
 </header>
 
 <noscript><div class="ex-noscript">Turn on JavaScript to explore the model. The figure, the list of what is in it and the results are shown below regardless.</div></noscript>
@@ -439,57 +451,57 @@ td.ex-ach-cell{ display:table-cell; }
       <h3 class="ex-h">Factors</h3>
       <ul class="ex-list" id="ex-list-nodes">
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZV19YP99TC23480MYFQPZ">
+        <li><button type="button" class="ex-item" data-id="node_01M852VMQQY06JPEWXJRDYB0CS">
           <span class="ex-item-main">Malicious exfiltration</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZV1A1P1TQGKZFWK2VTCFA">
+        <li><button type="button" class="ex-item" data-id="node_01M852VMQS44Q174N8EWERBBCK">
           <span class="ex-item-main">Misconfigured backup job</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZV1A5NAGN1T33SFNJ386X">
+        <li><button type="button" class="ex-item" data-id="node_01M852VMQW60VS22B75WCQQ723">
           <span class="ex-item-main">Compromised vendor credential</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZV1AAZAVPS90YDWKNPJEA">
+        <li><button type="button" class="ex-item" data-id="node_01M852VMR1VSZKFBCF5DDSE0TT">
           <span class="ex-item-main">Traffic began minutes after a scheduled backup change</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZV1AG7BVXRHV6R77PN0DA">
+        <li><button type="button" class="ex-item" data-id="node_01M852VMR6N87QWZ1ZYPRZA0P7">
           <span class="ex-item-main">Destination is a known cloud storage range</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZV1ARVT1VJTFCT0F2DRZW">
+        <li><button type="button" class="ex-item" data-id="node_01M852VMRCNS1XB0WBP72P20EH">
           <span class="ex-item-main">No lateral movement observed</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZV1B1JS3BT3115M7ZXTHD">
+        <li><button type="button" class="ex-item" data-id="node_01M852VMRKEJ0AZB89PK11M6ZV">
           <span class="ex-item-main">Vendor reported a credential leak last month</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZV1BBCA18XVPVQ0KD7XED">
+        <li><button type="button" class="ex-item" data-id="node_01M852VMRVYH5XEHZ2MG98SFNC">
           <span class="ex-item-main">Volume matches the nightly backup size</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZV1BQ8DAZ4SH3VFT4BM6W">
+        <li><button type="button" class="ex-item" data-id="node_01M852VMS4XREYCF0CRP4S34VG">
           <span class="ex-item-main">Traffic recurs nightly at the same time</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZV1C36ZP2ZM5DPYYZ9G1H">
+        <li><button type="button" class="ex-item" data-id="node_01M852VMSEZYR3DMR9FMVBNT20">
           <span class="ex-item-main">EDR raised no process alerts</span>
           
         </button></li>
         
-        <li><button type="button" class="ex-item" data-id="node_01M84ZV1CHWC0Y04E2HZPRAF2F">
+        <li><button type="button" class="ex-item" data-id="node_01M852VMSSGGWSWZDXT5ADVGMB">
           <span class="ex-item-main">Firewall change request references the storage range</span>
           
         </button></li>
@@ -504,12 +516,12 @@ td.ex-ach-cell{ display:table-cell; }
 </main>
 
 <footer class="ex-footer">
-  <p>Generated on 2026-11-23 from the Analysis of Competing Hypotheses model, version <code>988d07da5b</code>. This page is a snapshot: it does not update when the model changes.</p>
+  <p>Generated on 2026-11-23 from the Analysis of Competing Hypotheses model, version <code>97a4a39c70</code>. This page is a snapshot: it does not update when the model changes.</p>
   <p class="ex-badge"><a href="https://latris.app/?utm_source=latris-export&utm_medium=badge">Made with Latris</a></p>
 </footer>
 
 <div class="ex-tip" id="ex-tip" role="tooltip" hidden></div>
-<script type="application/json" id="ex-data">{"v": 1, "model": {"type": "ach", "name": "Analysis of Competing Hypotheses", "signed": false}, "show_sources": true, "nodes": [{"id": "node_01M84ZV19YP99TC23480MYFQPZ", "label": "Malicious exfiltration", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": [{"title": "Psychology of Intelligence Analysis", "authors": "Heuer, R.J.", "year": 1999, "container": "", "url": "https://www.cia.gov/static/1050fd8bc75f2e27a4a36f0ceb9ba0d3/Psychology-of-Intelligence-Analysis.pdf", "against": false, "checked": true, "verdict": "supports", "checked_by": "human", "second_hand": false, "quote": ""}]}, {"id": "node_01M84ZV1A1P1TQGKZFWK2VTCFA", "label": "Misconfigured backup job", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZV1A5NAGN1T33SFNJ386X", "label": "Compromised vendor credential", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZV1AAZAVPS90YDWKNPJEA", "label": "Traffic began minutes after a scheduled backup change", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZV1AG7BVXRHV6R77PN0DA", "label": "Destination is a known cloud storage range", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZV1ARVT1VJTFCT0F2DRZW", "label": "No lateral movement observed", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZV1B1JS3BT3115M7ZXTHD", "label": "Vendor reported a credential leak last month", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZV1BBCA18XVPVQ0KD7XED", "label": "Volume matches the nightly backup size", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZV1BQ8DAZ4SH3VFT4BM6W", "label": "Traffic recurs nightly at the same time", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZV1C36ZP2ZM5DPYYZ9G1H", "label": "EDR raised no process alerts", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M84ZV1CHWC0Y04E2HZPRAF2F", "label": "Firewall change request references the storage range", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}], "links": [], "loops": [], "live": {"ach": {"hypotheses": [{"id": "node_01M84ZV1A5NAGN1T33SFNJ386X", "label": "Compromised vendor credential"}, {"id": "node_01M84ZV19YP99TC23480MYFQPZ", "label": "Malicious exfiltration"}, {"id": "node_01M84ZV1A1P1TQGKZFWK2VTCFA", "label": "Misconfigured backup job"}], "items": [{"id": "node_01M84ZV1AG7BVXRHV6R77PN0DA", "label": "Destination is a known cloud storage range", "weight": 0.7, "credibility": "high", "relevance": "medium", "sources": "none"}, {"id": "node_01M84ZV1C36ZP2ZM5DPYYZ9G1H", "label": "EDR raised no process alerts", "weight": 0.48999999999999994, "credibility": "medium", "relevance": "medium", "sources": "none"}, {"id": "node_01M84ZV1CHWC0Y04E2HZPRAF2F", "label": "Firewall change request references the storage range", "weight": 1.0, "credibility": "high", "relevance": "high", "sources": "none"}, {"id": "node_01M84ZV1ARVT1VJTFCT0F2DRZW", "label": "No lateral movement observed", "weight": 0.7, "credibility": "medium", "relevance": "high", "sources": "none"}, {"id": "node_01M84ZV1AAZAVPS90YDWKNPJEA", "label": "Traffic began minutes after a scheduled backup change", "weight": 1.0, "credibility": "high", "relevance": "high", "sources": "none"}, {"id": "node_01M84ZV1BQ8DAZ4SH3VFT4BM6W", "label": "Traffic recurs nightly at the same time", "weight": 1.0, "credibility": "high", "relevance": "high", "sources": "none"}, {"id": "node_01M84ZV1B1JS3BT3115M7ZXTHD", "label": "Vendor reported a credential leak last month", "weight": 0.48999999999999994, "credibility": "medium", "relevance": "medium", "sources": "none"}, {"id": "node_01M84ZV1BBCA18XVPVQ0KD7XED", "label": "Volume matches the nightly backup size", "weight": 1.0, "credibility": "high", "relevance": "high", "sources": "none"}], "ratings": [["C", "C", "CC"], ["C", "I", "C"], ["N", "I", "CC"], ["N", "I", "C"], ["N", "I", "CC"], ["C", "I", "CC"], ["CC", "N", "N"], ["N", "N", "CC"]], "why": [["", "", ""], ["", "Data staging of this size would trip the process monitors.", ""], ["", "An attacker would not file the paperwork that documents the destination.", ""], ["", "Exfiltration at this volume usually shows staging; none observed.", ""], ["", "An attacker already in place would not wait for a change window.", ""], ["", "A one-off theft would not recur on the backup schedule.", ""], ["", "", ""], ["", "", ""]], "points": {"CC": 0, "C": 0, "N": 0, "I": 1, "II": 2}}}}</script>
+<script type="application/json" id="ex-data">{"v": 1, "model": {"type": "ach", "name": "Analysis of Competing Hypotheses", "signed": false}, "show_sources": true, "nodes": [{"id": "node_01M852VMQQY06JPEWXJRDYB0CS", "label": "Malicious exfiltration", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": [{"title": "Psychology of Intelligence Analysis", "authors": "Heuer, R.J.", "year": 1999, "container": "", "url": "https://www.cia.gov/static/1050fd8bc75f2e27a4a36f0ceb9ba0d3/Psychology-of-Intelligence-Analysis.pdf", "against": false, "checked": true, "verdict": "supports", "checked_by": "human", "second_hand": false, "quote": ""}]}, {"id": "node_01M852VMQS44Q174N8EWERBBCK", "label": "Misconfigured backup job", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852VMQW60VS22B75WCQQ723", "label": "Compromised vendor credential", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852VMR1VSZKFBCF5DDSE0TT", "label": "Traffic began minutes after a scheduled backup change", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852VMR6N87QWZ1ZYPRZA0P7", "label": "Destination is a known cloud storage range", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852VMRCNS1XB0WBP72P20EH", "label": "No lateral movement observed", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852VMRKEJ0AZB89PK11M6ZV", "label": "Vendor reported a credential leak last month", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852VMRVYH5XEHZ2MG98SFNC", "label": "Volume matches the nightly backup size", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852VMS4XREYCF0CRP4S34VG", "label": "Traffic recurs nightly at the same time", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852VMSEZYR3DMR9FMVBNT20", "label": "EDR raised no process alerts", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}, {"id": "node_01M852VMSSGGWSWZDXT5ADVGMB", "label": "Firewall change request references the storage range", "outcome": false, "description": "", "confidence": "", "ai": false, "reviewed": false, "maturity": "proposed", "sources": []}], "links": [], "loops": [], "live": {"ach": {"hypotheses": [{"id": "node_01M852VMQW60VS22B75WCQQ723", "label": "Compromised vendor credential"}, {"id": "node_01M852VMQQY06JPEWXJRDYB0CS", "label": "Malicious exfiltration"}, {"id": "node_01M852VMQS44Q174N8EWERBBCK", "label": "Misconfigured backup job"}], "items": [{"id": "node_01M852VMR6N87QWZ1ZYPRZA0P7", "label": "Destination is a known cloud storage range", "weight": 0.7, "credibility": "high", "relevance": "medium", "sources": "none"}, {"id": "node_01M852VMSEZYR3DMR9FMVBNT20", "label": "EDR raised no process alerts", "weight": 0.48999999999999994, "credibility": "medium", "relevance": "medium", "sources": "none"}, {"id": "node_01M852VMSSGGWSWZDXT5ADVGMB", "label": "Firewall change request references the storage range", "weight": 1.0, "credibility": "high", "relevance": "high", "sources": "none"}, {"id": "node_01M852VMRCNS1XB0WBP72P20EH", "label": "No lateral movement observed", "weight": 0.7, "credibility": "medium", "relevance": "high", "sources": "none"}, {"id": "node_01M852VMR1VSZKFBCF5DDSE0TT", "label": "Traffic began minutes after a scheduled backup change", "weight": 1.0, "credibility": "high", "relevance": "high", "sources": "none"}, {"id": "node_01M852VMS4XREYCF0CRP4S34VG", "label": "Traffic recurs nightly at the same time", "weight": 1.0, "credibility": "high", "relevance": "high", "sources": "none"}, {"id": "node_01M852VMRKEJ0AZB89PK11M6ZV", "label": "Vendor reported a credential leak last month", "weight": 0.48999999999999994, "credibility": "medium", "relevance": "medium", "sources": "none"}, {"id": "node_01M852VMRVYH5XEHZ2MG98SFNC", "label": "Volume matches the nightly backup size", "weight": 1.0, "credibility": "high", "relevance": "high", "sources": "none"}], "ratings": [["C", "C", "CC"], ["C", "I", "C"], ["N", "I", "CC"], ["N", "I", "C"], ["N", "I", "CC"], ["C", "I", "CC"], ["CC", "N", "N"], ["N", "N", "CC"]], "why": [["", "", ""], ["", "Data staging of this size would trip the process monitors.", ""], ["", "An attacker would not file the paperwork that documents the destination.", ""], ["", "Exfiltration at this volume usually shows staging; none observed.", ""], ["", "An attacker already in place would not wait for a change window.", ""], ["", "A one-off theft would not recur on the backup schedule.", ""], ["", "", ""], ["", "", ""]], "points": {"CC": 0, "C": 0, "N": 0, "I": 1, "II": 2}}}}</script>
 <script>
 // Analysis of competing hypotheses for the page: latris's weighted inconsistency
 // (operations/ach.py). No dependencies.
@@ -1271,6 +1283,21 @@ td.ex-ach-cell{ display:table-cell; }
   render();
   if (live && !S.sel && !S.loop) showTab("whatif");
   if (S.sel) reveal(S.sel);
+  // The first fit runs before fonts and the panel settle, so it measures a smaller frame than the one
+  // the picture ends up in. Fit again once they have, and when the window changes size, until the
+  // reader zooms by hand.
+  var autoFit = true;
+  function refit() { if (autoFit) setZoom(fitZoom()); }
+  ["ex-zoom-in", "ex-zoom-out"].forEach(function (id) {
+    document.getElementById(id).addEventListener("click", function () { autoFit = false; });
+  });
+  document.getElementById("ex-zoom-fit").addEventListener("click", function () { autoFit = true; });
+  canvas.addEventListener("wheel", function (e) { if (e.ctrlKey || e.metaKey) autoFit = false; }, { passive: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refit);
+  window.addEventListener("load", refit);
+  var resizeTimer = 0;
+  window.addEventListener("resize", function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(refit, 120); });
+  requestAnimationFrame(refit);
   window.addEventListener("hashchange", function () {
     var next = readHash();
     Object.keys(next).forEach(function (k) { S[k] = next[k]; });
