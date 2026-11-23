@@ -1,0 +1,38 @@
+# The live example on the website (how-it-works, "Made to be handed over").
+# An illustrative Bayesian network: the structure is plausible, the numbers are made up.
+# Rebuild with build.py in this folder (see its docstring).
+model_type: bn
+factors:
+  - {label: Storm, description: How heavy the rain was over the catchment in the days before.}
+  - {label: Sewer overflow, description: Whether the combined sewers spilled untreated water into the river.}
+  - {label: Runoff, description: Water washing off farmland and streets into the river.}
+  - {label: Water quality, description: "Bacteria levels at the beach, as the council's sampling grades them."}
+  - {label: Algal bloom, description: A visible bloom of algae near the shore.}
+  - {label: Beach closure, description: Whether the council closes the beach to swimmers.}
+links:
+  - {from: Storm, to: Sewer overflow, reason: Heavy rain overwhelms combined sewers.}
+  - {from: Storm, to: Runoff, reason: More rain carries more water off the land.}
+  - {from: Sewer overflow, to: Water quality, reason: Overflows carry untreated sewage to the beach.}
+  - {from: Runoff, to: Water quality, reason: Runoff carries bacteria from farmland and streets.}
+  - {from: Runoff, to: Algal bloom, reason: Runoff brings the nutrients algae feed on.}
+  - {from: Water quality, to: Beach closure, reason: The council closes the beach when sampling is poor.}
+  - {from: Algal bloom, to: Beach closure, reason: "Some blooms are toxic, so a bloom can close the beach on its own."}
+bn:
+  states:
+    - {node: Storm, states: [none, moderate, severe], ordered: true}
+    - {node: Sewer overflow, states: ["yes", "no"]}
+    - {node: Runoff, states: [high, low]}
+    - {node: Water quality, states: [good, fair, poor], ordered: true}
+    - {node: Algal bloom, states: ["yes", "no"]}
+    - {node: Beach closure, states: [closed, open]}
+  tables:
+    - {node: Storm, probabilities: [0.7, 0.22, 0.08]}
+    - {node: Sewer overflow, parents: [Storm], probabilities: [0.02, 0.98, 0.15, 0.85, 0.6, 0.4]}
+    - {node: Runoff, parents: [Storm], probabilities: [0.1, 0.9, 0.55, 0.45, 0.95, 0.05]}
+    - node: Water quality
+      parents: [Sewer overflow, Runoff]
+      probabilities: [0.05, 0.25, 0.7, 0.2, 0.45, 0.35, 0.3, 0.5, 0.2, 0.85, 0.12, 0.03]
+    - {node: Algal bloom, parents: [Runoff], probabilities: [0.35, 0.65, 0.06, 0.94]}
+    - node: Beach closure
+      parents: [Water quality, Algal bloom]
+      probabilities: [0.3, 0.7, 0.01, 0.99, 0.6, 0.4, 0.08, 0.92, 0.97, 0.03, 0.75, 0.25]
