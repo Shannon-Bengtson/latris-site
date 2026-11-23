@@ -11,7 +11,8 @@ markers is owned by this script and overwritten on every run:
     <!-- @footer:start -->   ... <!-- @footer:end -->    site footer
 
 It can also regenerate the Changelog page from the library's git history
-(one section per "Bump version to X" commit; needs a full, unshallow clone):
+(one section per version; needs a full, unshallow clone with its `v*` tags,
+which say which versions were published to PyPI):
 
     python3 tools/build.py --changelog ../latris
 
@@ -261,8 +262,15 @@ def foundations_html(md_path: Path) -> str:
 
 # ── Changelog page from the library's git history ────────────────────────
 
-# Commit kinds that say nothing to a reader of the site.
-_SKIP = re.compile(r"^(style|ci|test|tests|chore|build)(\(|:|!)|^Bump version|\btest:", re.I)
+# Commit kinds that say nothing to a reader of the site: style, CI, test and
+# chore commits by their prefix, version bumps, and merges (also left out by
+# `--no-merges`; the pattern catches a merge subject on an ordinary commit).
+_SKIP = re.compile(
+    r"^(style|ci|test|tests|chore|build)(\(|:|!)|^Bump version|\btest:"
+    r"|^Merge (pull request|remote-tracking branch|branch|main\b)|^Merge .* into \S+$", re.I)
+# A commit that only touches these changes nothing a user of the library gets
+# (tests, CI, and the notes for contributors and coding agents), whatever its subject.
+_INTERNAL_PATH = re.compile(r"^(tests/|\.github/|(.*/)?(CLAUDE|AGENTS)\.md$|docs/engineering/TESTING\.md$)")
 _PREFIX = re.compile(r"^[a-z]+(\(([^)]+)\))?!?:\s*")
 _MONTHS = ["January", "February", "March", "April", "May", "June", "July",
            "August", "September", "October", "November", "December"]
@@ -290,43 +298,83 @@ def _commit_html(subject: str) -> str:
 
 def changelog_html(repo: Path) -> str:
     import subprocess
+
+    def git(*args: str) -> str:
+        return subprocess.run(["git", "-C", str(repo), *args], capture_output=True, text=True, check=True).stdout
+
     ref = "origin/main"
     if subprocess.run(["git", "-C", str(repo), "rev-parse", "--verify", "-q", ref],
                       capture_output=True).returncode != 0:
         ref = "HEAD"
-    shallow = subprocess.run(["git", "-C", str(repo), "rev-parse", "--is-shallow-repository"],
-                             capture_output=True, text=True).stdout.strip()
-    if shallow == "true":
-        raise SystemExit(f"{repo} is a shallow clone; run `git -C {repo} fetch --unshallow origin main` first")
-    log = subprocess.run(
-        ["git", "-C", str(repo), "log", ref, "--reverse", "--date=short", "--format=%H%x1f%ad%x1f%s"],
-        capture_output=True, text=True, check=True).stdout
+    if git("rev-parse", "--is-shallow-repository").strip() == "true":
+        raise SystemExit(f"{repo} is a shallow clone; run `git -C {repo} fetch --unshallow --tags origin main` first")
 
-    releases: list[tuple[str, str, str, list[str]]] = []  # (version, date, sha, subjects)
-    pending: list[str] = []
-    for line in log.splitlines():
+    # Pushing a `v*` tag is what publishes a release to PyPI, so the tags say
+    # which versions were published. A version that was bumped but never tagged
+    # is marked; its changes ship in the next published version.
+    tagged: dict[str, str] = {}  # commit sha -> version
+    for line in git("for-each-ref", "refs/tags/v*", "--format=%(objectname) %(*objectname) %(refname:short)").splitlines():
+        *shas, tag = line.split()
+        tagged[shas[-1]] = tag[1:]  # an annotated tag's commit is the second sha
+    if not tagged:
+        raise SystemExit(f"{repo} has no v* tags, so there's no telling which versions were published; "
+                         f"run `git -C {repo} fetch --tags origin` first")
+    published = set(tagged.values())
+
+    # A release is a "Bump version to X" commit, the first commit, or a tagged
+    # commit. Two in a row with the same version (0.13.0 was bumped twice) are one.
+    releases: list[tuple[str, str, str]] = []  # (version, date, sha), oldest first
+    for line in git("log", ref, "--reverse", "--date=short", "--format=%H%x1f%cd%x1f%s").splitlines():
         sha, date, subject = line.split("\x1f", 2)
-        bump = re.match(r"Bump version to (\S+)", subject)
-        first = re.match(r"Initial commit\b.*?(\d+\.\d+\.\d+)", subject)
-        if bump or first:
-            if first:
-                pending.append("First open-source release")
-            releases.append(((bump or first).group(1), date, sha, pending))
-            pending = []
-        elif not _SKIP.search(subject):
-            pending.append(subject)
+        m = re.match(r"Bump version to (\S+)", subject) or re.match(r"Initial commit\b.*?(\d+\.\d+\.\d+)", subject)
+        version = m.group(1) if m else tagged.get(sha)
+        if not version:
+            continue
+        if releases and releases[-1][0] == version:
+            releases.pop()
+        releases.append((version, date, sha))
+
+    def subjects(tip: str, earlier: list[str]) -> list[str]:
+        """What `tip` has that no earlier release had, newest first: by ancestry, so a
+        branch merged after a release is listed under the release it first shipped in."""
+        log = git("log", "--no-merges", "--format=%x1e%s%x1f", "--name-only", tip, "--not", *earlier)
+        out: list[str] = []
+        for record in log.split("\x1e")[1:]:
+            subject, files = record.split("\x1f", 1)
+            paths = files.split()
+            subject = re.sub(r"\s*\(#\d+\)$", "", subject.strip())  # a squash merge's PR number
+            if _SKIP.search(subject) or (paths and all(_INTERNAL_PATH.match(f) for f in paths)):
+                continue
+            if subject.startswith("Initial commit"):
+                subject = "First open-source release"
+            if subject not in out:
+                out.append(subject)
+        return out
 
     out = ["\n<!-- Generated from the latris repo's git history by tools/build.py --changelog. Don't edit by hand. -->"]
+    # Oldest first, so a change that was cherry-picked onto a later branch is
+    # listed once, under the release it first shipped in.
+    seen: set[str] = set()
+    per_release: list[list[str]] = []
+    for i in range(len(releases) + 1):
+        tip = releases[i][2] if i < len(releases) else ref
+        items = [s for s in subjects(tip, [r[2] for r in releases[:i]]) if s not in seen]
+        seen.update(items)
+        per_release.append(items)
+    pending = per_release.pop()
     if pending:
         out.append('<h2 id="unreleased">Unreleased</h2>\n<ul>')
-        out += [f"  <li>{_commit_html(s)}</li>" for s in reversed(pending)]
+        out += [f"  <li>{_commit_html(s)}</li>" for s in pending]
         out.append("</ul>")
-    for version, date, sha, subjects in reversed(releases):
+    for i in range(len(releases) - 1, -1, -1):
+        version, date, sha = releases[i]
+        items = per_release[i]
+        note = "" if version in published else ' <span class="status-pill later">Not published to PyPI</span>'
         out.append(f'<h2 id="v{version}"><a href="https://github.com/Shannon-Bengtson/latris/commit/{sha}">{version}</a> '
-                   f'<span class="status-pill">{_human_date(date)}</span></h2>')
-        if subjects:
+                   f'<span class="status-pill">{_human_date(date)}</span>{note}</h2>')
+        if items:
             out.append("<ul>")
-            out += [f"  <li>{_commit_html(s)}</li>" for s in reversed(subjects)]
+            out += [f"  <li>{_commit_html(s)}</li>" for s in items]
             out.append("</ul>")
         else:
             out.append("<p>Fixes and maintenance.</p>")
@@ -508,10 +556,20 @@ def sitemap_with(urls: list[str], text: str, lastmod: str) -> str:
     return text.replace("</urlset>", entries + "</urlset>") if missing else text
 
 
+def _llms_dashes(s: str) -> str:
+    """The site's no-em-dash rule for llms.txt: a dash after a list item's label or link
+    (`- **Label** — text`, `- [Doc](url) — text`) becomes a colon, any other a comma."""
+    s = re.sub(r"^(\s*[-*] (?:\*\*[^*\n]+\*\*|`[^`\n]+`|\[[^\]\n]+\]\([^)\n]+\)))[ \t]+—[ \t]+", r"\1: ", s, flags=re.M)
+    s = re.sub(r"\n([ \t]*)—[ \t]+", r",\n\1", s)  # a dash that starts a wrapped line
+    s = re.sub(r"[ \t]+—\s*\n", ",\n", s)            # or ends one
+    s = re.sub(r"[ \t]*—[ \t]*", ", ", s)
+    return s
+
+
 def llms_txt(repo_llms: Path) -> str:
     """The repo's llms.txt with absolute links, pointing humans at the site,
     plus the website pages. Everything else is maintained in the latris repo."""
-    s = repo_llms.read_text(encoding="utf-8")
+    s = _llms_dashes(repo_llms.read_text(encoding="utf-8"))
     s = re.sub(r"\]\((?!https?:|#)([^)]+)\)", lambda m: f"]({GITHUB_DOCS[:-5]}{m.group(1)})", s)
     s = s.replace("humans start at README.md.", "humans start at https://latris.app.", 1)
     if "## Engineering docs" not in s:
