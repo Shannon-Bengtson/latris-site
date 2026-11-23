@@ -3,16 +3,31 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Example: a river-health causal model built in Latris</title>
-  <meta name="description" content="A real Latris model: what's driving an Australian river's poor condition, and where restoration money would do the most good. Built from public sources, every link sourced, one link openly contested." />
+  <title>Examples: real models built in Latris</title>
+  <meta name="description" content="Worked Latris models across health, environment, policy, security and engineering. Each is built from published sources, rebuilt from code on every release, and opens as a report, an explorer and a story." />
   <link rel="canonical" href="https://latris.app/examples/" />
   <meta property="og:site_name" content="Latris" />
-  <meta property="og:title" content="A real model, not a demo: river health in Latris" />
-  <meta property="og:description" content="Every link sourced, one link openly contested, the board's expectation recorded next to the answer. Open the live model." />
+  <meta property="og:title" content="Real models, not demos: the Latris examples" />
+  <meta property="og:description" content="A worked model for each kind of question, every link sourced and every finding traced. Open the report, the explorer or the story." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://latris.app/examples/" />
   <meta property="og:image" content="https://latris.app/assets/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
+  <style>
+    /* Gallery cards; everything else comes from site.css. */
+    .g-status { font-style: italic; color: var(--muted); margin-top: 22px; }
+    .g-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); margin-top: 18px; }
+    .g-card { display: flex; flex-direction: column; }
+    .g-card .g-q { font-style: italic; }
+    .g-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .g-tag { font-size: 12px; font-weight: 600; letter-spacing: .02em; padding: 2px 9px; border-radius: 999px; border: 1px solid currentColor; opacity: .8; }
+    .g-tag.g-domain { border-style: dashed; font-weight: 500; }
+    .g-links { margin-top: auto; padding-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 18px; font-weight: 600; font-size: 15px; }
+    .g-links a { text-decoration: none; }
+    .g-links a:hover { text-decoration: underline; }
+    .g-src { margin-top: 8px; font-size: 13px; }
+    .g-featured { border-width: 2px; }
+  </style>
   <!-- @head:start -->
   <script>document.documentElement.classList.add('js')</script>
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
@@ -56,27 +71,78 @@
 
     <section class="page-hero">
       <div class="wrap">
-        <p class="eyebrow">A real model, not a demo</p>
-        <h1>Is this river getting sick, and where would restoration money do the most good?</h1>
+        <p class="eyebrow">Examples</p>
+        <h1>Real models, not demos.</h1>
         <p class="lead">
+          Worked models across health, environment, policy, security and
+          engineering. Each one is built from published sources, and every
+          link, number and finding traces back to its evidence. Open any of
+          them three ways: the report for a reviewer, the explorer to
+          interrogate the model, the story for the plain answer.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#gallery">Browse the models ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="band" id="gallery">
+      <div class="wrap">
+        <p class="eyebrow reveal">The gallery</p>
+        <h2 class="sec-h reveal">A worked model for each kind of question.</h2>
+        <p class="sec-p reveal">
+          Nothing here is a screenshot. Each model is a spec and a build script
+          in the public
+          <a href="https://github.com/Shannon-Bengtson/latris-examples">latris-examples</a>
+          repo, rebuilt against every Latris release, so every estimate,
+          simulation and sensitivity run on these pages came out of the
+          library. If a finding stops holding, the rebuild shows it.
+        </p>
+        <p class="g-status" id="gallery-status">Loading the gallery…</p>
+        <div class="g-grid" id="gallery-grid"></div>
+        <noscript>
+          <ul>
+            <li><a href="/examples/gallery/sepsis-bn/report.html">Sepsis risk on the ward</a> (Bayesian network)</li>
+            <li><a href="/examples/gallery/fisheries-sd/report.html">A fishery under quota pressure</a> (system dynamics)</li>
+            <li><a href="/examples/gallery/air-quality-dag/report.html">Traffic restrictions and respiratory health</a> (causal DAG)</li>
+            <li><a href="/examples/gallery/policy-fcm/report.html">An EV subsidy in the regional transport system</a> (fuzzy cognitive map)</li>
+            <li><a href="/examples/gallery/hospital-mcda/report.html">Siting the new hospital</a> (multi-criteria analysis)</li>
+            <li><a href="/examples/gallery/intrusion-ach/report.html">Unusual activity on the network</a> (competing hypotheses)</li>
+            <li><a href="/examples/gallery/launch-dt/report.html">Launch, license, or do nothing</a> (decision tree)</li>
+            <li><a href="/examples/gallery/screening-markov/report.html">Is the screening programme worth its cost?</a> (Markov cohort model)</li>
+            <li><a href="/examples/gallery/mentoring-toc/report.html">Does mentoring raise school completion?</a> (theory of change)</li>
+            <li><a href="/examples/gallery/cooling-ft/report.html">Loss of cooling at the data centre</a> (fault tree)</li>
+          </ul>
+        </noscript>
+        <p class="note-p reveal">
+          Don't see your field? If the reasoning has to be defended, it probably fits.
+          <a href="/about/#contact">Tell me what you're working on</a>.
+        </p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section class="band" id="river">
+      <div class="wrap">
+        <p class="eyebrow reveal">A closer look</p>
+        <h2 class="sec-h reveal">Is this river getting sick, and where would restoration money do the most good?</h2>
+        <p class="sec-p reveal">
           A causal loop diagram of a regional Australian river, prepared for a
           catchment management board deciding where to spend. It was built
           entirely in Latris from public sources: the national State of the
           Environment report and the published literature on riverside
           vegetation.
         </p>
-        <div class="cta">
+        <div class="cta reveal">
           <!-- TODO(river-link): temporary report link, expires about 15 Dec 2026 unless saved. Its citations are not checked against the sources. Replace with the saved, checked model. See README "To do". -->
           <a class="btn btn-primary" href="https://app.latris.app/r/cBK2OuoKfwq1L6VWxk8tWfaa">Open the live model →</a>
         </div>
-        <p class="shot-cap">Opens in the Latris app. No account needed to read it.</p>
+        <p class="shot-cap reveal">Opens in the Latris app. No account needed to read it.</p>
       </div>
-    </section>
-
-    <hr class="rule" />
-
-    <section class="band">
-      <div class="wrap example-grid">
+      <div class="wrap example-grid" style="margin-top:40px">
         <div class="reveal">
           <h2>What the model says</h2>
           <div class="body">
@@ -112,14 +178,8 @@
             board's expectation, the answer, then the diagram.</p>
         </div>
       </div>
-    </section>
-
-    <hr class="rule" />
-
-    <section class="band">
       <div class="wrap">
-        <p class="eyebrow reveal">What to click</p>
-        <h2 class="sec-h reveal">Where to look in the live model.</h2>
+        <h3 class="cluster-h reveal" style="margin-top:48px">Where to look in the live model</h3>
         <div class="cards reveal">
           <div class="card">
             <h3>Any arrow</h3>
@@ -141,77 +201,6 @@
               out, such as flow regime and groundwater.</p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <hr class="rule" />
-
-    <!-- ── Fields ── -->
-    <section class="band" id="fields">
-      <div class="wrap">
-        <p class="eyebrow reveal">Where Latris fits</p>
-        <h2 class="sec-h reveal">Answers that will be read by someone who asks hard questions.</h2>
-        <p class="sec-p reveal">
-          The river model is a causal loop diagram, one of
-          <a href="/formalisms/">fifteen model types</a>. The same evidence
-          trail sits under a decision, a risk case, an argument or a
-          calculation.
-        </p>
-
-        <div class="cluster reveal">
-          <h3 class="cluster-h">Environment, water and policy</h3>
-          <div class="usecases">
-            <div class="uc">
-              <h3>Catchments and ecosystems</h3>
-              <p>What's driving change in a river or ecosystem, and which interventions actually move it?</p>
-            </div>
-            <div class="uc">
-              <h3>Programs and policy</h3>
-              <p>A program's logic from activities to impact, with the evidence for each step and what changed when it started.</p>
-            </div>
-            <div class="uc">
-              <h3>Public health and wellbeing</h3>
-              <p>Mapping the causes behind an outcome to target where action will help most.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="cluster reveal">
-          <h3 class="cluster-h">Risk and safety</h3>
-          <div class="usecases">
-            <div class="uc">
-              <h3>Natural hazards and risk</h3>
-              <p>How a hazard comes about, what stands between it and harm, and where the protection is thin.</p>
-            </div>
-            <div class="uc">
-              <h3>Safety and assurance</h3>
-              <p>Claims and evidence laid out so a reviewer or regulator can follow, and challenge, every step.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="cluster reveal">
-          <h3 class="cluster-h">Decisions and calculations</h3>
-          <div class="usecases">
-            <div class="uc">
-              <h3>Options and trade-offs</h3>
-              <p>Which option to choose on several criteria, under uncertainty or over years, and how firm the choice is.</p>
-            </div>
-            <div class="uc">
-              <h3>Investigations and cases</h3>
-              <p>Which explanation the evidence fails to rule out, and whether the case put to a board or regulator holds up.</p>
-            </div>
-            <div class="uc">
-              <h3>Engineering and science calculations</h3>
-              <p>A result built from published formulas, with units checked and every coefficient sourced.</p>
-            </div>
-          </div>
-        </div>
-
-        <p class="note-p reveal">
-          Don't see your field? If the reasoning has to be defended, it probably fits.
-          <a href="/about/#contact">Tell me what you're working on</a>.
-        </p>
       </div>
     </section>
 
@@ -272,5 +261,86 @@
     </div>
   </footer>
   <!-- @footer:end -->
+
+  <script>
+  (function () {
+    "use strict";
+    // latris-examples publishes the gallery into /examples/gallery/
+    // (gallery.json plus a folder per model); this page renders it.
+    var BASE = "/examples/gallery/";
+    var FORMALISM_NAMES = {
+      bn: "Bayesian network", sd: "System dynamics", dag: "Causal DAG",
+      fcm: "Fuzzy cognitive map", mcda: "Multi-criteria analysis",
+      ach: "Competing hypotheses", decision_tree: "Decision tree",
+      markov: "Markov model", theory_of_change: "Theory of change",
+      fault_tree: "Fault tree", bow_tie: "Bow-tie", event_tree: "Event tree",
+      cld: "Causal loop diagram", system_map: "System map",
+      gsn: "Assurance case", calculation: "Calculation"
+    };
+    var ARTIFACT_LABELS = [["report", "Report"], ["explorer", "Explorer"], ["story", "Story"]];
+    var REPO_TREE = "https://github.com/Shannon-Bengtson/latris-examples/tree/main/models/";
+
+    function el(tag, className, text) {
+      var node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text != null) node.textContent = text;
+      return node;
+    }
+
+    function modelCard(model) {
+      var card = el("article", "card g-card" + (model.featured ? " g-featured" : ""));
+      var tags = el("div", "g-tags");
+      if (model.domain) tags.appendChild(el("span", "g-tag g-domain", model.domain));
+      (model.formalisms || []).forEach(function (f) {
+        tags.appendChild(el("span", "g-tag", FORMALISM_NAMES[f] || f));
+      });
+      card.appendChild(tags);
+      card.appendChild(el("h3", null, model.title));
+      if (model.question) card.appendChild(el("p", "g-q", model.question));
+      if (model.summary) card.appendChild(el("p", null, model.summary));
+      var links = el("div", "g-links");
+      ARTIFACT_LABELS.forEach(function (pair) {
+        var href = model.artifacts && model.artifacts[pair[0]];
+        if (href) {
+          var a = el("a", null, pair[1] + " →");
+          a.href = BASE + href;
+          links.appendChild(a);
+        }
+      });
+      card.appendChild(links);
+      var src = el("p", "g-src");
+      var srcLink = el("a", null, "See how it's built");
+      srcLink.href = REPO_TREE + model.slug;
+      src.appendChild(srcLink);
+      card.appendChild(src);
+      return card;
+    }
+
+    function render(index) {
+      var grid = document.getElementById("gallery-grid");
+      var status = document.getElementById("gallery-status");
+      var models = (index && index.models) || [];
+      models.sort(function (a, b) {
+        if (!!a.featured !== !!b.featured) return a.featured ? -1 : 1;
+        return String(a.title).localeCompare(String(b.title));
+      });
+      grid.textContent = "";
+      models.forEach(function (m) { grid.appendChild(modelCard(m)); });
+      if (models.length) status.remove();
+      else status.textContent = "The gallery is being rebuilt. Check back shortly.";
+    }
+
+    fetch(BASE + "gallery.json", { cache: "no-store" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(render)
+      .catch(function () {
+        document.getElementById("gallery-status").textContent =
+          "The gallery couldn't be loaded. The models are also in the latris-examples repo on GitHub.";
+      });
+  })();
+  </script>
 </body>
 </html>
