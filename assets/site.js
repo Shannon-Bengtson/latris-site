@@ -75,6 +75,10 @@
   // Release-notes form (a mailing list; sign-up to the app itself is open).
   // Posts to Formspree; if FORM_ENDPOINT is empty it opens a pre-filled email.
   var FORM_ENDPOINT = 'https://formspree.io/f/xeaezvyd';
+  // After a sign-up goes through, add one to Latris's own count of sign-ups (the
+  // address stays with Formspree; the ping carries nothing). Best-effort: if it
+  // fails, nothing changes for the visitor.
+  var COUNT_ENDPOINT = 'https://telemetry.latris.app/v1/site/mailing-list';
   var upForm = document.getElementById('updates');
   if (!upForm) return;
   var upStatus = document.getElementById('up-status');
@@ -114,6 +118,7 @@
       body: new FormData(upForm)
     }).then(function (res) {
       if (res.ok) {
+        try { if (navigator.sendBeacon) navigator.sendBeacon(COUNT_ENDPOINT); } catch (e) {}
         upForm.style.display = 'none';
         upSay('Got it, thanks! You\'ll hear when there\'s a release.');
       } else {
