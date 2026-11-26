@@ -1,0 +1,7 @@
+# GitHub Pages builds this site with Jekyll, which otherwise serves every file
+# in the repo. Keep the repo's own notes and build scripts off latris.app
+# (they stay readable on GitHub).
+exclude:
+  - README.md
+  - CLAUDE.md
+  - tools/
