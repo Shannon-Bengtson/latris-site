@@ -48,7 +48,7 @@
     <div class="wrap">
     <article class="prose-card prose" style="margin-top:48px">
     <h1>Privacy Notice</h1>
-    <p class="meta">Last updated 8 November 2026 · Latris is operated by Shannon Bengtson (ABN 98 855 839 418), New South Wales, Australia · <a href="mailto:hello@latris.app">hello@latris.app</a></p>
+    <p class="meta">Last updated 26 November 2026 · Latris is operated by Shannon Bengtson (ABN 98 855 839 418), New South Wales, Australia · <a href="mailto:hello@latris.app">hello@latris.app</a></p>
 
     <div class="summary">
       <p><strong>In short:</strong> we collect what we need to run Latris: your email to sign you in, a few profile details, and the models you build. We don't sell your information or show ads. Account and model data is hosted in Sydney, Australia. Ask us any time to see or delete what we hold about you.</p>
@@ -67,7 +67,18 @@
     <ul>
       <li><strong>Your models:</strong> the factors, links, evidence, notes, sources and history you create, and the projects you're a member of and your role on them. Each model is stored as a git repository on our server.</li>
       <li>Your name appears in a model's history on the changes you make, visible to people you share that model with. Your organisation is kept on your account only and never written into models.</li>
+      <li><strong>AI suggestions:</strong> when you use the app's AI features, the parts of your model a request needs (and anything you type into it) are sent to Google's Gemini API to produce the suggestion. Google processes them under its API terms.</li>
     </ul>
+    <h3>How you use Latris (usage data)</h3>
+    <p>To learn which features help and to improve the AI suggestions, we record how Latris is used:</p>
+    <ul>
+      <li><strong>In the app:</strong> the views, workflow steps and model types you open and how long you spend in each; the actions you take, such as adding or changing parts of a model, running an analysis or exporting (we record the kind of action, not what you entered); errors you run into (the kind of error and where it happened, not its message); the AI actions you take (which kind of suggestion, the AI model, how long it took, its size and cost, whether you approved or rejected it and how long it was open, and the reason you pick when you reject one, including any note you type with it); when you turn a share link on or off; and when a session starts and ends.</li>
+      <li><strong>Projects:</strong> when you create a project, save one from a link, share one with a person, or archive one.</li>
+      <li><strong>From an AI chat app:</strong> for each action the connector performs, which action it was, whether it worked and how long it took. Never what the chat sent with it.</li>
+      <li><strong>Shared links:</strong> how many times links are viewed each day, by kind. Nothing about who viewed them.</li>
+      <li><strong>Release updates:</strong> how many people sign up each day. The address itself goes only to Formspree (see below).</li>
+    </ul>
+    <p>Usage data is <strong>pseudonymous</strong>: it's tied to an identifier derived from your account, not your name or email, and it doesn't contain your models.</p>
     <h3>When you use Latris from an AI chat app</h3>
     <p>If you use the Latris connector from an AI chat app (for example Claude or ChatGPT), the chat app sends us the content of the model you ask it to build, and we store it so the chat can keep working on it and show it at its report link. <strong>No account is needed, and we don't receive your name, email or chat history.</strong> We get only what the chat app sends to the connector. The chat app's provider handles your conversation under its own privacy terms.</p>
     <h3>When you open a model link</h3>
@@ -85,9 +96,10 @@
       <li>To create your account, sign you in and keep it secure.</li>
       <li>To store your models and let you share and collaborate on them.</li>
       <li>To understand who finds Latris useful (for example by role, industry or country) so we can decide what to build.</li>
+      <li>To see how people use Latris, where they get stuck, and which features and AI suggestions help, and to improve them.</li>
       <li>To contact you about your account, the service, or release updates.</li>
     </ul>
-    <p>Latris doesn't send your model content to AI model providers. AI help with your models comes from AI tools you choose to use yourself, under their own terms.</p>
+    <p>Latris sends model content to an AI model provider (Google) only when you use the app's AI features, and only what that request needs. When you use Latris from an AI chat app, the chat app's provider handles your conversation under its own terms.</p>
 
     <h2>Report links</h2>
     <p>A report link shows a read-only copy of a model's report to anyone who has the link, without signing in. Treat it like any shareable link. Report pages ask search engines not to index them. For models made in the Latris app, report links are off until you turn them on, and turning a link off stops it working.</p>
@@ -95,7 +107,8 @@
     <h2>Where it's stored, and who helps us</h2>
     <p>Account and model data is stored on our server in <strong>Microsoft Azure's Australia East region (Sydney)</strong>. We use a small number of providers to run Latris. Some of them operate outside Australia, so some information is processed overseas:</p>
     <ul>
-      <li><strong>Microsoft Azure</strong> hosts our server, in Sydney, Australia.</li>
+      <li><strong>Microsoft Azure</strong> hosts our server, in Sydney, Australia. Usage data is stored there too.</li>
+      <li><strong>Google</strong> (Gemini API) produces the app's AI suggestions from what each request sends (USA and global).</li>
       <li><strong>Resend</strong> delivers sign-in emails. Your email address passes through its servers in Japan, and Resend is a US company.</li>
       <li><strong>Cloudflare</strong> provides website analytics and parts of our network infrastructure (global).</li>
       <li><strong>GitHub Pages</strong> hosts this website (USA). It receives the technical data of website visits.</li>
@@ -110,6 +123,7 @@
     <ul>
       <li><strong>Unsaved models</strong> (from AI chat apps or opened from a model link) are deleted 30 days after their last change. If you save one to your account, it's kept like any other project.</li>
       <li><strong>Account data and models</strong> are kept while your account is active, until you ask us to delete them.</li>
+      <li><strong>Usage data</strong> is kept for 13 months as recorded. Totals made from it (counts and averages that don't identify anyone) are kept for as long as they're useful.</li>
       <li><strong>Technical logs</strong> are kept for a limited period for security and troubleshooting.</li>
     </ul>
 
