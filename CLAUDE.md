@@ -18,8 +18,7 @@ The site is one of four repos (sibling checkouts sit next to each other, e.g.
   model there.
 - **latris-app** (private): the app at app.latris.app. Its `latris_present`
   builds `examples/explorer/beach.html` (`tools/explorer-example/build.py`).
-  Its source isn't available from here; nothing on this site may describe
-  unreleased app internals.
+  Its source isn't available from a clone of this repo alone.
 
 ## Publishing is the founder's call
 
