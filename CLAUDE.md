@@ -20,6 +20,11 @@ The site is one of four repos (sibling checkouts sit next to each other, e.g.
   builds `examples/explorer/beach.html` (`tools/explorer-example/build.py`).
   Its source isn't available from a clone of this repo alone.
 
+## Open work lives in GitHub issues
+
+To-dos and bugs for this repo are its GitHub issues (public: engineering and
+content only, see below). Don't keep to-do lists in Markdown here.
+
 ## Publishing is the founder's call
 
 Every push or merge to `main` publishes straight to latris.app (GitHub Pages,
