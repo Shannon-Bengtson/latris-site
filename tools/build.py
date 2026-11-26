@@ -269,8 +269,10 @@ _SKIP = re.compile(
     r"^(style|ci|test|tests|chore|build)(\(|:|!)|^Bump version|\btest:"
     r"|^Merge (pull request|remote-tracking branch|branch|main\b)|^Merge .* into \S+$", re.I)
 # A commit that only touches these changes nothing a user of the library gets
-# (tests, CI, and the notes for contributors and coding agents), whatever its subject.
-_INTERNAL_PATH = re.compile(r"^(tests/|\.github/|(.*/)?(CLAUDE|AGENTS)\.md$|docs/engineering/TESTING\.md$)")
+# (tests, CI, the notes for contributors and coding agents, and the design and
+# planning docs under docs/), whatever its subject. The changelog lists what
+# shipped in the package; plans and notes stay off it.
+_INTERNAL_PATH = re.compile(r"^(tests/|\.github/|docs/|(.*/)?(CLAUDE|AGENTS)\.md$)")
 _PREFIX = re.compile(r"^[a-z]+(\(([^)]+)\))?!?:\s*")
 _MONTHS = ["January", "February", "March", "April", "May", "June", "July",
            "August", "September", "October", "November", "December"]

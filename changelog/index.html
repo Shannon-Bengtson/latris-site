@@ -68,6 +68,60 @@
       <article class="prose-card prose">
         <!-- @changelog:start -->
 <!-- Generated from the latris repo's git history by tools/build.py --changelog. Don't edit by hand. -->
+<h2 id="v0.19.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/bf7710735a165c0c3993f056206b7db2ab7c63a0">0.19.0</a> <span class="status-pill">26 November 2026</span></h2>
+<ul>
+  <li>Telemetry: hosted containers configure upload by environment</li>
+  <li>Type errors from the bug-hunt fixes, fixed at their causes</li>
+  <li>FCM predictor: name the command that sets a weight (fcm set-weight)</li>
+  <li>Predict for decision trees, Markov models, MCDA and fuzzy cognitive maps</li>
+  <li>Keep list_chains_endpoint's original return annotation</li>
+  <li>Reject route takes an optional reason note</li>
+  <li>Register the telemetry relay router</li>
+  <li>POST /api/telemetry/events â€” the GUI telemetry relay</li>
+  <li>Emit_envelopes for the server relay path</li>
+  <li>Predict for fault trees, bow-ties and event trees; a cell, choice and opaque units on the contract</li>
+  <li>A sign changed under a written reason asks whether the reason still holds</li>
+  <li>Server: tag server-driven AI calls with surface="server"</li>
+  <li>Cli: prompt for an optional reason on AI proposal rejection</li>
+  <li>Ai: mirror terminal calls as ai.call.completed events</li>
+  <li>Ai: telemetry fields on AIInteraction + rejection reasons</li>
+  <li>Telemetry: add telemetry_jsonl to ProjectPaths</li>
+  <li>Telemetry: export TelemetryEvent; gitignore the local mirror</li>
+  <li>Telemetry: event envelope, payload registry, and emitter</li>
+  <li>Lineage tree: a version's parent is the one it was made from</li>
+  <li>Bayesian networks: explain, sensitivity and Monte Carlo take what-if settings</li>
+  <li>Removing several factors and links is one change: one commit, one undo</li>
+  <li>Findings can be edited and removed</li>
+  <li>Worked example transcript regenerated after merging the fix streams</li>
+  <li>References: a URL typed without its scheme is a web address; BibTeX import drops a non-web URL</li>
+  <li>Worked example transcript regenerated ('30 cycles of 1 year')</li>
+  <li>Help: the Formalise table saves on leaving a cell, a DAG opens on its canvas, roles and the Build gate</li>
+  <li>Report link: asking while signed out is not an error; Story help says how drafts and versions behave</li>
+  <li>Analysis catalogue: a description of global sensitivity that fits one type</li>
+  <li>Undo steps back through actions, with redo; Build, Data and References refusals</li>
+  <li>Global sensitivity offers each type only its own options; a Markov horizon reads '1 year'</li>
+  <li>Compare: a renamed factor is named by its labels, not its id</li>
+  <li>Contract: an edited input or output keeps its place; a bad range is refused in plain words</li>
+  <li>Recent activity names factors, links and versions instead of their IDs</li>
+  <li>Readiness: factors with a role never disconnect a connected map</li>
+  <li>Help: who still sees a project in the trash</li>
+  <li>Help: workspaces, admins and members, folders</li>
+  <li>Help: describe Your projects and managing projects</li>
+  <li>A weekly health check, and CI's full matrix weekly</li>
+  <li>Sd_scenarios: the SHA-1 is a cache key, not security; say so</li>
+  <li>Worked example: nine more commands, off the list of those it doesn't run</li>
+  <li>Check the type annotations: a mypy guard that only lets errors go down</li>
+  <li>Ai: check a reference URL's redirects against the SSRF guard too</li>
+  <li>Ai: split prompts.py into a package</li>
+  <li>Help: the help topics' text moves to Markdown files</li>
+  <li>Ai: split proposals.py into a package, by the same families as context</li>
+  <li>Ai: split context.py into a package, one module per prompt family</li>
+  <li>Sd_inference: one method per phase of the SD analysis</li>
+  <li>Sd_loops: one function per stage of loop_dominance</li>
+  <li>Build: split the spec check and the build into their parts</li>
+  <li>Integrity: one function per section of check_integrity</li>
+  <li>Handover: one small function per check</li>
+</ul>
 <h2 id="v0.18.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/24ef17f91ee466f0b768d50d19b70ca600337336">0.18.0</a> <span class="status-pill">23 November 2026</span></h2>
 <ul>
   <li>Predict: a pinned version's cache keeps no .git on Windows</li>
@@ -98,7 +152,6 @@
 <ul>
   <li>Equation model: open from Build without links, fixed sweep title, reader-facing units for apps</li>
   <li>Add the equation model: sourced formulas with units and no clock</li>
-  <li>Roadmap: add predict, equation models and SD forcing as high priority</li>
 </ul>
 <h2 id="v0.16.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/8e61b18ce64d14e1c2b23d08a3bd12363b89a747">0.16.0</a> <span class="status-pill">22 November 2026</span> <span class="status-pill later">Not published to PyPI</span></h2>
 <ul>
@@ -125,7 +178,7 @@
 <h2 id="v0.14.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/6eb13041b7018a313ce9c2b67f7cd7a15f78a28d">0.14.0</a> <span class="status-pill">21 November 2026</span></h2>
 <ul>
   <li>Help: share a story by link</li>
-  <li>Help: a story's pictures, model, crop, path drawn link by link, result chart</li>
+  <li>Help: a story's pictures â€” model, crop, path drawn link by link, result chart</li>
   <li>Help: Story is project-level, several stories per audience, outline first</li>
   <li>Move Story out of the library; add a prompt-registration seam for plugins</li>
   <li>Interpret's initialise says which model types it skipped, typed</li>
@@ -139,7 +192,6 @@
 </ul>
 <h2 id="v0.13.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/cc8916ed17b14160387666ae90408ff0fa326b1c">0.13.0</a> <span class="status-pill">20 November 2026</span> <span class="status-pill later">Not published to PyPI</span></h2>
 <ul>
-  <li>Docs: mapping membership and what's left out of a type</li>
   <li>Leave factors out of a model type and keep them out; remove unused routes</li>
   <li>Re-projecting an unchanged view writes nothing; mappings read by name</li>
   <li>Compare versions and checkpoints, naming what changed</li>
@@ -187,7 +239,6 @@
   <li>Charts for the results that had only tables</li>
   <li>latris export spec: the model as a build spec</li>
   <li>Analyses typed per kind: each takes only its own options</li>
-  <li>REPORT-SURFACE: the app dispatches figures and charts through presenters</li>
   <li>Diagram_sections: what each report diagram draws, public for surfaces</li>
   <li>Surface contract for apps: declared chart kinds, surface manifest, example projects</li>
   <li>Lint: ruff fixes so CI passes</li>
@@ -209,9 +260,9 @@
   <li>Help: sharing a map, seasons, sd compare, apply-to-all, interventions, weighted tables, one answer</li>
   <li>Loops say which model types they lie in; ambiguous effects say what happens first</li>
   <li>BN: weighted tables (ordinal logistic) for many-state parents</li>
-  <li>BN: interventions (do-queries), what if we SET a factor, not observe it</li>
+  <li>BN: interventions (do-queries) â€” what if we SET a factor, not observe it</li>
   <li>Sd roles / set-equation: show each variable's name in equations</li>
-  <li>SD sensitivity: keep stated ranges and ±% probes apart; inactive values aren't weak</li>
+  <li>SD sensitivity: keep stated ranges and Â±% probes apart; inactive values aren't weak</li>
   <li>SD: values that hold in every run (apply_to_all)</li>
   <li>SD: compare options under uncertainty on the same draws; a total metric</li>
   <li>Report: every result heading says what it was of, and when</li>
@@ -225,16 +276,16 @@
 <h2 id="v0.10.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/c5c7ec1883b13737c3246d60097a004d3fec0241">0.10.0</a> <span class="status-pill">17 November 2026</span></h2>
 <ul>
   <li>Loops: sign a drain whose stock starts at zero; count parallel links once</li>
-  <li>Formalisms: register BN as a formalism plugin (4/4, help + wiring-guard tests)</li>
-  <li>Formalisms: register BN as a formalism plugin (3/4, dedupe hardcoded BN paths)</li>
+  <li>Formalisms: register BN as a formalism plugin (4/4 â€” help + wiring-guard tests)</li>
+  <li>Formalisms: register BN as a formalism plugin (3/4 â€” dedupe hardcoded BN paths)</li>
   <li>Formalisms: BN structure_problems + labels in the sensitivity payload (2/3)</li>
-  <li>Formalisms: register BN as a formalism plugin (1/3, registry + plugin module)</li>
+  <li>Formalisms: register BN as a formalism plugin (1/3 â€” registry + plugin module)</li>
   <li>Formalisms: restore dropped bracket in ach mermaid hook (push transcription)</li>
   <li>Report: aggregate report composes one diagram per formalism in use</li>
   <li>Formalisms: chart emitters for decision tree, event tree, fault tree, markov</li>
   <li>Report: dispatch chart markers through the plugin hook; mcda + ach emitters</li>
   <li>Formalisms: ResultKind.charts hook, chart emitters for the analysis layers, design doc</li>
-  <li>Build spec: decision_tree nodes → elements, uncertainty → name</li>
+  <li>Build spec: decision_tree nodes â†’ elements, uncertainty â†’ name</li>
   <li>Decision tree formalism: spec fields renamed to elements / name</li>
   <li>MCDA kernel and formalism: boundary ties, flat and out-of-scale warnings</li>
   <li>First-round testing fixes: surface MCDA warnings, friendly validation errors, spec naming, 0.10.0</li>
@@ -242,7 +293,6 @@
   <li>Harden referential integrity and record AI agents honestly</li>
   <li>Impact estimation for theories of change: ITS and difference-in-differences</li>
   <li>Process tracing on theory-of-change links</li>
-  <li>ROADMAP: registry-status note matches what's built</li>
   <li>Security hardening for hosted sessions</li>
   <li>Markov cohort model: a stable model type with cost-effectiveness</li>
   <li>Decision tree: a stable model type with the value of information</li>
@@ -314,7 +364,7 @@
 </ul>
 <h2 id="v0.7.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/bc75a4001e8e6fe7322cd8b92abf727a1e776229">0.7.0</a> <span class="status-pill">6 November 2026</span></h2>
 <ul>
-  <li><code>latris link</code>, a link that opens the model in the Latris app, offline</li>
+  <li><code>latris link</code> â€” a link that opens the model in the Latris app, offline</li>
   <li>README describes the browser app and open sign-up</li>
 </ul>
 <h2 id="v0.6.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/4378f3bbb11b395cb8595e1676fbd9a6fcbc2bf6">0.6.0</a> <span class="status-pill">6 November 2026</span></h2>
@@ -328,23 +378,23 @@
   <li>Polished exporters leave the library; Markdown + DOT remain</li>
   <li>Sync: read a shared project's report link from the control plane</li>
   <li>Report links and saving models made in a chat</li>
-  <li>Sync: report links, client, <code>latris sync link on|off</code>, server route</li>
+  <li>Sync: report links â€” client, <code>latris sync link on|off</code>, server route</li>
   <li>Mermaid in Markdown reports, global --json, view set, plugin hook</li>
 </ul>
 <h2 id="v0.4.0"><a href="https://github.com/Shannon-Bengtson/latris/commit/b39186d3ee705429a4085590679a3b5dba17f520">0.4.0</a> <span class="status-pill">24 October 2026</span></h2>
 <ul>
   <li>Roadmap status on every model type</li>
   <li>Mark which planned model types are on the roadmap</li>
-  <li>System Dynamics (stock-and-flow) formalism, schema, checks, simulation, CLI/API</li>
+  <li>System Dynamics (stock-and-flow) formalism â€” schema, checks, simulation, CLI/API</li>
   <li>Rewrite 'For AI agents' section in descriptive voice, not direct address</li>
 </ul>
 <h2 id="v0.3.2"><a href="https://github.com/Shannon-Bengtson/latris/commit/b8d5ae34a1f6125a2f061a1d5e9cafe0c9c859dc">0.3.2</a> <span class="status-pill">23 October 2026</span></h2>
 <ul>
-  <li>latris sync login / sync share, the CLI-to-SaaS bridge</li>
+  <li>latris sync login / sync share â€” the CLI-to-SaaS bridge</li>
   <li>Add agent-facing capability manifest (latris capabilities)</li>
   <li>Make delegated AI invocation prominent for agent readers</li>
   <li>Document delegated AI calls (ai task emit/apply)</li>
-  <li>Delegated AI calls, bring your own agent (ai task emit/apply)</li>
+  <li>Delegated AI calls â€” bring your own agent (ai task emit/apply)</li>
   <li>Bridge README and llms.txt to latris.app; drop stale PyPI note</li>
   <li>Add "Made with Latris" badge to document exports</li>
 </ul>
