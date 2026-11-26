@@ -26,5 +26,14 @@ Every push or merge to `main` publishes straight to latris.app (GitHub Pages,
 no build step, no review). Work on a branch and open a pull request; don't
 push or merge to `main` until the founder says to.
 
-(`_config.yml` keeps this file, README.md and `tools/` off latris.app, but the
-repo is public on GitHub: keep anything private out of it.)
+## This repo is public
+
+Everything here is public: on GitHub, and every page on latris.app (`_config.yml` keeps this file, README.md and `tools/` off the site, but not off GitHub). Never add business or sensitive information: go-to-market or growth
+strategy, pricing, revenue, customers, sales conversations or trial
+participants, competitive positioning, the founder's personal or admin
+details, internal infrastructure (server addresses, how deploys reach them,
+where secrets are kept), secrets or tokens, or the private app's code and
+internal plans.
+Those live in the private app repo. If a change seems to need them, write only
+the engineering or user-facing part, or ask the founder. Commit messages and
+pull-request text are public too.
