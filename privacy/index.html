@@ -48,7 +48,7 @@
     <div class="wrap">
     <article class="prose-card prose" style="margin-top:48px">
     <h1>Privacy Notice</h1>
-    <p class="meta">Last updated 26 November 2026 · Latris is operated by Shannon Bengtson (ABN 98 855 839 418), New South Wales, Australia · <a href="mailto:hello@latris.app">hello@latris.app</a></p>
+    <p class="meta">Last updated 28 November 2026 · Latris is operated by Shannon Bengtson (ABN 98 855 839 418), New South Wales, Australia · <a href="mailto:hello@latris.app">hello@latris.app</a></p>
 
     <div class="summary">
       <p><strong>In short:</strong> we collect what we need to run Latris: your email to sign you in, a few profile details, and the models you build. We don't sell your information or show ads. Account and model data is hosted in Sydney, Australia. Ask us any time to see or delete what we hold about you.</p>
@@ -62,6 +62,7 @@
       <li><strong>Email address</strong>, used to sign you in. We email you a one-time code; there's no password.</li>
       <li><strong>First name, last name and organisation</strong>, asked at sign-up. Optionally, your <strong>country, role and industry</strong> if you add them to your profile.</li>
       <li><strong>Sign-in data:</strong> the one-time codes (valid for 10 minutes) and session tokens that keep you signed in. The app stores a sign-in token in your browser.</li>
+      <li><strong>Connected chat apps:</strong> if you sign in to Latris from an AI chat app, we keep a record of that connection: which chat app, when you allowed it and when it was last used, and the tokens that keep it signed in.</li>
     </ul>
     <h3>When you use the app</h3>
     <ul>
@@ -74,13 +75,14 @@
     <ul>
       <li><strong>In the app:</strong> the views, workflow steps and model types you open and how long you spend in each; the actions you take, such as adding or changing parts of a model, running an analysis or exporting (we record the kind of action, not what you entered); errors you run into (the kind of error and where it happened, not its message); the AI actions you take (which kind of suggestion, the AI model, how long it took, its size and cost, whether you approved or rejected it and how long it was open, and the reason you pick when you reject one, including any note you type with it); when you turn a share link on or off; and when a session starts and ends.</li>
       <li><strong>Projects:</strong> when you create a project, save one from a link, share one with a person, or archive one.</li>
-      <li><strong>From an AI chat app:</strong> for each action the connector performs, which action it was, whether it worked and how long it took. Never what the chat sent with it.</li>
+      <li><strong>From an AI chat app:</strong> for each action the connector performs, which action it was, whether it worked and how long it took, and, if you signed in from the chat app, the identifier derived from your account. Never what the chat sent with it.</li>
       <li><strong>Shared links:</strong> how many times links are viewed each day, by kind. Nothing about who viewed them.</li>
       <li><strong>Release updates:</strong> how many people sign up each day. The address itself goes only to Formspree (see below).</li>
     </ul>
     <p>Usage data is <strong>pseudonymous</strong>: it's tied to an identifier derived from your account, not your name or email, and it doesn't contain your models.</p>
     <h3>When you use Latris from an AI chat app</h3>
     <p>If you use the Latris connector from an AI chat app (for example Claude or ChatGPT), the chat app sends us the content of the model you ask it to build, and we store it so the chat can keep working on it and show it at its report link. <strong>No account is needed, and we don't receive your name, email or chat history.</strong> We get only what the chat app sends to the connector. The chat app's provider handles your conversation under its own privacy terms.</p>
+    <p><strong>If you sign in from the chat app.</strong> You can choose to sign in to Latris from a chat app, so it can save models to your account and open the ones you have there. You sign in on a Latris page and choose whether to allow the chat app; the chat app never sees your sign-in code. While it's connected, we know which account the chat's requests come from, and the changes it makes are recorded in your name (as AI-proposed, until you review them). <strong>Anything you open from the chat, such as one of your saved models, is sent to that chat app and its AI provider</strong>, under their terms. A connected chat app can reach only the models you own. You can disconnect it at any time from <em>Connected apps</em> in your account menu in the Latris app, and it loses access straight away.</p>
     <h3>When you open a model link</h3>
     <p>An AI agent can give you a link (made with <code>latris link</code>) that carries a model inside it. Making the link sends nothing to us. When you open it, your browser sends that model to app.latris.app so we can store it and show it as a report, the same way as a model built through the connector. We don't receive your name or email unless you then choose to save it to an account.</p>
     <h3>When you visit the website</h3>
@@ -122,6 +124,7 @@
     <h2>How long we keep it</h2>
     <ul>
       <li><strong>Unsaved models</strong> (from AI chat apps or opened from a model link) are deleted 30 days after their last change. If you save one to your account, it's kept like any other project.</li>
+      <li><strong>Connected chat apps:</strong> a connection lasts until you disconnect it, or until it goes unused for 90 days. Its tokens are deleted once they expire.</li>
       <li><strong>Account data and models</strong> are kept while your account is active, until you ask us to delete them.</li>
       <li><strong>Usage data</strong> is kept for 13 months as recorded. Totals made from it (counts and averages that don't identify anyone) are kept for as long as they're useful.</li>
       <li><strong>Technical logs</strong> are kept for a limited period for security and troubleshooting.</li>
