@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Replications | Latris</title>
+  <meta name="description" content="Textbook models rebuilt in Latris and checked against their known results: the Asia network, Bass diffusion, the SIR epidemic, Pearl's back-door example and Senge's archetypes. Rerun any of them yourself." />
+  <link rel="canonical" href="https://latris.app/methods/replications/" />
+  <meta property="og:site_name" content="Latris" />
+  <meta property="og:title" content="Replications: Latris checked against textbook models" />
+  <meta property="og:description" content="Textbook models rebuilt in Latris, with what each is known to give and what Latris computes." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://latris.app/methods/replications/" />
+  <meta property="og:image" content="https://latris.app/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- @head:start -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f91a76ef1e8144e9bbbbe3bd2412cd1a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.png" />
+  <meta name="theme-color" content="#f4f1eb" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css?v=cb3d8315ee" />
+  <script src="/assets/site.js?v=18e2c2c135" defer></script>
+  <!-- @head:end -->
+</head>
+<body>
+  <!-- @header:start -->
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Latris home">
+        <img src="/latris-wordmark.svg" alt="Latris" width="85" height="26" />
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="/how-it-works/">How it works</a>
+        <a href="/formalisms/">Models</a>
+        <a href="/methods/" aria-current="page">Science</a>
+        <a href="/ai/">Use with AI</a>
+        <a href="/examples/">Examples</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/about/">About</a>
+        <a class="btn-nav" href="https://app.latris.app/">Open Latris</a>
+      </nav>
+    </div>
+  </header>
+  <!-- @header:end -->
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="crumb"><a href="/methods/">Scientific basis</a></p>
+        <p class="eyebrow">Replications</p>
+        <h1>Checked against the textbooks.</h1>
+        <p class="lead">
+          Well-known models from the literature, rebuilt in Latris, with the
+          results each is known to give. Each expected value says where it
+          comes from: a number printed in the original, a formula the model
+          satisfies exactly, or an exact calculation from the published inputs
+          done without Latris. They ship with the library, so you can rerun
+          every one: <code>pip install latris</code>, then
+          <code>latris replicate check</code>.
+        </p>
+      </div>
+    </section>
+    <div class="wrap">
+      <article class="prose-card prose">
+        <!-- @replications:start -->
+        <p>Latris 0.20.0: <strong>5 of 5</strong> replications
+          reproduce every expected result.</p>
+
+        <h2 id="asia">The Asia chest-clinic network <span class="status-pill on">Reproduced</span></h2>
+        <p class="meta">BN · Lauritzen, S. L. &amp; Spiegelhalter, D. J. (1988). Local computations with probabilities on graphical structures and their application to expert systems. Journal of the Royal Statistical Society, Series B, 50(2), 157–224.</p>
+        <div class="table-wrap">
+          <table class="glance">
+            <tr><th scope="col">Check</th><th scope="col">Expected</th><th scope="col">Latris</th>
+              <th scope="col">Basis</th><th scope="col"></th></tr>
+            <tr><th scope="row">P(tuberculosis), no evidence</th><td>0.0104</td><td>0.0104</td><td>Exact</td><td>Reproduced</td></tr>
+            <tr><th scope="row">P(lung cancer), no evidence</th><td>0.055</td><td>0.055</td><td>Exact</td><td>Reproduced</td></tr>
+            <tr><th scope="row">P(bronchitis), no evidence</th><td>0.45</td><td>0.45</td><td>Exact</td><td>Reproduced</td></tr>
+            <tr><th scope="row">P(tuberculosis or cancer), no evidence</th><td>0.064828</td><td>0.064828</td><td>Exact</td><td>Reproduced</td></tr>
+            <tr><th scope="row">P(positive X-ray), no evidence</th><td>0.11029</td><td>0.11029</td><td>Exact</td><td>Reproduced</td></tr>
+            <tr><th scope="row">P(dyspnoea), no evidence</th><td>0.435971</td><td>0.435971</td><td>Exact</td><td>Reproduced</td></tr>
+            <tr><th scope="row">P(tuberculosis | visit to Asia, dyspnoea)</th><td>0.087751</td><td>0.087751</td><td>Exact</td><td>Reproduced</td></tr>
+            <tr><th scope="row">P(lung cancer | visit to Asia, dyspnoea)</th><td>0.0995251</td><td>0.0995251</td><td>Exact</td><td>Reproduced</td></tr>
+            <tr><th scope="row">P(bronchitis | visit to Asia, dyspnoea)</th><td>0.811402</td><td>0.811402</td><td>Exact</td><td>Reproduced</td></tr>
+          </table>
+        </div>
+        <details>
+          <summary>Where each expected value comes from</summary>
+          <ul>
+            <li><strong>P(tuberculosis), no evidence:</strong> Exact enumeration of all 256 joint states of the published tables.</li>
+            <li><strong>P(lung cancer), no evidence:</strong> Exact enumeration of all 256 joint states of the published tables.</li>
+            <li><strong>P(bronchitis), no evidence:</strong> Exact enumeration of all 256 joint states of the published tables.</li>
+            <li><strong>P(tuberculosis or cancer), no evidence:</strong> Exact enumeration of all 256 joint states of the published tables.</li>
+            <li><strong>P(positive X-ray), no evidence:</strong> Exact enumeration of all 256 joint states of the published tables.</li>
+            <li><strong>P(dyspnoea), no evidence:</strong> Exact enumeration of all 256 joint states of the published tables.</li>
+            <li><strong>P(tuberculosis | visit to Asia, dyspnoea):</strong> Exact enumeration of all 256 joint states of the published tables.</li>
+            <li><strong>P(lung cancer | visit to Asia, dyspnoea):</strong> Exact enumeration of all 256 joint states of the published tables.</li>
+            <li><strong>P(bronchitis | visit to Asia, dyspnoea):</strong> Exact enumeration of all 256 joint states of the published tables.</li>
+          </ul>
+        </details>
+        <p class="meta">Rerun it: <code>latris replicate check asia</code>, or
+          <code>latris replicate build asia my-copy</code> for the model itself.</p>
+
+        <h2 id="bass-diffusion">Bass diffusion of a new product <span class="status-pill on">Reproduced</span></h2>
+        <p class="meta">SD · Bass, F. M. (1969). A new product growth for model consumer durables. Management Science, 15(5), 215–227.</p>
+        <div class="table-wrap">
+          <table class="glance">
+            <tr><th scope="col">Check</th><th scope="col">Expected</th><th scope="col">Latris</th>
+              <th scope="col">Basis</th><th scope="col"></th></tr>
+            <tr><th scope="row">Adopters after 5 years</th><td>331199</td><td>331199</td><td>Closed form</td><td>Reproduced</td></tr>
+            <tr><th scope="row">Adopters after 10 years</th><td>812803</td><td>812803</td><td>Closed form</td><td>Reproduced</td></tr>
+            <tr><th scope="row">Adopters after 20 years</th><td>996259</td><td>996260</td><td>Closed form</td><td>Reproduced</td></tr>
+            <tr><th scope="row">When adoptions peak (years)</th><td>6.19262</td><td>6.19237</td><td>Closed form</td><td>Reproduced</td></tr>
+            <tr><th scope="row">Adoptions a year at the peak</th><td>110592</td><td>110592</td><td>Closed form</td><td>Reproduced</td></tr>
+          </table>
+        </div>
+        <details>
+          <summary>Where each expected value comes from</summary>
+          <ul>
+            <li><strong>Adopters after 5 years:</strong> N(t) = M (1 − e^(−(p+q)t)) / (1 + (q/p) e^(−(p+q)t)), with p = 0.03, q = 0.38, M = 1,000,000.</li>
+            <li><strong>Adopters after 10 years:</strong> N(t) = M (1 − e^(−(p+q)t)) / (1 + (q/p) e^(−(p+q)t)), with p = 0.03, q = 0.38, M = 1,000,000.</li>
+            <li><strong>Adopters after 20 years:</strong> N(t) = M (1 − e^(−(p+q)t)) / (1 + (q/p) e^(−(p+q)t)), with p = 0.03, q = 0.38, M = 1,000,000.</li>
+            <li><strong>When adoptions peak (years):</strong> t* = ln(q/p) / (p + q).</li>
+            <li><strong>Adoptions a year at the peak:</strong> dN/dt at t* = M (p + q)² / (4q).</li>
+          </ul>
+        </details>
+        <p class="meta">Rerun it: <code>latris replicate check bass-diffusion</code>, or
+          <code>latris replicate build bass-diffusion my-copy</code> for the model itself.</p>
+
+        <h2 id="pearl-backdoor">Pearl&#x27;s back-door example <span class="status-pill on">Reproduced</span></h2>
+        <p class="meta">DAG · Pearl, J. (2009). Causality: Models, Reasoning, and Inference (2nd ed.). Cambridge University Press.</p>
+        <div class="table-wrap">
+          <table class="glance">
+            <tr><th scope="col">Check</th><th scope="col">Expected</th><th scope="col">Latris</th>
+              <th scope="col">Basis</th><th scope="col"></th></tr>
+            <tr><th scope="row">{X3, X4} satisfies the back-door criterion</th><td>yes</td><td>yes</td><td>Published</td><td>Reproduced</td></tr>
+            <tr><th scope="row">{X4, X5} satisfies the back-door criterion</th><td>yes</td><td>yes</td><td>Published</td><td>Reproduced</td></tr>
+            <tr><th scope="row">{X4} alone does not: it opens the path X ← X3 ← X1 → X4 ← X2 → X5 → Y</th><td>no</td><td>no</td><td>Published</td><td>Reproduced</td></tr>
+            <tr><th scope="row">{X4, X5, X6} does not: X6 is a descendant of X</th><td>no</td><td>no</td><td>Published</td><td>Reproduced</td></tr>
+            <tr><th scope="row">The minimal sufficient adjustment sets Latris finds</th><td>{X1, X4}; {X2, X4}; {X3, X4}; {X4, X5}</td><td>{X1, X4}; {X2, X4}; {X3, X4}; {X4, X5}</td><td>Exact</td><td>Reproduced</td></tr>
+          </table>
+        </div>
+        <details>
+          <summary>Where each expected value comes from</summary>
+          <ul>
+            <li><strong>{X3, X4} satisfies the back-door criterion:</strong> Pearl (2009), §3.3.1, the example of Figure 3.4.</li>
+            <li><strong>{X4, X5} satisfies the back-door criterion:</strong> Pearl (2009), §3.3.1, the example of Figure 3.4.</li>
+            <li><strong>{X4} alone does not: it opens the path X ← X3 ← X1 → X4 ← X2 → X5 → Y:</strong> Pearl (2009), §3.3.1, the example of Figure 3.4.</li>
+            <li><strong>{X4, X5, X6} does not: X6 is a descendant of X:</strong> Pearl (2009), Definition 3.3.1, condition (i).</li>
+            <li><strong>The minimal sufficient adjustment sets Latris finds:</strong> Every subset of the non-descendants of X tested against Definition 3.3.1, keeping those with no valid proper subset.</li>
+          </ul>
+        </details>
+        <p class="meta">Rerun it: <code>latris replicate check pearl-backdoor</code>, or
+          <code>latris replicate build pearl-backdoor my-copy</code> for the model itself.</p>
+
+        <h2 id="sir-epidemic">Kermack–McKendrick SIR epidemic <span class="status-pill on">Reproduced</span></h2>
+        <p class="meta">SD · Kermack, W. O. &amp; McKendrick, A. G. (1927). A contribution to the mathematical theory of epidemics. Proceedings of the Royal Society of London, Series A, 115(772), 700–721.</p>
+        <div class="table-wrap">
+          <table class="glance">
+            <tr><th scope="col">Check</th><th scope="col">Expected</th><th scope="col">Latris</th>
+              <th scope="col">Basis</th><th scope="col"></th></tr>
+            <tr><th scope="row">People ever infected, once the epidemic is over (day 300)</th><td>796816</td><td>796816</td><td>Closed form</td><td>Reproduced</td></tr>
+            <tr><th scope="row">Most people infectious at once</th><td>153431</td><td>153449</td><td>Closed form</td><td>Reproduced</td></tr>
+          </table>
+        </div>
+        <details>
+          <summary>Where each expected value comes from</summary>
+          <ul>
+            <li><strong>People ever infected, once the epidemic is over (day 300):</strong> The final-size relation ln(s∞ / s₀) = R₀ (s∞ − s₀ − i₀), with R₀ = β/γ = 2, s₀ = 0.99999, i₀ = 0.00001; ever infected = N (1 − s∞).</li>
+            <li><strong>Most people infectious at once:</strong> i_max = i₀ + s₀ − (1 + ln(R₀ s₀)) / R₀, from the conserved quantity s + i − ln(s)/R₀.</li>
+          </ul>
+        </details>
+        <p class="meta">Rerun it: <code>latris replicate check sir-epidemic</code>, or
+          <code>latris replicate build sir-epidemic my-copy</code> for the model itself.</p>
+
+        <h2 id="system-archetypes">Senge&#x27;s system archetypes <span class="status-pill on">Reproduced</span></h2>
+        <p class="meta">CLD · Senge, P. M. (1990). The Fifth Discipline: The Art and Practice of the Learning Organization. Doubleday.</p>
+        <div class="table-wrap">
+          <table class="glance">
+            <tr><th scope="col">Check</th><th scope="col">Expected</th><th scope="col">Latris</th>
+              <th scope="col">Basis</th><th scope="col"></th></tr>
+            <tr><th scope="row">Reinforcing loops (growth in limits to growth; the side effect in fixes that fail)</th><td>2</td><td>2</td><td>Published</td><td>Reproduced</td></tr>
+            <tr><th scope="row">Balancing loops (the limit in limits to growth; the fix in fixes that fail)</th><td>2</td><td>2</td><td>Published</td><td>Reproduced</td></tr>
+          </table>
+        </div>
+        <details>
+          <summary>Where each expected value comes from</summary>
+          <ul>
+            <li><strong>Reinforcing loops (growth in limits to growth; the side effect in fixes that fail):</strong> Senge (1990), Appendix 2: each archetype has one reinforcing loop.</li>
+            <li><strong>Balancing loops (the limit in limits to growth; the fix in fixes that fail):</strong> Senge (1990), Appendix 2: each archetype has one balancing loop.</li>
+          </ul>
+        </details>
+        <p class="meta">Rerun it: <code>latris replicate check system-archetypes</code>, or
+          <code>latris replicate build system-archetypes my-copy</code> for the model itself.</p>
+        <!-- @replications:end -->
+        <p class="meta" style="margin-top:32px">
+          Generated from <code>latris replicate check</code>; the models and
+          their expected values are in
+          <a href="https://github.com/Shannon-Bengtson/latris/tree/main/src/latris/replications">src/latris/replications</a>
+          in the open-source repository. Know a textbook model we should add,
+          or a value that's wrong?
+          <a href="https://github.com/Shannon-Bengtson/latris/issues">Open an issue</a>.
+        </p>
+      </article>
+    </div>
+  </main>
+  <!-- @footer:start -->
+  <footer class="site">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <img src="/latris-wordmark.svg" alt="Latris" width="72" height="22" />
+        <p>Models that show their evidence.</p>
+        <p>© 2026 Latris · Made in Australia</p>
+      </div>
+        <div>
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/formalisms/">Which model?</a></li>
+            <li><a href="/methods/">Scientific basis</a></li>
+            <li><a href="/examples/">Examples</a></li>
+            <li><a href="/for-reviewers/">For reviewers</a></li>
+            <li><a href="/ai/">Use with AI</a></li>
+            <li><a href="https://app.latris.app/">Open Latris</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Open source</h2>
+          <ul>
+            <li><a href="/open-source/">Library and CLI</a></li>
+            <li><a href="/open-source/pipelines/">Use in a pipeline</a></li>
+            <li><a href="/methods/reference/">Methods reference</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href="https://github.com/Shannon-Bengtson/latris">GitHub</a></li>
+            <li><a href="https://pypi.org/project/latris/">PyPI</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Latris</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#contact">Contact</a></li>
+            <li><a href="/support/">Support</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/terms/">Terms</a></li>
+          </ul>
+        </div>
+    </div>
+  </footer>
+  <!-- @footer:end -->
+</body>
+</html>

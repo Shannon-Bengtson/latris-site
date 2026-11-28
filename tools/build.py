@@ -36,6 +36,15 @@ library. Needs `pip install latris` (or `-e ../latris`).
 
     python3 tools/build.py --formalisms
 
+`--replications` runs the library's replications (`latris replicate check`:
+textbook models rebuilt in Latris, checked against their known results) and
+writes what each expected and what Latris computed to `/methods/replications/`.
+Needs the installed `latris` and a git identity (the builds commit).
+
+    python3 tools/build.py --replications
+
+    <!-- @replications:start --> ... <!-- @replications:end -->
+
 `--check` exits 1 if any page is out of date (useful in CI).
 Standard library only, except `markdown` for --foundations.
 """
@@ -61,6 +70,7 @@ PAGES = {
     "/open-source/pipelines/": "open-source/pipelines/index.html",
     "/methods/": "methods/index.html",
     "/methods/reference/": "methods/reference/index.html",
+    "/methods/replications/": "methods/replications/index.html",
     "/formalisms/cld/": "formalisms/cld/index.html",
     "/formalisms/dag/": "formalisms/dag/index.html",
     "/formalisms/bn/": "formalisms/bn/index.html",
@@ -449,6 +459,78 @@ def type_href(t: dict) -> str:
     return f"/formalisms/{t['id'] if t['id'] in HAND_WRITTEN else t['slug']}/"
 
 
+def latris_replications() -> tuple[str, list[dict]]:
+    """(the installed latris's version, every replication's check report). A replication that fails is
+    shown as failing, never left out."""
+    import json
+    import subprocess
+
+    version = subprocess.run([sys.executable, "-m", "latris", "--version"], capture_output=True, text=True,
+                             check=True).stdout.strip().split()[-1]
+    out = subprocess.run([sys.executable, "-m", "latris", "--json", "replicate", "check"],
+                         capture_output=True, text=True)
+    if out.returncode not in (0, 1):
+        raise SystemExit(f"latris replicate check failed: {out.stderr or out.stdout}")
+    return version, json.loads(out.stdout)["result"]
+
+
+BASIS = {
+    "published": "Published",
+    "closed_form": "Closed form",
+    "exact": "Exact",
+}
+
+
+def _rep_value(v) -> str:
+    if isinstance(v, bool):
+        return "yes" if v else "no"
+    if isinstance(v, float):
+        return f"{v:.6g}"
+    if isinstance(v, list):
+        return "; ".join("{" + ", ".join(s) + "}" for s in v)
+    return str(v)
+
+
+def replications_html(version: str, reports: list[dict]) -> str:
+    passed = sum(r["passed"] for r in reports)
+    parts = [f"""
+        <p>Latris {_esc(version)}: <strong>{passed} of {len(reports)}</strong> replications
+          reproduce every expected result.</p>"""]
+    for r in reports:
+        rows = "\n".join(
+            f'            <tr><th scope="row">{_esc(o["claim"])}</th>'
+            f'<td>{_esc(_rep_value(o["expected"]))}</td>'
+            f'<td>{_esc(_rep_value(o["actual"]))}</td>'
+            f'<td>{BASIS.get(o["basis"], _esc(o["basis"]))}</td>'
+            f'<td>{"Reproduced" if o["passed"] else "<strong>Differs</strong>"}</td></tr>'
+            for o in r["outcomes"]
+        )
+        wheres = "\n".join(
+            f"            <li><strong>{_esc(o['claim'])}:</strong> {_esc(o['where'])}</li>" for o in r["outcomes"]
+        )
+        status = "on" if r["passed"] else "later"
+        label = "Reproduced" if r["passed"] else "Differs"
+        parts.append(f"""
+        <h2 id="{_esc(r['id'])}">{_esc(r['title'])} <span class="status-pill {status}">{label}</span></h2>
+        <p class="meta">{_esc(r['model_type'].upper())} · {_esc(r['source'])}</p>
+        <div class="table-wrap">
+          <table class="glance">
+            <tr><th scope="col">Check</th><th scope="col">Expected</th><th scope="col">Latris</th>
+              <th scope="col">Basis</th><th scope="col"></th></tr>
+{rows}
+          </table>
+        </div>
+        <details>
+          <summary>Where each expected value comes from</summary>
+          <ul>
+{wheres}
+          </ul>
+        </details>
+        <p class="meta">Rerun it: <code>latris replicate check {_esc(r['id'])}</code>, or
+          <code>latris replicate build {_esc(r['id'])} my-copy</code> for the model itself.</p>""")
+    return "\n".join(parts) + "\n        "
+
+
 def formalisms_list_html(types: list[dict]) -> str:
     rows = "\n".join(
         f'          <tr><th scope="row"><a href="{type_href(t)}">{_esc(t["display_name"])}</a></th>'
@@ -585,11 +667,14 @@ def main() -> int:
     ap.add_argument("--foundations", type=Path, help="path to latris/docs/FOUNDATIONS.md")
     ap.add_argument("--changelog", type=Path, help="path to a full (unshallow) clone of the latris repo")
     ap.add_argument("--llms", type=Path, help="path to latris/llms.txt; writes the site's llms.txt from it")
+    ap.add_argument("--replications", action="store_true",
+                    help="run the installed latris's replications and write /methods/replications/")
     ap.add_argument("--formalisms", action="store_true",
                     help="generate model-type pages and the Models list from the installed latris")
     args = ap.parse_args()
 
     stale = []
+    replications = latris_replications() if args.replications else None
     types = latris_types() if args.formalisms else []
     generated = {f"/formalisms/{t['slug']}/": t for t in types if t["id"] not in HAND_WRITTEN}
     for url, t in generated.items():
@@ -614,6 +699,8 @@ def main() -> int:
         new = replace_block(new, "footer", footer_html(url), rel)
         if url == "/methods/reference/" and args.foundations:
             new = replace_block(new, "foundations", foundations_html(args.foundations), rel)
+        if url == "/methods/replications/" and replications:
+            new = replace_block(new, "replications", replications_html(*replications), rel)
         if url in generated:
             new = replace_block(new, "formalism", formalism_page_body(generated[url]), rel)
         if url == "/formalisms/" and types:
